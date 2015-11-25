@@ -6,7 +6,7 @@
 \title{ionic}
 \usepackage{fontspec,xunicode,xltxtra,makeidx,xecolor}
 \usepackage{listings,tabularx,amsfonts,amssymb}
-\usepackage{amsmath}
+\usepackage{amsmath,geometry}
 \usepackage{epigraph}
 \usepackage{mdwlist}
 \usepackage{bchart}
@@ -21,6 +21,8 @@
     draw=black
   },
 }
+\usepackage{lmodern}% to have a large font size for the chapter numbers
+\usepackage{lipsum}% just to generate text for the example
 
 \usepackage{color}
 \usepackage{titlesec}
@@ -165,6 +167,44 @@
   \mbox{\kern.06em\vrule height.5ex}%
   \vbox{\hrule width#1}%
   \hbox{\vrule height.5ex}}
+
+  
+\definecolor{chapnumberbg}{RGB}{26,40,105}
+\definecolor{chapname}{RGB}{100,117,158}  
+\titleformat{\chapter} [display] 
+  {} % format
+  {\raggedleft \huge{第\,\thechapter\,章}}
+  {1ex} %sep
+  {\raggedleft \Huge } % before
+  [\normalfont {\tikz \shade[left color=blue!20,right color=chapnumberbg, shading angle=45] (0,0) rectangle (\textwidth,5pt);}]% after
+  \makeatother  
+
+\newcommand\abstractname{Abstract}  %%% here
+\makeatletter
+\if@titlepage
+  \newenvironment{abstract}{%
+      \titlepage
+      \null\vfil
+      \@beginparpenalty\@lowpenalty
+      \begin{center}%
+        \bfseries \abstractname
+        \@endparpenalty\@M
+      \end{center}}%
+     {\par\vfil\null\endtitlepage}
+\else
+  \newenvironment{abstract}{%
+      \if@twocolumn
+        \section*{\abstractname}%
+      \else
+        \small
+        \begin{center}%
+          {\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
+        \end{center}%
+        \quotation
+      \fi}
+      {\if@twocolumn\else\endquotation\fi}
+\fi
+\makeatother  
   
 \makeindex
 
@@ -175,14 +215,64 @@
 
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
+\pagecolor{titlepagecolor}
+\noindent
+\includegraphics[width=3cm]{gnu.eps}\\[-1em]
+\makebox[0pt][l]{\rule{1.3\textwidth}{1pt}}
+\par
+\noindent
+{\Huge{如何学习使用IONIC}}
+
+\vfill
+\noindent
+{\Large {ioniconline.com}}
+\vskip\baselineskip
+\noindent
+\textsf{Dec. 2015}
+
+\clearpage
+
+
+\vfill\noindent
+\vskip \baselineskip
+\vspace{3cm}
+\centerline{ \Large {献给无数工作于手机行业的程序猿}}
+\vspace{4cm}
+
+\begin{centering}
+ 
+\begin{tikzpicture}
+ \node [rectangle, font=\Large] {献给无数工作于手机行业的程序猿们};
+\end{tikzpicture}
+\end{centering}
+
+
+
+\end{titlepage}
+
+
+\restoregeometry 
+\pagecolor{white}
+
+
 \tableofcontents
 %show or not show the List-of-Figure
 %\listoffigures
 
+\chapter*{序}
+\epigraph{这是一本非常好的书}{陈洋(Intel资深工程师)}
+
+
 \part{基础篇}
 
 \input chap_env.tex 
+
+
+\part{进阶篇}
+
+\input chap_plugin.tex
 
 % Here's the Bib
 \begin{thebibliography}{99}
