@@ -1,0 +1,268 @@
+% -----------------------
+% Book of ionic
+% -----------------------
+\documentclass[a4paper]{book}
+\author{ionic online}
+\title{ionic}
+\usepackage{fontspec,xunicode,xltxtra,makeidx,xecolor}
+\usepackage{listings,tabularx,amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{epigraph}
+\usepackage{mdwlist}
+\usepackage{bchart}
+%\usepackage[nonumberlist, toc, acronym]{glossaries}
+\usepackage[nonumberlist, toc, acronym]{glossaries}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,trees,calc,fit,automata,positioning}
+\tikzset{
+  mybox/.style={
+    rectangle,
+    rounded corners,
+    draw=black
+  },
+}
+
+\usepackage{color}
+\usepackage{titlesec}
+\usepackage{amssymb}
+\usepackage[colorlinks=false,pdfborder={0 0 0}]{hyperref}
+%\setlength{\parindent}{0pt}
+%\setlength{\parskip}{\baselineskip}
+%\linespread{1.0}
+
+\setcounter{tocdepth}{1}
+
+\setmainfont{WenQuanYi Micro Hei}
+\setsansfont{WenQuanYi Micro Hei}
+\setmonofont{WenQuanYi Micro Hei}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5\baselineskip}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip=0pt plus 1pt minus 0.1pt
+
+%some global color
+\definecolor{light-gray}{rgb}{0.87,0.87,0.87}
+\definecolor{light-yellow}{rgb}{0.88,0.92,0.48}
+\definecolor{mygreen}{rgb}{0.63,1,0.35}
+\definecolor{yanghong}{rgb}{1,0.0,1}
+
+%\newglossary[slg]{symbols}{sym}{sbl}{List of Symbols}
+
+%listing global settings
+\lstset{basicstyle=\scriptsize,frame=lines}
+
+%code listing definition
+\lstnewenvironment{functionprototype}[1][]
+      {\lstset{language=C}\lstset{escapeinside={(*@}{@*)},
+       basicstyle=\scriptsize\ttfamily,frame=single,
+       numbers=none,numberstyle=\scriptsize,stepnumber=1,numbersep=5pt,
+       breaklines=true,
+       %firstnumber=last,
+           %frame=tblr,
+           framesep=5pt,
+           showstringspaces=false,
+          %identifierstyle=\ttfamily,
+           stringstyle=\xecolor{maroon},
+        commentstyle=\color{black},
+        rulecolor=\color{black},
+        xleftmargin=0pt,
+        xrightmargin=0pt,
+        aboveskip=\medskipamount,
+        belowskip=\medskipamount,
+               backgroundcolor=\color{white}, #1
+}}
+{}
+
+%code listing definition
+\lstnewenvironment{myccode}[1][]
+      {\lstset{language=C}\lstset{escapeinside={(*@}{@*)},
+       basicstyle=\scriptsize\ttfamily,
+       numbers=left,numberstyle=\scriptsize,stepnumber=1,numbersep=5pt,
+       breaklines=true,
+       %firstnumber=last,
+           %frame=tblr,
+           framesep=5pt,
+           showstringspaces=false,
+           keywordstyle=\itshape\color{blue},
+          %identifierstyle=\ttfamily,
+           stringstyle=\xecolor{maroon},
+        commentstyle=\color{black},
+        rulecolor=\color{black},
+        xleftmargin=0pt,
+        xrightmargin=0pt,
+        aboveskip=\medskipamount,
+        belowskip=\medskipamount,
+               backgroundcolor=\color{white}, #1
+}}
+{}
+
+\lstnewenvironment{myjavacode}[1][]
+      {\lstset{language=JAVA}\lstset{escapeinside={(*@}{@*)},
+       breaklines=true,
+       %firstnumber=last,
+           %frame=tblr,
+           framesep=5pt,
+           basicstyle=\scriptsize\ttfamily,
+           showstringspaces=false,
+           keywordstyle=\itshape\color{blue},
+          %identifierstyle=\ttfamily,
+           stringstyle=\xecolor{maroon},
+        commentstyle=\color{black},
+        rulecolor=\color{black},
+        xleftmargin=0pt,
+        xrightmargin=0pt,
+        aboveskip=\medskipamount,
+        belowskip=\medskipamount,
+        backgroundcolor=\color{white}, #1
+}}
+{}
+
+\lstnewenvironment{myxmlcode}[1][]
+      {\lstset{language=XML}\lstset{escapeinside={(*@}{@*)},
+       breaklines=true,
+       %firstnumber=last,
+           %frame=tblr,
+           framesep=5pt,
+           basicstyle=\scriptsize\ttfamily,
+           showstringspaces=false,
+           keywordstyle=\itshape\color{blue},
+          %identifierstyle=\ttfamily,
+           stringstyle=\xecolor{maroon},
+        commentstyle=\color{black},
+        rulecolor=\color{black},
+        xleftmargin=0pt,
+        xrightmargin=0pt,
+        aboveskip=\medskipamount,
+        belowskip=\medskipamount,
+        backgroundcolor=\color{white}, #1
+}}
+{}
+
+
+%code listing definition
+\lstnewenvironment{mymakefilecode}[1][]
+      {\lstset{language=c}\lstset{escapeinside={(*@}{@*)},
+       basicstyle=\scriptsize\ttfamily,
+       numbers=left,numberstyle=\scriptsize,stepnumber=1,numbersep=5pt,
+       breaklines=true,
+       %firstnumber=last,
+           %frame=tblr,
+           framesep=5pt,
+           showstringspaces=false,
+          %identifierstyle=\ttfamily,
+           stringstyle=\xecolor{maroon},
+        commentstyle=\color{black},
+        rulecolor=\color{black},
+        xleftmargin=0pt,
+        xrightmargin=0pt,
+        aboveskip=\medskipamount,
+        belowskip=\medskipamount,
+               backgroundcolor=\color{white}, #1
+}}
+{}
+
+\newcommand\vtextvisiblespace[1][.4em]{%
+  \mbox{\kern.06em\vrule height.5ex}%
+  \vbox{\hrule width#1}%
+  \hbox{\vrule height.5ex}}
+  
+\makeindex
+
+% FIXME , how to use the glossaries?
+
+\input gloss.tex
+\makeglossaries
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+%show or not show the List-of-Figure
+%\listoffigures
+
+\part{基础篇}
+
+\input chap_env.tex 
+
+% Here's the Bib
+\begin{thebibliography}{99}
+\bibitem{bibCRef} Samuel P.Harbison: {\em C - A Reference Manual, Fifth Edition}, C语言参考手册，Printice Hall, Pearson Education Inc., 2002
+\bibitem{bibMasterRegExp} Jeffrey E.F.Friedl: {\em Mastering Regular Expressions}, 2012
+\bibitem{refDCT1974}N. Ahmed, et al: {\em Discrete Cosine Transform}, DCT转换的论文，IEEE Trans. Computers, 90-93, Jan 1974
+\bibitem{refLibjpeg}Independent JPEG Group: {\em www.ijg.org}, libjpeg的官方网址
+\bibitem{bibAwkBook} Alfred V.Aho, Brian W.Kernighan, Peter J. Weinberger: {\em The AWK Programming Language}, Addison-Wesley, 1988
+\bibitem{bibAPUEPID} W.Richard Stevens: {\em Unix环境高级编程}, Chapter 8:Process Control, Page 187,1993
+\bibitem{bibGnuMakefile} GNU Makefile: {\em http://www.gnu.org/software/make}, The GNU Makefile official website
+\bibitem{bibVNC} Real VNC: {\em http://www.realvnc.com}, The RealVNC website
+\bibitem{bibEffectiveCpp} Scott Meyers: {\em Effective C++, Second Edition}, Pearson Education, 2003
+\bibitem{bibEffectiveStl} Scott Meyers: {\em Effective STL}, Pearson Education, 2003
+\bibitem{bibAndBook} Yang SongX: {\em Android Book}, 2014
+\bibitem{bibLibxml2} LibXML2: {\em http://xmlsoft.org}，The LibXML2 package website
+\bibitem{bibProtobuf} Google Protobuf: {\em http://code.google.com/p/protobuf/}, The probobuf website
+\bibitem{bibLinkLoadLibrary} 俞甲子，石凡，潘爱民: {\em 程序员的自我修养－链接、装载与库}, 2009年
+\bibitem{bibSlackWeb} The Slackware Project: {\em http://www.slackware.com}, Slackware official website
+\bibitem{bibProtoBufIntro} 刘明: {\em http://www.ibm.com/developerworks/cn/linux/l-cn-gpb/}, Google Protocol Buffer 的使用和原理，2010年
+\bibitem{bibCvsBook} David Thomas: {\em 版本控制之道-使用CVS}, 电子工业出版社，2005年
+%%Perl
+\bibitem{bibMasteringPerl} brian d foy:{\em Mastering Perl}, 精通Perl(影印版)，O'Reilly, 2008年
+\bibitem{bibLwpBook} Sean M. Burke: {\em Perl \& LWP}, O'Reilly, 1988, 介绍Perl LWP库的参考书
+\bibitem{bibCPAN} CPAN: {\em http://www.cpan.org/}, Perl各种功能模块的下载网站
+\bibitem{bibAPUEPIDSignal} W.Richard Stevens: {\em Unix环境高级编程}, Chapter 10:Signal, Page 263,1993
+\bibitem{bibAndSDK} Android SDK and ADT Bundle: http://developer.android.com/sdk/index.html?hl=sk，Android开发工具下载地址
+
+\bibitem{bibMITAlgorithm}Thomas H.Cormen, Charles E.Leiserson, et.al: {\em Introduction to Algorithms(Third Edition)}, The M.I.T Press, 2009
+
+\bibitem{bibTCPIPVol3}W.Richard Stevens: {\em TCP/IP Illustrated Vol. 3: TCP for Transactions, HTTP, NNTP, and the UNIX Domain Protocols}, 1996
+\bibitem{bibDipBook} Kenneth R. Castleman: {\em Digital Image Processing}, Prentice Hall, 1996, 数字图像处理教材
+\bibitem{bibZLib} ZLib: {\em http://www.zlib.net/}, 压缩解压库ZLib的官方网站
+\bibitem{bibCppJson} json-cpp: {\em http://sourceforge.net/projects/jsoncpp}, C++的JSON数据解析库
+
+\bibitem{bibRabbitMqC} RabbitMQ-C: {\em http://github.com/alanxz/rabbitmq-c}, RabbitMQ的C语言绑定库
+
+\bibitem{bibXFSDK} 讯飞开放平台: {\em http://www.xfyun.cn/} 
+
+%%web framework
+\bibitem{bibJavaPlay} Play: {\em http://www.playframework.com/}, Java Play框架的官方网站
+\bibitem{bibPerlCatalyst} Catalyst: {\em http://www.catalystframework.org/}, 基于Perl的Web框架
+\bibitem{bibDjango} Django: {\em http://www.djangoproject.org/}, 基于Python的Web框架
+\bibitem{bibCppCms} CppCMS: {\em http://www.cppcms.com/}, 基于C++的Web框架
+
+\bibitem{bibHadoop} Apache Hadoop: {\em http://hadoop.apache.org/}
+\bibitem{bibCordova} Apache Cordova框架: {\em http://cordova.apache.org/}
+
+\bibitem{bivsvdFeature} SVD-Feature, 一个feature-based协同过滤(CF)和排序工具，上海交大Apex实验室开发:{http://www.oschina.net/p/svdfeature}
+
+
+%%
+% begin of 3gpp spec references
+\bibitem{bib3gppATCmd} 3gpp TS 27.007: {\em AT command set for User Equipment(UE)}, 手机设备侧的AT命令集标准
+\bibitem{bib3gppSIM} 3gpp TS 51.011/11.11: {\em Specification of SIM-ME interface}, SIM卡的3gpp标准
+%%
+% end of 3gpp spec references
+%%
+
+%% begin of RFC references
+\bibitem{bibRFC1918} RFC 1918: {\em http://www.rfc-editor.org/rfc/rfc1918.txt}, 私网(Private Internets)地址的分配
+\bibitem{bibRFC2083} RFC 2083: {\em http://http://tools.ietf.org/html/rfc2083}, PNG格式标准1.0
+\bibitem{bibRFCSIP} RFC 3261: {\em http://www.ietf.org/rfc/rfc3261.txt}, SIP协议的实现
+\bibitem{bibRFC3489} RFC 3489: {\em http://www.ietf.org/rfc/rfc3489.txt}, STUN协议的实现
+\bibitem{bibRFC3629} RFC 3629: {\em http://www.ietf.org/rfc/rfc3629.txt}, UTF-8编码格式
+\bibitem{bibRFC4648} RFC 4648: {\em http://tools.ietf.org/html/rfc4648}, The Base16，Base32，and Base64 Data Encodings
+%% end of RFC reference
+\end{thebibliography}
+
+
+% below try show up Index on the Content
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Index}
+
+\printglossaries
+
+%index
+\printindex
+
+
+
+%%
+
+\end{document}
