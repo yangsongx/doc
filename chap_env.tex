@@ -1,1 +1,41 @@
 \chapter{开发环境的搭建}
+
+\subsection{基础}
+
+环境搭建完成后，node.js会封装一个ionic的命令行工具。
+
+\begin{lstlisting}
+$ ionic start YourAppName
+$ cd YourAppName
+$ ionic platform add android
+$ ionic build
+\end{lstlisting}
+
+
+JS语法：
+\begin{lstlisting}
+ alert('hello');
+\end{lstlisting}
+
+直接在Android上生成Android原生的Dialog控件界面。
+
+
+调试方法可以使用系统自动提供的console来打印，该输出内容也可以在手机的logcat中看到。目前console提供了如下的几个输出函数接口：
+
+\bgroup
+\def\arraystretch{1.15} 
+\begin{tabular}{|l|l|}
+{接口名称} & {Note}  \\
+\hline
+ {console.log()} & {} \\
+ {console.error()} & {xxxx}\\
+ {console.warn()} & {xxxxx}\\
+ {console.info()} & {} \\
+ {console.debug()} & {XX} \\
+\end{tabular}
+\egroup
+
+\begin{lstlisting}
+ console.err();
+ console.log();
+\end{lstlisting}

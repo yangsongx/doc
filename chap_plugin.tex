@@ -1,0 +1,443 @@
+% DO NOT MODIFY THIS FILE
+% This is auto-generated
+
+\chapter{编写自己的插件}
+实际工作中，我们往往需要自己编写满足自己项目需求的插件。这里将逐步介绍编写插件的步骤和注意事项。
+
+\section{plugman}
+也许ionic的框架编写者觉得JS开发人员只要会怎么调用和删除插件就足够了。\marginpar{\footnotesize{太小瞧前端程序员了!}}
+
+所以默认下，ionic的plugin子命令，只是给JS开发者来add/remove编写好的插件。它并没有, 也不提供start/create等类似的生成插件代码框架的功能选项。
+
+若我们需要自己编写自己的插件，则可以使用额外的一个叫做plugman的工具\footnote{https://github.com/apache/cordova-plugman/}, 该工具可直接通过npm来安装。
+
+安装成功后，就可以使用plugman命令来自动生成插件代码框架，避免手工建立和输入代码文件的工作：
+
+\begin{lstlisting}[backgroundcolor=\color{light-gray}]
+$ sudo npm install -g plugman
+$ plugman create --name plugin-myspeech --plugin_version 0.1 --plugin_id org.foo
+$ cd plugin-myspeech
+$ plugman platform add --platform_name android
+\end{lstlisting}
+
+上述命令将会生成一个plugin-myspeech的目录，同时会自动生成plugin.xml、src以及www目录。\marginpar{\footnotesize{代码文件全自动完成，酷!}}
+
+当使用platform add添加完android支持后，对应的Android Java代码框架也会自动生成。
+
+同理，plugman platform add --platform\_name ios添加iOS支持后，和iOS相关的代码框架也自动生成。
+
+
+\section{编写插件}
+这里介绍一个自己写的Android平台下的简单plugin，演示前台到后面具体平台实现的流程。
+
+插件本身逻辑非常简单: 得到JS请求后，把当前手机的Android系统的版本信息，并发送回前端。
+
+\begin{itemize}
+ \item 通过plugman命令生成基本插件代码框架：
+\begin{lstlisting}
+$ plugman create --name MyDemo --plugin_version 0.1 --plugin_id org.ioniconline
+$ cd MyDemo
+$ plugman platform add --platform_name android
+\end{lstlisting}
+
+  \item 自动生成的代码框架中，定义了coolMethod方法，我们可以在Java代码中处理该请求
+  \begin{lstlisting}
+public class MyDemo extends CordovaPlugin {
+  public boolean execute() {
+    if (action.equals("coolMethod")) {
+      Log.e("MyDemo", "process the req");
+      String str = android.os.Build.VERSION.RELEASE;
+      PluginResult r = new PluginResult(PluginResult.Status.OK, str);
+      r.setKeepCallback(true);
+      callbackContext.sendPluginResult(r);
+
+      return true;
+    }
+    return false;
+  }
+}
+  \end{lstlisting}
+
+  \item 至此，一个插件的功能已经完成。
+\end{itemize}
+
+接下来我们在自己的ionic应用中添加该插件。用户可以指定自己刚刚编写的控件文件目录位置。该示例插件已经存放在github上，所以可以从github上直接添加：
+
+\begin{lstlisting}[backgroundcolor=\color{light-gray}]
+$ ionic plugin add https://github.com/yangsongx/MyDemo
+\end{lstlisting}
+
+这样会在当前应用的plugins目录下生成org.ioniconline目录，里面放的就是前面编写的插件代码。
+
+在需要调用Android接口的地方加上JS代码：
+
+\begin{lstlisting}
+function getVersion() {
+  cordova.plugins.MyDemo.coolMethod('useless',
+     function(okData) {
+       alert(okData);
+     },
+     function(failData) {
+       alert(failData);
+     });
+}
+
+\end{lstlisting}
+
+成功情况下，会弹出包含Android系统版本号数据的对话框。比如在我华为P7上返回的是4.4.2
+
+Figure-\ref{figIOnicMyDemo}演示了整个代码在各个模块间的调用关系。完整的MyDemo的插件代码可以从github\footnote{https://github.com/yangsongx/MyDemo}上得到。
+
+%% 整个流程
+\begin{figure}
+\begin{tikzpicture}
+%stupid drawing method...
+\draw [rounded corners, fill=red!30,draw=red!30] (1.8, 3.4) rectangle (2.5, 3.8);
+\draw [rounded corners, fill=red!30,draw=red!30] (7.3, -3.78) rectangle (8.1, -4.05);
+
+\draw [rounded corners, fill=yellow!30,draw=yellow!30] (8.2, 6.0) rectangle (9.6, 6.4);
+\draw [rounded corners, fill=yellow!30,draw=yellow!30] (2.8, 3.4) rectangle (3.5, 3.8);
+
+\draw [rounded corners, fill=black!30,draw=black!30] (7.5, 5.8) rectangle (9.1, 6.1);
+\draw [rounded corners, fill=black!30,draw=black!30] (3.75, 3.4) rectangle (4.4, 3.8);
+
+\draw [rounded corners, fill=cyan!30,draw=cyan!30] (7.6, 5.83) rectangle (9.6, 5.55);
+\draw [rounded corners, fill=cyan!30,draw=cyan!30] (1.6, 3.4) rectangle (0.4, 3.8);
+
+\draw [->, >=stealth', dashed, red] (0.7, -3.5) -- (0.7, 2.7);
+\draw [ dashed, red] (0.7, 5.8) -- (0.7, 6.4);
+\draw [->, >=stealth', dashed, red] (0.7, 6.4) -- (5.4, 6.4) node [above, pos=.5, font=\tiny] {org.apache.cordova.CordovaPlugin};
+
+\draw [dashed, blue] (6.7, 3.3) -- (6.7, 3.0);
+\draw [->, >=stealth', dashed, blue] (6.7, 3.0) -- (5.6, 3.0);
+
+\draw [->, >=stealth', dashed, blue](1.1, 2.7) -- (1.1, -3.5) ;
+
+\node [font=\scriptsize] {myapp/} [edge from parent fork right, grow=right]
+  child [level distance=3cm, font=\scriptsize] {node {www/}
+      child[level distance=1cm] {node {\colorbox{green!30}{ctl.js}}}
+  }
+  child [level distance=3.0cm, font=\scriptsize] {node {$\cdots$ $\cdots$}}
+  child [level distance=3.0cm, font=\scriptsize] {node {plugins/plugin-mydemo/}
+          child[sibling distance=0.7cm] {node {\colorbox{blue!30}{plugin.xml}}}
+          child[sibling distance=0.7cm] {node {$\cdots$}}
+          child [sibling distance=0.7cm]{node {\colorbox{blue!30}{www/MyDemo.js}}}
+          child [sibling distance=0.7cm]{node {src/}
+              child {node {\colorbox{blue!30}{android/MyDemo.java}}}
+              child {node {ios/}}
+          }
+  };
+  
+\node at (7.5,-4.1) [rectangle callout,draw,rounded corners, 
+callout relative pointer={(-0.3,1.43)},font=\tiny]
+  (){\begin{lstlisting}[frame=none,basicstyle=\tiny]
+<plugin ... ...
+    version="0.1">
+    
+    <js-module src="www/thedemo.js"
+               name="mydemo">
+       <clobbers target="navigator.mydemo" />
+    </js-module>
+    
+    <!-- android -->
+  <platform name="android">
+    <config-file target="res/xml/config.xml"
+                  parent="/*">
+       <feature name="MyDemo">
+         <param name="android-package"
+            value="com.caredear.MyDemo"/>
+       </feature>
+    </config-file>
+    <config-file target="AndroidManifest.xml"
+                  parent="/*">
+       <uses-permission xxx />
+    </config-file>
+        
+    <source-file src="src/android/MyDemo.java"
+              target-dir="src/com/caredear" />
+  </platform>
+
+</plugin>
+     \end{lstlisting}
+};
+\node at (2.2,-4.1) [rectangle callout,draw,rounded corners, 
+callout relative pointer={(1.3,2.23)},font=\tiny]
+  (){\begin{lstlisting}[frame=none,basicstyle=\tiny]
+navigator.mydemo.getVersion(suc,
+                  fail,{});
+     \end{lstlisting}
+};
+
+%the node js
+\node at (2.5,4.3) [rectangle callout,draw,rounded corners, 
+callout relative pointer={(1.4,-0.87)},font=\tiny]
+  (){\begin{lstlisting}[frame=none,basicstyle=\tiny]
+var exec = require('cordova/exec');
+var argscheck = require('cordova/argscheck')
+var demoExports = {};
+
+demoExports.getVersion = function(sucCb, errCb, opt) {
+  var getValue = argscheck.getValue;
+  var va = getValue(options.a, 0);
+  var vb = getValue(options.b, 0);
+  var args = [va,vb];
+  exec(suCb, errCb, "MyDemo", "osVer", args);
+};
+
+module.exports = demoExports;
+  \end{lstlisting}
+};
+
+%the node for Java
+\node at (7.85,5.1) [rectangle callout,draw,rounded corners, 
+callout relative pointer={(0.6,-1.1)},font=\tiny]
+  (){\begin{lstlisting}[frame=none,basicstyle=\tiny]
+public class MyDemo extends CordovaPlugin{
+  @Override
+  public boolean execute(String action,
+                   JSONArray args,
+                   CallbackContext cb){
+    PluginResult r = new PluginResult(
+       PluginResult.Status.OK,
+       android.os.Build.VERSION.RELEASE
+       );
+    r.setKeepCallback(true);
+    cb.sendPluginResult(r);
+    
+    return true;
+  }
+}
+  \end{lstlisting}
+};
+\end{tikzpicture}
+\caption{ionic插件代码逻辑流程}\label{figIOnicMyDemo}
+\end{figure}
+
+每个Plugin需要输出(export)的接口都需要使用module.exports的命令来完成。
+
+\begin{tikzpicture}
+ \node [mybox] () {\begin{lstlisting}[frame=none]
+var myApis = {};
+
+myApis.foo1 = function(a,b) {
+  cordova.exec(...);
+};
+myApis.foo2 = function(a,b,c) {
+  cordova.exec(...);
+};
+
+module.exports = myApis;
+                   \end{lstlisting}
+};
+\end{tikzpicture}
+
+\section{注意事项}
+
+\begin{itemize}
+ \item 不要直接修改Plugin中的Java代码，这个代码不参与编译。
+ 
+ 原因： 第一次编译目标应用时，ionic会将Plugin中的Java代码copy到platform/下编译。但下次再进行编译的时候不会在copyrJava代码，所以参加编译的实际上只是platform/下的Java代码。
+ 
+ \item plugin中的js可以直接修改，而且每次重新编译都参加编译。
+ 
+ 原因： ionic下的JS是在Cordova上封装了一层，所以每次编译，需要将ionic下的JS转换成Cordova JS才能正确工作。
+ 
+ \item 使用exec()中的service参数必需和插件plugin.xml中的featur定义的一致，否则会有class not found错误
+ 
+ \item 参数传送使用JSON数组格式,否则有Invalid JSON的错误
+ 
+ \item 报method not found异常, 插件中的js脚本未正确地使用module.exports声明
+\end{itemize}
+
+
+\chapter{插件工作原理分析}
+
+\section{目录结构层次}
+ionic下的插件都是遵循Cordova插件(\cite{bibCordova})规范，同时提供与Cordova类似的plugin子命令来管理插件(ionic plugin xxx)。
+
+下面是插件管理命令中的添加、删除及列举等基本使用方法：
+
+\rule{\textwidth}{0.5mm}
+
+\begin{tikzpicture}
+ \node [mybox] (IDlist) {\begin{lstlisting}[frame=none]
+$ ionic plugin list
+                   \end{lstlisting}
+};
+
+  \node [mybox, right of = IDlist, xshift = 5.3cm, yshift=2cm] (IDlistout) {\begin{lstlisting}[frame=none]
+cordova-plugin-camera 1.2.0 "Camera"
+cordova-plugin-console 1.0.1 "Console"
+cordova-plugin-device 1.0.1 "Device"
+cordova-plugin-splashscreen 2.1.0 "Splashscreen"
+cordova-plugin-statusbar 1.0.1 "StatusBar"
+cordova-plugin-whitelist 1.0.0 "Whitelist"
+ionic-plugin-keyboard 1.0.7 "Keyboard"
+plugin-mydemo 1.0.0 "MyDemo"
+                                       \end{lstlisting}
+};
+
+\draw [->] ($(IDlist.north) + (-1cm, 0cm )$) -- (IDlistout.west) node [above, pos=0.5, sloped,font=\tiny] {遍历plugins/各个子目录下的plugin.xml文件};
+
+
+\node at (1.52, -1) [mybox] (IDcamera) {\begin{lstlisting}[frame=none]
+$ ionic plugin add cordova-plugin-camera
+                              \end{lstlisting}
+};
+
+\node at (1.23, -2) [mybox] () {\begin{lstlisting}[frame=none]
+$ ionic plugin remove plugin-mydemo
+                              \end{lstlisting}
+};
+
+\node at (5.9, -1.9) [rectangle callout, draw, font =\tiny, callout relative pointer={(-0.9, 0.7)}](){也可以指定为本地目录};
+\end{tikzpicture}
+
+\rule{\textwidth}{0.5mm}
+
+添加(add)一个插件的时候，若指定的是本地的路径，则是将本地路径下的目录文件copy到plugins/下。若是插件名，则会自动连接到网上下载对应的插件。
+
+由于插件是遵循Cordova插件规范，所以每个插件的代码目录层次结构都是高度类似的。每一个插件都是plugins/的一个子目录，Figure-\ref{figIonicPlugin}描述了插件共同的基本目录结构框架。
+
+%插件的理解
+
+\begin{figure}
+\begin{tikzpicture}
+%
+\node  at (-3.5, -6.0)[font=\scriptsize] {plugins/} [edge from parent fork right, grow=right]
+child [level distance=3cm, font=\scriptsize] {node {android.json}}
+  child [level distance=3cm, font=\scriptsize] {node {$\cdots$ $\cdots$}}
+  child [level distance=3cm, font=\scriptsize] {node {cordova-plugin-console/}}
+  child [level distance=3cm, font=\scriptsize] {node {ionic-plugin-keyboard/}
+          child[sibling distance=0.7cm] {node {plugin.xml}}
+          child [sibling distance=0.7cm]{node {www/}
+              child[level distance = 2cm] {node {android/}}
+              child [level distance = 2cm]{node {ios/}}
+          }
+          child [sibling distance=0.7cm]{node {package.json}}
+          child [sibling distance=0.7cm]{node {src/}
+              child[level distance = 2cm] {node {android/}}
+              child[level distance = 2cm] {node {ios/}}
+          }
+  };
+\node at (3.5, -5.8) [rectangle callout, draw, font =\tiny, callout relative pointer={(-0.5, 0.7)}](){描述插件的信息};
+
+ \node  at (3.9, -12) [mybox] (ID1) {\begin{lstlisting}[frame=none]
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  }
+...
+  "installed_plugins": {
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "com.ionicframework.myapp761989"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.ionicframework.myapp761989"
+    },
+    "ionic-plugin-keyboard": {
+      "PACKAGE_NAME": "com.ionicframework.myapp761989"
+    }
+  },
+  "dependent_plugins": {}
+}
+                   \end{lstlisting}
+};
+\node [rectangle, above of = ID1, yshift=2.1cm, font=\scriptsize] {plugins/android.json};
+
+\end{tikzpicture}
+\caption{ionic的插件模块文件目录结构}\label{figIonicPlugin}
+\end{figure}
+
+从图中可以看出，插件框架中将不同平台的实现代码都放在各自不同的目录下(android/ios)，通过ionic统一生成各自对应平台的应用程序。
+
+为了方便管理plugins/下多个插件，通常在plugins/下会有一个总的管理文件，比如编译android平台的时候，会有一个android.json文件，里面放着当前插件的简单信息。
+
+当用户使用ionic plugin add/remove命令来添加、删除插件的时候，android.json也会自动的把相应插件定义条目添加或者删除掉。
+
+
+\section{插件工作原理分析}\label{secIonicPluginFlow}
+上一节我们已经清楚了一个插件的代码目录结构，那么一个插件是如何正确地在ionic框架下运行的呢? 前台的HTML/JS代码又是如何与后面具体平台做数据交互的呢?
+
+这个就需要对插件的工作原理及各个模块之间的流程关系有一个基本的了解\footnote{了解框架的运行机制后，既能在避免初学时候避免出现的低级错误，在调试过程中出现的问题也能够清楚解决的大体思路和途径。}。
+
+为了让插件能够访问具体平台系统的代码，Cordova提供了对应的标准封装API来完成，下面的图简单地示意了Android平台情况下的封装过程：
+
+\begin{tikzpicture}
+ \node [mybox, fill=blue!20, font=\scriptsize] (ID1) {cordova.exec()};
+ \node [rectangle, above of = ID1, yshift=-0.6cm, font=\scriptsize] {JS};
+ 
+ \node [mybox, fill=red!20, right of = ID1, xshift= 6.1cm, font=\scriptsize] (ID2) {\begin{lstlisting}[frame=none]
+public class Foo extends CordovaPlugin{
+  @Override
+  public boolean execute(...){...}
+}
+                                     \end{lstlisting}
+};
+  \node [rectangle, above of = ID2, yshift=-0.1cm,font=\scriptsize] {Android Java};
+
+\node at (2.5, 0) [double arrow, draw, font=\scriptsize] () {Apache Cordova};
+\end{tikzpicture}
+
+当用户ionic build android进行第一次编译的时候，会自动将插件下的Java文件copy到platform/android/目录下面，同时将JS也copy到platform/android/目录下，最终使用Android的编译工具(aapt/aidl/dx/apkbuilder等)生成.APK应用程序。
+
+这里需要注意的是，插件中的Java文件默认下只会在第一次编译的时候自动放到platform/android/，之后即使用户修改了插件目录下面的Java文件，编译的时候仍然是使用platform/android/下的Java文件。
+
+解决的方法可以是在编写自己插件调试的时候，在platform/android/下建立一个symbol link, 指向插件中的Java文件。
+
+这样可以保证修改的Java文件会参加编译。
+
+
+\section{数据的交互}
+从\ref{secIonicPluginFlow}节我们已经清楚JS和Android平台之间分别通过JS的cordova.exec()和Java的CordovaPlugin.execute()函数来对接。
+  
+这两个接口的参数对应关系如下所示： 
+ 
+\begin{tikzpicture}
+ \node [mybox] (ID1) {\begin{lstlisting}[frame=none]
+cordova.exec(okCb, failCb,
+    "service",
+    "action",
+    ["Arg1", "Arg2", 42, false]);
+                   \end{lstlisting}
+};
+
+\node [mybox, right of = ID1, xshift=4cm] (ID2) {\begin{lstlisting}[frame=none]
+public boolean execute(
+   String action,
+   JSONArray args,
+   CallbackContext cb);
+                     \end{lstlisting}
+};
+\end{tikzpicture}
+
+由于JS发送到Java的数据已经作为函数的参数传入\marginpar{\footnotesize{就是execute()函数的第二个参数(args)}}，所以函数中的回调参数，主要是帮助Java侧反馈数据给JS侧所用。
+
+Cordova使用了org.apache.cordova.PluginResult来完成，当中的PluginResult.Staus代表JS调用插件成功与否的状态。
+
+通常代码中判断状态值是否为PluginResult.Staus.OK，来确认调用结果成果或者失败
+
+\begin{table}
+\bgroup
+\def\arraystretch{1.15} 
+\begin{tabular}{|l|l|}
+{Option} & {Note}  \\
+\hline
+ {PluginResult.Staus.NO\_RESULT} & {XX}\\
+ {PluginResult.Staus.OK} & {成功情况}\\
+ {PluginResult.Staus.CLASS\_NOT\_FOUND\_EXCEPTION} & {XX}\\
+ {PluginResult.Staus.ILLEGAL\_ACCESS\_EXCEPTION} & {XX}\\
+ {PluginResult.Staus.INSTANTIATION\_EXCEPTION,} & {XX}\\
+ {PluginResult.Staus.MALFORMED\_URL\_EXCEPTION} & {XX}\\
+ {PluginResult.Staus.IO\_EXCEPTION} & {XX}\\
+ {PluginResult.Staus.INVALID\_ACTION} & {XX}\\
+ {PluginResult.Staus.JSON\_EXCEPTION} & {XX}\\
+\end{tabular}
+\egroup
+\caption{插件执行结果状态值}\label{tblCordovaPluginResultStatus}
+\centering
+\end{table}
+
+PluginResult的状态值可以参见Table-\ref{tblCordovaPluginResultStatus}
+
