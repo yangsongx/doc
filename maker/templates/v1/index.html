@@ -1,0 +1,101 @@
+{% extends 'v1/base_index.html' %}
+
+{% load staticfiles %}
+{% load autoVersion %}
+
+{% block title %}Making Your Robotlite{% endblock %}
+
+
+{% block your_css %}
+<style>
+    .modal-dialog-center {
+        margin-top: 15%;
+    }
+</style>
+{% endblock %}
+
+{% block body_block %}
+<body style="background-color: #ffffff;min-width:740px;">
+
+<!--
+<div class="content-section-1">
+    <div class="align-center content-section-1-div1">
+        <div class="content-section-1-text">
+            <div class="content-title-xl">
+                <p>一份独特的礼物，</p>
+                <p>更是一份无尽的爱</p>
+            </div>
+            <div class="content-section-1-text2">
+                <p style="font-size:24px;color:#ff4b00;">简单四个步骤，21KE定制系统</p>
+                <p style="font-size:18px;">（电子贺卡、壁纸、铃声、甚至预装APP）</p>
+            </div>
+            <button class="btn btn-cd btn-lg" onclick="startMaker()">开始定制</button>
+        </div>
+        <img class="content-section-1-img" src="/static/images/sec1-1.png"/>
+    </div>
+    <div class="content-section-1-div2">
+        <img class="content-section-1-img2" src="/static/images/sec1-f1.png">
+        <img class="content-section-1-img2" src="/static/images/sec1-f2.png">
+        <img class="content-section-1-img2" src="/static/images/sec1-f3.png">
+        <img class="content-section-1-img2" src="/static/images/sec1-f4.png">
+    </div>
+</div>
+<div class="content-section-2 content-section-h align-center">
+    <img style="height:100%" src="{% auto_version '/static/images/sec2-1.png' %}">
+    <div class="content-section-2-pad">
+        <p class="content-title-l">一张小小的贺卡写下最温馨的话</p>
+        <p class="content-title-s">贺卡定制功能，在手机开机后一张温馨的贺卡带着你的祝福呈现在爸妈面前</p>
+    </div>
+</div>
+-->
+<div class="content-section-3">
+    <div class="align-center">
+        <img style="height:100%;width:100%" src="/static/images/sec3.jpg">
+    </div>
+</div>
+<!--
+<div class="content-section-4">
+    <div class="align-center content-section-h content-section-w">
+        <img style="float:left;height:100%" src="{% auto_version '/static/images/sec4-1.png' %}">
+        <div class="content-section-4-pad" style="float:left;text-align:left;vertical-align:middle;">
+            <div class="content-title-l">小孙子的萌照是壁纸，</div>
+            <div class="content-title-l">妈妈乐坏了</div>
+            <div class="content-title-s" style="padding-top:10px;">壁纸和桌面定制功能，</div>
+            <div class="content-title-s">选择家里那张最欢乐的照片，让爸妈看着就开心</div>
+        </div>
+    </div>
+</div>
+
+<div class="content-section-5">
+    <div class="align-center content-section-5-div content-section-h">
+        <img style="float:left;height:100%" src="{% auto_version '/static/images/sec5-1.png' %}">
+        <div class="content-section-5-pad" style="float:left;text-align:center;">
+            <p class="content-title-l" style="padding-top:200px;">定制一个送未来丈母娘？</p>
+            <p class="content-title-s">你太有才了 : ）</p>
+            <button class="btn btn-cd btn-lg content-section-5-btn" onclick="startMaker()">立刻开始定制一台</button>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="content-section-6 align-center">
+    <a href="http://www.21ke.com"><img src="{% auto_version '/static/images/link-xt.png' %}" /></a>
+</div>
+-->
+</body>
+{% endblock %}
+
+{% block your_js %}
+<script type="text/javascript">
+    $('.carousel').carousel({
+        interval: 5000
+    })
+
+    $(function() {
+        $('#maker_help').on('click', function() {
+            window.location.href="/v1/maker/help";
+        });
+    });
+</script>
+{% endblock %}

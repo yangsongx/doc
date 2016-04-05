@@ -1,0 +1,255 @@
+{% extends 'v1/base.html' %}
+
+{% load staticfiles %}
+{% load autoVersion %}
+{% block title %}锁屏壁纸{% endblock %}
+{% block wallpaper_lock_active %}active{% endblock %}
+{% block icon-wp-lock-index %}<span class="si si-index si-5-h"></span>{% endblock %}
+{% block icon-wp-lock %}<span class="si si-menu si-wlock-h"></span>{% endblock %}
+{% block icon-wp-lock-active %}<span class="si si-mactive"></span>{% endblock %}
+
+{% block your_css %}
+<link href="{% auto_version '/static/css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css' %}" />
+<link href="{% auto_version '/static/css/jquery-ui.min.css" rel="stylesheet" type="text/css' %}" >
+{% endblock %}
+
+{% block modal_block %}
+{% include 'v1/include/modal/uploadingModal.html' %}
+{% endblock %}
+
+{% block menu_right_block %}
+<div class="col-xl-9 col-lg-9 col-md-9 col-sm-12" id="menu_right">
+    <div class="text-left col-md-12 wrapper">
+        <input type="hidden" id="domain" value="http://7xio6q.com1.z0.glb.clouddn.com/">
+        <input type="hidden" id="uptoken_url" value="/v1/maker/uptoken2">
+        <ul class="tip col-md-12 text-mute">
+        </ul>
+    </div>
+
+    <div class="panel panel-cd">
+        <div class="row row-cd">
+            <div class="col-xl-4 col-lg-3 col-md-4 col-sm-4">
+                <div class="preview-panel-{{mclass}} align-center" data-step="3" data-position='right' data-intro='步骤3: 预览锁屏壁纸的效果'>
+                    <img src="/static/images/{{mclass}}_wp_bg.png">
+                    <p id="preview">
+                    </p>
+                </div>
+                <div class="align-center">
+                    <a class='btn btn-cd-g align-center' href='/v1/maker/cust/wallpaper_head/' >下一项定制</a>
+                </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-xl-8 col-lg-9 col-md-8 col-sm-8 panel-cd-main">
+                <span class="nav-tabs-cd-title wp-pl">选择1张图片作为锁屏壁纸</span>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-tabs-cd wp-pr wp-nt-pr">
+                    <li class="active" data-step="1" data-position='left' data-intro='步骤1: 您可以选择21KE制作的预置图片'>
+                        <a id="tab_pb" href="#prebuilt" data-toggle="tab" onclick="_hmt.push(['_trackEvent', 'wallpaper_lock', 'wallpaper', '选择预置图片'])">预置图片</a>
+                    </li>
+                    <li data-step="2" data-position='left' data-intro='步骤2: 您可以也选择您自己的照片，并可进行在线裁剪'>
+                        <a id="tab_cust" href="#custom" data-toggle="tab" onclick="_hmt.push(['_trackEvent', 'wallpaper_lock', 'diy', '上传自选图片'])">自选图片</a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+                <!-- Tab panes -->
+                <div class="tab-content tab-content-cd">
+                    <div class="tab-pane fade in active" id="prebuilt">
+                        <div>
+                            {% if prebuilts %}
+                            <table class="wp-table-pr">
+                                <tr>
+                                    <td>
+                                        {% ifnotequal curPage 1 %}
+                                            <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=up"><i class='si si-pl-a'></i></a>
+                                        {% else %}
+                                            <i class='si si-pl'></i>
+                                        {% endifnotequal %}
+                                    </td>
+                                    <td class="prebuilt-img-list">
+                                        <ul id="gallery" class="gallery ui-helper-reset">
+                                         {% for index,prebuilt in prebuilts %}
+                                         <li>
+                                             <div class="prebuilt-img" id="pb-img-{{index}}" style="background-image:url({{prebuilt.res_file_path}}?imageView2/3/w/120/h/200);" onclick="selectImage('{{prebuilt.res_file_path}}','','{{prebuilt.id}}','','img-{{index}}', 'img-hl-{{index}}')">
+                                                <div class="prebuilt-img-highlight" id="img-hl-{{index}}"></div>
+                                                <img class="prebuilt-img-check" id="img-{{index}}" data-path="{{prebuilt.res_file_path}}" src="{% auto_version '/static/images/none.png' %}">
+                                             </div>
+                                         </li>
+                                         {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        {% ifnotequal curPage allPage %}
+                                            <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=down"><i class='si si-pr-a'></i></a>
+                                        {% else %}
+                                            <i class='si si-pr'></i>
+                                        {% endifnotequal %}
+                                    </td>
+                                </tr>
+                            </table>
+                            {% else %}
+                                  <strong>No prebuilt currently.</strong>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="custom">
+                        <div class="wp-pl">
+                        <div id="container">
+                            <div class="btnBox">
+                                <a id="pickfiles" href="javascript:void(0);">
+                                    <div class="btnText">添加</div>
+                                    <div class="btnIcon"><i class="si si-add"></i></div>
+                                </a>
+                            </div>
+                            <div class="btnBox">
+                                <a id="cropimage" href="javascript:void(0);" onclick="crop_save();">
+                                    <div class="btnText">保存</div>
+                                    <div class="btnIcon"><i class="si si-save"></i></div>
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="img-upload-panel">
+                            <div class="img-crop-panel">
+                                <img id="image_crop" alt="自选图片"/>
+                            </div>
+                            <div id="fsUploadProgress">
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-9 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.panel -->
+</div>
+{% endblock %}
+
+{% block your_js %}
+<script type="text/javascript">
+    var wp;
+    function crop_save() {
+        cropSave();
+    }
+    function updateGallery()
+    {
+        var content_preview = "";
+        var name = "";
+        if (wp.name != "") {
+            Cookies.set('lockwp', {"name":wp.name,"md5":wp.md5,"pb":wp.pb,"crop":wp.crop});
+            if (wp.pb != "") {
+                name = wp.name+"?imageView2/3/w/169/h/281";
+            } else {
+                name = wp.name+"|imageView2/3/w/169/h/281";
+            }
+            content_preview = "<img class='preview-wp-"+mclass+"' src='"+name+"'><img class='preview-wp-"+mclass+"' src='/static/images/"+mclass+"_lock.png'>";
+        } else {
+            Cookies.remove('lockwp');
+            content_preview = "<img class='preview-wp-"+mclass+"' src='/static/images/"+mclass+"_lock.png'>";
+        }
+        document.getElementById("preview").innerHTML = content_preview;
+    }
+    function selectImage(name, md5, pb, crop, id, hl_id) {
+        if (wp.name==name) {
+            document.getElementById(id).src="{% auto_version '/static/images/none.png' %}";
+            $("#"+hl_id).css('visibility','hidden');
+            wp.name="";
+            wp.md5="";
+            wp.pb="";
+            wp.crop="";
+            updateGallery();
+            decreaseCustomItemCount();
+            return;
+        }
+        for (var i = 0; i < 8; i++) {
+            var index = "img-"+i;
+            var tmp = document.getElementById(index);
+            if (tmp) {
+                if (id != index) {
+                    tmp.src = "/static/images/none.png";
+                    $("#img-hl-"+i).css('visibility','hidden');
+                } else {
+                    tmp.src = "/static/images/checkbox.png";
+                    $("#img-hl-"+i).css('visibility','visible');
+                }
+            } else {
+                break;
+            }
+        }
+        if (wp.name=="") {
+            increaseCustomItemCount();
+        }
+        wp=new Object();
+        wp.name = name;
+        wp.md5 = md5;
+        wp.pb = pb;
+        wp.crop = crop;
+        updateGallery();
+    }
+    window.onload = function() {
+        wp=new Object();
+        wp.name="";
+        wp.md5="";
+        wp.pb="";
+        wp.crop="";
+        var tmp = Cookies.getJSON("lockwp");
+        if (tmp) {
+            wp.name = tmp.name;
+            wp.md5 = tmp.md5;
+            wp.pb = tmp.pb;
+            wp.crop = tmp.crop;
+            for (var j = 0; j < 8; j++) {
+                var tmp =document.getElementById("img-"+j);
+                if (tmp) {
+                    if (wp.name == tmp.getAttribute("data-path")) {
+                        tmp.src = "/static/images/checkbox.png";
+                        $("#img-hl-"+j).css('visibility','visible');
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        updateGallery();
+        loadCustomItemCount();
+    }
+
+    $(function() {
+        var clicked = 0;
+        $('#maker_help').on('click', function() {
+            introJs().onchange(function(targetElement) {
+                switch(this._currentStep) {
+                case 0:
+                    $('#tab_pb').trigger("click");
+                    if (wp.name == "") {
+                        $('#pb-img-0').trigger("click");
+                        clicked = 1;
+                    }
+                    break;
+                case 1:
+                    $('#tab_cust').trigger("click");
+                    break;
+                }
+            }).
+            oncomplete(function() {
+                if (clicked == 1) {
+                    $('#tab_pb').trigger("click");
+                    $('#pb-img-0').trigger("click");
+                    clicked = 0;
+                }
+            }).
+            onexit(function() {
+                if (clicked == 1) {
+                    $('#tab_pb').trigger("click");
+                    $('#pb-img-0').trigger("click");
+                    clicked = 0;
+                }
+            }).
+            start();
+        });
+    });
+</script>
+{% endblock %}

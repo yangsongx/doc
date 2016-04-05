@@ -1,0 +1,13 @@
+{% load autoVersion %}
+
+<div class="modal fade" id="uploadingModal" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-uploading" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="{% auto_version '/static/images/loading.gif' %}" style="display:inline-block;">
+                <h4 style="display:inline-block; padding-left:10px;"> 正在上传，请稍候。。。</h4>
+            </div>
+        </div>
+    </div>
+</div>
+

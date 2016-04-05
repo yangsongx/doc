@@ -1,0 +1,378 @@
+{% extends 'v2/base.html' %}
+
+{% load staticfiles %}
+{% load autoVersion %}
+{% block title %}电子贺卡定制{% endblock %}
+{% block welcome_active %}active{% endblock %}
+{% block icon-welcome-index %}<span class="si si-index si-1-h"></span>{% endblock %}
+{% block icon-welcome %}<span class="si si-menu si-ecard-h"></span>{% endblock %}
+{% block icon-welcome-active %}<img class="menu-icon-active" src="{% auto_version '/static/images/icon-active.png' %}"/>{% endblock %}
+
+{% block your_css %}
+<style>
+    .boxWel {
+        width:177px;
+        position: relative;
+        display:block;
+    }
+    .textPre {
+        width: 50%;
+        text-align: center;
+        position: absolute;
+        left: -6%;
+        top: -12%;
+        /*transform: translateY(-50%);*/
+        transform: scale(0.8);
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .modal-dialog-center {
+        margin-top: 15%;
+    }
+    .co{
+        color:darkgray;
+    }
+</style>
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block menu_right_block %}
+<div class="col-lg-9 col-md-9 col-sm-8" id="menu_right">
+<div class="text-left col-md-12 wrapper">
+    <ul class="tip col-md-12 text-mute">
+    </ul>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-5" data-step="4" data-intro='步骤4: 查看预览的效果， 如果不满意可进行修改'>
+        <div class="preview-panel">
+            <img src="/static/images/{{mclass}}_wp_bg.png">
+            <p id="preview"></p>
+        </div>
+    </div>
+    <!-- /.col-lg-2 -->
+    <div class="col-lg-9 col-md-8 col-sm-7">
+        <div class="panel panel-primary">
+            <a style="text-decoration:none" href="#collapse2" data-parent="#accordion1" data-toggle="collapse" class="panel-primary accordion-toggle">
+                <div class="panel-heading">
+                    <h4 class="panel-title">输入您的开机问候语 <span id="chLeft">（正文输入不超过30个字）</span></h4>
+                </div>
+                <!-- /.panel-heading -->
+            </a>
+            <a>
+            <div class="panel-collapse collapse in" id="collapse2">
+                <div class="panel-body">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div id="prebuilt" class="tab-pane fade in active">
+                            <!--<ul class='gallery-dkp ui-helper-reset' style='margin: 0.1em 0em 0em 1.3em;'>-->
+                            <div class="col-lg-3">
+                                <div class="boxWel">
+                                    <img  src="{% auto_version '/static/images/welcomebackground1.png' %}" style="left:0px; top:0px; width: 110px; height:170px">
+                                    <div class="textPre" id="previewText1"></div>
+                                </div>
+
+                                <table top="10">
+                                    <td>
+                                        <div style=" width:53px;height:100px">
+                                            <button type="submit"  style="background-image:url(/static/images/btnForReset.png); background-repeat: no-repeat;background-color: transparent; border: 0; position:relative;left:0px;top:20px;width:53px;height:53px" class="btn btn-primary" onclick="actionForReset()"></button>
+                                            <label class="co" style="position:relative;left:12px;top:20px;width:40px;height:25px">重置</label>
+                                        </div>
+                                    </td>
+
+                                    <td style="padding-left:10px">
+                                        <div style=" width:53px;height:100px">
+                                            <button type="submit"  data-step="3" data-intro='步骤3: 保存' style="background-image:url(/static/images/btnForSave.png); background-repeat: no-repeat;background-color: transparent; border: 0;position:relative;left:0px;top:20px;width:53px;height:53px" class="btn btn-primary" onclick="savetext()"></button>
+                                            <label class="co" style="position:relative;left:12px;top:20px;width:40px;height:25px">保存</label>
+                                        </div>
+                                    </td>
+                                </table>
+                            </div>
+
+                            <div class="col-lg-9">
+                                <div id="textdiv" img style="position:relative;top:0px;height:170px ; background-size:380px 170px; background-image: url(/static/images/welcomebackground2.png?imageView2/3/w/320/h/170); background-repeat: no-repeat" src="/static/images/welcomebackground2.png?imageView2/3/w/320/h/170" class="img-background" data-step="2" data-intro='步骤2: 填入您想和对方说的话，以及您的落款'>
+                                    <div>
+                                        <input id="textForTo" placeholder="称呼：" style="background:transparent;border-style:none; border: 0; position:relative;left:25px;top:13px; width:80px" maxlength="5">
+                                    </div>
+                                    <div>
+                                        <textarea id="contentediTable" placeholder="___输入您想说的话" maxlength="50" rows="3" draggable="false" style="resize:none; background:transparent;border-style:none; word-wrap:break-word; position:relative; left:25px; top:15px; height:85px; width:300px;line-height:200%; border:0px" onkeyup="checkLength(this)" ></textarea>
+                                    </div>
+                                    <div>
+                                        <input id="textForMe" placeholder="署名" style="background:transparent;border-style:none; border: 0; position:relative; float:right; right: 20px; top:15px ; width:75px" maxlength="5" alt="称呼：">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--</ul>-->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            </a>
+        </div>
+
+
+        <div class="panel panel-gray" data-step="1" data-position='left' data-intro='步骤1: 挑选电子贺卡的模板'>
+            <a class="panel-gray accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse1" style="text-decoration:none">
+                <div class="panel-heading">
+                    <h4 class="panel-title">选择卡片模版</h4>
+                </div>
+            </a>
+            <div class="panel-collapse collapse in" id="collapse1">
+                <div class="panel-body">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div style="padding-top:20px">
+                            {% if prebuilts %}
+                            <table>
+                                <tr>
+                                    <td>
+                                        {% ifnotequal curPage 1 %}
+                                        <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=up"><i class='fa fa-angle-left image-paginator-active'></i></a>
+                                        {% else %}
+                                        <i class='fa fa-angle-left image-paginator-inactive'></i>
+                                        {% endifnotequal %}
+                                    </td>
+                                    <td>
+                                        <ul id="gallery" class="gallery ui-helper-reset">
+                                            {% for index,prebuilt in prebuilts %}
+                                            <li style="list-style-type: none">
+                                                <div class="prebuilt-img" id="pb-img-{{index}}" style="background-image:url({{prebuilt.res_file_path}}?imageView2/3/w/120/h/200);" onclick="selectImage('{{prebuilt.res_file_path}}','','1','','{{index}}')">
+                                                    <img class="prebuilt-img-check" id="img-{{index}}" data-path="{{prebuilt.res_file_path}}" src="{% auto_version '/static/images/none.png' %}">
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td style="padding-left:20px">
+                                        {% ifnotequal curPage allPage %}
+                                        <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=down"><i class='fa fa-angle-right image-paginator-active'></i></a>
+                                        {% else %}
+                                        <i class='fa fa-angle-right image-paginator-inactive'></i>
+                                        {% endifnotequal %}
+                                    </td>
+                                </tr>
+                            </table>
+                            {% else %}
+                            <strong>No prebuilt currently.</strong>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+
+    </div>
+    <!-- /.col-lg-10 -->
+</div>
+
+</div>
+{% endblock %}
+{% block your_js %}
+<script type="text/javascript">
+    window.onkeydown = function(){
+        var len = $('#contentediTable').val().length;
+        if(len > 50) {
+
+        }
+    }
+
+    function alert2(title, body) {
+        showToast('error', body)
+    }
+
+    function savetext() {
+        var textforcontent =$('#contentediTable').val();
+        var textforto = $('#textForTo').val();
+        var textforme = $('#textForMe').val();
+
+        if(textforto =='')
+        {
+            alert2('提示','请输入称呼');
+            return;
+        }
+        if(textforcontent =='')
+        {
+            alert2('提示','请输入您想说的话');
+            return;
+        }
+        if(textforme =='')
+        {
+            alert2('提示','请输入署名');
+            return;
+        }
+
+        var tmp = Cookies.getJSON('welcome-choose');
+
+        if(!tmp || tmp.welcomefilename =='')
+        {
+            alert2('提示','请选择模版');
+            return;
+        }
+
+        _hmt.push(['_trackEvent', 'welcome_save', 'Save', '保存贺卡']);
+
+        /* Note - all body text wrap logic would be handled at Server side */
+
+        Cookies.set('textEdit', {"textForTo":textforto,"contentediTable":textforcontent,"textForMe":textforme});
+
+
+        var strForlog = JSON.stringify( { "makerID" : getCookie('makerid'), "template" : tmp.template, "title" :textforto, "body" :textforcontent, "signature" :textforme} );
+        cdLog(strForlog);
+        processForm(strForlog);
+    }
+
+    function processForm(strForJson){
+        $.ajax({
+            url: '/v1/maker/welcome/',
+            dataType: 'json',
+            type: 'post',
+            contentType: 'application/json',
+            data:  strForJson,
+            success: function(data) {
+                var result = JSON.parse(JSON.stringify(data));
+                if (result.code == "0") {
+                    var urlfork = result.url;
+                    var filename_preview = urlfork+"/?imageView2/3/w/169/h/283";
+                    if (getCookie("welcome-changefilename") == "") {
+                        increaseCustomItemCount();
+                    }
+                    setCookie("welcome-changefilename", urlfork);
+                    document.getElementById("preview").innerHTML="<img class='preview-wp-"+mclass+"' src='"+urlfork+"'>";
+                }
+
+            },
+            error: function( jqXhr, textStatus, errorThrown ){
+                cdLog( errorThrown );
+            }
+        });
+    }
+
+    function actionForReset(){
+        if (getCookie("welcome-changefilename") != "") {
+            decreaseCustomItemCount();
+        }
+        Cookies.remove('textEdit');
+        Cookies.remove('welcome-choose');
+        setCookie("welcome-changefilename", '');
+
+        for (var i = 0; i < 4; i++) {
+            var tmp_img = document.getElementById("img-"+i);
+            if (tmp_img) {
+                tmp_img.src = "/static/images/none.png";
+            } else {
+                break;
+            }
+        }
+        document.getElementById("previewText1").innerHTML="<div></div>"
+        document.getElementById("preview").innerHTML="<div></div>"
+    }
+
+    function edit(html)
+    {
+        if(event.keyCode==13){
+            var   textRange=document.selection.createRange();
+            textRange.text="\r\n";
+            textRange.select();
+            event.returnValue=false;
+        }
+    }
+
+    function selectImage(filename, md5, prebuilt, crop, witchcard) {
+        var tmp = Cookies.getJSON('welcome-choose');
+        if (tmp && tmp.welcomefilename==filename) {
+            document.getElementById("img-"+witchcard).src="{% auto_version '/static/images/none.png' %}";
+            document.getElementById("previewText1").innerHTML="";
+            Cookies.remove('welcome-choose');
+            return;
+        }
+        for (var i = 0; i < 4; i++) {
+            var tmp_img = document.getElementById("img-"+i);
+            if (tmp_img) {
+                if (i != witchcard) {
+                    tmp_img.src = "/static/images/none.png";
+                } else {
+                    tmp_img.src = "/static/images/checkbox.png";
+                }
+            } else {
+                break;
+            }
+        }
+        var filename_preview = '';
+        var templateNumber = parseInt(witchcard)+1;
+        if (prebuilt == 1) {
+            filename_preview = filename+"?imageView2/3/w/120/h/200";
+        } else {
+            filename_preview = filename + "|imageView2/3/w/120/h/200";
+        }
+
+        document.getElementById("previewText1").innerHTML="<div><img width='139' height='215' style='border-radius: 10px' src='"+filename_preview+"'></div>"
+        Cookies.set('welcome-choose', {"template":templateNumber,"welcomefilename":filename});
+
+    }
+
+
+    window.onload = function() {
+        var tmp = Cookies.getJSON('welcome-choose');
+        if(tmp)
+        {
+            var filename = '';
+            filename = tmp.welcomefilename;
+            if (filename != "") {
+                for (var j = 0; j < 4; j++) {
+                    var tmp_img =document.getElementById("img-"+j);
+                    if (tmp_img) {
+                        if (filename == tmp_img.getAttribute("data-path")) {
+                            tmp_img.src = "/static/images/checkbox.png";
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                filename_preview = filename+"?imageView2/3/w/169/h/281";
+                document.getElementById("previewText1").innerHTML="<div><img width='139' height='215' style='border-radius: 10px' src='"+filename_preview+"'></div>"
+            }
+        }
+        var tmp2 = Cookies.getJSON('textEdit');
+        if(tmp2)
+        {
+            document.getElementById("textForTo").value=tmp2.textForTo;
+            document.getElementById("contentediTable").value=tmp2.contentediTable;
+            document.getElementById("textForMe").value=tmp2.textForMe;
+
+        }
+
+        var changefilename = '';
+        changefilename = getCookie("welcome-changefilename");
+        if(changefilename != "")
+        {
+            var changefilename_preview = '';
+            changefilename_preview = changefilename+"/?imageView2/3/w/169/h/283";
+            document.getElementById("preview").innerHTML="<img class='preview-wp-"+mclass+"' src='"+changefilename+"'>";
+        }
+        loadCustomItemCount();
+    }
+
+    function checkLength(which) { 
+        var maxChars = 30; 
+        if (which.value.length > maxChars) 
+            which.value = which.value.substring(0,maxChars); 
+            var curr = maxChars - which.value.length; 
+            if (curr == maxChars) {
+                document.getElementById("chLeft").innerHTML = " (正文输入不超过30个字)";
+            } else {
+                document.getElementById("chLeft").innerHTML = " (正文还可以输入"+curr.toString()+"字)";
+            }
+    }
+
+    $(function() {
+        $('#maker_help').on('click', function() {
+            introJs().start();
+        });
+    });
+</script>
+{% endblock %}
+

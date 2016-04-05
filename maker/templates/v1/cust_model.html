@@ -1,0 +1,135 @@
+{% extends 'v1/base.html' %}
+
+{% load staticfiles %}
+{% load autoVersion %}
+{% block title %}定制机型选择{% endblock %}
+
+
+{% block your_css %}
+<style>
+    .modal-dialog-center {
+        margin-top: 15%;
+    }
+   
+    body {
+       background-color: #e4dfd7;
+    }
+</style>
+{% endblock %}
+
+{% block modal_block %}
+{% endblock %}
+
+{% block menu_left_block %}
+{% endblock %}
+
+{% block base_head_block %}
+{% include 'v1/include/base_head.html' %}
+{% endblock %}
+
+
+{% block menu_right_block %}
+<div id="menu_right">
+<div class="row"  style="padding-left:78px;">
+    <form id="model-form">
+        <table class="model-select" data-step="1" data-position='right' data-intro='开始定制之前， 您需要先挑选待定制手机的型号'>
+            <tr>
+                <td width="36%" style="text-align:left">
+                    <div>
+                        <p style="font-weight:bold;font-size:30px;color:#3e3a39; margin-left:0px">选择您所需定制的手机型号</p>
+                        <p style="font-size:16px;">为家人设计一部21KE专属手机</p>
+                        <button style="margin: 56px 0px;" type="submit" class="btn btn-cd btn-lg">开始定制</button>
+                    </div>
+                </td>
+                <td width="32%">
+                    <a onclick="selectModel('1')" href="javascript:void(0);"><img src="{% auto_version '/static/images/model-m2c.png' %}"></a>
+                </td>
+                <td width="32%">
+                    <a onclick="selectModel('3')" href="javascript:void(0);"><img src="{% auto_version '/static/images/model-m3.png' %}"></a>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <a onclick="selectModel('1')" href="javascript:void(0);"><img src="{% auto_version '/static/images/model-name-m2c.png' %}"></a>
+                </td>
+                <td>
+                    <a onclick="selectModel('2')" href="javascript:void(0);"><img src="{% auto_version '/static/images/model-name-m3.png' %}"></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input type="radio" name="model" id="model1" value="1" class="model-checkbox"/>
+                    <label for="model1" class="model-label "></label>
+                </td>
+                <td>
+                    <input type="radio" name="model" id="model3" value="3" class="model-checkbox"/>
+                    <label for="model3" class="model-label"></label>
+
+                </td>
+            </tr>
+        </table>
+    <br>
+  </form>
+
+</div>
+{% endblock %}
+
+{% block your_js %}
+<script type="text/javascript">
+    function selectModel(model) {
+        if (model == '1') {
+            document.getElementById("model1").checked = "checked";
+        } else if (model == '2') {
+            document.getElementById("model2").checked = "checked";
+        } else if (model == '3') {
+            document.getElementById("model3").checked = "checked";
+        }
+    }
+
+    (function($){
+        function processForm( e ){
+            if ($("input[name='model']:checked").val() == undefined) {
+                showToast('error','请选择您所需定制的手机型号');
+                return false;
+            }
+
+            $.ajax({
+                url: '/v1/maker/begin/',
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify( { "model" : $("input[name='model']:checked").val(), "description": "" } ),
+                success: function(data) {
+                    cdLog(JSON.stringify(data));
+                    deleteAllCookies();
+                    var markerid = JSON.stringify(data.makerid);
+                    markerid = markerid.replace(/\"/g,"");
+                    setCookie("model", $("input[name='model']:checked").val(), 10);
+                    setCookie('makerid', markerid, 10);
+                    setCookie('splash', '1', 10);
+                    window.location.href="/v1/maker/cust/welcome";
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    cdLog( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#model-form').submit( processForm );
+    })(jQuery);
+
+    $(function() {
+        $('#maker_help').on('click', function() {
+            introJs().start();
+        });
+    });
+
+</script>
+{% endblock %}

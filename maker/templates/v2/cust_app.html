@@ -1,0 +1,338 @@
+{% extends 'v2/base.html' %}
+
+{% load staticfiles %}
+{% load autoVersion %}
+{% block title %}App定制{% endblock %}
+{% block app_active %}active{% endblock %}
+{% block icon-app-index %}<span class="si si-index si-7-h"></span>{% endblock %}
+{% block icon-app %}<span class="si si-menu si-app-h"></span>{% endblock %}
+{% block icon-app-active %}<img class="menu-icon-active" src="{% auto_version '/static/images/icon-active.png' %}"/>{% endblock %}
+
+{% block your_css %}
+<link href="{% auto_version '/static/css/jquery-ui.min.css" rel="stylesheet" type="text/css' %}" >
+<style>
+    .gallery li { width: 68px; height: 68px; margin: 0 1em 0.4em 0; position:relative;}
+    .gallery li img { width: 68px; height: 68px }
+    .gallery li.ui-widget-content { border: 0}
+    .delete-icon {
+        background-image: url("/static/images/icon-delete.png");
+        background-size:24px 24px;
+        display: block;
+        text-indent: -99999px;
+        overflow: hidden;
+        width: 24px;
+        height: 24px;
+        position:absolute;z-index:2;left:50px;top:50px
+    }
+    .modal-dialog-center {
+        margin-top: 3%;
+    }
+
+    .modal-dialog-center2 {
+        margin-top: 10%;
+    }
+
+    #imglist  img{width:700px;height:180px;float:left;margin:0 3px;width:105px;height:180px;}
+
+</style>
+{% endblock %}
+
+
+
+{% block modal_block %}
+{% include 'v2/include/modal/appDetailModal.html' %}
+{% endblock %}
+
+
+{% block menu_right_block %}
+<div class="col-lg-9 col-md-9 col-sm-8" id="menu_right">
+<div class="text-left col-md-12 wrapper">
+    <ul class="tip col-md-12 text-mute">
+    </ul>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-5">
+        <div class="preview-panel">
+          <img src="/static/images/{{mclass}}_app_bg.png">
+          <span class="app-icon-{{mclass}}">
+              <table id="preview_app" class="preview_app">
+              </table>
+          </span>
+        </div>
+    </div>
+    <!-- /.col-lg-2 -->
+    <div class="col-lg-9 col-md-8 col-sm-7">
+        <div class="panel panel-primary" data-step="2" data-position='left' data-intro='步骤2: 查看或删除您选择的App'>
+            <a class="panel-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse1" style="text-decoration:none">
+                <div class="panel-heading">
+                    <h4 class="panel-title">已选App:</h4>
+                </div>
+                <!-- /.panel-heading -->
+            </a>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <p id="mySelect"></p>
+                </div>
+            </div>
+        </div>
+        <!-- /.panel -->
+        <div class="panel panel-gray" data-step="1" data-position='left' data-intro='步骤1: 选择您想要预装的App'>
+            <a class="panel-gray accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse2" style="text-decoration:none">
+                <div class="panel-heading">
+                    <h4 class="panel-title">21KE应用市场 （最多可选10个App）:</h4>
+                </div>
+            </a>
+            <div id="collapse2" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                    {% if categories %}
+                        {% for category in categories %}
+                          {% if category.isactive %}
+                          <li class="active">
+                          {% else %}
+                          <li>
+                          {% endif %}
+                          <a href="?curCate={{ category.tag }}" >{{ category.name }}</a></li>
+                        {% endfor %}
+                    {% endif %}
+                    </ul>
+        
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                    {% if categories %}
+                        {% for category in categories %}
+                          {% if category.isactive %}
+                          <div class="tab-pane fade in active" id="{{category.tag}}">
+                          {% else %}
+                          <div class="tab-pane fade {{category.isactive}}" id="{{category.tag}}">
+                          {% endif %}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    </thead>
+                                    <tbody style=text-align:vertical>
+        
+                                    {% for app in category.applist %}
+                                        <tr>
+                                            <td><a href="#" onclick="showAppDetail('{{app.url}}')"><img width='34px' height='34px'src="{{app.pic}}"/></a></td>
+                                            <td><a href="#" onclick="showAppDetail('{{app.url}}')"><span>{{app.name}}</span></a></td>
+                                            <td id= 'app-{{app.idx}}' data-url='{{app.url}}' data-name='{{app.name}}' data-pic='{{app.pic}}'></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                 </table>
+                             </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <strong>No prebuilt currently.</strong>
+                    {% endif %}
+                    </div>
+                    <div class="align-center">
+                    {% ifnotequal curPage 1 %}
+                        <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=up">
+                            上一页
+                        </a>
+                    {% endifnotequal %} 
+                    第{{ curPage }}/{{ allPage }}页 
+                    {% ifnotequal curPage allPage %}
+                        <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=down">
+                            下一页
+                        </a>
+                    {% endifnotequal %}
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-10 -->
+</div>
+
+</div>
+{% endblock %}
+
+{% block your_js %}
+<script type="text/javascript">
+    var app_list=new Array();
+    function updateGallery()
+    {
+        var content = "";
+        var content_preview = "";
+        for (var i = 0; i < app_list.length; i++) {
+            content += '<li class="ui-widget-content"><a onclick="showAppDetail(\''+ app_list[i].pkg+ '\')" href="#"><img title="'+app_list[i].name+'" src="'+app_list[i].icon+'"></a><a href="#" title="删除App" class="delete-icon">删除</a></li>';
+            if ((i+1)%3==1) content_preview+="<tr>";
+            content_preview+="<td><img src='"+app_list[i].icon+"'/><p>"+app_list[i].name+"</p></td>";
+            if ((i+1)%3==0) content_preview+="</tr>";
+            saveAppToCookie(i, app_list[i]);
+        }
+        if (app_list.length%3!=0) content_preview+="</tr>";
+        document.getElementById("preview_app").innerHTML = content_preview;
+        if (content != "") {
+            document.getElementById("mySelect").innerHTML = "<ul id='gallery' class='gallery ui-helper-reset'>"+content+"</ul>";
+        } else {
+            document.getElementById("mySelect").innerHTML = "<div class='prompt-empty' style='line-height:63px;'>请选择App</div>";
+        }
+        for (var i = app_list.length; i < 10; i++) {
+            Cookies.remove('app-'+i);
+        }
+
+        $( "#gallery" ).disableSelection();
+        $( "ul.gallery > li" ).click(function( event ) {
+            var $item = $( this ),
+                $target = $( event.target );
+            if ( $target.is( "a.delete-icon" ) ) {
+                app_list.splice($item.index(), 1);
+                updateGallery();
+                updateAppList();
+                decreaseCustomItemCount();
+            }
+            return false;
+        });
+    }
+    function selectApp(pkg, name, icon)
+    {
+        if (app_list.length == 0) {
+            increaseCustomItemCount();
+        }
+        if (app_list.length < 10) {
+            var content = "";
+            for (var i = 0; i < app_list.length; i++) {
+                if (app_list[i].pkg==pkg) {
+                    return;
+                }
+            }
+            var app=new Object();
+            app.name=name;
+            app.icon=icon;
+            app.pkg=pkg;
+            app_list.push(app);
+            updateGallery();
+            updateAppList();
+        } else {
+            showToast('error','最多可选10个App');
+        }
+    }
+
+
+    function deleteApp(pkg, name, icon)
+    {
+        if (app_list.length > 0) {
+            for (var i = 0; i < app_list.length; i++) {
+                if (app_list[i].pkg==pkg) {
+                    cdLog("found" + i);
+                    app_list.splice(i, 1);
+                    break;
+                }
+            }
+            decreaseCustomItemCount();
+            updateGallery();
+            updateAppList();
+        }
+    }
+
+
+    function saveAppToCookie(index, app) {
+        if (index >= 0 && index < 10) {
+            Cookies.set('app-'+index, {"name":app.name,"icon":app.icon,"pkg":app.pkg});
+        }
+    }
+    function loadAppFromCookie(index) {
+        var app=new Object();
+        app.name="";
+        app.icon="";
+        app.pkg="";
+        var tmp = Cookies.getJSON('app-'+index);
+        if (tmp) {
+            app.name=tmp.name;
+            app.icon=tmp.icon;
+            app.pkg=tmp.pkg;
+        }
+        return app;
+    }
+
+
+    function updateAppList()
+    {
+        var content = "";
+        var count = 10;  //apps per page
+ 
+        for (var i = 0; i < count; i++) {
+            var tmp =document.getElementById("app-"+i);
+            if (tmp) {
+                var content = "";
+                var found =0;
+                for (var j = 0; j < app_list.length; j++) {
+                    if (app_list[j].pkg== tmp.getAttribute("data-url")) {
+                        content ='<a href="javascript:void(0);"><img id="app-delete-'+i+'" src="{% auto_version '/static/images/icon-delete.png'%}" onclick="deleteApp(\'' + tmp.getAttribute("data-url") + '\',\''+ tmp.getAttribute("data-name") + '\',\''+ tmp.getAttribute("data-pic") + '\')"></a>';
+                        //cdLog(content);
+                        found = 1; 
+                        tmp.innerHTML = content;
+                        break;
+                    }
+                }
+                if (found == 0)
+                {
+                    content ='<a href="javascript:void(0);"><img id="app-select-'+i+'" src="{% auto_version '/static/images/icon-select.png'%}" onclick="selectApp(\'' + tmp.getAttribute("data-url") + '\',\''+ tmp.getAttribute("data-name") + '\',\''+ tmp.getAttribute("data-pic") + '\')"></a>';
+                    tmp.innerHTML = content;
+                }
+            } 
+            else {
+                break;
+            }
+        }
+    }
+
+    window.onload = function() {
+        app_list=new Array();
+        for (var i=0; i<10; i++) {
+            app = loadAppFromCookie(i);
+            if (app.icon == "") {
+                break;
+            } else {
+                app_list.push(app);
+            }
+        }
+        if (app_list.length > 0) {
+            updateGallery();
+        } else {
+            document.getElementById("mySelect").innerHTML = "<div class='prompt-empty' style='line-height:63px;'>请选择App</div>";
+        }
+        updateAppList();
+        loadCustomItemCount();
+    }
+
+    $(function() {
+        var clicked = 0;
+        $('#maker_help').on('click', function() {
+            introJs().onchange(function(targetElement) {
+                switch(this._currentStep) {
+                case 0:
+                    if (app_list.length == 0) {
+                        $('#app-select-0').trigger("click");
+                        clicked = 1;
+                    }
+                    break;
+                }
+            }).
+            oncomplete(function() {
+                if (clicked == 1) {
+                    $('#tab_pb').trigger("click");
+                    $('#app-delete-0').trigger("click");
+                    clicked = 0;
+                }
+            }).
+            onexit(function() {
+                if (clicked == 1) {
+                    $('#tab_pb').trigger("click");
+                    $('#app-delete-0').trigger("click");
+                    clicked = 0;
+                }
+            }).
+            start();
+        });
+    });
+</script>
+{% endblock %}

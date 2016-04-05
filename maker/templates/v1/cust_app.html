@@ -1,0 +1,312 @@
+{% extends 'v1/base.html' %}
+
+{% load staticfiles %}
+{% load autoVersion %}
+{% block title %}App定制{% endblock %}
+{% block app_active %}active{% endblock %}
+{% block icon-app-index %}<span class="si si-index si-7-h"></span>{% endblock %}
+{% block icon-app %}<span class="si si-menu si-app-h"></span>{% endblock %}
+{% block icon-app-active %}<span class="si si-mactive"></span>{% endblock %}
+
+{% block your_css %}
+<link href="{% auto_version '/static/css/jquery-ui.min.css" rel="stylesheet" type="text/css' %}" >
+<style>
+    .gallery { float: left; width:180px;padding-left:4px}
+    .gallery li { width: 40px; height: 40px; margin: 0em 15px 30px 0; position:relative;}
+    .gallery li img { width: 40px; height: 40px }
+    .gallery li a p {
+        margin-left:-6px;
+        padding-top:2px;
+        width:55px;
+        *width:55px;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        display:block;
+        color:#ffffff;
+        vertical-align: top;
+        font-size: x-small;
+    }
+    .gallery li.ui-widget-content { border: 0}
+    .delete-icon {
+        position:absolute;z-index:2;left:28px;top:-4px;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block modal_block %}
+{% include 'v1/include/modal/appDetailModal.html' %}
+{% endblock %}
+
+
+{% block menu_right_block %}
+<div class="col-xl-9 col-lg-9 col-md-9 col-sm-12" id="menu_right">
+    <div class="text-left col-md-12 wrapper">
+        <ul class="tip col-md-12 text-mute">
+        </ul>
+    </div>
+    <div class="panel panel-cd">
+        <div class="row row-cd">
+            <div class="col-xl-4 col-lg-3 col-md-4 col-sm-4">
+                <div class="preview-panel-{{mclass}} align-center" data-step="2" data-position='left' data-intro='步骤2: 查看或删除您选择的App'>
+                  <img src="/static/images/{{mclass}}_wp_bg.png">
+                  <img class="preview-wp-{{mclass}}" src="/static/images/app_bg.png">
+                  <span class="app-icon-{{mclass}}">
+                      <div id="preview_app">
+                      </div>
+                  </span>
+                </div>
+                <div class="align-center">
+                    <a class='btn btn-cd-g align-center' href='/v1/maker/cust/submit/' >完成定制</a>
+                </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-xl-8 col-lg-9 col-md-8 col-sm-8 panel-cd-main">
+                <span class="nav-tabs-cd-title">选择您想要预装的App（最多10个）</span>
+                <div class="clearfix"></div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" style="padding-top:5px";>
+                {% if categories %}
+                    {% for category in categories %}
+                      {% if category.isactive %}
+                      <li class="active">
+                      {% else %}
+                      <li>
+                      {% endif %}
+                      <a href="?curCate={{ category.tag }}" >{{ category.name }}</a></li>
+                    {% endfor %}
+                {% endif %}
+                </ul>
+                <div class="line-cd-2">
+                </div>
+                <!-- Tab panes -->
+                <div class="tab-content" data-step="1" data-position='left' data-intro='步骤1: 选择您想要预装的App'>
+                {% if categories %}
+                    {% for category in categories %}
+                      {% if category.isactive %}
+                      <div class="tab-pane fade in active" id="{{category.tag}}">
+                      {% else %}
+                      <div class="tab-pane fade {{category.isactive}}" id="{{category.tag}}">
+                      {% endif %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                </thead>
+                                <tbody style=text-align:vertical>
+        
+                                {% for app in category.applist %}
+                                    <tr>
+                                        <td><a href="#" onclick="showAppDetail('{{app.url}}')"><img style="border-radius: 4px" width='34px' height='34px'src="{{app.pic}}"/></a></td>
+                                        <td><a href="#" onclick="showAppDetail('{{app.url}}')"><span>{{app.name}}</span></a></td>
+                                        <td id= 'app-{{app.idx}}' data-url='{{app.url}}' data-name='{{app.name}}' data-pic='{{app.pic}}'></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                             </table>
+                         </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <strong>No prebuilt currently.</strong>
+                {% endif %}
+                </div>
+                <div class="align-center">
+                {% ifnotequal curPage 1 %}
+                    <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=up">
+                        上一页
+                    </a>
+                {% endifnotequal %} 
+                第{{ curPage }}/{{ allPage }}页 
+                {% ifnotequal curPage allPage %}
+                    <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=down">
+                        下一页
+                    </a>
+                {% endifnotequal %}
+                </div>
+            </div>
+            <!-- /.col-lg-10 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.panel -->
+</div>
+{% endblock %}
+
+{% block your_js %}
+<script type="text/javascript">
+    var app_list=new Array();
+    function updateGallery()
+    {
+        var content = "";
+        for (var i = 0; i < app_list.length; i++) {
+            content += '<li class="ui-widget-content"><a onclick="showAppDetail(\''+ app_list[i].pkg+ '\')" href="#"><img style="border-radius: 4px" title="'+app_list[i].name+'" src="'+app_list[i].icon+'"><p>'+app_list[i].name+'</p></a><a href="#" title="删除App" class="si si-app-del delete-icon"></a></li>';
+            saveAppToCookie(i, app_list[i]);
+        }
+        if (content != "") {
+            document.getElementById("preview_app").innerHTML = "<ul id='gallery' class='gallery ui-helper-reset'>"+content+"</ul>";
+        } else {
+            document.getElementById("preview_app").innerHTML = "";
+        }
+        for (var i = app_list.length; i < 10; i++) {
+            Cookies.remove('app-'+i);
+        }
+
+        $( "#gallery" ).disableSelection();
+        $( "ul.gallery > li" ).click(function( event ) {
+            var $item = $( this ),
+                $target = $( event.target );
+            if ( $target.is( "a.delete-icon" ) ) {
+                app_list.splice($item.index(), 1);
+                updateGallery();
+                updateAppList();
+                if (app_list.length == 0) {
+                    decreaseCustomItemCount();
+                }
+            }
+            return false;
+        });
+    }
+    function selectApp(pkg, name, icon)
+    {
+        if (app_list.length == 0) {
+            increaseCustomItemCount();
+        }
+        if (app_list.length < 10) {
+            var content = "";
+            for (var i = 0; i < app_list.length; i++) {
+                if (app_list[i].pkg==pkg) {
+                    return;
+                }
+            }
+            var app=new Object();
+            app.name=name;
+            app.icon=icon;
+            app.pkg=pkg;
+            app_list.push(app);
+            updateGallery();
+            updateAppList();
+        } else {
+            showToast('error','最多可选10个App');
+        }
+    }
+
+
+    function deleteApp(pkg, name, icon)
+    {
+        if (app_list.length > 0) {
+            for (var i = 0; i < app_list.length; i++) {
+                if (app_list[i].pkg==pkg) {
+                    cdLog("found" + i);
+                    app_list.splice(i, 1);
+                    break;
+                }
+            }
+            if (app_list.length == 0) {
+                decreaseCustomItemCount();
+            }
+            updateGallery();
+            updateAppList();
+        }
+    }
+
+
+    function saveAppToCookie(index, app) {
+        if (index >= 0 && index < 10) {
+            Cookies.set('app-'+index, {"name":app.name,"icon":app.icon,"pkg":app.pkg});
+        }
+    }
+    function loadAppFromCookie(index) {
+        var app=new Object();
+        app.name="";
+        app.icon="";
+        app.pkg="";
+        var tmp = Cookies.getJSON('app-'+index);
+        if (tmp) {
+            app.name=tmp.name;
+            app.icon=tmp.icon;
+            app.pkg=tmp.pkg;
+        }
+        return app;
+    }
+
+
+    function updateAppList()
+    {
+        var content = "";
+        var count = 10;
+         for (var i = 0; i < count; i++) {
+            var tmp =document.getElementById("app-"+i);
+            if (tmp) {
+                var content = "";
+                var found =0;
+                for (var j = 0; j < app_list.length; j++) {
+                    if (app_list[j].pkg== tmp.getAttribute("data-url")) {
+                        content ='<a href="javascript:void(0);"><span class="si si-menu si-select" id="app-delete-'+i+'" onclick="deleteApp(\'' + tmp.getAttribute("data-url") + '\',\''+ tmp.getAttribute("data-name") + '\',\''+ tmp.getAttribute("data-pic") + '\')"></span></a>';
+                        found = 1; 
+                        tmp.innerHTML = content;
+                        break;
+                    }
+                }
+                if (found == 0)
+                {
+                    content ='<a href="javascript:void(0);"><span class="si si-menu si-unselect" id="app-select-'+i+'" onclick="selectApp(\'' + tmp.getAttribute("data-url") + '\',\''+ tmp.getAttribute("data-name") + '\',\''+ tmp.getAttribute("data-pic") + '\')"></span></a>';
+                    tmp.innerHTML = content;
+                }
+            } 
+            else {
+                break;
+            }
+        }
+    }
+
+    window.onload = function() {
+        app_list=new Array();
+        for (var i=0; i<10; i++) {
+            app = loadAppFromCookie(i);
+            if (app.icon == "") {
+                break;
+            } else {
+                app_list.push(app);
+            }
+        }
+        if (app_list.length > 0) {
+            updateGallery();
+        }
+        updateAppList();
+        loadCustomItemCount();
+    }
+
+    $(function() {
+        var clicked = 0;
+        $('#maker_help').on('click', function() {
+            introJs().onchange(function(targetElement) {
+                switch(this._currentStep) {
+                case 0:
+                    if (app_list.length == 0) {
+                        $('#app-select-0').trigger("click");
+                        clicked = 1;
+                    }
+                    break;
+                }
+            }).
+            oncomplete(function() {
+                if (clicked == 1) {
+                    $('#tab_pb').trigger("click");
+                    $('#app-delete-0').trigger("click");
+                    clicked = 0;
+                }
+            }).
+            onexit(function() {
+                if (clicked == 1) {
+                    $('#tab_pb').trigger("click");
+                    $('#app-delete-0').trigger("click");
+                    clicked = 0;
+                }
+            }).
+            start();
+        });
+    });
+</script>
+{% endblock %}

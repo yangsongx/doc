@@ -1,0 +1,33 @@
+{% load autoVersion %}
+
+
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand">
+                <a href="/">
+                    <img src="{% auto_version '/static/images/21KE.png' %}">
+                    <h2 class="navbar-text">21KE手机定制系统</h2>
+                </a>
+            </div>
+        </div>
+        <!-- /.navbar-header -->
+    
+        <ul class="navbar-top-links navbar-right">
+            <li>
+                <a id="preview_btn" class='btn btn-primary nav-btn-preview' onclick="_hmt.push(['_trackEvent', 'gosubmitview', 'gosubmitview', '完成定制'])" href='/v1/maker/cust/submit' >
+                    <span class="nav-btn-preview-count" id="nav-btn-preview-count" data-count="0"></span><i class="fa fa-shopping-cart nav-btn-text">&nbsp;&nbsp;完成定制</i></a>
+            </li>
+            <li>
+                <a id='maker_help' class='btn btn-success' onclick="_hmt.push(['_trackEvent', 'help', 'help', '页面向导'])" href='javascript:void(0);'><i class="fa fa-support nav-btn-text">&nbsp;&nbsp;页面向导</i></a>
+            </li>
+        </ul>
+        <!-- /.navbar-top-links -->
+    </div>
+</nav>

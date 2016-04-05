@@ -1,0 +1,131 @@
+{% extends 'v2/base_index.html' %}
+
+{% load staticfiles %}
+{% load autoVersion %}
+
+{% block title %} V2: 21KE手机定制系统{% endblock %}
+
+
+{% block your_css %}
+<style>
+    .modal-dialog-center {
+        margin-top: 15%;
+    }
+</style>
+{% endblock %}
+
+
+{% block body_block %}
+<div class="intro-header">
+    <div class="container">
+        <div class="intro-message">
+        </div>
+    </div>
+</div>
+
+<div class="content-section-1">
+    <div class="align-center"><img src="{% auto_version '/static/images/sec1-title.png' %}"></div>
+    <div id="scrollAnima1" class="animaPanel" style="position: relative;">
+        <img class="sec1 anima-float" style="top:50%;left:60%;" src="{% auto_version '/static/images/sec1-3.png' %}">
+        <img class="sec1 anima-float anima-delay-1" style="top:50%;left:40%;" src="{% auto_version '/static/images/sec1-1.png' %}">
+        <img class="sec1 anima-float anima-delay-2" style="top:45%;left:40%;" src="{% auto_version '/static/images/sec1-4.png' %}">
+    </div>
+</div>
+
+<div class="content-section-2">
+    <div class="align-center"><img src="{% auto_version '/static/images/sec2-title.png' %}"></div>
+    <div id="scrollAnima2" class="animaPanel" style="position:relative;">
+        <img class="sec2 anima-float" style="top:50%;left:50%;" src="{% auto_version '/static/images/sec2-1.png' %}">
+        <img class="sec2 anima-float anima-delay-1 anima-infinite anima-duration-3" style="top:48%;left:51%;" src="{% auto_version '/static/images/sec2-2.png' %}">
+        <img class="sec2 anima-float anima-delay-2" style="top:30%;left:60%;" src="{% auto_version '/static/images/sec2-4.png' %}">
+        <img class="sec2 anima-float anima-delay-3" style="top:45%;left:38%;" src="{% auto_version '/static/images/sec2-3.png' %}">
+        <img class="sec2 anima-float anima-delay-4" style="top:60%;left:70%;" src="{% auto_version '/static/images/sec2-5.png' %}">
+    </div>
+</div>
+
+<div class="content-section-3 align-center">
+    <div><img src="{% auto_version '/static/images/sec3-title.png' %}"></div>
+    <div id="scrollAnima3">
+        <div><img id="sec3-2" class="anima-fix anima-delay-1" src="{% auto_version '/static/images/sec3-2.png' %}"></div>
+        <div><img id="sec3-1" class="anima-fix" src="{% auto_version '/static/images/sec3-1.png' %}"></div>
+    </div>
+</div>
+
+<div class="content-section-4 align-center">
+    <div><img src="{% auto_version '/static/images/sec4-title.png' %}"></div>
+    <div id="scrollAnima4">
+        <img id="sec4-1" class="anima-fix" src="{% auto_version '/static/images/sec4-1.png' %}">
+    </div>
+</div>
+
+<div class="container">
+    <div style="padding-left:30%;padding-top:5px;">
+        <table class="home-link" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <a href="http://www.21ke.com"><img src="{% auto_version '/static/images/link-21ke.png' %}" width='122Px' height='39px'/></a>
+                </td>
+                <td>
+                    <a href="http://caredear.jd.com"><img src="{% auto_version '/static/images/link-jd.png' %}" width='122Px' height='39px'/></a>
+                </td>
+                <td>
+                    <a href="http://21ke.tmall.com"><img src="{% auto_version '/static/images/link-tmall.png' %}" width='122Px' height='39px'/></a>
+                </td>
+            </tr>
+            <tr>
+                <td><a onclick="_hmt.push(['_trackEvent', 'index', 'index', '官方网站'])" href="http://www.21ke.com">官方网站</a></td>
+                <td><a onclick="_hmt.push(['_trackEvent', 'index', 'index', 'jd21克旗舰店'])" href="http://caredear.jd.com">21克旗舰店</a></td>
+                <td><a onclick="_hmt.push(['_trackEvent', 'index', 'index', 'tmall21克旗舰店'])" href="http://21ke.tmall.com">21克旗舰店</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block your_js %}
+<script type="text/javascript">
+    $('.carousel').carousel({
+        interval: 5000
+    })
+
+    $(function() {
+        $('#maker_help').on('click', function() {
+            window.location.href="/v1/maker/help";
+        });
+    });
+
+    window.onload = function() {
+        $(window).scroll(function(){
+            var top = $(window).scrollTop();
+            var winHeight = $(window).height();
+            var domTop;
+            domTop = $("#scrollAnima1").offset().top;
+            if(domTop > top && domTop <(top+winHeight - 200)){
+                $(".sec1").each(function(index,element){
+                    $(element).addClass("animated fadeIn");
+                    $(element).css("visibility","visible");
+                });
+            }
+            domTop = $("#scrollAnima2").offset().top;
+            if(domTop > top && domTop <(top+winHeight - 200)){
+                $(".sec2").each(function(index,element){
+                    $(element).addClass("animated fadeIn");
+                    $(element).css("visibility","visible");
+                });
+            }
+            domTop = $("#scrollAnima3").offset().top;
+            if(domTop > top && domTop <(top+winHeight - 400)){
+                $("#sec3-1").addClass("animated slideInLeft");
+                $("#sec3-2").addClass("animated zoomInUp");
+                $("#sec3-1").css("visibility","visible");
+                $("#sec3-2").css("visibility","visible");
+            }
+            domTop = $("#scrollAnima4").offset().top;
+            if(domTop > top && domTop <(top+winHeight - 400)){
+                $("#sec4-1").addClass("animated bounceIn");
+                $("#sec4-1").css("visibility","visible");
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load compress %}
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>21KE Maker Uploader</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="/static/css/caredear-maker.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="/static/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/static/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/dist/js/sb-admin-2.js"></script>
+
+    <script src="/static/js/caredear_common.js"></script>
+
+    <script src="/static/js/js.cookie.js"></script>
+
+</head>
+<body>
+<div class="text-left col-md-12 wrapper">
+    <input type="hidden" id="domain" value="http://7xio6q.com1.z0.glb.clouddn.com/">
+    <input type="hidden" id="uptoken_url" value="/v1/maker/uptoken2">
+    <ul class="tip col-md-12 text-mute">
+    </ul>
+</div>
+
+<div class="row">
+    <!-- /.col-lg-2 -->
+    <div class="col-lg-9 col-md-8 col-sm-7">
+        <!-- /.panel -->
+                <div class="panel-body">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div id="custom">
+                            <p>
+                            <div id="container">
+                                <a id="pickfiles" href="javascript:void(0);">
+                                    <div class="btnBox">
+                                        <div class="btnIcon"><img src="/static/images/btnForAdd.png"/></div>
+                                        <div class="btnText">上传文件</div>
+                                    </div>
+                                </a>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="img-upload-panel">
+
+                               <div>
+                                    <h5 id="upload_url"></h5>
+                                </div>
+                                <div id="fsUploadProgress">
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+    </div>
+    <!-- /.col-lg-10 -->
+</div>
+{% compress js %}
+<link href="/static/css/jquery-ui.min.css" rel="stylesheet" type="text/css'" >
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/plupload/plupload.full.min.js"></script>
+<script type="text/javascript" src="/static/js/plupload/i18n/zh_CN.js"></script>
+<script type="text/javascript" src="/static/js/ui.js"></script>
+<script type="text/javascript" src="/static/js/qiniu.js"></script>
+<script type="text/javascript" src="/static/js/highlight/highlight.js"></script>
+<script type="text/javascript" src="/static/js/cmsupload.js"></script>
+<script type="text/javascript" src="/static/js/md5-min.js"></script>
+<script type="text/javascript">
+
+  window.onload = function() {
+  }
+
+
+</script>
+{% endcompress %}
+</body>
+</html>

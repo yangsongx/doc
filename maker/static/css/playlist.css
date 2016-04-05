@@ -1,0 +1,65 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.playlist {
+  margin: 2em 0;
+}
+
+.playlist-time-scale {
+  height: 30px;
+}
+
+.channel {
+  background: blue;
+}
+
+.channel-progress {
+  background: green;
+}
+
+.cursor {
+  border-right: 1px solid #000;
+}
+
+.playlist-fade {
+  background-color: rgba(0,0,0,0.5);
+}
+
+.playlist-top-bar {
+  margin: 1em 0;
+}
+
+.playlist-bottom-bar {
+  margin: 1em 0;
+}
+
+.state-cursor,
+.state-fadein .channel,
+.state-fadeout .channel,
+.state-select {
+  cursor: text;
+}
+
+.state-shift .channel {
+  cursor: move;
+}
+
+.selection-cursor {
+  background: red;
+}
+
+.selection-segment {
+  background: rgba(255,255,0,0.5);
+}
+
+.state-file-drop {
+  border: 2px dashed blue;
+  height: 100px;
+  width: 100%;
+}
+
+.state-file-drop.drag-enter {
+  border: 2px solid orange;
+}

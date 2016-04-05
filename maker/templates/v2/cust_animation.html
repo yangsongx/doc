@@ -1,0 +1,363 @@
+{% extends 'v2/base.html' %}
+
+{% load staticfiles %}
+{% load autoVersion %}
+{% block animation_active %}active{% endblock %}
+{% block title %}开机动画{% endblock %}
+{% block icon-boot-animation-index %}<span class="si si-index si-2-h"></span>{% endblock %}
+{% block icon-boot-animation %}<span class="si si-menu si-anim-h"></span>{% endblock %}
+{% block icon-boot-animation-active %}<img class="menu-icon-active" src="{% auto_version '/static/images/icon-active.png' %}"/>{% endblock %}
+
+{% block your_css %}
+<link href="{% auto_version '/static/css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css' %}" />
+<link href="{% auto_version '/static/css/jquery-ui.min.css" rel="stylesheet" type="text/css' %}" >
+{% endblock %}
+
+
+{% block modal_block %}
+{% include 'v2/include/modal/uploadingModal.html' %}
+{% endblock %}
+
+
+{% block menu_right_block %}
+<div class="col-lg-9 col-md-9 col-sm-8" id="menu_right">
+<div class="text-left col-md-12 wrapper">
+    <input type="hidden" id="domain" value="http://7xio6q.com1.z0.glb.clouddn.com/">
+    <input type="hidden" id="uptoken_url" value="/v1/maker/uptoken2">
+    <ul class="tip col-md-12 text-mute">
+    </ul>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-5" data-step="4" data-position='right' data-intro='步骤4: 预览开机动画的效果'>
+        <div class="preview-panel">
+            <img src="/static/images/{{mclass}}_wp_bg.png">
+            <p id="slideshow">
+            </p>
+        </div>
+    </div>
+    <!-- /.col-lg-2 -->
+    <div class="col-lg-9 col-md-8 col-sm-7">
+        <div class="panel panel-primary" data-step="3" data-position='bottom' data-intro='步骤3: 编辑动画,用鼠标拖拽图片可以更改顺序'>
+            <a class="panel-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse1" style="text-decoration:none">
+                <div class="panel-heading">
+                    <h4 class="panel-title">编辑动画:</h4>
+                </div>
+                <!-- /.panel-heading -->
+            </a>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div id="prompt"></div>
+                    <div id="mySelect"></div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+        <!-- /.panel -->
+        <div class="panel panel-gray">
+            <a class="panel-gray accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse2" style="text-decoration:none">
+                <div class="panel-heading">
+                    <h4 class="panel-title">选择图片:（最多可选4张）</h4>
+                </div>
+                <!-- /.panel-heading -->
+            </a>
+            <div id="collapse2" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active" data-step="1" data-position='top' data-intro='步骤1: 您可以选择21KE制作的预置图片'><a href="#prebuilt" data-toggle="tab" onclick="_hmt.push(['_trackEvent', 'animation', 'choose', '选择预置图片'])">选择预置图片</a>
+                        </li>
+                        <li data-step="2" data-position='top' data-intro='步骤2: 您可以也选择您自己的照片，并可进行在线裁剪'><a href="#custom" data-toggle="tab" onclick="_hmt.push(['_trackEvent', 'animation', 'diy', '上传自选图片'])">上传自选图片</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active"  id="prebuilt">
+                            <div style="padding-top:20px">
+                                {% if prebuilts %}
+                                <table> 
+                                    <tr>
+                                        <td>
+                                            {% ifnotequal curPage 1 %}
+                                                <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=up"><i class='fa fa-angle-left image-paginator-active'></i></a>
+                                            {% else %}
+                                                <i class='fa fa-angle-left image-paginator-inactive'></i>
+                                            {% endifnotequal %}
+                                        </td>
+                                        <td>
+                                            <ul class="gallery ui-helper-reset">
+                                             {% for index,prebuilt in prebuilts %}
+                                             <li>
+                                                 <div class="prebuilt-img" style="background-image:url({{prebuilt.res_file_path}}?imageView2/3/w/120/h/200);" onclick="selectImage('{{prebuilt.res_file_path}}','','{{prebuilt.id}}','','img-{{index}}')">
+                                                    <img class="prebuilt-img-check" id="img-{{index}}" data-path="{{prebuilt.res_file_path}}" src="{% auto_version '/static/images/none.png' %}">
+                                                 </div>
+                                             </li>
+                                             {% endfor %}
+                                            </ul>
+                                        </td>
+                                        <td style="padding-left:5px">
+                                            {% ifnotequal curPage allPage %}
+                                                <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=down"><i class='fa fa-angle-right image-paginator-active'></i></a>
+                                            {% else %}
+                                                <i class='fa fa-angle-right image-paginator-inactive'></i>
+                                            {% endifnotequal %}
+                                        </td>
+                                    </tr>
+                                </table>
+                                {% else %}
+                                      <strong>No prebuilt currently.</strong>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="custom">
+                            <p>
+                            <div id="container">
+                                <a id="pickfiles" href="javascript:void(0);">
+                                    <div class="btnBox">
+                                        <div class="btnIcon"><img src="{% auto_version '/static/images/btnForAdd.png' %}"/></div>
+                                        <div class="btnText">添加图片</div>
+                                    </div>
+                                </a>
+                                <a id="cropimage" href="javascript:void(0);" onclick="crop_save();">
+                                    <div class="btnBox">
+                                        <div class="btnIcon"><img src="{% auto_version '/static/images/btnForSave.png' %}"/></div>
+                                        <div class="btnText">提交保存</div>
+                                    </div>
+                                </a>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="img-upload-panel">
+                                <div class="img-crop-panel">
+                                    <img id="image_crop" alt="自选图片"/>
+                                </div>
+                                <div id="fsUploadProgress">
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-10 -->
+</div>
+</div>
+{% endblock %}
+
+{% block your_js %}
+<script type="text/javascript">
+    function crop_save() {
+        cropSave();
+    }
+    var image_list=new Array();
+    Array.prototype.move = function(from,to){
+        this.splice(to,0,this.splice(from,1)[0]);
+        return this;
+    };
+    function deleteAllImages()
+    {
+        stopSlide();
+        document.getElementById("mySelect").innerHTML = "";
+        document.getElementById("slideshow").innerHTML = "<img class='preview-wp-"+mclass+"' src='/static/images/wp_black.png'>";
+        document.getElementById("prompt").innerHTML = "请选择图片";
+        image_list=new Array();
+        for (var i = 0; i < 4; i++) {
+            Cookies.remove('boot-'+i)
+        }
+    }
+    function updateGallery()
+    {
+        var content = "";
+        var content_slide = "";
+        var name = "";
+
+        stopSlide();
+        for (var i = 0; i < image_list.length; i++) {
+            content += "<li class='ui-sortable ui-sortable-handle'><img class='ani-img' src='";
+            if (image_list[i].pb != "") {
+                name = image_list[i].name+"?imageView2/3/w/169/h/281";
+            } else {
+                name = image_list[i].name+"|imageView2/3/w/169/h/281";
+            }
+            content += name + "'><a href='#' title='删除图片' class='ani-trash'><i class='fa fa-trash-o'></i></a><div class='ani-index'>"+(i+1)+"</div</li>";
+            content_slide += "<div><img class='preview-wp-"+mclass+"' src='"+name+"'></div>";
+            saveImageToCookie(i, image_list[i]);
+        }
+        for (var i = image_list.length; i < 4; i++) {
+            var image=new Object();
+            Cookies.remove('boot-'+i);
+        }
+        if (content != "") {
+            content = "<ul id='gallery' class='gallery ui-helper-reset ui-sortable' style='margin: 0.4em 0em 0em 1.3em;'>"+content+"</ul>";
+            document.getElementById("prompt").innerHTML = "用鼠标拖拽图片可以更改顺序";
+        } else {
+            content_slide = "";
+            document.getElementById("prompt").innerHTML = "<div class='prompt-empty' style='line-height:255px;'>请选择图片</div>";
+        }
+        document.getElementById("mySelect").innerHTML = content;
+        document.getElementById("slideshow").innerHTML = content_slide;
+        if (image_list.length>1) {
+            startSlide();
+        }
+
+        $( "#gallery" ).sortable({
+            start: function(e, ui) {
+                $(this).attr('data-previndex', ui.item.index());
+            },
+            update: function(e, ui) {
+                var to = ui.item.index();
+                var from = parseInt($(this).attr('data-previndex'));
+                $(this).removeAttr('data-previndex');
+                image_list.move(from, to);
+                cdLog("from="+from+",to="+to);
+                updateGallery();
+            }
+        });
+        $( "#gallery" ).disableSelection();
+        $( "ul.gallery > li" ).click(function( event ) {
+            var $item = $( this ),
+                $target = $( event.target );
+            if ( $target.is( "i.fa-trash-o" ) ) {
+                for (var j = 0; j < 4; j++) {
+                    var tmp =document.getElementById("img-"+j);
+                    if (tmp) {
+                        if (image_list[$item.index()].name == tmp.getAttribute("data-path")) {
+                            tmp.src = "/static/images/none.png";
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                image_list.splice($item.index(), 1);
+                updateGallery();
+                if (image_list.length == 0) {
+                    decreaseCustomItemCount();
+                }
+            }
+            return false;
+        });
+    }
+    function selectImage(name, md5, pb, crop, id)
+    {
+        for (var i = 0; i < image_list.length && id!=""; i++) {
+            if (image_list[i].name==name) {
+                document.getElementById(id).src="{% auto_version '/static/images/none.png' %}";
+                image_list.splice(i,1);
+                updateGallery();
+                if (image_list.length == 0) {
+                    decreaseCustomItemCount();
+                }
+                return;
+            }
+        }
+        if (image_list.length == 0) {
+            increaseCustomItemCount();
+        }
+        if (image_list.length >= 4) {
+            showToast('error',"最多可选4张图片");
+            return;
+        }
+        var image=new Object();
+        image.name=name;
+        image.md5=md5;
+        image.pb=pb;
+        image.crop=crop;
+        image_list.push(image);
+        updateGallery();
+        if (id != "") {
+            document.getElementById(id).src="{% auto_version '/static/images/checkbox.png' %}";
+        }
+    }
+    function saveImageToCookie(index, image) {
+        if (index >= 0 && index < 4) {
+            Cookies.set('boot-'+index, {"name":image.name,"md5":image.md5,"pb":image.pb,"crop":image.crop});
+        }
+    }
+    function loadImageFromCookie(index) {
+        var image=new Object();
+        image.name = "";
+        image.md5 = "";
+        image.pb = "";
+        image.crop = "";
+        var tmp = Cookies.getJSON('boot-'+index);
+        if (tmp) {
+            image.name = tmp.name;
+            image.md5 = tmp.md5;
+            image.pb = tmp.pb;
+            image.crop = tmp.crop;
+        }
+        return image;
+    }
+    window.onload = function() {
+        image_list=new Array();
+        for (var i=0; i<4; i++) {
+            image = loadImageFromCookie(i);
+            if (image.name == "") {
+                break;
+            } else {
+                image_list.push(image);
+                for (var j = 0; j < 4; j++) {
+                    var tmp =document.getElementById("img-"+j);
+                    if (tmp) {
+                        if (image.name == tmp.getAttribute("data-path")) {
+                            tmp.src = "/static/images/checkbox.png";
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+        updateGallery();
+        loadCustomItemCount();
+    }
+
+    $(function() {
+        var faked = 0;
+        $('#maker_help').on('click', function() {
+            clicked = 0;
+
+            introJs().onexit(function() {
+                if (faked) {
+                   $("div.prebuilt-img").each(function(){
+                        $(this).trigger("click");
+                   });
+                   faked = 0;
+                }
+            }).
+            oncomplete(function() {
+
+                if (faked) {
+                   $("div.prebuilt-img").each(function(){
+                        $(this).trigger("click");
+                   });
+                   faked = 0;
+                }
+            }).
+            onbeforechange(function(targetElement) {
+               if (this._currentStep == 1) {
+                   if (image_list.length < 2) {
+                       $("div.prebuilt-img").each(function(){
+                            $(this).trigger("click");
+                       });
+                       faked = 1;
+                   } else {
+                       faked = 0;
+                   }
+               } else if (this._currentStep == 2) {
+                   $("a[href='#custom']").trigger("click");
+               } else if (this._currentStep == 3){
+                   $("a[href='#prebuilt']").trigger("click");
+               }
+            }).
+            start();
+
+        });
+    });
+</script>
+{% endblock %}

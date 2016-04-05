@@ -1,0 +1,296 @@
+{% extends 'v2/base.html' %}
+
+{% load staticfiles %}
+{% load autoVersion %}
+{% block title %}锁屏壁纸{% endblock %}
+{% block wallpaper_lock_active %}active{% endblock %}
+{% block icon-wp-lock-index %}<span class="si si-index si-5-h"></span>{% endblock %}
+{% block icon-wp-lock %}<span class="si si-menu si-wlock-h"></span>{% endblock %}
+{% block icon-wp-lock-active %}<img class="menu-icon-active" src="{% auto_version '/static/images/icon-active.png' %}"/>{% endblock %}
+
+{% block your_css %}
+<link href="{% auto_version '/static/css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css' %}" />
+<link href="{% auto_version '/static/css/jquery-ui.min.css" rel="stylesheet" type="text/css' %}" >
+{% endblock %}
+
+{% block modal_block %}
+{% include 'v2/include/modal/uploadingModal.html' %}
+{% endblock %}
+
+{% block menu_right_block %}
+<div class="col-lg-9 col-md-9 col-sm-8" id="menu_right">
+<div class="text-left col-md-12 wrapper">
+    <input type="hidden" id="domain" value="http://7xio6q.com1.z0.glb.clouddn.com/">
+    <input type="hidden" id="uptoken_url" value="/v1/maker/uptoken2">
+    <ul class="tip col-md-12 text-mute">
+    </ul>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-5" data-step="3" data-position='left' data-intro='步骤3: 预览锁屏壁纸的效果'>
+        <div class="preview-panel">
+            <img src="/static/images/{{mclass}}_wp_bg.png">
+            <p id="preview">
+            </p>
+        </div>
+    </div>
+    <!-- /.col-lg-2 -->
+    <div class="col-lg-9 col-md-8 col-sm-7">
+        <div class="panel panel-primary">
+            <a class="panel-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse1" style="text-decoration:none">
+                <div class="panel-heading">
+                    <h4 class="panel-title">已选图片:</h4>
+                </div>
+            </a>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body" id="mySelect">
+                </div>
+            </div>
+        </div>
+        <!-- /.panel -->
+        <div class="panel panel-gray">
+            <a class="panel-gray accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse2" style="text-decoration:none">
+                <div class="panel-heading">
+                    <h4 class="panel-title">选择图片:</h4>
+                </div>
+                <!-- /.panel-heading -->
+            </a>
+            <div id="collapse2" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active" data-step="1" data-position='left' data-intro='步骤1: 您可以选择21KE制作的预置图片'><a id="tab_pb" href="#prebuilt" data-toggle="tab" onclick="_hmt.push(['_trackEvent', 'wallpaper_lock', 'wallpaper', '选择预置图片'])">选择预置图片</a>
+                        </li>
+                        <li data-step="2" data-position='right' data-intro='步骤2: 您可以也选择您自己的照片，并可进行在线裁剪'><a id="tab_cust" href="#custom" data-toggle="tab" onclick="_hmt.push(['_trackEvent', 'wallpaper_lock', 'diy', '上传自选图片'])">上传自选图片</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="prebuilt">
+                            <div style="padding-top:20px">
+                                {% if prebuilts %}
+                                <table>
+                                    <tr>
+                                        <td>
+                                            {% ifnotequal curPage 1 %}
+                                                <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=up"><i class='fa fa-angle-left image-paginator-active'></i></a>
+                                            {% else %}
+                                                <i class='fa fa-angle-left image-paginator-inactive'></i>
+                                            {% endifnotequal %}
+                                        </td>
+                                        <td>
+                                            <ul id="gallery" class="gallery ui-helper-reset">
+                                             {% for index,prebuilt in prebuilts %}
+                                             <li>
+                                                 <div class="prebuilt-img" id="pb-img-{{index}}" style="background-image:url({{prebuilt.res_file_path}}?imageView2/3/w/120/h/200);" onclick="selectImage('{{prebuilt.res_file_path}}','','{{prebuilt.id}}','','img-{{index}}')">
+                                                    <img class="prebuilt-img-check" id="img-{{index}}" data-path="{{prebuilt.res_file_path}}" src="{% auto_version '/static/images/none.png' %}">
+                                                 </div>
+                                             </li>
+                                             {% endfor %}
+                                            </ul>
+                                        </td>
+                                        <td style="padding-left:5px">
+                                            {% ifnotequal curPage allPage %}
+                                                <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=down"><i class='fa fa-angle-right image-paginator-active'></i></a>
+                                            {% else %}
+                                                <i class='fa fa-angle-right image-paginator-inactive'></i>
+                                            {% endifnotequal %}
+                                        </td>
+                                    </tr>
+                                </table>
+                                {% else %}
+                                      <strong>No prebuilt currently.</strong>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="custom">
+                            <p>
+                            <div id="container">
+                                <a id="pickfiles" href="javascript:void(0);">
+                                    <div class="btnBox">
+                                        <div class="btnIcon"><img src="{% auto_version '/static/images/btnForAdd.png' %}"/></div>
+                                        <div class="btnText">添加图片</div>
+                                    </div>
+                                </a>
+                                <a id="cropimage" href="javascript:void(0);" onclick="crop_save();">
+                                    <div class="btnBox">
+                                        <div class="btnIcon"><img src="{% auto_version '/static/images/btnForSave.png' %}"/></div>
+                                        <div class="btnText">提交保存</div>
+                                    </div>
+                                </a>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="img-upload-panel">
+                                <div class="img-crop-panel">
+                                    <img id="image_crop" alt="自选图片"/>
+                                </div>
+                                <div id="fsUploadProgress">
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-10 -->
+</div>
+</div>
+{% endblock %}
+
+{% block your_js %}
+<script type="text/javascript">
+    var lockwallpaper;
+    function crop_save() {
+        cropSave();
+    }
+    function updateGallery()
+    {
+        var content_select = "";
+        var content_preview = "";
+        var name = "";
+        if (lockwallpaper.name != "") {
+            Cookies.set('lockwp', {"name":lockwallpaper.name,"md5":lockwallpaper.md5,"pb":lockwallpaper.pb,"crop":lockwallpaper.crop});
+            content_select += "<li class=''><img class='ani-img' src='";
+            if (lockwallpaper.pb != "") {
+                name = lockwallpaper.name+"?imageView2/3/w/169/h/281";
+            } else {
+                name = lockwallpaper.name+"|imageView2/3/w/169/h/281";
+            }
+            content_select += name + "'><a href='#' title='删除图片' class='ani-trash'><i class='fa fa-trash-o'></i></li>";
+            content_preview = "<img class='preview-wp-"+mclass+"' src='/static/images/"+mclass+"_lock.png' style='background-image:url("+name+");'>";
+            content_select = "<ul id='gallery' class='gallery ui-helper-reset' style='margin: 0.4em 0em 0em 1.3em;'>"+content_select+"</ul>";
+        } else {
+            Cookies.remove('lockwp');
+            content_preview = "<img class='preview-wp-"+mclass+"' src='/static/images/"+mclass+"_lock.png' style='background-image:url(/static/images/wp_black.png);'>";
+            content_select = "<div class='prompt-empty' style='line-height:234px;'>请选择图片</div>";
+        }
+        document.getElementById("mySelect").innerHTML = content_select;
+        document.getElementById("preview").innerHTML = content_preview;
+
+        $( "ul.gallery > li" ).click(function( event ) {
+            var $item = $( this ),
+                $target = $( event.target );
+            if ( $target.is( "i.fa-trash-o" ) ) {
+                for (var j = 0; j < 4; j++) {
+                    var tmp =document.getElementById("img-"+j);
+                    if (tmp) {
+                        if (lockwallpaper.name == tmp.getAttribute("data-path")) {
+                            tmp.src = "/static/images/none.png";
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                lockwallpaper.name = "";
+                lockwallpaper.md5 = "";
+                lockwallpaper.pb = "";
+                lockwallpaper.crop = "";
+                updateGallery();
+                decreaseCustomItemCount();
+            }
+            return false;
+        });
+    }
+    function selectImage(name, md5, pb, crop, id) {
+        if (lockwallpaper.name==name) {
+            document.getElementById(id).src="{% auto_version '/static/images/none.png' %}";
+            lockwallpaper.name="";
+            lockwallpaper.md5="";
+            lockwallpaper.pb="";
+            lockwallpaper.crop="";
+            updateGallery();
+            decreaseCustomItemCount();
+            return;
+        }
+        for (var i = 0; i < 4; i++) {
+            var index = "img-"+i;
+            var tmp = document.getElementById(index);
+            if (tmp) {
+                if (id != index) {
+                    tmp.src = "/static/images/none.png";
+                } else {
+                    tmp.src = "/static/images/checkbox.png";
+                }
+            } else {
+                break;
+            }
+        }
+        if (lockwallpaper.name=="") {
+            increaseCustomItemCount();
+        }
+        lockwallpaper=new Object();
+        lockwallpaper.name = name;
+        lockwallpaper.md5 = md5;
+        lockwallpaper.pb = pb;
+        lockwallpaper.crop = crop;
+        updateGallery();
+    }
+    window.onload = function() {
+        lockwallpaper=new Object();
+        lockwallpaper.name="";
+        lockwallpaper.md5="";
+        lockwallpaper.pb="";
+        lockwallpaper.crop="";
+        var tmp = Cookies.getJSON("lockwp");
+        if (tmp) {
+            lockwallpaper.name = tmp.name;
+            lockwallpaper.md5 = tmp.md5;
+            lockwallpaper.pb = tmp.pb;
+            lockwallpaper.crop = tmp.crop;
+            for (var j = 0; j < 4; j++) {
+                var tmp =document.getElementById("img-"+j);
+                if (tmp) {
+                    if (lockwallpaper.name == tmp.getAttribute("data-path")) {
+                        tmp.src = "/static/images/checkbox.png";
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        updateGallery();
+        loadCustomItemCount();
+    }
+
+    $(function() {
+        var clicked = 0;
+        $('#maker_help').on('click', function() {
+            introJs().onchange(function(targetElement) {
+                switch(this._currentStep) {
+                case 0:
+                    $('#tab_pb').trigger("click");
+                    if (lockwallpaper.name == "") {
+                        $('#pb-img-0').trigger("click");
+                        clicked = 1;
+                    }
+                    break;
+                case 1:
+                    $('#tab_cust').trigger("click");
+                    break;
+                }
+            }).
+            oncomplete(function() {
+                if (clicked == 1) {
+                    $('#tab_pb').trigger("click");
+                    $('#pb-img-0').trigger("click");
+                    clicked = 0;
+                }
+            }).
+            onexit(function() {
+                if (clicked == 1) {
+                    $('#tab_pb').trigger("click");
+                    $('#pb-img-0').trigger("click");
+                    clicked = 0;
+                }
+            }).
+            start();
+        });
+    });
+</script>
+{% endblock %}

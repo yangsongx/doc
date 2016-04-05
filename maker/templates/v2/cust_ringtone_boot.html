@@ -1,0 +1,201 @@
+{% extends 'v2/base.html' %}
+
+{% load staticfiles %}
+{% load autoVersion %}
+{% block title %}开机音乐定制{% endblock %}
+
+{% block ringtone_boot_active %}active{% endblock %}
+{% block icon-ring-boot-index %}<span class="si si-index si-3-h"></span>{% endblock %}
+{% block icon-ring-boot %}<span class="si si-menu si-rboot-h"></span>{% endblock %}
+{% block icon-ring-boot-active %}<img class="menu-icon-active" src="{% auto_version '/static/images/icon-active.png' %}"/>{% endblock %}
+
+{% block your_css %}
+{% endblock %}
+
+{% block menu_right_block %}
+<div class="col-lg-9 col-md-9 col-sm-8" id="menu_right">
+<div class="text-left col-md-12 wrapper">
+    <input type="hidden" id="domain" value="http://7xio6q.com1.z0.glb.clouddn.com/">
+    <input type="hidden" id="uptoken_url" value="/v1/maker/uptoken2">
+    <input type="hidden" id="maxCrop" value="20">
+    <ul class="tip col-md-12 text-mute">
+    </ul>
+</div>
+
+<div class="row">
+  <div class="col-lg-3 col-md-4 col-sm-5">
+    <div class="preview-panel-{{mclass}}">
+      <img src="/static/images/{{mclass}}_app_bg.png">
+      <p id="preview_content">
+      </p>
+    </div>
+  </div>
+  <!-- /.col-lg-2 -->
+  <div class="col-lg-9 col-md-8 col-sm-7">
+    <div class="panel panel-primary" data-step="3" data-position='bottom' data-intro='步骤3: 试听或删除已选音乐'>
+      <a class="panel-primary accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse1" style="text-decoration:none">
+        <div class="panel-heading">
+          <h4 class="panel-title">已选开机音乐:</h4>
+        </div>
+      </a>
+      <div id="collapse1" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <p id="mySelect"></p>
+        </div>
+      </div>
+    </div>
+    <!-- /.panel -->
+    <div class="panel panel-gray">
+      <a class="panel-gray accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse2" style="text-decoration:none">
+        <div class="panel-heading">
+          <h4 class="panel-title">选择开机音乐:</h4>
+        </div>
+        <!-- /.panel-heading -->
+      </a>
+      <div id="collapse2" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs">
+            <li id="option_prebuilt" data-step="1" data-position='left' data-intro='步骤1: 您可以选择21KE制作的预置音乐'>
+              <a id="tab_pb" href="#prebuilt" data-toggle="tab" onclick="_hmt.push(['_trackEvent', 'ringtone_boot', 'ringtone', '选择预置音乐'])">选择预置音乐</a>
+            </li>
+            <li id="option_custom" data-step="2" data-position='right' data-intro='步骤2: 您可以也选择您自己的音乐，并可进行在线裁剪'>
+              <a id="tab_cust" href="#custom" data-toggle="tab" onclick="_hmt.push(['_trackEvent', 'ringtone_boot', 'diy', '上传自选音乐'])">上传自选音乐</a>
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="prebuilt">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs nav-tabs-x2">
+              {% if categories %}
+                {% for category in categories %}
+                  {% if category.isactive %}
+                    <li class="active">
+                  {% else %}
+                    <li>
+                  {% endif %}
+                    <a href="?curCate={{ category.tag }}">{{ category.name }}</a></li>
+                {% endfor %}
+              {% endif %}
+              </ul>
+      
+              <div class="tab-content">
+              {% if categories %}
+                {% for category in categories %}
+                  {% if category.isactive %}
+                    <div class="tab-pane fade in active" id="{{category.tag}}">
+                  {% else %}
+                    <div class="tab-pane fade {{category.isactive}}" id="{{category.tag}}">
+                  {% endif %}
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                          </thead>
+                          <tbody style=text-align:vertical>
+                            {% for app in category.applist %}
+                              <tr>
+                                <!--<td width="40"><img width='34px' height='34px'src="{{app.pic}}"/></td>-->
+                                <td width=“40">{{app.name}}</td>
+                                <td width=“40">{{app.author}}</td>
+                                <audio id="audiotag{{app.id}}" preload="none" src="{{app.url}}"></audio>
+                                <td width=“40" id= 'app-{{app.idx}}' data-url='{{app.url}}'  data-id='{{app.id}}' data-author='{{app.author}}' data-name='{{app.name}}' data-pic='{{app.pic}}'>
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                {% endfor %}
+              {% else %}
+                <strong>No prebuilt currently.</strong>
+              {% endif %}
+              </div>
+            <div class="align-center">
+            {% ifnotequal curPage 1 %}
+                <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=up">
+                    上一页
+                </a>
+            {% endifnotequal %} 
+            第{{ curPage }}/{{ allPage }}页 
+            {% ifnotequal curPage allPage %}
+                <a href="?curCate={{ curCate }}&&curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=down">
+                    下一页
+                </a>
+            {% endifnotequal %}
+            </div>
+            </div>
+            <div class="tab-pane fade" id="custom">
+              <p>
+                <div id="container">
+                  <a id="pickfiles" href="javascript:void(0);">
+                    <div class="btnBox">
+                      <div class="btnIcon"><img src="{% auto_version '/static/images/btnForAdd.png' %}"/></div>
+                      <div class="btnText">添加音乐</div>
+                    </div>
+                  </a>
+                  <a id="cropMusic" href="javascript:void(0);" onclick="saveMusicCrop();">
+                    <div class="btnBox">
+                      <div class="btnIcon"><img src="{% auto_version '/static/images/btnForSave.png' %}"/></div>
+                      <div class="btnText">保存选区</div>
+                    </div>
+                  </a>
+                  <div class="clearfix"></div>
+                </div>
+                <div id="audioPlayerPanel" style="display:none">
+                    <audio id="uploadMusic" preload="true">
+                    </audio>
+                    <div id="audioplayer">
+                        <button id="apBtnPlay" class="apBtnPlay" onclick="play()" style="visibility:hidden;"></button>
+                        <div id="apTimeline"></div>
+                        <div id="apPlayhead"></div>
+                        <div id="apSelection"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div>起点位置:&nbsp&nbsp<span id="mStart"></span></div>
+                    <div>终点位置:&nbsp&nbsp<span id="mEnd"></span></div>
+                    <div>当前位置:&nbsp&nbsp<span id="mCurrent"></span></div>
+                </div>
+                <div id="playlist" class="playlist">
+                  <div id="top-bar" class="playlist-top-bar">
+                    <div class="playlist-toolbar">
+                      <div class="btn-group">
+                        <span class="btn-pause btn btn-warning"><i class="fa fa-pause"></i></span>
+                        <span class="btn-play btn btn-success"><i class="fa fa-play"></i></span>
+                        <span class="btn-stop btn btn-danger"><i class="fa fa-stop"></i></span>
+                      </div>
+                      <div class="btn-group">
+                        <span title="放大" class="btn-zoom-in btn btn-default"><i class="fa fa-search-plus"></i></span>
+                        <span title="缩小" class="btn-zoom-out btn btn-default"><i class="fa fa-search-minus"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="playlist-time-scale"></div>
+                  <div class="playlist-tracks"></div>
+                  <div class="playlist-bottom-bar">
+                    <form class="form-inline">
+                      <input type="text" class="audio-start input-small form-control">
+                      <input type="text" class="audio-end input-small form-control">
+                      <label class="audio-pos">00:00:00.0</label>
+                    </form>
+                  </div>
+                </div>
+                <div id="fsUploadProgress">
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- /.panel-body -->
+      </div>
+    </div>
+    <!-- /.panel -->
+  </div>
+  <!-- /.col-lg-10 -->
+</div>
+</div>
+{% endblock %}
+{% block your_js %}
+{% endblock %}
+

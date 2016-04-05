@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+{% load autoVersion %}
+<body>
+<p>请输入两个数字</p>
+<form action="/add/" method="get">
+    a: <input type="text" id="a" name="a"> <br>
+    b: <input type="text" id="b" name="b"> <br>
+    <p>result: <div id='result'></div></p>
+    <button type="button" id='sum'>求和</button>
+</form>
+<script src="{% auto_version '/static/js/jquery-2.1.4.js' %}"></script>
+<script src="{% auto_version '/static/js/myjquery.js' %}"></script>
+</body>
+</html>0
