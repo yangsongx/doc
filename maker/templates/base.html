@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML>
+{% load staticfiles %}
+{% load compress %}
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}流氓兔{% endblock %}</title>
+  <link rel="shortcut icon" href="/static/images/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="{% static "css/common.css"%}" >
+  <link rel="stylesheet" type="text/css" href="{% static "css/footer.css"%}" >
+  <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/common.js"%}"></script>
+  <script>
+    var jq = jQuery.noConflict();
+  </script>
+  {% block meta %}
+  {% endblock %}
+</head>
+<body>
+  <div class="base_wrap">
+      {% block nav_main %}
+      <div class="header_bg">
+          <div class="header">
+            <div class="logo float_left">
+              <a href="/"><img src="/static/images/logo.jpg" class="logo float_left"/></a>
+            </div>
+            <div id="nav_main" class="float_left"  style="margin:20px 0 0 50px;">
+                <div class="inner1">
+                  <div class="inner2">
+                    <div id="nav_main_bar">
+                      <ul>
+                        <li class="current">
+                          <div class="bm">
+                            <div class="inner">
+                              <div class="inner3">
+                                <div class="inner4"><a href="/">首页<br/>Home</a></div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="bm">
+                            <div class="inner">
+                              <div class="inner3">
+                                <div class="inner4"><a class="{% block nav_main_maker %}{% endblock %}" href="#">定制中心<br/>Maker Center<span class="arrow">▼</span></a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="lm">
+                            <div class="inner5">
+                              <div class="inner6">
+                                <ul>
+                                 <li><a href="http://www.ioniconline.com">虚拟机器人&nbsp;VirtualRobot</a></li>
+                                <li><a href="http://www.ioniconline.com">智能硬件&nbsp;SmartHardware</a></li>
+                                <li><a href="http://www.ioniconline.com">游戏定制&nbsp;GameCustom</a></li>
+                                  <li class="clear"></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="bm">
+                            <div class="inner">
+                              <div class="inner3">
+                                <div class="inner4"> <a class="{% block nav_main_cases %}{% endblock %}" href="">案例中心<br/>Case Center<span class="arrow">▼</span></a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="lm">
+                            <div class="inner5">
+                              <div class="inner6">
+                                <ul>
+                                  <li><a href="http://www.ioniconline.com">流氓兔&nbsp;GangsterRabbit</a></li>
+                                  <li><a href="http://www.gezishuo.com">小格格&nbsp;GeZiShuo</a></li>
+                                  <li><a href="http://www.21ke.com">老克搞机&nbsp;21KE</a></li>
+                                  <li class="clear"></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li>
+                          <div class="bm">
+                            <div class="inner">
+                              <div class="inner3">
+                                <div class="inner4"><a class="{% block nav_main_service %}{% endblock %}" href="">服务中心<br/> Service Center<span class="arrow">▼</span></a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="lm">
+                            <div class="inner5">
+                              <div class="inner6">
+                                <ul>
+                                  <li><a href="http://www.ioniconline.com">接口文档&nbsp;Interface&Docs</a></li>
+                                  <li><a href="http://www.ioniconline.com">智能问答&nbsp;Smart Q&A</a></li>
+                                  <li><a href="http://www.ioniconline.com">意见反馈&nbsp;Feedback</a></li>
+                                  <li class="clear"></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="bm">
+                            <div class="inner">
+                              <div class="inner3">
+                                <div class="inner4"><a class="{% block nav_main_account %}{% endblock %}" href="">用户中心<br>User Center<span class="arrow">▼</span></a></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="lm">
+                            <div class="inner5">
+                              <div class="inner6">
+                                <ul>
+                                 {% if request.user.is_authenticated %}
+                                        <li><a href="">个人中心&nbsp;PersonalCenter</a></li>
+                                        <li><a href="">退出&nbsp;Signout</a></li>
+                                  {% else %}
+                                      <li><a href="/signin"><span class="login_ico shipCar_ico"></span>登录&nbsp;Signin</a></li>
+                                      <li><a href="/signup"><span class="login_ico shipCar_ico"></span>注册&nbsp;Signup</a></li>
+                                  {% endif %}
+                                  <li><a href="http://www.ioniconline.com">应用下载&nbsp;AppDownload</a></li>
+                                  <li><a href="http://www.ioniconline.com">微信服务&nbsp;WechatService</a></li>
+                                  <li class="clear"></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+      {% endblock %}
+      {% block content %}{% endblock %}
+      {% block footer %}
+      <div id="footer_wrap" class="footer_wrap">
+        <div class="footer">
+          <div class="footer_box">
+            <div class="left">
+                <h1>关注我们</h1>
+                <p>QQ群: XXXXXXXX</p>
+                <p>邮件: XXXXXXXX@liumangtu.cn</p>
+                <p>
+                    <a style="margin-right:15px;" href="#" target="_blank">联系我们</a>
+                </p>
+            </div>
+            <div class="left">
+              <h1>友情链接</h1>
+              <div class="uls">
+                <ul>
+                      <li>
+                        <a href="http://bbs.tuling123.com" title="图灵机器人论坛" target="_blank">图灵机器人论坛</a>
+                      </li>
+                      <li>
+                        <a href="http://www.xiaoweirobot.com" title="微信机器人" target="_blank">微信机器人</a>
+                      </li>
+                      <li>
+                        <a href="http://xfyun.cn/" title="讯飞开放平台" target="_blank">讯飞开放平台</a>
+                      </li>
+                      <li>
+                        <a href="http://www.weixinyunduan.com" title="微讯云端" target="_blank">微讯云端</a>
+                      </li>
+                      <li>
+                        <a href="http://bbs.htc.com" title="HTC论坛" target="_blank">HTC论坛</a>
+                      </li>
+                      <li>
+                        <a href="http://apistore.baidu.com/" title="API  Store" target="_blank">API  Store</a>
+                      </li>
+                      <li>
+                        <a href="http://www.rongcloud.cn" title="融云即时通讯云" target="_blank">融云即时通讯云</a>
+                      </li>
+                      <li>
+                        <a href="http://cqp.cc/forum.php" title="酷Q社区" target="_blank">酷Q社区</a>
+                      </li>
+                      <li>
+                        <a href="http://www.apicloud.com/" title="APICloud" target="_blank">APICloud</a>
+                      </li>
+                      <li>
+                        <a href="http://www.javaapk.com" title="JavaApk" target="_blank">JavaApk</a>
+                      </li>
+                      <li>
+                        <a href="http://yuyin.baidu.com" title="百度语音" target="_blank">百度语音</a>
+                      </li>
+                      <li>
+                        <a href="http://www.jikexueyuan.com" title="安卓开发" target="_blank">安卓开发</a>
+                      </li>
+                </ul>
+              </div>
+            </div>
+            <div class="left" style="margin-right:0;">
+                <h1>联系电话</h1>
+                <p>客服：025-XXXXXXXX</p>
+                <p>商务：025-XXXXXXXX</p>
+                <p>工作日 ： 9:00-17:30</p>
+            </div>
+            <div class="foter_bottom">
+                <p>
+                  {% if request.is_mobile %}<a href="/?flavour=mobile">触屏版</a> | {% endif %} <a href="">法律声明</a> | <a href="">意见反馈</a>
+                  <br/>
+                  @Copyright 2016 www.liumangtu.com, All Rights Reserved. ICP备案：苏ICP备xxxxxxxx号
+                </p>
+            </div>
+         </div>
+      </div>
+      {% endblock %}
+  </div>
+  <script type="text/javascript">
+/*  jq(document).ready(function() {
+    //高亮导航
+    jq(".header ul li").mouseover(function(){
+      jq(this).addClass('current');
+      jq(this).find(".main_nav_son").show();
+      jq(this).find("em.menu_ico").addClass('menu_ico_over');
+    }).mouseleave(function(){
+      jq(this).removeClass('current');
+      jq(this).find(".main_nav_son").hide();
+      jq(this).find("em.menu_ico").removeClass('menu_ico_over');
+    });
+  });*/
+
+ jq(function() {
+  var originalCur = jq("#nav_main li.current");
+  jq("#nav_main li").mousemove(function(){
+    jq("#nav_main li").removeClass("current"); 
+    jq(this).addClass("current");    
+    jq(this).children(".lm").show().animate({left : 15,top : 40}, "fast");
+  });
+  jq("#nav_main li").mouseleave(function(){
+   jq(this).removeClass("current"); 
+    jq(this).children(".lm").stop(true,true).animate({left:0,top:0},100,function(){
+      jq(this).hide();
+    });
+    originalCur.addClass("current");
+  });
+});
+
+  </script>
+{% block my_js %}
+<script type="text/javascript" src="/static/js/yuyue.js"></script>
+  <script type="text/javascript">
+      quickApply.init();
+  </script>
+{% endblock %}
+</body>
+</HTML>

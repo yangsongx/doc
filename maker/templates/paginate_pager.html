@@ -1,0 +1,9 @@
+{% if is_paginated %}
+    <div class="bottom_pages" id="page_nav">
+    </div>
+{% endif %}
+<script type="text/javascript">
+    jq(document).ready(function() {
+        paginate_full_refresh({{page_obj.paginator.num_pages}},{{page_obj.number}},'{{request.path}}');
+    });
+</script>

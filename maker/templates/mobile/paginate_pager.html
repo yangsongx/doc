@@ -1,0 +1,27 @@
+{% if is_paginated %}
+     <div data-role="widget-pagination" id="page_nav">
+        {% if page_obj.has_previous %}
+            <a class="pctype" href="javascript:void(0);" id="{{page_obj.previous_page_number}}">上一页</a>
+        {% else %}
+            <a class="widget-pagination-disable">上一页</a>
+        {% endif %}
+        <div>
+            <a class="widget-pagination-current-page">{{page_obj.number}}/{{page_obj.paginator.num_pages}}</a>
+            <select class="widget-pagination-pages needsclick" id="pageCounts">
+                {% for i in page_obj.paginator.page_range %}
+                      <option {% if page_obj.number == i %} selected=‘selected’ {% endif %} value="{{i}}">{{i}}/{{page_obj.paginator.num_pages}}</option>
+                 {% endfor %}
+            </select>
+        </div>
+        {% if page_obj.has_next %}
+            <a class="pctype" href="javascript:void(0);" id="{{page_obj.next_page_number}}">下一页</a>
+        {% else %}
+            <a class="widget-pagination-disable">下一页</a>
+        {% endif %}
+    </div>
+{% endif %}
+<script type="text/javascript">
+    jq(document).ready(function() {
+        m_paginate_full_refresh({{page_obj.paginator.num_pages}},{{page_obj.number}},'{{request.path}}');
+    });
+</script>

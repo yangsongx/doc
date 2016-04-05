@@ -165,7 +165,8 @@ def do_index(request, api_ver):
         logger.debug(
             "it is PC user , using [%s]" % request.user_agent.browser.family)
         if settings.CAREDEAR_DEBUG_MODE:
-            return render(request, api_ver + '/index.html')
+            # return render(request, api_ver + '/index.html')
+            return render(request, 'home.html')
         else:
             if api_ver == 'v1':
                 return HttpResponse(template_index_v1.render())

@@ -1,0 +1,35 @@
+{% extends "m_base.html" %}
+{% load staticfiles %}
+{% block title %}流氓兔{% endblock %}
+
+{% block meta %}
+<style type="text/css">
+.error_wrap{text-align: center;}
+.error_img{margin:90px auto;}
+.error_middle{margin:30px auto;color:red;font-size:18px;}
+.error_bottom{margin:30px auto 90px;font-size:16px;}
+.error_bottom p {margin-bottom:14px;}
+.error_bottom .linkstyle{color:green}
+</style>
+{% endblock %}
+{% block content %}
+      {% block page_title %}
+              <h1 class="header_title_text">404</h1>
+       {% endblock %}
+<div class="error_wrap">
+<div class="error_img">
+    <img src="/static/images/404.png"/>
+</div>
+<div class="error_middle">
+    <p>很抱歉，您访问的页面已经飞离地球。。。</p>
+</div>
+<div class="error_bottom">
+    <p>
+    <span>
+    <a href="javascript:history.back(-1)"  class="linkstyle">返回上一页</a>
+    <a href="/"  class="linkstyle">首页</a>
+    </span>
+    </p>
+</div>
+</div>
+{% endblock %}

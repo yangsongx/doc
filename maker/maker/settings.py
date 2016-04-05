@@ -67,6 +67,8 @@ INSTALLED_APPS = (
     'webviews',
     'django_user_agents',
     'compressor',
+    'django_mobile',
+    'mathfilters',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -81,6 +83,8 @@ MIDDLEWARE_CLASSES = (
     'django_user_agents.middleware.UserAgentMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     #'cas.middleware.CASMiddleware',
+    'django_mobile.middleware.MobileDetectionMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -105,13 +109,19 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, "templates"),],
-        'APP_DIRS': True,
+        #'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_mobile.context_processors.flavour',
+            ],
+            'loaders':[
+                'django_mobile.loader.Loader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
             ],
         },
     },
@@ -121,51 +131,22 @@ WSGI_APPLICATION = 'maker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-if is_ksyun_server() != None:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'maker',
-            'USER': 'root',
-            'PASSWORD': 'nanjing@!k',
-            'HOST': 'yz-memcache1',
-        },
+DATABASES = {
+    'default': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+       'ATOMIC_REQUESTS': True,
 
-        'market': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'market',
-            'USER': 'market',
-            'PASSWORD': 'xuyue',
-            'HOST': 'yz-mysql1',
-        },
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'liumangtu',
+        # 'USER': 'admin',
+        # 'PASSWORD': 'admin123',
+        # 'HOST': 'localhost',
+        # 'PORT': '',
+        # 'ATOMIC_REQUESTS': True,
 
-        'uc': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'uc',
-            'USER': 'root',
-            'PASSWORD': 'nanjing@!k',
-            'HOST': 'yz-mysql1',
-        },
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'maker',
-            'USER': 'root',
-            'PASSWORD': 'nanjing21k',
-            'HOST': 'localhost',
-        },
-
-        'market': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'market',
-            'USER': 'root',
-            'PASSWORD': 'nanjing21k',
-            'HOST': 'localhost',
-
-        },
-    }
+}
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 LANGUAGE_CODE = 'zh_CN'

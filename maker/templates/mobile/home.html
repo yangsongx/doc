@@ -1,0 +1,136 @@
+{% extends "m_base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}流氓兔{% endblock %}
+{% block meta %}
+{% compress css %}
+<link rel="stylesheet" type="text/css" href="{% static "css/m_home.css"%}">
+<link href="{% static "css/swiper.min.css"%}" rel="stylesheet" type="text/css">
+{% endcompress %}
+{% endblock %}
+{% block nav_back %} 
+    <li><a href="/" style="padding:0 10px"><img src="/static/images/logo.jpg" style="width:40px;height:32px;float:left;margin-top: 4px;"></a></li>
+{% endblock %}
+      {% block page_title %}
+              <h1 class="header_title_text">首页</h1>
+       {% endblock %}
+{% block content %}
+<div class="index_page" id="indexPage">
+    <section>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {% include "ad_test_data.html" %}
+            </div>
+            <div class="swiper-pagination">
+            </div>
+        </div>
+    </section>
+    <section>
+        <ul class="main-enter bottom-half-pixel clearfix">
+            <li>
+                <a class="click-point" data-point="2_1_1_1" href="#">
+                    <span class="m3icon icon-zxtuku-enter"></span>
+                    <h2>定制中心</h2>
+                </a>
+            </li>
+            <li>
+                <a class="click-point" data-point="2_1_1_5" href="#">
+                    <span class="m3icon icon-zxgl-enter"></span>
+                    <h2>案例中心</h2>
+                </a>
+            </li>
+            <li>
+                <a class="click-point" data-point="2_1_1_4" href="#">
+                    <span class="m3icon icon-zxgx-enter"></span>
+                    <h2>服务中心</h2>
+                </a>
+            </li>
+            <li>
+                <a class="click-point" data-point="2_1_1_7" href="#">
+                    <span class="m3icon icon-pptm-enter"></span>
+                    <h2>用户中心</h2>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <div class="top-sct top-sct-mfsj bottom-half-pixel">
+            <p class=" site-info  ">
+                “流氓兔”基于微信机器人做深度定制，为广大客户提供一站式营销，客服，智能办公，知识仓库构建等前沿性服务和解决方案，让你的企业如虎添翼！
+            </p>
+            <form class="mfsj-from" action="#">
+                <input class="row mfsj-name" name="chenghu" type="text" placeholder="您的称呼"/>
+                <input class="row mfsj-tel" id="phone" name="phone" type="tel" placeholder="手机号码"/>
+                <div class="row mfsj-submit">定制机器人</div>
+                <input name="ptag" type="hidden" value="2_1_4_1" readonly="readonly"/>
+            </form>
+    </div>
+    <div class="top-sct  top-sct-zxrx bottom-half-pixel">
+        <a href="tel:XXXXXXXXXXXX"><span class="span-info">服务热线：</span><span class="m3icon icon-tel-green"></span><span class="span-tel">XXXXXXXXXXXX</span></a>
+    </div>
+    <div class="top-sct tb-half-pixel">
+          <div class="partner_links">
+                <ul class="clearfix">
+                      <li>
+                        <a href="http://bbs.tuling123.com" title="图灵机器人论坛" target="_blank">图灵机器人论坛</a>
+                      </li>
+                      <li>
+                        <a href="http://www.xiaoweirobot.com" title="微信机器人" target="_blank">微信机器人</a>
+                      </li>
+                      <li>
+                        <a href="http://xfyun.cn/" title="讯飞开放平台" target="_blank">讯飞开放平台</a>
+                      </li>
+                      <li>
+                        <a href="http://www.weixinyunduan.com" title="微讯云端" target="_blank">微讯云端</a>
+                      </li>
+                      <li>
+                        <a href="http://bbs.htc.com" title="HTC论坛" target="_blank">HTC论坛</a>
+                      </li>
+                      <li>
+                        <a href="http://apistore.baidu.com/" title="API  Store" target="_blank">API  Store</a>
+                      </li>
+                      <li>
+                        <a href="http://www.rongcloud.cn" title="融云即时通讯云" target="_blank">融云即时通讯云</a>
+                      </li>
+                      <li>
+                        <a href="http://cqp.cc/forum.php" title="酷Q社区" target="_blank">酷Q社区</a>
+                      </li>
+                      <li>
+                        <a href="http://www.apicloud.com/" title="APICloud" target="_blank">APICloud</a>
+                      </li>
+                      <li>
+                        <a href="http://www.javaapk.com" title="JavaApk" target="_blank">JavaApk</a>
+                      </li>
+                      <li>
+                        <a href="http://yuyin.baidu.com" title="百度语音" target="_blank">百度语音</a>
+                      </li>
+                      <li>
+                        <a href="http://www.jikexueyuan.com" title="安卓开发" target="_blank">安卓开发</a>
+                      </li>
+                </ul>
+        </div>
+</section>
+</div>
+
+{% endblock %}
+{% block my_js %}
+{% compress js %}
+<script type="text/javascript" src="{% static "js/swiper.min.js"%}"></script>
+<script type="text/javascript" >
+    (window.jQuery || window.Zepto), jq(document).ready(function() {
+        {
+            new Swiper(".swiper-container", {
+                autoplay: 3e3,
+                pagination: ".swiper-pagination",
+                paginationClickable: true,
+                preloadImages: false,
+                lazyLoading: true,
+                centeredSlides: true,
+                autoplayDisableOnInteraction: true
+            })
+        }
+    });
+</script>
+{% endcompress %}
+{% endblock %}

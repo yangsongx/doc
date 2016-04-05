@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML>
+{% load staticfiles %}
+{% load compress %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
+  <meta name="applicable-device" content="mobile">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>{% block title %}流氓兔{% endblock %}</title>
+  <link rel="shortcut icon" href="/static/images/favicon.ico">
+  {% compress css %}
+      <link rel="stylesheet" type="text/css" href="{% static "css/m_common.css"%}">
+      <link rel="stylesheet" type="text/css" href="{% static "gnmenu/css/normalize.css"%}" />
+      <link rel="stylesheet" type="text/css" href="{% static "gnmenu/css/component.css"%}"/>
+  {% endcompress %}
+
+  {% block meta %}
+  {% endblock %}
+</head>
+<body>
+<header >
+    <nav id="dt-hd-nav">
+        <ul id="gn-menu" class="gn-menu-main">
+              {% block nav_back %}
+                    <li><a class="codrops-icon codrops-icon-prev" href="javascript:history.go(-1);"><span>返回</span></a></li>
+              {% endblock %}
+              <li class="gn-trigger">
+                    <a class="gn-icon gn-icon-menu"></a>
+                    <nav class="gn-menu-wrapper">
+                          <div class="gn-scroller">
+                                  <ul class="gn-menu">
+                                        <li>
+                                              <a class="gn-icon"><i class="m3icon icon-gn-home">&nbsp;&nbsp;&nbsp;&nbsp;</i><span>首页</span></a>
+                                        </li>
+                                        <li><a class="gn-icon"><i class="m3icon icon-gn-maker">&nbsp;&nbsp;&nbsp;&nbsp;</i><span>定制中心</span></a>
+                                              <ul class="gn-submenu">
+                                                    <li><a href="http://www.ioniconline.com" class="gn-icon"><span>虚拟机器人&nbsp;VirtualRobot</span></a></li>
+                                                    <li><a href="http://www.ioniconline.com" class="gn-icon"><span>智能硬件&nbsp;SmartHardware</span></a></li>
+                                                    <li><a href="http://www.ioniconline.com" class="gn-icon"><span>游戏定制&nbsp;GameCustom</span></a></li>
+                                              </ul>
+                                        </li>
+                                        <li><a class="gn-icon"><i class="m3icon icon-gn-cases">&nbsp;&nbsp;&nbsp;&nbsp;</i><span>案例中心</span></a>
+                                              <ul class="gn-submenu">
+                                                    <li><a href="http://www.ioniconline.com" class="gn-icon"><span>流氓兔&nbsp;GangsterRabbit</span></a></li>
+                                                    <li><a href="http://www.gezishuo.com" class="gn-icon"><span>小格格&nbsp;GeZiShuo</span></a></li>
+                                                    <li><a href="http://www.21ke.com" class="gn-icon"><span>老克搞机&nbsp;21KE</span></a></li>
+                                              </ul>
+                                        </li>
+                                        <li><a class="gn-icon"><i class="m3icon icon-gn-service">&nbsp;&nbsp;&nbsp;&nbsp;</i><span>服务中心</span></a>
+                                              <ul class="gn-submenu">
+                                                    <li><a href="http://www.ioniconline.com" class="gn-icon"><span>接口文档&nbsp;Interface&Docs</span></a></li>
+                                                    <li><a href="http://www.ioniconline.com" class="gn-icon"><span>智能问答&nbsp;Smart Q&A</span></a></li>
+                                                    <li><a href="http://www.ioniconline.com" class="gn-icon"><span>意见反馈&nbsp;Feedback</span></a></li>
+                                              </ul>
+                                        </li>
+                                        <li><a class="gn-icon"><i class="m3icon icon-gn-account">&nbsp;&nbsp;&nbsp;&nbsp;</i><span>用户中心</span></a>
+                                              <ul class="gn-submenu">
+                                                  {% if request.user.is_authenticated %}
+                                                        <li><a href=""class="gn-icon"><span>个人中心&nbsp;PersonalCenter</span></a></li>
+                                                        <li><a href=""class="gn-icon"><span>退出&nbsp;Signout</span></a></li>
+                                                  {% else %}
+                                                      <li><a href="/signin"class="gn-icon"><span></span>登录&nbsp;Signin</a></li>
+                                                      <li><a href="/signup"class="gn-icon"><span></span>注册&nbsp;Signup</a></li>
+                                                  {% endif %}
+                                                  <li><a href="http://www.ioniconline.com"class="gn-icon"><span>应用下载&nbsp;AppDownload</span></a></li>
+                                                  <li><a href="http://www.ioniconline.com"class="gn-icon"><span>微信服务&nbsp;WechatService</span></a></li>
+                                              </ul>
+                                        </li>
+                                  </ul>
+                          </div><!-- /gn-scroller -->
+                    </nav>
+                </li>
+         </ul>
+    </nav>
+    {% block page_title %}
+              <h1 class="header_title_text text-overflow">首页</h1>
+    {% endblock %}
+    
+</header>
+{% block myheader %}
+{% endblock %}
+<div style="margin-top: 40px;">
+{% block content %}
+{% endblock %}
+</div>
+<div class="pg-ft">
+    <ul class="terminal-nav">
+        <li><a class="active" href="/?flavour=mobile">触屏版</a></li>
+        <li><span class="i-sep"></span><a href="/?flavour=full">电脑版</a></li>
+        <li><span class="i-sep"></span><a href="#">关于我们</a></li>
+    </ul>
+    <div class="company-info">流氓兔：<a href="http://www.liumangtu.com">www.liumangtu.com</a>&nbsp;ICP备案：苏ICP备XXXXXXX号</div>
+</div>
+{% compress js %}
+     <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
+     <script>
+           var jq = jQuery.noConflict();
+     </script>
+     <script type="text/javascript" src="{% static "js/swiper.min.js"%}"></script>
+    <script type="text/javascript" src="{% static "js/m_common.js"%}"></script>
+    <script type="text/javascript" src="{% static "gnmenu/js/modernizr.custom.js"%}"></script>
+    <script type="text/javascript" src="{% static "gnmenu/js/classie.js"%}"></script>
+    <script type="text/javascript" src="{% static "gnmenu/js/gnmenu.js"%}"></script>
+    <script type="text/javascript" >
+          new gnMenu( document.getElementById( 'gn-menu' ) );
+    </script>
+{% endcompress %}
+{% block my_js %}
+{% endblock %}
+</body>
+</HTML>
