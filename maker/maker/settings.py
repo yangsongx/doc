@@ -18,6 +18,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 import re
 import commands
+
+#########################################################
+# An util for dev env and product env check
+#
+# return value:
+#  * 0 - a plain local dev(using SQLite)
+#  * 1-  formal product server env(Using MySQL in formal server)
+#  * 2 - My(ysx) local dev env(MySQL in LAN)
+#  * ? - anyone can add here for your own dev type
+def _check_env_type():
+    env_type = 0
+
+    s = commands.getoutput('who am i')
+    if re.search(r'yang', s) != None:
+        return 2 # ysx dev env
+
+    return env_type
+
 def is_ksyun_server():
     str=commands.getoutput("/sbin/ifconfig")
     return re.search("10.128", str)
@@ -69,6 +87,7 @@ INSTALLED_APPS = (
     'compressor',
     'django_mobile',
     'mathfilters',
+    'uc', # User Center
 )
 
 MIDDLEWARE_CLASSES = (
@@ -131,22 +150,45 @@ WSGI_APPLICATION = 'maker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-DATABASES = {
+if _check_env_type() == 1:
+  #TODO formal DB settings are????
+  DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'liumangtu',
+        'USER': 'admin',
+        'PASSWORD': 'admin123',
+        'HOST': 'localhost',
+        'PORT': '',
+        'ATOMIC_REQUESTS': True,
+
+    }
+  }
+elif _check_env_type() == 2:
+  #ysx dev DB env
+  DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'xyz',
+        'USER': 'root',
+        'PASSWORD': 'nanjing@!k',
+        'HOST': '192.168.1.13',
+        'PORT': '',
+        'ATOMIC_REQUESTS': True,
+
+    }
+  }
+else: # TODO - anyone can add your own DB based on @_check_env_type()
+  # This is for Non-MySQL dev case
+  DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.sqlite3',
        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
        'ATOMIC_REQUESTS': True,
 
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'liumangtu',
-        # 'USER': 'admin',
-        # 'PASSWORD': 'admin123',
-        # 'HOST': 'localhost',
-        # 'PORT': '',
-        # 'ATOMIC_REQUESTS': True,
-
     }
-}
+  }
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 LANGUAGE_CODE = 'zh_CN'

@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from . import settings
+import uc.views
 
 urlpatterns = [
     url(r'^$', 'webviews.views.maker_index', name='home'),
@@ -71,6 +72,9 @@ urlpatterns = [
     url(r'^(?P<api_ver>v\d+)/maker/cust/wallpaper_head/$', 'webviews.views.cust_wallpaper_head',name='cust_wallpaper_lock'),
     url(r'^(?P<api_ver>v\d+)/maker/cust/ringtone_boot/$', 'webviews.views.cust_ringtone_boot',name='cust_ringtone_boot'),
     url(r'^(?P<api_ver>v\d+)/maker/cust/submit/$', 'webviews.views.cust_submit',name='cust_submit'),
+# TODO in future, all user-center related request should include(uc.urls) under the uc/xxxx/ domain section...
+    url(r'^signup/$', uc.views.uc_signup, name='signup'), # Using Django >= 1.9 style ^_^
+    url(r'^signin/$', uc.views.uc_signin, name='signin'),
 ]
 
 if settings.DEBUG is False:
