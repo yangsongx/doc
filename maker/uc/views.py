@@ -1,6 +1,7 @@
 #encoding=utf-8
 
 import hashlib
+import json
 import sys
 from django import forms
 from django.http import HttpResponse,HttpResponseRedirect
@@ -58,6 +59,15 @@ def _verify_user_code(name, code):
         print info
 
     return ok
+
+def _is_user_existed(name):
+    existed = 0
+    o = Account.objects.filter(user_name = name)
+    if len(o) > 0:
+        print 'Oh, this user already existed in DB'
+        existed = 1
+
+    return existed
 #
 # Create your views here.
 
@@ -102,3 +112,39 @@ def uc_signin(request):
         usr = AccountForm()
 
     return render_to_response('login.html',{'user': usr})
+
+###################################################################################
+# Check if the user already existed or NOT
+#
+def uc_checkExistence(request):
+    ret = {}
+    ret['code'] = 0
+
+    try:
+        if request.method == 'POST':
+            js_data = json.loads(request.body)
+            name = js_data['name']
+            if _is_user_existed(name) == 1:
+                ret['code'] = 1
+        else:
+            ret['code'] = 1
+            ret['msg'] = 'Only support POST'
+    except:
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        ret['code'] = -1
+        ret['msg'] = info
+
+    return HttpResponse(json.dumps(ret))
+###################################################################################
+def uc_changePwd(request):
+    ret = {}
+    ret['code'] = 0
+
+    try:
+        print 'code not completed YET, dependent on UI design'
+    except:
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        ret['code'] = -1
+        ret['msg'] = info
+
+    return HttpResponse(json.dumps(ret))

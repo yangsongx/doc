@@ -75,6 +75,7 @@ urlpatterns = [
 # TODO in future, all user-center related request should include(uc.urls) under the uc/xxxx/ domain section...
     url(r'^signup/$', uc.views.uc_signup, name='signup'), # Using Django >= 1.9 style ^_^
     url(r'^signin/$', uc.views.uc_signin, name='signin'),
+    url(r'^uc/', include('uc.ucurls')),
 ]
 
 if settings.DEBUG is False:
