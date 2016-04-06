@@ -2,6 +2,8 @@
 *.log
 *.amr
 *.mp3
+wx/saved/*
 wx/saved/msgimgs/*
 wx/saved/videos/*
 wx/saved/voices/*
+wx/out/*
