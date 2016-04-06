@@ -161,7 +161,8 @@ def maker_index(request):
 
 
 def do_index(request, api_ver):
-    if (request.user_agent.is_pc):
+    #if (request.user_agent.is_pc):
+    if True:
         logger.debug(
             "it is PC user , using [%s]" % request.user_agent.browser.family)
         if settings.CAREDEAR_DEBUG_MODE:
