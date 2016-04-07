@@ -1,0 +1,38 @@
+
+/**/
+.webInsidePage_z .systemNotice_z,
+.messagePage_z .systemNotice_z{padding: 15px 0 10px;width: 100%;border-bottom: #dcdcdc solid 1px;}
+.webInsidePage_z .systemNotice_z>span,
+.messagePage_z .systemNotice_z>span{display: block;text-indent: 18px;height: 25px; line-height: 25px;border-left: 3px solid #58b0ef;font-size: 14px;color: #5e5e5e;}
+.webInsidePage_z .message,
+.messagePage_z .message{padding: 0 70px 30px 28px;}
+.messagePage_z .message li .line{position: absolute;top: -2px;left: 44px;height: 1px; right: 58px; background: #E9EAEE;}
+.webInsidePage_z .message li,
+.messagePage_z .message li{margin-top: 37px;background-color: #F5F5F9;}
+.messagePage_z .message li>div{padding-left:44px; }
+.messagePage_z .message li>div:nth-of-type(1){font-size: 16px;color: #333333;height: 58px; line-height: 58px;}
+.messagePage_z .message li>div:nth-of-type(1) span:nth-of-type(1){cursor: pointer; width: auto;max-width:60%; float: left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.messagePage_z .message li>div:nth-of-type(1) span:nth-of-type(1).active{color: #A9B1BD;}
+.messagePage_z .message li>div:nth-of-type(1) span:nth-of-type(2){width: auto; float: left;font-size: 12px;color: #818085;padding-left: 28px;}
+.messagePage_z .message li>div:nth-of-type(1) span:nth-of-type(3){width: auto; float: right;width: 102px;text-indent: 18px;font-size: 12px;color: #FF9957;background: url(../img/icon191.png) left center no-repeat;cursor: pointer;}
+.messagePage_z .message li>div:nth-of-type(2){padding: 12px 148px 34px 44px;position: relative;}
+.messagePage_z .message li>div:nth-of-type(2) div{line-height: 22px;color: #737373;}
+.webInsidePage_z .message li>span:nth-of-type(2),
+.messagePage_z .message li>div:nth-of-type(2)>span{position: absolute;bottom: 18px;right: 48px;color: #53B3E6;font-size: 12px;cursor: pointer;}
+/**/
+.webInsidePage_z .message li{padding: 26px 0 32px;background:#F5F5F9 url(../img/icon188.png) 14px 22px no-repeat;line-height: 22px;min-height: 44px; height: auto;position: relative;}
+.webInsidePage_z .message li>p{margin-left: 102px;font-size: 14px;width: 75%;}
+.webInsidePage_z .message li .content{margin-left:102px; font-size: 14px;width: 85%;color: #333333;line-height: 22px; word-wrap: break-word;}
+.webInsidePage_z .message li>p span{color: #2D9FDB;}
+.webInsidePage_z .message li>span:nth-of-type(1){position: absolute;left: 102px; bottom: 10px;color: #837F7F;font-size: 12px;}
+.webInsidePage_z .message li>span:nth-of-type(2){bottom: 10px;}
+
+
+
+
+
+
+
+
+
+

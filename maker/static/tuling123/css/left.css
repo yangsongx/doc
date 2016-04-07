@@ -1,0 +1,454 @@
+.personal_left {
+	width: 180px;
+	background: #2d9fdb;
+	float: left;
+	margin-top:89px;
+	position: relative;
+}
+.personal_left .sidebar {
+	background: #2d9fdb;
+	overflow: hidden;
+}
+.personal_left .move_text {
+	display: none;
+	position: absolute;
+	top: 0px;
+	right: -125px;
+	width: 110px;
+	height: 40px;
+	color: #fff;
+	z-index: 10;
+}
+.personal_left .move_text_bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 40px;
+	width: 110px;
+}
+.personal_left .move_text span {
+	position: absolute;
+	top: 10px;
+	left: -20px;
+	z-index: 4;
+	width: 0;
+	height: 0;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #808080 transparent transparent;
+}
+.personal_left .move_text .text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+	color: #fff;
+	width: 110px;
+	height: 40px;
+	background: #808080;
+	line-height: 40px;
+	font-size: 12px;
+	text-align: center;
+}
+.personal_left.mini {
+	width: 55px;
+}
+.personal_left.mini .mini_hide,
+.personal_left.mini .sidebar_nav .uls li .lis li .name {
+	display: none;
+	-o-transition: all 0.2s ease;
+	-ms-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-webkit-transition: all 0.2s ease;
+}
+.personal_left.mini .mini_hide{
+	position: absolute;
+}
+.personal_left.mini .sidebar_header {
+	width: 55px;
+	background: #1f4d65 url(../img/icon66.png) center no-repeat;
+}
+.personal_left .sidebar_header {
+	background: #1f4d65 url(../img/icon67.png) center no-repeat;
+	width: 180px;
+	height: 40px;
+	cursor: pointer;
+}
+.personal_left .sidebar_nav {
+	width: 197px;
+	overflow-y: scroll;
+}
+.personal_left.mini .sidebar_nav {
+	width: 72px;
+}
+.personal_left .sidebar_nav .uls li {
+	line-height: 40px;
+}
+.personal_left .sidebar_nav .uls li .uls_header {
+	position: relative;
+	cursor: pointer;
+	line-height: 40px;
+	clear: both;
+	overflow: hidden;
+	background: #1f8dc8;
+}
+.personal_left .sidebar_nav .uls li .uls_header .left {
+	background: url(../img/icon69.png) center no-repeat;
+	width: 55px;
+	height: 40px;
+	display: block;
+	float: left;
+}
+.personal_left .sidebar_nav .uls li .uls_header.active .left {
+	background: url(../img/icon68.png) center no-repeat;
+}
+.personal_left .sidebar_nav .uls li .uls_header .center {
+	color: #fff;
+	font-size: 12px;
+}
+.personal_left .sidebar_nav .uls li .uls_header .right {
+	position: absolute;
+	right: 0;
+	top: 0;
+	vertical-align: middle;
+	height: 35px;
+	width: 40px;
+	padding-top:5px;
+}
+.personal_left .sidebar_nav .uls li .uls_header .right a {
+	display: block;
+	width: 100%;
+	height: 35px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 14px;
+	padding-top: 5px;
+	color: #a0abb3;
+	text-decoration: none;
+}
+.personal_left .sidebar_nav .uls li .uls_header .right a img {
+	width: 20px;
+	height: 20px;
+	max-width: 20px;
+}
+.personal_left .sidebar_nav .uls li .lis {
+	display:none;
+	font-size: 12px;
+}
+.personal_left .sidebar_nav .uls li .lis li:hover {
+	background: #7ecdf4;
+}
+.personal_left .sidebar_nav .uls li .lis li.active {
+	background: #7ecdf4;
+}
+.personal_left .sidebar_nav .uls li .lis li a {
+	color: #fff;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	display: block;
+	overflow: hidden;
+	text-decoration: none;
+}
+.personal_left .sidebar_nav .uls li .lis li .icon {
+	width: 55px;
+	height: 32px;
+	float: left;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 10px;
+}
+.personal_left .sidebar_nav .uls li .lis li .icon img{
+	display:block;
+	margin: 0 auto;
+}
+.personal_left .sidebar_nav .uls li .lis li .name {
+	float: left;
+	display: block;
+}
+
+/* 右侧公用样式 */
+.personal_right {
+	position: absolute;
+	width: auto;
+	top: 89px;
+	bottom: 0px;
+	left: 180px;
+	right: 0px;
+	min-width:1200px;
+}
+.personal_right.mini {
+	left: 55px;
+}
+.personal_right .personal_right_box {
+	padding-left: 40px;
+	padding-right:40px;
+	position: absolute;
+	width: auto;
+	top: 0px;
+	bottom: 0px;
+	left: 165px;
+	right: 0px;
+	z-index: 6;
+	overflow-y:auto;
+	overflow-x:hidden;
+	-o-transition: all 0.2s ease;
+	-ms-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-webkit-transition: all 0.2s ease;
+}
+.personal_right .personal_right_box.mini {
+	left: 0;
+}
+
+.personal_right .personal_head {
+	width: 100%;
+	border-bottom: 1px solid #dcdcdc;
+	padding: 15px 0 10px 0px;
+	height: 25px;
+	line-height: 25px;
+}
+.personal_right .personal_head span {
+	display: block;
+	float: left;
+	border-left: 3px solid #58b0ef;
+	padding-left: 20px;
+	color: #5e5e5e;
+	font-size: 14px;
+	height: 25px;
+	line-height: 25px;
+}
+.personal_right .personal_head span a{
+	color: #5e5e5e;
+	font-size: 14px;
+	height: 25px;
+	line-height: 25px;
+	display:block;
+	text-decoration: none;
+}
+.personal_right .personal_head .span2{
+	float: left;
+	padding-left: 10px;
+	color: #25aee4;
+	font-size: 14px;
+	height: 25px;
+	line-height: 25px;
+}
+.personal_right .personal_head .order_select{
+	float:right;
+	margin-right:25px;
+	width:100px;
+	background:#f4f8fb;
+	height:20px;
+	border:1px solid #dbdcde;
+	outline: none;
+}
+.personal_right .personal_head .switch {
+	width: 90px;
+	height: 25px;
+	line-height: 25px;
+	margin-left: 30px;
+}
+.personal_right .personal_head .switch .switch-animate {
+	width: 135px;
+	height: 25px;
+	line-height: 25px;
+}
+.personal_right .personal_head .switch .switch-animate span {
+	width: 45px;
+	height: 25px;
+	line-height: 25px;
+}
+.personal_right .personal_head .right{
+	float:right;
+	margin-right:80px;
+}
+.personal_right .personal_head .right li{
+	float:left;
+	cursor:pointer;
+	width:22px;
+	height:22px;
+	margin-left:15px;
+}
+.personal_right .personal_head .right li:hover{
+	background:#e4eef3;
+}
+.personal_right .personal_head .right li.active{
+	background: #cbe8f6;
+	border:1px solid #26a0da;
+}
+/* 提示词样式 */
+.personal_right .fenlei1 .abs,.personal_right .fenlei2 .abs{
+	display:none;
+	position: absolute;
+    top: 0px;
+    left: 30px;
+	z-index:100;
+	width: 480px;
+}
+.personal_right .fenlei1 .abs i,.personal_right .fenlei2 .abs i{
+	background: #e1e1e1;
+	font-size: 14px;
+    line-height: 25px;
+	border-radius:3px;
+	color:#ababab;
+	padding:5px;
+	display: inline-block;
+	width: auto;
+	max-width: 480px;
+}
+/* on off开关按钮 */
+.personal_right .switch {
+	float: left;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	position: relative;
+	text-align: left;
+	overflow: hidden;
+	line-height: 8px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	width: 100px;
+	height: 33px;
+}
+.personal_right .switch .switch-animate {
+	width: 150px;
+	height: 33px;
+	display: inline-block;
+	position: relative;
+	top: 0;
+	-webkit-transition: left 0.5s;
+	-moz-transition: left 0.5s;
+	-o-transition: left 0.5s;
+	transition: left 0.5s;
+}
+.personal_right .switch .switch-animate.switch-on {
+	left: 0;
+}
+.personal_right .switch .switch-animate.switch-off {
+	left: -50%;
+}
+.personal_right .switch .switch-animate span {
+	float: left;
+	width: 50px;
+	height: 33px;
+	display: block;
+	text-align: center;
+	line-height: 33px;
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+.personal_right .switch .switch-animate .left {
+	background: #ff9957;
+	color: #fff;
+}
+.personal_right .switch .switch-animate .center {
+	background: #e3e7eb;
+}
+.personal_right .switch .switch-animate .right {
+	background: #cbd1d7;
+}
+/* 带解释说明小问号的一行样式 */
+.personal_right .xuanzefenlei {
+	position:relative;
+	height:40px;
+	margin-top: 20px;
+}
+.personal_right .fenlei,
+.personal_right .biaoqian {
+	float: left;
+	overflow: hidden;
+	margin-right: 20px;
+}
+.personal_right .fenlei1,.personal_right .fenlei2{
+	float:left;
+	position:relative;
+	width: 22px;
+    height: 22px;
+	margin-top: 5px;
+	margin-right:20px;
+	margin-left:10px;
+}
+.personal_right .fenlei2{
+	margin-top:10px;
+	margin-left:0;
+}
+.personal_right .fenlei1 .fenleibox,.personal_right .fenlei2.fenleibox{
+	position:absolute;
+	top:0;left:0;
+}
+.personal_right .fenlei1 .fenleibox img,.personal_right .fenlei2 .fenleibox img{
+	width:20px;
+	height:20px;
+	cursor:pointer;
+}
+
+.personal_right .fenlei span,
+.personal_right .biaoqian span {
+	display: block;
+	float: left;
+	width: 65px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+}
+.personal_right .fenlei .right,
+.personal_right .biaoqian .right {
+	float: left;
+	height: 32px;
+	line-height: 30px;
+}
+.personal_right .fenlei .right select,
+.personal_right .biaoqian .right select {
+	width: 100px;
+	height: 30px;
+	outline: none;
+	line-height: 30px;
+}
+
+.personal_right .fenlei .right select option,
+.personal_right .biaoqian .right select option{
+	height:30px;
+	line-height:30px;
+}
+/*新功能小点的显示*/
+.text_name{
+	position: relative;
+}
+ .newFeatures_z{
+	width: 40px;
+	height: 40px;
+	float: right;
+	text-align: left;
+	display:none;
+	position: relative;
+
+}
+.newFeatures_z i{
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background-color: #f93c41;
+	box-shadow: 0.5px 0.3px #af2f23;
+	margin-top: 16px;
+	display: inline-block;
+}
+.newFeatures_z span{position: absolute;border-radius: 50%;background: #ccc; display: none}
+.newFeatures_z .circle1{width: 6px; height: 6px;left: -7px;  top: 13px;}
+.newFeatures_z .circle2{width: 6px; height: 6px;left: 8px;top: 22px;}
+.newFeatures_z .circle3{width: 6px; height: 6px;left: -3px;top: 25px;}
+.newFeatures_z .circle5{width: 6px; height: 6px;left: 6px;top: 10px;}
+.newFeatures_z .circle4{width: 8px; height: 8px;left:0;top: 16px;}
+
+.newFeatures_z.active{
+	display:block;
+}

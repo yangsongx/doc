@@ -1,0 +1,14 @@
+{% extends "uc_base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}流氓兔{% endblock %}
+{% block meta %}
+<meta />
+{% endblock %}
+
+{% block uc_title %}产品动态{% endblock %}
+{% block uc_content %}
+       {% include 'uc_product_list.html'%}
+{% endblock %}
+     

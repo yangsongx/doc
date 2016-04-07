@@ -84,7 +84,7 @@ def uc_signup(request):
             print passwd
             # Now save the Data into DB...
             _save_user_code(name, passwd)
-            return render_to_response('regok.html')
+            return render_to_response('uc_home.html')
     else:
         print 'GET'
         usr = AccountForm()
@@ -104,7 +104,7 @@ def uc_signin(request):
             print 'the REDIC:'
             # TODO - login OK/fail SHOULD show in the LOGIN page?
             if ret == 0:
-                return render_to_response('regok.html')
+                return render_to_response('uc_home.html')
             else:
                 return HttpResponse('FAILED, TODO- You need do this in login UI')
     else:
@@ -148,3 +148,8 @@ def uc_changePwd(request):
         ret['msg'] = info
 
     return HttpResponse(json.dumps(ret))
+
+    ###################################################################################
+# Personalcenter(Login)
+def uc_pcenter(request):
+    return render_to_response('uc_home.html')

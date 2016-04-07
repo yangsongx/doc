@@ -115,7 +115,7 @@
                               <div class="inner6">
                                 <ul>
                                  {% if request.user.is_authenticated %}
-                                        <li><a href="">个人中心&nbsp;PersonalCenter</a></li>
+                                        <li><a href="{% url 'personalcenter' %}">个人中心&nbsp;PersonalCenter</a></li>
                                         <li><a href="">退出&nbsp;Signout</a></li>
                                   {% else %}
                                       <li><a href="/signin"><span class="login_ico shipCar_ico"></span>登录&nbsp;Signin</a></li>
