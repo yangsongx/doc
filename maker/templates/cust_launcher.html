@@ -92,7 +92,7 @@
 <script type="text/javascript" src="/static/js/progressbar.js"></script>
 <script type="text/javascript">
     var line;
-    var login = 0;
+    //var login = 0;
     function startWxBot() {
           //updateImg();
           updateUI(9);
@@ -197,7 +197,7 @@
     function startProgress() {
         if (!line) {
             line = new ProgressBar.Line('#progress', {
-              duration: 10000,
+              duration: 5000,
               color: '#FCB03C',
               easing: 'easeInOut',
               //from: { color: '#eee' },
@@ -214,19 +214,17 @@
         console.log("do animation");
         line.animate(1.0,
              {
-                duration: 10000
+                duration: 5000
              },
              function()
              {
                line.set(0.0);
                console.log('Animation has finished');
-               if (!login) {
+               //if (!login) {
                    updateImg();
-                }
+               // }
              });  // Number from 0.0 to 1.0
      }
-
-
 
 
 
@@ -252,6 +250,8 @@
                     if(newqr != "") {
                         $("#qrcode").attr("src", newqr);
                         startProgress();
+                    }else {
+                        showToast('error',"正在初始化，请稍后");
                     }
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
@@ -310,7 +310,7 @@
                     console.log(JSON.stringify(data));
                     var result = JSON.parse(JSON.stringify(data));
                     if (result.rc == 2) {
-                        login = 1;
+                        //login = 1;
                         stopCheck();
                         updateUI(2);
                     }
@@ -352,11 +352,14 @@
                     console.log(JSON.stringify(data));
                     var result = JSON.parse(JSON.stringify(data));
                     if (result.rc == 2) {
+                        showToast('error',"您的微信机器人已在运行");
                         updateUI(1);
                         startlog();
+                    } else if (result.rc == 1) {
+                        showToast('error',"您的微信机器人虽在运行但未登陆成功，现在给您重新启动，请通过手机客户端扫描二维码"); 
+                        restartWxBot();                  
                     } else {
                         updateUI(0);
-                        startlog();
                     }
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
@@ -395,6 +398,7 @@
 
     function stoplog() {
         clearInterval(logTimer);
+        $('#log').html("");        
     }
 
     window.onload = function() 

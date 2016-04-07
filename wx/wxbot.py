@@ -22,6 +22,7 @@ import detect
 from PIL import Image
 import random
 import base64
+import md5
 import os.path
 import sys
 reload(sys)
@@ -270,13 +271,24 @@ class WebWeixin(object):
         QRCODE_PATH = self._saveFile('qrcode.jpg', data, '_showQRCodeImg')
         os.startfile(QRCODE_PATH)
 
+
+    def _get_md5(full_filename):
+        f = file(full_filename, 'rb')
+        return md5.new(f.read()).hexdigest()
+
+
     def _showQRCodeImg2(self):
+        sid = sys.argv[1]
         url = 'https://login.weixin.qq.com/qrcode/' + self.uuid
         params = {'t': 'webwx', '_': int(time.time())}
 
         data = self._post(url, params, False)
-        QRCODE_PATH = self._saveFile('qrcode.jpg', data, '_showQRCodeImg2')
-        os.system("cp %s /var/www/html/%s.jpg"%(QRCODE_PATH, sys.argv[1]))
+        QRCODE_PATH = self._saveFile('qrcode-%s.jpg'%sid, data, '_showQRCodeImg2')
+
+        newPath1 = "out/%s/qrcode.jpg"%sid
+        print newPath1
+        print ("cp %s %s"%(QRCODE_PATH, newPath1))
+        os.system("cp %s %s"%(QRCODE_PATH, newPath1))
         #os.startfile(QRCODE_PATH)
 
 
@@ -1222,6 +1234,10 @@ class WebWeixin(object):
         #			print '[*] 自动回复模式 ... 关闭'
         #E			logger.debug('[*] 自动回复模式 ... 关闭')
 
+        sid = sys.argv[1]
+        print "wxbot.py  WeiXin logging in is DONE......."
+        os.system("/bin/echo LOGIN > out/%s/login.txt" %(sid))
+
         listenProcess = multiprocessing.Process(target=self.listenMsgMode)
         listenProcess.start()
 
@@ -1447,6 +1463,16 @@ if sys.stdout.encoding == 'cp936':
 
 if __name__ == '__main__':
     sid = sys.argv[1]
+    os.system("rm out/%s/login.txt" %(sid))
+
+    newPath1 = "/var/www/html/%s-1.jpg"%sid;
+    newPath2 = "/var/www/html/%s-2.jpg"%sid;
+    if os.path.exists(newPath1):
+        os.remove(newPath1)
+    if os.path.exists(newPath2):
+        os.remove(newPath2)
+
+
     wspace = "out/%s"%sid
     logPath = "%s/log.txt"%(wspace)
     pidPath = "%s/pid.txt"%(wspace)

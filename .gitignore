@@ -2,6 +2,9 @@
 *.log
 *.amr
 *.mp3
+maker/out/*
+maker/static/images/qr/*.jpg
+maker/saved/*
 wx/saved/*
 wx/saved/msgimgs/*
 wx/saved/videos/*

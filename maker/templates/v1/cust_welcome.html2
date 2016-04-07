@@ -50,6 +50,7 @@
  <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12" id="menu_right"> 
    <div class="text-left col-md-12 wrapper"> 
    </div> 
+   <div class="panel panel-cd"> 
      <div class="col-lg-12"> 
        <div class="panel panel-primary"> 
            <div class="panel-heading">
@@ -57,18 +58,19 @@
            </div> 
            <div class="panel-body"> 
                <div class="align-center">
-                  <img datasrc="{{ qrurl}}" id="qrcode" />
-                  <p id ="desp"></p>
+                  <img src="{{ qrurl}}" id="qrcode" />
                 </div>
                 <div class="progress" id="progress"></div>
             </div>
 
             <div class="panel-footer">
-               <button onclick="startWxBot()" id="startBtn"   type="button" class="btn btn-cd-g">启动</button>
-               <button onclick="stopWxBot()"  id="stopBtn"   type="button" class="btn btn-warning">关闭</button>
-               <button onclick="restartWxBot()"  id ="restartBtn" type="button" class="btn btn-danger">重启</button>
+               <button onclick="startWxBot()"    type="button" class="btn btn-cd-g">启动</button>
+               <button onclick="stopWxBot()"     type="button" class="btn btn-warning">关闭</button>
+               <button onclick="restartWxBot()"   type="button" class="btn btn-danger">重启</button>
             </div> 
       </div> 
+     </div> 
+    </div>
 
       <div class="panel panel-primary">
          <div class="panel-heading">
@@ -79,9 +81,8 @@
          </div>
 
       </div>
+     </div>
 
-     </div> 
-    </div>
 
 
     </div> 
@@ -91,11 +92,8 @@
 {% block your_js %}
 <script type="text/javascript" src="/static/js/progressbar.js"></script>
 <script type="text/javascript">
-    var line;
-    var login = 0;
+    var line =Null;
     function startWxBot() {
-          //updateImg();
-          updateUI(9);
           console.log("CY start Bot");
           var sid = getCookie('sid');
           console.log(sid);
@@ -111,25 +109,19 @@
                 //data: JSON.stringify( { "model" : $("input[name='model']:checked").val(), "description": "" } ),
                 success: function(data) {
                     console.log(JSON.stringify(data));
-                    updateImg();
                     startProgress();
-                    startlog();
-                    startCheck();
-                    updateUI(1);
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
                     console.log( errorThrown );
-                    updateUI(0);
                 }
             });
           }
 
          console.log("CY start Bot  --END");
     }
+
     function stopWxBot() {
         if(confirm("确定停止您的机器人吗？?")) {
-          updateUI(9); 
-          line.set(0.0);
           console.log("CY stop Bot");
           var sid = getCookie('sid');
           console.log(sid);
@@ -145,12 +137,9 @@
                 //data: JSON.stringify( { "model" : $("input[name='model']:checked").val(), "description": "" } ),
                 success: function(data) {
                     console.log(JSON.stringify(data));
-                    stoplog();
-                    updateUI(0);
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
                     console.log( errorThrown );
-                    updateUI(1);
                 }
             });
           }
@@ -163,7 +152,6 @@
 
     function restartWxBot() {
         if(confirm("确定重启您的机器人吗？?")) {
-          updateUI(9);
           console.log("CY stop Bot");
           var sid = getCookie('sid');
           console.log(sid);
@@ -180,12 +168,9 @@
                 success: function(data) {
                     console.log(JSON.stringify(data));
                     startProgress();
-                    updateImg();
-                    updateUI(1);
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
                     console.log( errorThrown );
-                    updateUI(0);
                 }
             });
           }
@@ -202,33 +187,26 @@
               easing: 'easeInOut',
               //from: { color: '#eee' },
               //to: { color: '#000' },
-              //step: function(state, circle, attachment) {
+              step: function(state, circle, attachment) {
                 //circle.path.setAttribute('stroke', state.color);
-              //  console.log("in step");
-              //  checkForLogin();
-              //}
+                //console.log("in step");
+              }
            });
-           showToast('error',"请用您的手机微信扫二维码登陆");
-        }
+        } 
 
-        console.log("do animation");
-        line.animate(1.0,
+        showToast('error',"请用您的手机微信扫二维码登陆");
+        //line.set(0);
+        line.animate(1.0,  
              {
-                duration: 10000
-             },
+                duration: 2000
+             }, 
              function()
              {
                line.set(0.0);
                console.log('Animation has finished');
-               if (!login) {
-                   updateImg();
-                }
+               updateImg();
              });  // Number from 0.0 to 1.0
      }
-
-
-
-
 
     function updateImg(){
           var sid = getCookie('sid');
@@ -236,7 +214,7 @@
           console.log(sid);
 
           if (sid != "") {
-            var url = '/wxbot/getqr/' + sid + '/';
+            url = '/wxbot/getqr/' + sid + '/';
             console.log(url);
             $.ajax({
                 url: url,
@@ -245,164 +223,28 @@
                 contentType: 'application/json',
                 //data: JSON.stringify( { "model" : $("input[name='model']:checked").val(), "description": "" } ),
                 success: function(data) {
-                    var result = JSON.parse(JSON.stringify(data));
-                    console.log(result);
-                    newqr = result.url;
-                    console.log(newqr);
-                    if(newqr != "") {
-                        $("#qrcode").attr("src", newqr);
-                        startProgress();
-                    }
+                    console.log(JSON.stringify(data));
+                    newqr = data['url']
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
                     console.log( errorThrown );
                 }
             });
-         }
+        if(newqr != "") {
+            $("#qrcode").attr("src", newqr);
+            startProgress();
+        }
+    }
    }
 
-   function updateUI(status) {
-       if (status == 1) {
-           $("#qrcode").show();
-           $("#desp").hide();
-           $("#startBtn").attr('disabled',"true");
-           $("#stopBtn").removeAttr("disabled");
-           $("#restartBtn").removeAttr("disabled");
-       } else if (status == 0){
-           $("#qrcode").hide();
-           $("#desp").show();
-           $("#desp").html("<h3>您尚未创建或启动微信机器人， 请点击“启动”为您创建</h3>");
-           $("#startBtn").removeAttr("disabled");
-           $("#stopBtn").attr('disabled',"true");
-           $("#restartBtn").attr('disabled',"true");
-       } else if (status == 9) {
-           $("#qrcode").show();
-           $("#desp").hide();
-           $("#startBtn").attr('disabled',"true");
-           $("#stopBtn").attr('disabled',"true");
-           $("#restartBtn").attr('disabled',"true");
-       } else if (status == 2) {
-
-           console.log("UPDATE UI with 2");
-           $("#qrcode").hide();
-           line.set(0.0);
-           $("#desp").show();
-           $("#desp").html("<h3>恭喜，您的微信机器人已经启动完成， 快和您的朋友玩起来吧！</h3>");
-           $("#startBtn").attr('disabled',"true");
-           $("#stopBtn").removeAttr("disabled");
-           $("#restartBtn").removeAttr("disabled");
-       }
-
-   }
-
-    function checkForLogin() {
-          console.log("CY check login status");
-          var sid = getCookie('sid');
-          console.log(sid);
-
-          if (sid != "") {
-            url = '/wxbot/getstatus/' + sid + '/';
-            $.ajax({
-                url: url,
-                type: 'get',
-                contentType: 'application/json',
-                success: function(data) {
-                    console.log(JSON.stringify(data));
-                    var result = JSON.parse(JSON.stringify(data));
-                    if (result.rc == 2) {
-                        login = 1;
-                        stopCheck();
-                        updateUI(2);
-                    }
-                },
-                error: function( jqXhr, textStatus, errorThrown ){
-                    console.log( errorThrown );
-                    stopCheck();
-
-                }
-            });
-          }
-    }
-
-
-    var checkTimer;
-    function startCheck() {
-        checkTimer = setInterval(checkForLogin, 3000);
-    }
-
-    function stopCheck() {
-        clearInterval(checkTimer);
-    }
-
-
-    function checkWxBotInitStatus() {
-          updateUI(0);
-          console.log("CY check Bot status");
-          var sid = getCookie('sid');
-          console.log(sid);
-
-          if (sid != "") {
-            url = '/wxbot/getstatus/' + sid + '/';
-            console.log(url);
-            $.ajax({
-                url: url,
-                type: 'get',
-                contentType: 'application/json',
-                success: function(data) {
-                    console.log(JSON.stringify(data));
-                    var result = JSON.parse(JSON.stringify(data));
-                    if (result.rc == 2) {
-                        updateUI(1);
-                        startlog();
-                    } else {
-                        updateUI(0);
-                        startlog();
-                    }
-                },
-                error: function( jqXhr, textStatus, errorThrown ){
-                    console.log( errorThrown );
-                }
-            });
-          }
-
-         console.log("CY start Bot  --END");
-    }
-
-
-   var logTimer;
-   function getlog() {
-            var sid = getCookie('sid');
-            var url = '/wxbot/getlog/' + sid + '/';
-            $.ajax({
-                url: url,
-                //dataType: 'json',
-                type: 'get',
-                contentType: 'application/json',
-                //data: JSON.stringify( { "model" : $("input[name='model']:checked").val(), "description": "" } ),
-                success: function(data) {
-                    var result = JSON.parse(JSON.stringify(data));
-                    $('#log').html(result.desp);
-                },
-                error: function( jqXhr, textStatus, errorThrown ){
-                    console.log( errorThrown );
-                }
-            });
-
-    }
-    function startlog() {
-        logTimer = setInterval(getlog, 3000);
-    }
-
-    function stoplog() {
-        clearInterval(logTimer);
-    }
-
-    window.onload = function() 
-    {
+    window.onload = function() {
        console.log("in onload");
-       checkWxBotInitStatus();
     }
 
+    
+
+    $(function() {
+    });
 </script>
 {% endblock %}
 
