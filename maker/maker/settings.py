@@ -182,9 +182,18 @@ else: # TODO - anyone can add your own DB based on @_check_env_type()
   # This is for Non-MySQL dev case
   DATABASES = {
     'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-       'ATOMIC_REQUESTS': True,
+       # 'ENGINE': 'django.db.backends.sqlite3',
+       # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+       # 'ATOMIC_REQUESTS': True,
+
+       'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'maker',
+        'USER': 'root',
+        'PASSWORD': 'robotlite@8',
+        'HOST': 'www.ioniconline.com',
+        'PORT': '33060',
+        'ATOMIC_REQUESTS': True,
+
 
     }
   }
