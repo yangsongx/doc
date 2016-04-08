@@ -26,9 +26,7 @@ urlpatterns = [
     # WEB HTML sections...
     url(r'^(?P<api_ver>v\d+)/$', 'webviews.views.do_index', name='do_index'),
 
-    # TODO in future, all user-center related request should include(uc.urls) under the uc/xxxx/ domain section...
-    url(r'^signup/$', uc.views.uc_signup, name='signup'), # Using Django >= 1.9 style ^_^
-    url(r'^signin/$', uc.views.uc_signin, name='signin'),
+    # NOTE - All usercenter(uc) are under uc APP...
     url(r'^uc/', include('uc.ucurls')),
     url(r'^wxbot/start/(?P<sid>.+)/$', 'webviews.views.startWxBot', name='startWxBot'),
     url(r'^wxbot/stop/(?P<sid>.+)/$', 'webviews.views.stopWxBot', name='stopWxBot'),

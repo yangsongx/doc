@@ -116,10 +116,10 @@
                                 <ul>
                                  {% if request.user.is_authenticated %}
                                         <li><a href="{% url 'personalcenter' %}">个人中心&nbsp;PersonalCenter</a></li>
-                                        <li><a href="">退出&nbsp;Signout</a></li>
+                                        <li><a href="/uc/logout/">退出&nbsp;Signout</a></li>
                                   {% else %}
-                                      <li><a href="/signin"><span class="login_ico shipCar_ico"></span>登录&nbsp;Signin</a></li>
-                                      <li><a href="/signup"><span class="login_ico shipCar_ico"></span>注册&nbsp;Signup</a></li>
+                                      <li><a href="/uc/login/"><span class="login_ico shipCar_ico"></span>登录&nbsp;Signin</a></li>
+                                      <li><a href="/uc/reg/"><span class="login_ico shipCar_ico"></span>注册&nbsp;Signup</a></li>
                                   {% endif %}
                                   <li><a href="http://www.ioniconline.com">应用下载&nbsp;AppDownload</a></li>
                                   <li><a href="http://www.ioniconline.com">微信服务&nbsp;WechatService</a></li>

@@ -316,6 +316,7 @@ else:
         }
     }
 
+LOGIN_URL = '/uc/login/'
 
 if is_ksyun_server() != None:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

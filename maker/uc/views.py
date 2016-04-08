@@ -4,11 +4,16 @@ import hashlib
 import json
 import sys
 from django import forms
+from django.contrib.auth import authenticate, login, logout, REDIRECT_FIELD_NAME
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse,HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 
 from uc.models import Account
 
+# This is just a HTML FORM wrapper, not related with
+# django's user models or user-defined models at all
 class AccountForm(forms.Form):
     user_name = forms.CharField(label='用户名/EMail:', max_length=30)
     password = forms.CharField(label='密码:', widget = forms.PasswordInput())
@@ -73,7 +78,7 @@ def _is_user_existed(name):
 
 ###################################################################################
 # Signup(Registration)
-def uc_signup(request):
+def uc_reg(request):
     if request.method == 'POST':
         print 'POST'
         usr = AccountForm(request.POST)
@@ -83,7 +88,9 @@ def uc_signup(request):
             print name
             print passwd
             # Now save the Data into DB...
-            _save_user_code(name, passwd)
+            obj = User.objects.create_user(name, password=passwd)
+            obj.save()
+            # TODO reg OK should NOT return below HTML UI
             return render_to_response('uc_home.html')
     else:
         print 'GET'
@@ -91,7 +98,8 @@ def uc_signup(request):
     return render_to_response('reg.html', {'user':usr})
 ###################################################################################
 # Signin(Login)
-def uc_signin(request):
+def uc_login(request):
+
     if request.method == 'POST':
         print 'POST method'
         usr = AccountForm(request.POST)
@@ -100,18 +108,35 @@ def uc_signin(request):
             passwd = usr.cleaned_data['password']
             print name
             print passwd
-            ret = _verify_user_code(name, passwd)
-            print 'the REDIC:'
-            # TODO - login OK/fail SHOULD show in the LOGIN page?
-            if ret == 0:
-                return render_to_response('uc_home.html')
+            ret = authenticate(username=name, password=passwd)
+
+            if ret != None:
+                print 'passwd pass'
+                if ret.is_active:
+                    login(request, ret) # Note - This will auto-add session by django
+                    print request.session.keys()
+                    redirect_to = request.POST.get(REDIRECT_FIELD_NAME,
+                            request.GET.get(REDIRECT_FIELD_NAME, ''))
+                    if redirect_to != None:
+                        print 'this is contained redirected URL'
+                        return redirect(redirect_to)
+                    else:
+                        return render_to_response('uc_home.html')
             else:
-                return HttpResponse('FAILED, TODO- You need do this in login UI')
+                print 'Failed case!'
+                return HttpResponse('TODO- failed login')
+
     else:
         print 'GET method'
         usr = AccountForm()
 
     return render_to_response('login.html',{'user': usr})
+
+###################################################################################
+# Sign Off(Logout)
+def uc_logout(request):
+    logout(request) # just call django's own framework API
+    return HttpResponse('TODO, need a sign off UI page here')
 
 ###################################################################################
 # Check if the user already existed or NOT
@@ -151,5 +176,6 @@ def uc_changePwd(request):
 
     ###################################################################################
 # Personalcenter(Login)
+@login_required
 def uc_pcenter(request):
     return render_to_response('uc_home.html')
