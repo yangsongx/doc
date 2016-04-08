@@ -1,9 +1,23 @@
+#coding:utf-8
+
 from __future__ import unicode_literals
 from django.db import models
 
-# Create your models here.
-class Account(models.Model):
-    user_name = models.CharField(max_length=30)
-    user_type = models.BigIntegerField(blank=True,null=True)
-    password = models.CharField(max_length=123)
-    created = models.DateTimeField(auto_now_add=True)
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
+#
+# Also note: You'll have to insert the output of 'django-admin sqlcustom [app_label]'
+# into your database.
+
+class RobotType(models.Model):
+    description = models.CharField(max_length=255, blank=True,null=True)
+
+class AccountProfile(models.Model):
+    user_id = models.BigIntegerField(blank=True,null=True)
+    robot_id = models.ForeignKey(RobotType)
+    robot_alias = models.CharField(max_length=256, blank=True)
+    allow_reply = models.BooleanField(default=True)

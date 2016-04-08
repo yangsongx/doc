@@ -10,7 +10,6 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 
-from uc.models import Account
 
 # This is just a HTML FORM wrapper, not related with
 # django's user models or user-defined models at all
@@ -19,59 +18,12 @@ class AccountForm(forms.Form):
     password = forms.CharField(label='密码:', widget = forms.PasswordInput())
 
 ###################################################################################
-def _save_user_code(name, code):
-    try:
-        obj = Account()
-        obj.user_name = name;
-        obj.save()
-# Next try retrieve the DB's id...
-        o = Account.objects.get(user_name = name)
-        if o != None:
-            obj_id = o.id
-            print 'the %s <======> %d' %(name, obj_id)
-            themd5 = hashlib.md5()
-            # DO NOT change below decoration string!
-            plain_data = '%d+ %s' %(obj_id, code)
-            themd5.update(plain_data)
-            o.password = themd5.hexdigest()
-            o.save() # save it again!
-    except:
-        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
-        print info
-
-    return 0
 
 ###################################################################################
 # return 0 means OK, otherwise password or name not match
-def _verify_user_code(name, code):
-    ok = -1
-    try:
-# Next try retrieve the DB's id...
-        o = Account.objects.filter(user_name = name)
-        if len(o) >= 1:
-            obj_id = o[0].id
-            print 'the %s <======> %d' %(name, obj_id)
-            themd5 = hashlib.md5()
-            # DO NOT change below decoration string!
-            plain_data = '%d+ %s' %(obj_id, code)
-            themd5.update(plain_data)
-            cipher_data = themd5.hexdigest()
-            if cipher_data == o[0].password:
-                print 'BINGO~~'
-                ok = 0
-    except:
-        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
-        print info
-
-    return ok
-
 def _is_user_existed(name):
-    existed = 0
-    o = Account.objects.filter(user_name = name)
-    if len(o) > 0:
-        print 'Oh, this user already existed in DB'
-        existed = 1
-
+    existed = 1
+    print 'TODO , you need implement the code here'
     return existed
 #
 # Create your views here.
