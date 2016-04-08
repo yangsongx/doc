@@ -112,22 +112,32 @@ def uc_login(request):
 
             if ret != None:
                 print 'passwd pass'
+                print ret
                 if ret.is_active:
                     login(request, ret) # Note - This will auto-add session by django
                     print request.session.keys()
+                    print request.session.get('_auth_user_id')
                     redirect_to = request.POST.get(REDIRECT_FIELD_NAME,
                             request.GET.get(REDIRECT_FIELD_NAME, ''))
-                    if redirect_to != None:
-                        print 'this is contained redirected URL'
+                    print 'this is contained redirected URL, redirect_to len:%d' %(len(redirect_to))
+                    if len(redirect_to) != 0:
                         return redirect(redirect_to)
                     else:
-                        return render_to_response('uc_home.html')
+                        #FIXME - currently, login would lead user to the center panel
+                        return redirect('/uc/personalcenter/')
             else:
                 print 'Failed case!'
                 return HttpResponse('TODO- failed login')
 
     else:
         print 'GET method'
+        u = request.user
+        if u != None:
+            print u
+            if u.is_authenticated():
+                print 'Wow, you already logedin'
+                return HttpResponse('TODO ALREADY LOGIN UI')
+
         usr = AccountForm()
 
     return render_to_response('login.html',{'user': usr})
