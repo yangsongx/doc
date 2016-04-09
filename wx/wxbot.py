@@ -28,11 +28,18 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+
 correctWords = ["臭流氓", "你要教坏小朋友了", "变态的照片", "滚粗，色魔"]
 wrongWords = ["照片很健康", "很正常的照片", "good picture"]
+switchWords = ["换个话题吧","我们聊聊其他的吧","说说最新的新闻怎么样","有什么好玩的事情"]
 _nrWrongWords = len(wrongWords) - 1
 _nrCorrectWords = len(correctWords) - 1
-whitelist = ["ChenYang", '流氓兔', "陈洋", "顽童", "杨松祥", "机器人开发", ]
+_nrSwitchWords =len(switchWords) -1
+whitelist = [
+              "ChenYang", '流氓兔', "陈洋", "顽童", 
+              "杨松祥", "Cannoli", "舊時光","夏天的寒号鸟",
+              "陈伟",
+            ]
 key2Gif = {
     '你好': {"in": ["你好", "在吗"],
            "out": ["你好"]},
@@ -239,6 +246,7 @@ class WebWeixin(object):
         if config['autoOpen']: self.autoOpen = config['autoOpen']
 
     def getUUID(self):
+        logger.debug("getUUID  ---cy-1")
         url = 'https://login.weixin.qq.com/jslogin'
         params = {
             'appid': self.appid,
@@ -247,6 +255,7 @@ class WebWeixin(object):
             '_': int(time.time()),
         }
         data = self._post(url, params, False)
+        logger.debug("getUUID  ---cy-2")
         regx = r'window.QRLogin.code = (\d+); window.QRLogin.uuid = "(\S+?)"'
         pm = re.search(regx, data)
         if pm:
@@ -390,9 +399,9 @@ class WebWeixin(object):
                 wrongWords[random.randint(0, _nrWrongWords)])
             #ans = "鉴黄小兔子：" + wrongWords[random.randint(0, _nrWrongWords)]
         if self.webwxsendmsg(ans, fromwho):
-            logging.info('自动回复: ' + ans)
+            logger.debug('自动回复: ' + ans)
         else:
-            logging.info('自动回复失败')
+            logger.debug('自动回复失败')
 
         # FIXME - should combine this with above txt msg?
         if rc == True:
@@ -899,14 +908,14 @@ class WebWeixin(object):
             print '%s |%s| %s -> %s: %s' % (message_id, groupName.strip(),
                                             srcName.strip(), dstName.strip(),
                                             content.replace('<br/>', '\n'))
-            logging.info('%s |%s| %s -> %s: %s' %
+            logger.debug('%s |%s| %s -> %s: %s' %
                          (message_id, groupName.strip(), srcName.strip(),
                           dstName.strip(), content.replace('<br/>', '\n')))
         else:
             print '%s %s -> %s: %s' % (message_id, srcName.strip(),
                                        dstName.strip(), content.replace(
                                            '<br/>', '\n'))
-            logging.info('%s %s -> %s: %s' %
+            logger.debug('%s %s -> %s: %s' %
                          (message_id, srcName.strip(), dstName.strip(),
                           content.replace('<br/>', '\n')))
 
@@ -947,24 +956,32 @@ class WebWeixin(object):
                     logger.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                     logger.debug(content)
                     #if (len(content) < 200) and (content.startswith('#') or content.startswith('@')):
+                    '''
                     if (len(content) < 200) and (
                         (content.startswith('@') and content.find('＃') != -1 or
                          content.find('#') != -1 or content.find('兔') != -1) or
                         (not content.startswith('@'))):
+                    '''
+                    if len(content) < 200:
                         ans = self._smart(content, msg['FromUserName'])
                         ans = ans.replace("米小兔", "流氓兔")
                         ans = ans.replace("米兔", "流氓兔")
                         ans = ans.replace("图灵机器人", "")
                         ans = ans.replace("机器岛", "世界")
                         ans = ans.replace("你说的内容我暂时还没法理解", "哦")
-                        logging.info(type(ans))
+                    else:
+                        ans = switchWords[random.randint(0, _nrSwitchWords)]
+
+                    if True:
+                        logger.debug(type(ans))
                         if self.webwxsendmsg(ans, msg['FromUserName']):
                             #print '自动回复: '+ans
-                            logging.info('自动回复: ' + ans)
+                            logger.debug('自动回复: ' + ans)
                         else:
                             #print '自动回复失败'
-                            logging.info('自动回复失败')
-
+                            logger.debug('自动回复失败')
+                         
+                        break
                         gifFile, ratio, cate = pick_gif_per_text(content, ans)
                         ifShow = 1
                         if ratio < 1:
@@ -996,6 +1013,7 @@ class WebWeixin(object):
                                 self.sendImg(msg['FromUserName'], gifFile)
 
             elif msgType == 3:
+                break
                 image = self.webwxgetmsgimg(msgid, name, \
                   msg['FromUserName'], self._image_cb)
                 raw_msg = {'raw_msg': msg,
@@ -1370,6 +1388,10 @@ class WebWeixin(object):
                 resp += data['url']
         except:
             resp = "我没听懂哎"
+
+        if text == resp:
+            resp = switchWords[random.randint(0, _nrSwitchWords)]
+
         logger.debug("CY==================")
         logger.debug(resp)
         return resp.encode('utf-8')
