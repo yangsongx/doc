@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
+from django.template import RequestContext
 
 
 # This is just a HTML FORM wrapper, not related with
@@ -140,4 +141,48 @@ def uc_changePwd(request):
 # Personalcenter(Login)
 @login_required
 def uc_pcenter(request):
-    return render_to_response('uc_home.html')
+    return render_to_response('uc_home.html', {
+        "cur": u"l_08",
+        }, context_instance=RequestContext(request))
+
+@login_required
+def uc_createbot(request):
+    return render_to_response('uc_create_bot.html', {
+        "cur": u"l_01",
+        }, context_instance=RequestContext(request))
+
+@login_required
+def uc_corpusdef(request):
+    return render_to_response('uc_corpus_def.html', {
+        "cur": u"l_02",
+        }, context_instance=RequestContext(request))
+
+@login_required
+def uc_funconfig(request):
+    return render_to_response('uc_func_config.html', {
+        "cur": u"l_03",
+        }, context_instance=RequestContext(request))
+
+@login_required
+def uc_whitelist(request):
+    return render_to_response('uc_white_list.html', {
+        "cur": u"l_04",
+        }, context_instance=RequestContext(request))
+
+@login_required
+def uc_basicinfo(request):
+    return render_to_response('uc_basic_info.html', {
+        "cur": u"l_05",
+        }, context_instance=RequestContext(request))
+
+@login_required
+def uc_systemnotify(request):
+    return render_to_response('uc_system_notify.html', {
+        "cur": u"l_06",
+        }, context_instance=RequestContext(request))
+
+@login_required
+def uc_sitemsg(request):
+    return render_to_response('uc_site_msg.html', {
+        "cur": u"l_07",
+        }, context_instance=RequestContext(request))

@@ -132,3 +132,26 @@ function pager_full_refresh(allPage, curPage) {
     jq("#page_nav").html(content);
 };
 /*====================liumangtu pager end ======*/
+
+/*====================uc active begin ======*/
+function cut_active(cur) {
+    jq('.lis li').removeClass('active');
+    jq('#' + cur).addClass('active');
+    jq('#' + cur).parent().show().prev().addClass('active');
+    var lislen = jq('.lis').length;
+    for (var j = 0; j < lislen; j++) {
+        if (jq('.lis').eq(j).css('display') == 'block') {
+            jq('.lis').eq(j).find('a').addClass('text_name');
+        } else {
+            jq('.lis').eq(j).find('a').removeClass('text_name');
+        }
+    }
+    var text_name = jq('.sidebar_nav .text_name');
+    var lens = text_name.length;
+    for (var q = 0; q < lens; q++) {
+        text_name.eq(q).attr({
+            y: (q + 1) * 40
+        });
+    }
+};
+/*====================uc active end ======*/

@@ -11,4 +11,11 @@ urlpatterns = [
     url(r'^checkExistence/$', uc.views.uc_checkExistence, name='checkExistence'), # Using Django >= 1.9 style ^_^
     url(r'^changePwd/$', uc.views.uc_changePwd, name='changePwd'),
     url(r'^personalcenter/$', uc.views.uc_pcenter, name='personalcenter'),
+    url(r'^createbot/$', uc.views.uc_createbot, name='create_bot'),
+    url(r'^corpusdef/$', uc.views.uc_corpusdef, name='corpus_def'),
+    url(r'^funconfig/$', uc.views.uc_funconfig, name='func_config'),
+    url(r'^whitelist/$', uc.views.uc_whitelist, name='white_list'),
+    url(r'^basicinfo/$', uc.views.uc_basicinfo, name='basic_info'),
+    url(r'^systemnotify/$', uc.views.uc_systemnotify, name='system_notify'),
+    url(r'^sitemsg/$', uc.views.uc_sitemsg, name='site_msg'),
 ]

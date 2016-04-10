@@ -8,8 +8,8 @@
                   <li class="news"> <i id="userType" style="display:none;"></i> <h1></h1> 
                        <div class="uls"> 
                         <ul class="geren"> 
-                         <li> <a href="/web/data_overview!index.action">个人中心</a> </li> 
-                         <li> <a href="/web/member!logout.action">退出登录</a> </li> 
+                         <li> <a href="{% url 'personalcenter' %}">个人中心</a> </li> 
+                         <li> <a href="{% url 'uc_logout' %}">退出登录</a> </li> 
                        </ul> 
                        <span class="pos"> 
                          <div>
@@ -24,16 +24,16 @@
                         <span id="zxx" style="display:none;"></span> 
                       </div> 
                       <div class="specific"> 
-                        <a href="/web/announcement!list.action?cur=l_13"><span></span>系统公告&nbsp;<em id="xtgg"></em></a> 
-                        <a href="/web/instation_message!list.action?cur=l_14"><span></span>站内信&nbsp;<em id="znx"></em></a> 
+                        <a href="{% url 'system_notify' %}"><span></span>系统公告&nbsp;<em id="xtgg"></em></a> 
+                        <a href="{% url 'site_msg' %}"><span></span>站内信&nbsp;<em id="znx"></em></a> 
                       </div> 
                   </li> 
-                  <li class="newLi" id="navlist1"> 
+                  <!-- <li class="newLi" id="navlist1"> 
                        <div class="navlist1"> 
                         <i class="navlistIcon"></i> 
                         <a href="/web/member!bbsing.action" target="_blank">社区</a> 
                       </div>
-                  </li> 
+                  </li>  -->
             </ul> 
         </div> 
     </div> 

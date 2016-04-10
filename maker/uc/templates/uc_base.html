@@ -43,6 +43,7 @@
      </div> 
   </div> 
 {% compress js %}
+{% endcompress %}
 <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
 <script>
   var jq = jQuery.noConflict();
@@ -199,30 +200,35 @@ webtuling.header();
 var loginStatus = true; 
 </script>
 <script>
-	jq(function () {
-		var cur = "l_11";
-		jq('.lis li').removeClass('active');
-		jq('#' + cur).addClass('active');
-		jq('#' + cur).parent().show().prev().addClass('active');
-		var lislen = jq('.lis').length;
-		for (var j = 0; j < lislen; j++) {
-			if (jq('.lis').eq(j).css('display') == 'block') {
-				jq('.lis').eq(j).find('a').addClass('text_name');
-			} else {
-				jq('.lis').eq(j).find('a').removeClass('text_name');
-			}
-			;
-		}
-		;
-		var text_name = jq('.sidebar_nav .text_name');
-		var lens = text_name.length;
-		for (var q = 0; q < lens; q++) {
-			text_name.eq(q).attr({
-				y: (q + 1) * 40
-			});
-		}
-		;
-	});
+    /*jq(function () {
+        var cur = "l_11";
+        jq('.lis li').removeClass('active');
+        jq('#' + cur).addClass('active');
+        jq('#' + cur).parent().show().prev().addClass('active');
+        var lislen = jq('.lis').length;
+        for (var j = 0; j < lislen; j++) {
+            if (jq('.lis').eq(j).css('display') == 'block') {
+                jq('.lis').eq(j).find('a').addClass('text_name');
+            } else {
+                jq('.lis').eq(j).find('a').removeClass('text_name');
+            }
+            ;
+        }
+        ;
+        var text_name = jq('.sidebar_nav .text_name');
+        var lens = text_name.length;
+        for (var q = 0; q < lens; q++) {
+            text_name.eq(q).attr({
+                y: (q + 1) * 40
+            });
+        }
+        ;
+    });*/
+    var curUrl = "{{cur}}";
+    console.log("cut_active=" + curUrl);
+    jq(function(){
+        cut_active(curUrl);
+    });
 </script> 
 <script>
     //展示以及菜单的红点提示
@@ -418,38 +424,7 @@ var loginStatus = true;
         jq('.personal_left').height(h);
     })
 </script>
-<script>
-	jq('#message_z li').hover(
-		function(){
-			jq(this).find('.delBtn').show();
-		},
-		function(){
-			jq(this).find('.delBtn').hide();
-		}
-		);
-	jq('.title').click(function(){
-		jq(this).siblings('.details').click();
-	})
-	jq('.details').click(
-		function(){
-			if( jq(this).attr('st') == 'off' ){
-				///未展开
-                      jq(this).attr('st', 'on');
-                      //展开
-                      jq(this).html('收起');
-                      jq(this).parent().next().show();
-                      jq(this).css('background', 'url(/static/tuling123/img/icon190.png) left center no-repeat')
 
-                      } else {
-                          jq(this).attr('st', 'off');
-                          //收起
-                          jq(this).html('查看详情');
-                          jq(this).parent().next().hide();
-                          jq(this).css('background', 'url(/static/tuling123/img/icon191.png) left center no-repeat')
-                      }
-              }
-      )
-</script>
-{% endcompress %}
+
 </body>
 </html>
