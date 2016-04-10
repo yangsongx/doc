@@ -558,7 +558,7 @@ class WebWeixin(object):
         }
         headers = {'content-type': 'application/json; charset=UTF-8'}
         data = json.dumps(params, ensure_ascii=False).encode('utf8')
-        r = requests.post(url, data=data, headers=headers, timeout=5)
+        r = requests.post(url, data=data, headers=headers)
         dic = r.json()
 
         logger.debug(dic)
@@ -642,7 +642,7 @@ class WebWeixin(object):
         }
 
         try:
-            r = requests.post(url, data=multipart_encoder, headers=headers, timeout=5)
+            r = requests.post(url, data=multipart_encoder, headers=headers)
             response_json = r.json()
 
             print "CY ==2", response_json
@@ -677,7 +677,7 @@ class WebWeixin(object):
         headers = {'content-type': 'application/json; charset=UTF-8'}
         data = json.dumps(data_json, ensure_ascii=False).encode('utf8')
         print "dump data:", data
-        r = requests.post(url, data=data, headers=headers, timeout=5)
+        r = requests.post(url, data=data, headers=headers)
         dic = r.json()
         print "resp:", dic
         return dic['BaseResponse']['Ret'] == 0
@@ -1378,7 +1378,7 @@ class WebWeixin(object):
         resp = ""
         #if r is not None and r.text is not None:
         try:
-            r = requests.post(url, json=payload, timeout=2)
+            r = requests.post(url, json=payload)
             data = json.loads(r.text)
             if 'title' in data:
                 resp += data['title']
