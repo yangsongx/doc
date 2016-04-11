@@ -15,11 +15,14 @@ import random
 from requests.exceptions import ConnectionError, ReadTimeout
 import HTMLParser
 import memcache
+import logging
 
 UNKONWN = 'unkonwn'
 SUCCESS = '200'
 SCANED  = '201'
 TIMEOUT = '408'
+
+logger = logging.getLogger(__name__)
 
 
 class WXBot:
@@ -413,7 +416,7 @@ class WXBot:
                 msg_content['data'] = pos
                 msg_content['detail'] = data
                 if self.DEBUG:
-                    print '    %s[Location] %s ' % (msg_prefix, pos)
+                    logger.debug( '    %s[Location] %s ' % (msg_prefix, pos))
             else:
                 msg_content['type'] = 0
                 if msg_type_id == 3 or (msg_type_id == 1 and msg['ToUserName'][:2] == '@@'):  # Group text message
@@ -428,21 +431,21 @@ class WXBot:
                     msg_content['data'] = content
                 if self.DEBUG:
                     try:
-                        print '    %s[Text] %s' % (msg_prefix, msg_content['data'])
+                        logger.debug( '    %s[Text] %s' % (msg_prefix, msg_content['data']))
                     except UnicodeEncodeError:
-                        print '    %s[Text] (illegal text).' % msg_prefix
+                        logger.debug( '    %s[Text] (illegal text).' % msg_prefix)
         elif mtype == 3:
             msg_content['type'] = 3
             msg_content['data'] = self.get_msg_img_url(msg_id)
             if self.DEBUG:
                 image = self.get_msg_img(msg_id)
-                print '    %s[Image] %s' % (msg_prefix, image)
+                logger.debug( '    %s[Image] %s' % (msg_prefix, image))
         elif mtype == 34:
             msg_content['type'] = 4
             msg_content['data'] = self.get_voice_url(msg_id)
             if self.DEBUG:
                 voice = self.get_voice(msg_id)
-                print '    %s[Voice] %s' % (msg_prefix, voice)
+                logger.debug( '    %s[Voice] %s' % (msg_prefix, voice))
         elif mtype == 42:
             msg_content['type'] = 5
             info = msg['RecommendInfo']
@@ -452,18 +455,18 @@ class WXBot:
                                    'city': info['City'],
                                    'gender': ['unknown', 'male', 'female'][info['Sex']]}
             if self.DEBUG:
-                print '    %s[Recommend]' % msg_prefix
-                print '    -----------------------------'
-                print '    | NickName: %s' % info['NickName']
-                print '    | Alias: %s' % info['Alias']
-                print '    | Local: %s %s' % (info['Province'], info['City'])
-                print '    | Gender: %s' % ['unknown', 'male', 'female'][info['Sex']]
-                print '    -----------------------------'
+                logger.debug( '    %s[Recommend]' % msg_prefix)
+                logger.debug( '    -----------------------------')
+                logger.debug( '    | NickName: %s' % info['NickName'])
+                logger.debug( '    | Alias: %s' % info['Alias'])
+                logger.debug( '    | Local: %s %s' % (info['Province'], info['City']))
+                logger.debug( '    | Gender: %s' % ['unknown', 'male', 'female'][info['Sex']])
+                logger.debug( '    -----------------------------')
         elif mtype == 47:
             msg_content['type'] = 6
             msg_content['data'] = self.search_content('cdnurl', content)
             if self.DEBUG:
-                print '    %s[Animation] %s' % (msg_prefix, msg_content['data'])
+                logger.debug( '    %s[Animation] %s' % (msg_prefix, msg_content['data']))
         elif mtype == 49:
             msg_content['type'] = 7
             app_msg_type = ''
@@ -481,39 +484,39 @@ class WXBot:
                                    'url': msg['Url'],
                                    'from': self.search_content('appname', content, 'xml')}
             if self.DEBUG:
-                print '    %s[Share] %s' % (msg_prefix, app_msg_type)
-                print '    --------------------------'
-                print '    | title: %s' % msg['FileName']
-                print '    | desc: %s' % self.search_content('des', content, 'xml')
-                print '    | link: %s' % msg['Url']
-                print '    | from: %s' % self.search_content('appname', content, 'xml')
-                print '    --------------------------'
+                logger.debug( '    %s[Share] %s' % (msg_prefix, app_msg_type))
+                logger.debug( '    --------------------------')
+                logger.debug( '    | title: %s' % msg['FileName'])
+                logger.debug( '    | desc: %s' % self.search_content('des', content, 'xml'))
+                logger.debug( '    | link: %s' % msg['Url'])
+                logger.debug( '    | from: %s' % self.search_content('appname', content, 'xml'))
+                logger.debug( '    --------------------------')
 
         elif mtype == 62:
             msg_content['type'] = 8
             msg_content['data'] = content
             if self.DEBUG:
-                print '    %s[Video] Please check on mobiles' % msg_prefix
+                logger.debug( '    %s[Video] Please check on mobiles' % msg_prefix)
         elif mtype == 53:
             msg_content['type'] = 9
             msg_content['data'] = content
             if self.DEBUG:
-                print '    %s[Video Call]' % msg_prefix
+                logger.debug( '    %s[Video Call]' % msg_prefix)
         elif mtype == 10002:
             msg_content['type'] = 10
             msg_content['data'] = content
             if self.DEBUG:
-                print '    %s[Redraw]' % msg_prefix
+                logger.debug( '    %s[Redraw]' % msg_prefix)
         elif mtype == 10000:  # unknown, maybe red packet, or group invite
             msg_content['type'] = 12
             msg_content['data'] = msg['Content']
             if self.DEBUG:
-                print '    [Unknown]'
+                logger.debug( '    [Unknown]')
         else:
             msg_content['type'] = 99
             msg_content['data'] = content
             if self.DEBUG:
-                print '    %s[Unknown]' % msg_prefix
+                logger.debug( '    %s[Unknown]' % msg_prefix)
         return msg_content
 
     def handle_msg(self, r):
@@ -563,7 +566,7 @@ class WXBot:
             user['name'] = HTMLParser.HTMLParser().unescape(user['name'])
 
             if self.DEBUG and msg_type_id != 0:
-                print '[MSG] %s:' % user['name']
+                logger.debug( '[MSG] %s:' % user['name'])
             content = self.extract_msg_content(msg_type_id, msg)
             message = {'msg_type_id': msg_type_id,
                        'msg_id': msg['MsgId'],
@@ -602,7 +605,7 @@ class WXBot:
                 elif selector == '0':  # nothing
                     pass
                 else:
-                    print selector
+                    logger.debug( selector)
                     pass
             self.schedule()
             check_time = time.time() - check_time
@@ -654,7 +657,7 @@ class WXBot:
                     result = True
                     for line in f.readlines():
                         line = line.replace('\n', '')
-                        print '-> ' + name + ': ' + line
+                        logger.debug( '-> ' + name + ': ' + line)
                         if self.send_msg_by_uid(line, uid):
                             pass
                         else:
@@ -668,7 +671,7 @@ class WXBot:
                     return False
         else:
             if self.DEBUG:
-                print '[ERROR] This user does not exist .'
+                logger.debug( '[ERROR] This user does not exist .')
             return True
 
     @staticmethod
@@ -687,30 +690,30 @@ class WXBot:
         self.mc.set("WX:%s:status"%self.bot_id, "init")
         self.get_uuid()
         self.gen_qr_code(self.workspace+'/qr.png')
-        print '[INFO] Please use WeChat to scan the QR code .'
+        logger.debug( '[INFO] Please use WeChat to scan the QR code .')
 
         self.mc.set("WX:%s:status"%self.bot_id, "wait4login")
         result = self.wait4login()
         if result != SUCCESS:
-            print '[ERROR] Web WeChat login failed. failed code=%s'%(result, )
+            logger.debug( '[ERROR] Web WeChat login failed. failed code=%s'%(result, ))
             return
 
         if self.login():
-            print '[INFO] Web WeChat login succeed .'
+            logger.debug( '[INFO] Web WeChat login succeed .')
         else:
-            print '[ERROR] Web WeChat login failed .'
+            logger.debug( '[ERROR] Web WeChat login failed .')
             return
 
         if self.init():
-            print '[INFO] Web WeChat init succeed .'
+            logger.debug( '[INFO] Web WeChat init succeed .')
         else:
-            print '[INFO] Web WeChat init failed'
+            logger.debug( '[INFO] Web WeChat init failed')
             return
         self.status_notify()
         self.get_contact()
         self.mc.set("WX:%s:status"%self.bot_id, "success")
-        print '[INFO] Get %d contacts' % len(self.contact_list)
-        print '[INFO] Start to process messages .'
+        logger.debug( '[INFO] Get %d contacts' % len(self.contact_list))
+        logger.debug( '[INFO] Start to process messages .')
         self.proc_msg()
 
     def get_uuid(self):
@@ -736,14 +739,12 @@ class WXBot:
         string = 'https://login.weixin.qq.com/l/' + self.uuid
         qr = pyqrcode.create(string)
         if self.conf['qr'] == 'png':
-            print "save png"
-            print qr_file_path
             qr.png(qr_file_path, scale=8)
             #show_image(qr_file_path)
             # img = Image.open(qr_file_path)
             # img.show()
         elif self.conf['qr'] == 'tty':
-            print(qr.terminal(quiet_zone=1))
+            logger.debug((qr.terminal(quiet_zone=1)))
 
     def do_request(self, url):
         r = self.session.get(url)
@@ -776,7 +777,7 @@ class WXBot:
             url = LOGIN_TEMPLATE % (tip, self.uuid, int(time.time()))
             code, data = self.do_request(url)
             if code == SCANED:
-                print '[INFO] Please confirm to login .'
+                logger.debug( '[INFO] Please confirm to login .')
                 tip = 0
             elif code == SUCCESS: #confirmed sucess
                 param = re.search(r'window.redirect_uri="(\S+?)";', data)
@@ -785,14 +786,14 @@ class WXBot:
                 self.base_uri = redirect_uri[:redirect_uri.rfind('/')]
                 return code
             elif code == TIMEOUT:
-                print '[ERROR] WeChat login timeout. retry in %s secs later...'%(try_later_secs, )
+                logger.debug( '[ERROR] WeChat login timeout. retry in %s secs later...'%(try_later_secs, ))
 
                 tip = 1 #need to reset tip, because the server will reset the peer connection
                 #retry_time -= 1
                 time.sleep(try_later_secs)
             else:
-                print ('[ERROR] WeChat login exception return_code=%s. retry in %s secs later...' %
-                        (code, try_later_secs))
+                logger.debug( ('[ERROR] WeChat login exception return_code=%s. retry in %s secs later...' %
+                        (code, try_later_secs)))
                 tip = 1
                 #retry_time -= 1
                 time.sleep(try_later_secs)
@@ -801,7 +802,7 @@ class WXBot:
 
     def login(self):
         if len(self.redirect_uri) < 4:
-            print '[ERROR] Login failed due to network problem, please try again.'
+            logger.debug( '[ERROR] Login failed due to network problem, please try again.')
             return False
         r = self.session.get(self.redirect_uri)
         r.encoding = 'utf-8'

@@ -23,7 +23,7 @@ class MyWXBot(WXBot):
 
             resp = ""
             try:
-                print time.time()
+                logger.debug( time.time())
                 r = requests.post(url, json =payload)
                 data = json.loads(r.text)
                 if 'title' in data:
@@ -35,28 +35,29 @@ class MyWXBot(WXBot):
             except:
                 resp = "我没听懂哎"
               
-            print time.time()
+            logger.debug( time.time())
             return resp.encode('utf-8')
 
     def handle_msg_all(self, msg):
-        print "CY",msg
+        logger.debug( "CY",msg)
         #return
         try:	
             if ( msg['msg_type_id'] == 4  or msg['msg_type_id'] ==3 ) and msg['content']['type'] == 0 and ('ChenYang' in msg['user']['name'] or '流氓兔' in msg['user']['name'] or 'ChenYang' in msg['content']['user']['name'] or '流氓兔' in msg['content']['user']['name']):
-                print "do smart"
-                time.sleep(1)
+                logger.debug( "do smart")
+                time.sleep(3)
                 resp = self._smart(msg['content']['data'])
-                print msg['content']['data'], resp
+                logger.debug( msg['content']['data'], resp)
                 if resp == msg['content']['data']:
-                    print "repeated"
+                    logger.debug( "repeated")
                     resp = switchWords[random.randint(0, _nrSwitchWords)]
                 else:
-                    print "not same"
-                self.send_msg_by_uid(resp, msg['user']['id'])
+                    logger.debug( "not same")
+
+                self.send_msg_by_uid(resp[:20], msg['user']['id'])
             else:
-                print "skip"
+                logger.debug( "skip")
         except:
-            print "err01"
+            logger.debug( "err01")
           
 
 '''
@@ -67,6 +68,19 @@ class MyWXBot(WXBot):
 
 
 def main():
+    import logging
+    os.system("mkdir -p out/%s/"%sys.argv[1])
+    logPath = "out/%s/log.txt"%(sys.argv[1])
+
+    # 配置日志信息  
+    logging.basicConfig(level=logging.DEBUG,  
+                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',  
+                    datefmt='%m-%d %H:%M',  
+                    filename=logPath,  
+                    filemode='w')  
+
+    logger = logging.getLogger("wxmain")
+
     bot = MyWXBot(sys.argv[1])
     bot.DEBUG = True
     bot.conf['qr'] = 'png'
