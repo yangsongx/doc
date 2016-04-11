@@ -344,9 +344,9 @@ elif _check_env_type() == 2:
 else:
     EMAIL_HOST = 'smtp.189.cn'
     EMAIL_PORT = '25'
-    EMAIL_HOST_USER = 'your mail account'
-    EMAIL_HOST_PASSWORD = 'your mail password'
-    EMAIL_USE_SSL = True
+    EMAIL_HOST_USER = '13815882359@189.cn'
+    EMAIL_HOST_PASSWORD = 'passwordof123'
+    EMAIL_USE_SSL = False
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",

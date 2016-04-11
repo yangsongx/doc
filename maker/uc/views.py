@@ -61,7 +61,7 @@ def send_activation_mail(httphost, email):
     print 'sending with send_mail...'
     ret = send_mail(mail_title, # Subject
             mail_body, #message
-            '13305163882@189.cn', # from email TODO - how dynamic this param?
+            '13815882359@189.cn', # from email TODO - how dynamic this param?
             [email], #recipient list
             fail_silently=False)
     print 'finished with'
