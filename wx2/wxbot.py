@@ -20,26 +20,11 @@ SUCCESS = '200'
 SCANED  = '201'
 TIMEOUT = '408'
 
-def show_image(file):
-    if sys.version_info >= (3, 3):
-        from shlex import quote
-    else:
-        from pipes import quote
-
-    if sys.platform == "win32":
-        webbrowser.open(file)
-    elif sys.platform == "darwin":
-        def get_command(file, **options):
-            command = "open -a /Applications/Preview.app"
-            command = "(%s %s)&" % (command, quote(file))
-            return command
-
-        os.system(get_command(file))
 
 class WXBot:
     """WXBot, a framework to process WeChat messages"""
 
-    def __init__(self):
+    def __init__(self, bot_id):
         self.DEBUG = False
         self.uuid = ''
         self.base_uri = ''
@@ -53,6 +38,8 @@ class WXBot:
         self.sync_key_str = ''
         self.sync_key = []
         self.sync_host = ''
+        self.bot_id = bot_id
+        self.workspace = "out/%s"%self.bot_id
 
         self.session = requests.Session()
         self.session.headers.update({'User-Agent': 'Mozilla/5.0 (X11; Linux i686; U;) Gecko/20070322 Kazehakase/0.4.5'})
@@ -74,6 +61,9 @@ class WXBot:
         self.group_list = []  # group chat list
         self.special_list = []  # special list account
 
+        if not os.path.exists(self.workspace):
+            os.makedirs(self.workspace)
+
     def get_contact(self):
         """Get information of all contacts of current account."""
         url = self.base_uri + '/webwxgetcontact?pass_ticket=%s&skey=%s&r=%s' \
@@ -81,7 +71,7 @@ class WXBot:
         r = self.session.post(url, data='{}')
         r.encoding = 'utf-8'
         if self.DEBUG:
-            with open('contacts.json', 'w') as f:
+            with open(self.workspace+'/contacts.json', 'w') as f:
                 f.write(r.text.encode('utf-8'))
         dic = json.loads(r.text)
         self.member_list = dic['MemberList']
@@ -127,19 +117,19 @@ class WXBot:
                                                                              'group': group}
 
         if self.DEBUG:
-            with open('contact_list.json', 'w') as f:
+            with open(self.workspace+'/contact_list.json', 'w') as f:
                 f.write(json.dumps(self.contact_list))
-            with open('special_list.json', 'w') as f:
+            with open(self.workspace+'/special_list.json', 'w') as f:
                 f.write(json.dumps(self.special_list))
-            with open('group_list.json', 'w') as f:
+            with open(self.workspace+'/group_list.json', 'w') as f:
                 f.write(json.dumps(self.group_list))
-            with open('public_list.json', 'w') as f:
+            with open(self.workspace+'/public_list.json', 'w') as f:
                 f.write(json.dumps(self.public_list))
-            with open('member_list.json', 'w') as f:
+            with open(self.workspace+'/member_list.json', 'w') as f:
                 f.write(json.dumps(self.member_list))
-            with open('group_users.json', 'w') as f:
+            with open(self.workspace+'/group_users.json', 'w') as f:
                 f.write(json.dumps(self.group_members))
-            with open('account_info.json', 'w') as f:
+            with open(self.workspace+'/account_info.json', 'w') as f:
                 f.write(json.dumps(self.account_info))
         return True
 
@@ -775,7 +765,6 @@ class WXBot:
 
         retry_time = MAX_RETRY_TIMES
         while retry_time > 0:
-            print "in wait4login loop"
             url = LOGIN_TEMPLATE % (tip, self.uuid, int(time.time()))
             code, data = self.do_request(url)
             if code == SCANED:
@@ -916,7 +905,7 @@ class WXBot:
         url = self.base_uri + '/webwxgeticon?username=%s&skey=%s' % (uid, self.skey)
         r = self.session.get(url)
         data = r.content
-        fn = 'img_' + uid + '.jpg'
+        fn = self.workspace+'/img_' + uid + '.jpg'
         with open(fn, 'wb') as f:
             f.write(data)
         return fn
@@ -925,7 +914,7 @@ class WXBot:
         url = self.base_uri + '/webwxgetheadimg?username=%s&skey=%s' % (uid, self.skey)
         r = self.session.get(url)
         data = r.content
-        fn = 'img_' + uid + '.jpg'
+        fn = self.workspace+'/img_' + uid + '.jpg'
         with open(fn, 'wb') as f:
             f.write(data)
         return fn
@@ -937,7 +926,7 @@ class WXBot:
         url = self.base_uri + '/webwxgetmsgimg?MsgID=%s&skey=%s' % (msgid, self.skey)
         r = self.session.get(url)
         data = r.content
-        fn = 'img_' + msgid + '.jpg'
+        fn = self.workspace+'/img_' + msgid + '.jpg'
         with open(fn, 'wb') as f:
             f.write(data)
         return fn
@@ -949,7 +938,7 @@ class WXBot:
         url = self.base_uri + '/webwxgetvoice?msgid=%s&skey=%s' % (msgid, self.skey)
         r = self.session.get(url)
         data = r.content
-        fn = 'voice_' + msgid + '.mp3'
+        fn = self.workspace+'/voice_' + msgid + '.mp3'
         with open(fn, 'wb') as f:
             f.write(data)
         return fn
