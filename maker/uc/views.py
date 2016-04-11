@@ -44,7 +44,7 @@ def uc_reg(request):
             obj = User.objects.create_user(name, password=passwd)
             obj.save()
             # TODO reg OK should NOT return below HTML UI
-            return render_to_response('uc_home.html')
+            return HttpResponse('TODO - UI : reg OK, you can login now.')
     else:
         print 'GET'
         usr = AccountForm()

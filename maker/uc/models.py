@@ -16,8 +16,29 @@ from django.db import models
 class RobotType(models.Model):
     description = models.CharField(max_length=255, blank=True,null=True)
 
+#Only available for @AccountProfile::allow_reply is True
+class WhiteNameList(models.Model):
+    name_list = models.CharField(max_length=1024,blank=True,null=True)
+
+class UserCustomization(models.Model):
+    question = models.CharField(max_length=255, blank=True,null=True)
+    answer = models.CharField(max_length=512, blank=True,null=True)
+
+# TODO - ysx
+# in order to give a quick/usable demo, currently use MySQL store this,
+# in final product, we will move to MongoDB smoothly
+class CorpusData(models.Model):
+    question = models.CharField(max_length=255, blank=True,null=True)
+    answer = models.CharField(max_length=512, blank=True,null=True)
+
+
 class AccountProfile(models.Model):
-    user_id = models.BigIntegerField(blank=True,null=True)
+    user_id = models.BigIntegerField(blank=True,null=True) # This is id from django's User model
     robot_id = models.ForeignKey(RobotType)
     robot_alias = models.CharField(max_length=256, blank=True)
+    robot_creation = models.DateTimeField(blank=True,null=True)
     allow_reply = models.BooleanField(default=True)
+    list_reply = models.ForeignKey(WhiteNameList, null=True)
+    customization = models.ForeignKey(UserCustomization, null=True)
+    gender = models.BooleanField(default=True)
+    address = models.CharField(max_length=255, blank=True,null=True)
