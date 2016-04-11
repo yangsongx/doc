@@ -14,6 +14,7 @@ import re
 import random
 from requests.exceptions import ConnectionError, ReadTimeout
 import HTMLParser
+import memcache
 
 UNKONWN = 'unkonwn'
 SUCCESS = '200'
@@ -40,6 +41,7 @@ class WXBot:
         self.sync_host = ''
         self.bot_id = bot_id
         self.workspace = "out/%s"%self.bot_id
+        self.mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 
         self.session = requests.Session()
         self.session.headers.update({'User-Agent': 'Mozilla/5.0 (X11; Linux i686; U;) Gecko/20070322 Kazehakase/0.4.5'})
@@ -682,10 +684,12 @@ class WXBot:
         return 'unknown'
 
     def run(self):
+        self.mc.set("WX:%s:status"%self.bot_id, "init")
         self.get_uuid()
-        self.gen_qr_code('qr.png')
+        self.gen_qr_code(self.workspace+'/qr.png')
         print '[INFO] Please use WeChat to scan the QR code .'
 
+        self.mc.set("WX:%s:status"%self.bot_id, "wait4login")
         result = self.wait4login()
         if result != SUCCESS:
             print '[ERROR] Web WeChat login failed. failed code=%s'%(result, )
@@ -704,6 +708,7 @@ class WXBot:
             return
         self.status_notify()
         self.get_contact()
+        self.mc.set("WX:%s:status"%self.bot_id, "success")
         print '[INFO] Get %d contacts' % len(self.contact_list)
         print '[INFO] Start to process messages .'
         self.proc_msg()
@@ -731,8 +736,10 @@ class WXBot:
         string = 'https://login.weixin.qq.com/l/' + self.uuid
         qr = pyqrcode.create(string)
         if self.conf['qr'] == 'png':
+            print "save png"
+            print qr_file_path
             qr.png(qr_file_path, scale=8)
-            show_image(qr_file_path)
+            #show_image(qr_file_path)
             # img = Image.open(qr_file_path)
             # img.show()
         elif self.conf['qr'] == 'tty':
@@ -758,13 +765,14 @@ class WXBot:
         LOGIN_TEMPLATE = 'https://login.weixin.qq.com/cgi-bin/mmwebwx-bin/login?tip=%s&uuid=%s&_=%s'
         tip = 1
 
-        try_later_secs = 1
-        MAX_RETRY_TIMES = 10
+        try_later_secs = 2
+        #MAX_RETRY_TIMES = 10
 
         code = UNKONWN
 
-        retry_time = MAX_RETRY_TIMES
-        while retry_time > 0:
+        #retry_time = MAX_RETRY_TIMES
+        #while retry_time > 0:
+        while True:
             url = LOGIN_TEMPLATE % (tip, self.uuid, int(time.time()))
             code, data = self.do_request(url)
             if code == SCANED:
@@ -780,13 +788,13 @@ class WXBot:
                 print '[ERROR] WeChat login timeout. retry in %s secs later...'%(try_later_secs, )
 
                 tip = 1 #need to reset tip, because the server will reset the peer connection
-                retry_time -= 1
+                #retry_time -= 1
                 time.sleep(try_later_secs)
             else:
                 print ('[ERROR] WeChat login exception return_code=%s. retry in %s secs later...' %
                         (code, try_later_secs))
                 tip = 1
-                retry_time -= 1
+                #retry_time -= 1
                 time.sleep(try_later_secs)
 
         return code

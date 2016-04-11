@@ -165,12 +165,12 @@ def get_md5(full_filename):
 
 def getQR(request, sid):
     data = {}
-    path1 = "./out/%s/qrcode.jpg"%sid
+    path1 = "./out/%s/qr.png"%sid
     if os.path.exists(path1):
         val = get_md5(path1)
-        os.system("cp %s ./static/images/qr/%s.jpg"%(path1, val))    
+        os.system("cp %s ./static/images/qr/%s.png"%(path1, val))    
         data['rc'] = 0
-        data['url'] = "/static/images/qr/%s.jpg"%val
+        data['url'] = "/static/images/qr/%s.png"%val
     else:
         data['rc'] = 1
         data['url'] = ""

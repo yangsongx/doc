@@ -67,10 +67,9 @@ class MyWXBot(WXBot):
 
 
 def main():
-    print "CY ====-0"
-    bot = MyWXBot("AA")
+    bot = MyWXBot(sys.argv[1])
     bot.DEBUG = True
-    bot.conf['qr'] = 'tty'
+    bot.conf['qr'] = 'png'
     bot.run()
 
 
