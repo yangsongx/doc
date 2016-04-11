@@ -1,15 +1,21 @@
-#encoding=utf-8
+#coding:utf-8
 
 import hashlib
 import json
+import re
 import sys
+import uuid
+
 from django import forms
 from django.contrib.auth import authenticate, login, logout, REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponse,HttpResponseRedirect
+from django.core.mail import send_mail
+from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
+
+from models import AccountProfile
 
 
 # This is just a HTML FORM wrapper, not related with
@@ -19,6 +25,15 @@ class AccountForm(forms.Form):
     password = forms.CharField(label='密码:', widget = forms.PasswordInput())
 
 ###################################################################################
+# return 1 means @email is a valid text value
+def is_valid_email(email):
+    valid = re.match('\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*',
+            email)
+
+    if valid != None:
+        return 1
+    else:
+        return 0
 
 ###################################################################################
 # return 0 means OK, otherwise password or name not match
@@ -26,6 +41,61 @@ def _is_user_existed(name):
     existed = 1
     print 'TODO , you need implement the code here'
     return existed
+
+###################################################################################
+def send_activation_mail(httphost, email):
+    ticket = uuid.uuid1()
+    full_url = '%s/uc/reg/?ticket=%s&user=%s' \
+               %(httphost, ticket, email)
+    print 'the url:%s' %(full_url)
+
+    if re.search(r'^http://', full_url) == None:
+        full_url = 'http://%s' %(full_url)
+
+    # NOTE - below text are stolen from doueban's registration...
+    mail_title = '请激活您的帐号，完成注册'
+    mail_body = '欢迎来到XXXX世界，请点击下面链接完成注册:\n%s\n\n如果以上链接无法点击，请将上面的地址复制到你的浏览器(如IE)的地址栏进入' \
+                %(u''.join(full_url).encode('utf-8'))
+    print mail_body
+
+    print 'sending with send_mail...'
+    ret = send_mail(mail_title, # Subject
+            mail_body, #message
+            '13305163882@189.cn', # from email TODO - how dynamic this param?
+            [email], #recipient list
+            fail_silently=False)
+    print 'finished with'
+    print ret
+
+    return ticket
+
+###################################################################################
+# TODO this API currently just sending mail, actually it SHOULD compare with DB
+def activate_email_account(ticket, email):
+    ret = -1
+    try:
+        obj = User.objects.filter(username = email)
+        if len(obj) > 0:
+            uid = obj[0].id
+            prof_obj = AccountProfile.objects.get(user_id = uid)
+            if prof_obj.mail_act == ticket:
+                print 'Wow, this is GOOD MAIL activation'
+                obj[0].is_active = 1
+                obj[0].save()
+                ret = 0
+            else:
+                print 'SHIT'
+
+    except:
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        print info
+
+
+    if ret == 0:
+        return HttpResponse('TODO - UI for mail activation OK')
+    else:
+        return HttpResponse('TODO - UI for mail activation NOT OK')
+
 #
 # Create your views here.
 
@@ -40,14 +110,42 @@ def uc_reg(request):
             passwd = usr.cleaned_data['password']
             print name
             print passwd
-            # Now save the Data into DB...
-            obj = User.objects.create_user(name, password=passwd)
-            obj.save()
+            if is_valid_email(name) == 1:
+                print 'This is an email, status SHOULD NOT active until user clicked ths url'
+                ticket = send_activation_mail(request.META['HTTP_HOST'], name)
+                obj = User.objects.create_user(
+                        username = name,
+                        password=passwd,
+                        email = name,
+                        is_active = 0)
+                obj.save()
+                obj = User.objects.get(username=name)
+                uid = obj.id
+                print 'the user id is %d' %(uid)
+                prof_obj = AccountProfile(user_id = uid,
+                        mail_act = ticket)
+                prof_obj.save()
+            else:
+                print 'a normal user, can directly saving'
+                # Now save the Data into DB...
+                obj = User.objects.create_user(
+                        username = name, password=passwd)
+
+                obj.save()
+
             # TODO reg OK should NOT return below HTML UI
             return HttpResponse('TODO - UI : reg OK, you can login now.')
     else:
-        print 'GET'
-        usr = AccountForm()
+        ticket = request.GET.get('ticket')
+        print ticket
+        email = request.GET.get('user')
+        print email
+        if ticket != None and email != None:
+            return activate_email_account(
+                    ticket,
+                    email)
+        else:
+            usr = AccountForm()
     return render_to_response('reg.html', {'user':usr})
 ###################################################################################
 # Signin(Login)

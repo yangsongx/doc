@@ -34,11 +34,13 @@ class CorpusData(models.Model):
 
 class AccountProfile(models.Model):
     user_id = models.BigIntegerField(blank=True,null=True) # This is id from django's User model
-    robot_id = models.ForeignKey(RobotType)
+    mail_act = models.CharField(max_length=256, blank=True)
+    mail_act_expire = models.DateTimeField(blank=True,null=True)
+    robot_id = models.ForeignKey(RobotType, blank=True, null=True)
     robot_alias = models.CharField(max_length=256, blank=True)
     robot_creation = models.DateTimeField(blank=True,null=True)
     allow_reply = models.BooleanField(default=True)
-    list_reply = models.ForeignKey(WhiteNameList, null=True)
-    customization = models.ForeignKey(UserCustomization, null=True)
+    list_reply = models.ForeignKey(WhiteNameList, blank=True, null=True)
+    customization = models.ForeignKey(UserCustomization, blank=True, null=True)
     gender = models.BooleanField(default=True)
     address = models.CharField(max_length=255, blank=True,null=True)

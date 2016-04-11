@@ -327,7 +327,7 @@ else:
 
 LOGIN_URL = '/uc/login/'
 
-if is_ksyun_server() != None:
+if _check_env_type() == 1:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = '10.128.16.224'
     EMAIL_PORT = '25'
@@ -335,11 +335,18 @@ if is_ksyun_server() != None:
     EMAIL_HOST_PASSWORD = ''
     EMAIL_USE_TLS = False
     DEFAULT_FROM_EMAIL = '21KE Service <21ke@caredear.com>'
+elif _check_env_type() == 2:
+    #ysx setting
+    EMAIL_HOST = 'smtp.189.cn'
+    EMAIL_PORT = '25'
+    EMAIL_HOST_USER = '13305163882@189.cn'
+    EMAIL_HOST_PASSWORD = 'your password'
+    EMAIL_USE_SSL = False
 else:
-    EMAIL_HOST = 'smtp.exmail.qq.com'
-    EMAIL_PORT = '465'
-    EMAIL_HOST_USER = '21ke@caredear.com'
-    EMAIL_HOST_PASSWORD = 'caredear0716@'
+    EMAIL_HOST = 'smtp.189.cn'
+    EMAIL_PORT = '25'
+    EMAIL_HOST_USER = 'your mail account'
+    EMAIL_HOST_PASSWORD = 'your mail password'
     EMAIL_USE_SSL = True
 
 TEMPLATE_CONTEXT_PROCESSORS = (
