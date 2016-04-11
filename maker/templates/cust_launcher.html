@@ -129,7 +129,9 @@
     function stopWxBot() {
         if(confirm("确定停止您的机器人吗？?")) {
           updateUI(9); 
-          line.set(0.0);
+          if (line) {
+              line.set(0.0);
+          }
           console.log("CY stop Bot");
           var sid = getCookie('sid');
           console.log(sid);
@@ -164,12 +166,12 @@
     function restartWxBot() {
         if(confirm("确定重启您的机器人吗？?")) {
           updateUI(9);
-          console.log("CY stop Bot");
+          console.log("CY restart Bot");
           var sid = getCookie('sid');
           console.log(sid);
 
           if (sid != "") {
-            url = '/wxbot/stop/' + sid + '/';
+            url = '/wxbot/restart/' + sid + '/';
             console.log(url);
             $.ajax({
                 url: url,
@@ -180,6 +182,7 @@
                 success: function(data) {
                     console.log(JSON.stringify(data));
                     startProgress();
+                    startCheck();
                     updateImg();
                     updateUI(1);
                 },
@@ -189,8 +192,6 @@
                 }
             });
           }
-
-         console.log("CY stop Bot  --END");
         }
     }
 
@@ -327,11 +328,14 @@
 
     var checkTimer;
     function startCheck() {
-        checkTimer = setInterval(checkForLogin, 3000);
+        if (!checkTimer) {
+            checkTimer = setInterval(checkForLogin, 3000);
+        }
     }
 
     function stopCheck() {
         clearInterval(checkTimer);
+        checkTimer = null;
     }
 
 

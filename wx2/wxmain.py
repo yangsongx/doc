@@ -4,6 +4,7 @@
 from wxbot import *
 import time
 import sys
+import logging
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -44,16 +45,22 @@ class MyWXBot(WXBot):
         try:	
             if ( msg['msg_type_id'] == 4  or msg['msg_type_id'] ==3 ) and msg['content']['type'] == 0 and ('ChenYang' in msg['user']['name'] or '流氓兔' in msg['user']['name'] or 'ChenYang' in msg['content']['user']['name'] or '流氓兔' in msg['content']['user']['name']):
                 logger.debug( "do smart")
-                time.sleep(3)
+                time.sleep(2)
                 resp = self._smart(msg['content']['data'])
-                logger.debug( msg['content']['data'], resp)
+                print( msg['content']['data'], resp)
                 if resp == msg['content']['data']:
                     logger.debug( "repeated")
                     resp = switchWords[random.randint(0, _nrSwitchWords)]
                 else:
                     logger.debug( "not same")
 
-                self.send_msg_by_uid(resp[:20], msg['user']['id'])
+                if len(resp) > 150:
+                    tmp = resp.decode('utf-8')
+                    resp = tmp[:40].encode('utf-8')
+                logger.debug(type(resp))
+                logger.debug(resp)
+
+                self.send_msg_by_uid(resp, msg['user']['id'])
             else:
                 logger.debug( "skip")
         except:
@@ -68,19 +75,6 @@ class MyWXBot(WXBot):
 
 
 def main():
-    import logging
-    os.system("mkdir -p out/%s/"%sys.argv[1])
-    logPath = "out/%s/log.txt"%(sys.argv[1])
-
-    # 配置日志信息  
-    logging.basicConfig(level=logging.DEBUG,  
-                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',  
-                    datefmt='%m-%d %H:%M',  
-                    filename=logPath,  
-                    filemode='w')  
-
-    logger = logging.getLogger("wxmain")
-
     bot = MyWXBot(sys.argv[1])
     bot.DEBUG = True
     bot.conf['qr'] = 'png'
@@ -88,4 +82,19 @@ def main():
 
 
 if __name__ == '__main__':
+    os.system("mkdir -p out/%s/"%sys.argv[1])
+    logPath = "out/%s/log.txt"%(sys.argv[1])
+    logger = logging.getLogger("wxbot")
+    logger.setLevel(logging.DEBUG)
+
+    fh = logging.FileHandler(logPath)
+    fh.setLevel(logging.DEBUG)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s')
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+
     main()

@@ -119,6 +119,7 @@ def gotoDashboard(request):
 def startWxBot(request, sid):
     data = {}
     rc = os.system("python ./wxctl.py start %s"%sid)
+    rc = rc >> 8
     if rc == 0:
         data['rc'] = 0
         data['desp'] = "sucess"
@@ -135,6 +136,7 @@ def startWxBot(request, sid):
 def stopWxBot(request, sid):
     data = {}
     rc = os.system("python ./wxctl.py stop %s"%sid)
+    rc = rc >> 8
     if rc == 0:
         data['rc'] = 0
         data['desp'] = "sucess"
@@ -150,6 +152,7 @@ def stopWxBot(request, sid):
 def restartWxBot(request, sid):
     data = {}
     rc = os.system("python ./wxctl.py restart %s"%sid)
+    rc = rc >> 8
     if rc == 0:
         data['rc'] = 0
         data['desp'] = "sucess"
@@ -193,7 +196,6 @@ def getWxBotStatus(request, sid):
     data = {}
     rc = os.system("python ./wxctl.py status %s"%sid)
     rc = rc >> 8
-    print "CY-X", type(rc), int(rc)
     if int(rc) == 0:
         data['rc'] = 0
         data['desp'] = "stop"

@@ -18,7 +18,7 @@ def killBot(sid):
 
 def isExisting(sid):
     if not os.path.exists("./out/%s"%sid):
-        print "Never starte..Not existed"
+    #    print "Never starte..Not existed"
         return False
 
     os.system("ps -ef | grep 'wxmain.py %s' | grep -v grep | awk '{print $2}' > ./out/%s/existed.txt"%(sid,sid))
@@ -26,17 +26,17 @@ def isExisting(sid):
     with open("./out/%s/existed.txt"%sid) as f:
         pid = f.readline()
         if pid == "":
-            print "Not existed"
+     #       print "Not existed"
             return False
         else:
-            print "Existed"
+      #      print "Existed"
             #FIXME : compare the realtime pid with that in pid.txt
             return True
 
 
 def isLogin(sid):
     status = mc.get("WX:%s:status"%sid)
-    print "isLogin %s"%status
+    #print "isLogin %s"%status
     if status:
         if status == "success":
             return True
@@ -44,6 +44,7 @@ def isLogin(sid):
     return False
 
 def startBot(sid):
+    print "enter Start Bot"
     if isExisting(sid):
         print "====Bot %s is there=============="%sid
         return 1
@@ -53,9 +54,12 @@ def startBot(sid):
         return 0
 
 def stopBot(sid):
+    print "==============stopBot================"
     if isExisting(sid):
+        print "try kill..."
         try:
             os.system("ps -ef | grep 'wxmain.py %s' | grep -v grep | awk '{print $2}' | xargs kill -9"%(sid))
+            print ("ps -ef | grep 'wxmain.py %s' | grep -v grep | awk '{print $2}' | xargs kill -9"%(sid))
         except:
             print "error in kill , probably none of this process"
         
@@ -92,6 +96,7 @@ def main():
     elif cmd  == "stop":
         return stopBot(sid)
     elif cmd == "restart":
+        print "===do Restart Bot===="
         stopBot(sid)
         return startBot(sid)
     elif cmd  == "status":
@@ -104,6 +109,6 @@ def main():
 
 if __name__ == "__main__":
     rc =main()
-    print "exit with %d"%rc
+    #print "exit with %d"%rc
     exit(rc)
 
