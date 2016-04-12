@@ -326,21 +326,11 @@ else:
 
 LOGIN_URL = '/uc/login/'
 
-if _check_env_type() == 1:
-#TODO - in final release, will use enterprise EMAIL account!
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = '10.128.16.224'
-    EMAIL_PORT = '25'
-    EMAIL_HOST_USER = ''
-    EMAIL_HOST_PASSWORD = ''
-    EMAIL_USE_TLS = False
-    DEFAULT_FROM_EMAIL = '21KE Service <21ke@caredear.com>'
-else:
-    EMAIL_HOST = 'smtp.189.cn'
-    EMAIL_PORT = '25'
-    EMAIL_HOST_USER = '13815882359@189.cn'
-    EMAIL_HOST_PASSWORD = 'passwordof123'
-    EMAIL_USE_SSL = False
+EMAIL_HOST = 'smtp.mxhichina.com'
+EMAIL_PORT = '25'
+EMAIL_HOST_USER = 'help@robotdocker.com'
+EMAIL_HOST_PASSWORD = 'Robot@Lite'
+EMAIL_USE_TLS = False
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",

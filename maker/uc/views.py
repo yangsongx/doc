@@ -54,14 +54,14 @@ def send_activation_mail(httphost, email):
 
     # NOTE - below text are stolen from doueban's registration...
     mail_title = '请激活您的帐号，完成注册'
-    mail_body = '欢迎来到XXXX世界，请点击下面链接完成注册:\n%s\n\n如果以上链接无法点击，请将上面的地址复制到你的浏览器(如IE)的地址栏进入' \
+    mail_body = '欢迎来到Robotdocker世界，请点击下面链接完成注册:\n%s\n\n如果以上链接无法点击，请将上面的地址复制到你的浏览器(如IE)的地址栏进入' \
                 %(u''.join(full_url).encode('utf-8'))
     print mail_body
 
     print 'sending with send_mail...'
     ret = send_mail(mail_title, # Subject
             mail_body, #message
-            '13815882359@189.cn', # from email TODO - how dynamic this param?
+            'help@robotdocker.com', # from email
             [email], #recipient list
             fail_silently=False)
     print 'finished with'
