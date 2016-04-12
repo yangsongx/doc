@@ -327,6 +327,7 @@ else:
 LOGIN_URL = '/uc/login/'
 
 if _check_env_type() == 1:
+#TODO - in final release, will use enterprise EMAIL account!
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = '10.128.16.224'
     EMAIL_PORT = '25'
@@ -334,13 +335,6 @@ if _check_env_type() == 1:
     EMAIL_HOST_PASSWORD = ''
     EMAIL_USE_TLS = False
     DEFAULT_FROM_EMAIL = '21KE Service <21ke@caredear.com>'
-elif _check_env_type() == 2:
-    #ysx setting
-    EMAIL_HOST = 'smtp.189.cn'
-    EMAIL_PORT = '25'
-    EMAIL_HOST_USER = '13305163882@189.cn'
-    EMAIL_HOST_PASSWORD = 'your password'
-    EMAIL_USE_SSL = False
 else:
     EMAIL_HOST = 'smtp.189.cn'
     EMAIL_PORT = '25'

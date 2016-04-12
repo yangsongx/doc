@@ -176,6 +176,8 @@ def uc_login(request):
                     else:
                         #FIXME - currently, login would lead user to the center panel
                         return redirect('/uc/personalcenter/')
+                else:
+                    return HttpResponse('TOOD-UI You need activate your account!')
             else:
                 print 'Failed case!'
                 return HttpResponse('TODO- failed login')
