@@ -17,8 +17,6 @@ from django.http import HttpResponse
 from webviews.models import Packages, Rawfiles, Model, Membership
 from webviews.models import PbCategory, PbInfo, PbType, HelpQA
 
-from qiniu import Auth
-from qiniu import put_file
 
 import base64
 import MySQLdb

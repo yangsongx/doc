@@ -32,7 +32,9 @@ def _check_env_type():
 
     s = commands.getoutput('who am i')
     if re.search(r'yang', s) != None:
-        return 2 # ysx dev env
+        s = commands.getoutput('hostname')
+        if re.search(r'debian', s) == None:
+            return 2 # ysx dev env, for Ubuntu Virtual Machine
 
     return env_type
 
@@ -74,7 +76,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = (
-    'grappelli',
+#'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

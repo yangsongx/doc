@@ -21,7 +21,7 @@ import uc.views
 urlpatterns = [
     url(r'^$', 'webviews.views.maker_index', name='home'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^grappelli/', include('grappelli.urls')),
+#url(r'^grappelli/', include('grappelli.urls')),
 
     # WEB HTML sections...
     url(r'^(?P<api_ver>v\d+)/$', 'webviews.views.do_index', name='do_index'),
