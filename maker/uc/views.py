@@ -242,7 +242,7 @@ def uc_changePwd(request):
 @login_required
 def uc_pcenter(request):
     return render_to_response('uc_home.html', {
-        "cur": u"l_08",
+        "cur": u"l_09",
         }, context_instance=RequestContext(request))
 
 @login_required
@@ -252,37 +252,43 @@ def uc_createbot(request):
         }, context_instance=RequestContext(request))
 
 @login_required
+def uc_setbot(request):
+    return render_to_response('uc_set_bot.html', {
+        "cur": u"l_02",
+        }, context_instance=RequestContext(request))
+
+@login_required
 def uc_corpusdef(request):
     return render_to_response('uc_corpus_def.html', {
-        "cur": u"l_02",
+        "cur": u"l_03",
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_funconfig(request):
     return render_to_response('uc_func_config.html', {
-        "cur": u"l_03",
+        "cur": u"l_04",
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_whitelist(request):
     return render_to_response('uc_white_list.html', {
-        "cur": u"l_04",
+        "cur": u"l_05",
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_basicinfo(request):
     return render_to_response('uc_basic_info.html', {
-        "cur": u"l_05",
+        "cur": u"l_06",
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_systemnotify(request):
     return render_to_response('uc_system_notify.html', {
-        "cur": u"l_06",
+        "cur": u"l_07",
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_sitemsg(request):
     return render_to_response('uc_site_msg.html', {
-        "cur": u"l_07",
+        "cur": u"l_08",
         }, context_instance=RequestContext(request))

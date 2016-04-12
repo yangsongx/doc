@@ -1,0 +1,374 @@
+.personal_right .personal_right_title{
+	width: 172px;
+	height:220px;
+	position:absolute;
+	top:120px;
+	left:85px;
+	z-index:4;
+}
+.personal_right .personal_right_title dl{
+	cursor:pointer;
+	position:absolute;
+	top:0;left:0;z-index:3;
+}
+.personal_right .personal_right_title #file{
+	position:absolute;
+	top:0;left:0px;
+	width:172px;
+	height:200px;
+	cursor:pointer;
+	z-index:0;
+	opacity:0;
+	filter:alpha(opacity=0);
+}
+
+.personal_right .personal_right_title dt img {
+	width: 166px;
+	height: 166px;
+	border-radius: 83px;
+	border:5px solid #e7e7e7;
+}
+.personal_right .personal_right_title dt img:hover{
+	width: 166px;
+	height: 166px;
+	border-radius: 83px;
+	border:5px solid #485056;
+}
+.personal_right .personal_right_title dd {
+	height: 30px;
+	color: #4c86e9;
+	font-size: 12px;
+	cursor: pointer;
+	line-height: 30px;
+	text-align: center;
+}
+.personal_right .robot_box1 .robot_box1_left dl{
+	cursor:pointer;
+}
+.personal_right .robot_box1 .robot_box1_left dt img {
+	width: 172px;
+	height: 172px;
+	max-width: 172px;
+	border-radius:150px;
+}
+.personal_right .robot_box1 .robot_box1_left dd {
+	height: 30px;
+	color: #4c86e9;
+	font-size: 12px;
+	cursor: pointer;
+	line-height: 30px;
+	text-align: center;
+}
+.personal_right .robot_box1 .robot_box1_right {
+	float: left;
+}
+.personal_right .robot_box1 .robot_box1_right li {
+	height: 30px;
+	font-size: 12px;
+	margin-top: 25px;
+}
+.personal_right .robot_box1 .robot_box1_right li span {
+	display: block;
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	text-align: left;
+	color: #666666;
+}
+.personal_right .robot_box1 .robot_box1_right li .right {
+	float: left;
+	height: 30px;
+	margin-left: 5px;
+	line-height: 30px;
+	color: #333;
+}
+.personal_right .robot_box1 .robot_box1_right li .right1{
+	float:left;
+	height:auto;
+	margin-left:5px;
+	line-height:30px;
+	width:500px;
+}
+.personal_right .robot_box1 .robot_box1_right li .right1 img{
+	display:block;
+	width:87px;
+	height:87px;
+	max-width:87px;
+}
+.personal_right .robot_box1 .robot_box1_right li .right input {
+	width: 485px;
+	height: 26px;
+	text-indent:10px;
+	border: 1px solid #cbcbcb;
+	color: #333333;
+}
+.personal_right .robot_box1 .robot_box1_right li .right.zhanghao {
+	color: #4c86e9;
+}
+.personal_right .robot_box1 .robot_box1_right li .right.radio input {
+	width: 13px;
+	height: 13px;
+	border:none;
+}
+.personal_right .robot_box1 .robot_box1_right li .right.cishu {
+	color: #333333;
+}
+.personal_right .robot_box1 .robot_box1_right b{ 
+	color:#ff6a6a;
+    visibility: hidden;
+}
+.personal_right .shezhi {
+	margin-left: 20px;
+}
+.personal_right .shezhi li {
+	border-bottom: 1px dashed #e8e8e8;
+	padding: 15px 0;
+	height:40px;
+	clear: both;
+}
+.personal_right .shezhi li span.moshi {
+	width: 110px;
+	float: left;
+	height: 40px;
+	line-height: 40px;
+	font-size: 12px;
+	margin-right: 15px;
+	display: block;
+	color: #666666;
+}
+.personal_right .shezhi li .shengyin {
+	width: 150px;
+	height: 35px;
+	float: left;
+	background: #6bbde5;
+	margin: 2px 0 0 32px;
+	border-radius: 5px;
+	overflow: hidden;
+	cursor: pointer;
+}
+.personal_right .shezhi li .shengyin span {
+	width: 50px;
+	float: left;
+	display: block;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 12px;
+	color: #fff;
+	text-decoration: none;
+}
+.personal_right .shezhi li .shengyin span.active {
+	background: #029fe2;
+}
+.personal_right .shezhi li .text15 {
+	float: left;
+	height: 30px;
+	font-size: 12px;
+	line-height: 30px;
+	margin-left: 15px;
+	margin-top: 4px;
+}
+.personal_right  .box_z{
+	position: relative;
+}
+#xinzengguanjianci .box_z em{
+	position: absolute;
+	width: 16px; 
+	height: 15px;
+	display: inline-block;
+	position: absolute;
+	bottom: 10px;
+	right: 0;
+	z-index: 100;
+	cursor: pointer;
+}
+
+.personal_right .shezhi li .text15 input {
+	width: 277px;
+	height: 24px;
+}
+.personal_right .shezhi li .text15 span {
+	color: #999;
+}
+.personal_right .shezhi li .font {
+	font-size: 12px;
+	float: left;
+	line-height: 40px;
+}
+.personal_right .shezhi .talk_downLoad{
+	width: 218px; 
+	height: 30px;
+	background: #CCCCCC;
+	color: #333;
+	text-align: center;
+	line-height: 30px;
+	margin-top: 5px;
+	border-radius: 3px;
+	float: right;
+	font-size: 12px;
+}
+.personal_right .shezhi .talk_downLoad1{
+	width: 218px; 
+	height: 30px;
+	color: #333;
+	text-align: center;
+	line-height: 30px;
+	margin-top: 5px;
+	border-radius: 3px;
+	float: right;
+	display: none;
+	font-size:14px;
+}
+.personal_right .shezhi .talk_downLoad3{
+	height: 28px;
+	color: #333;
+	text-indent: 50px;
+	line-height: 30px;
+	margin-top: 5px;
+	float: right;
+	font-size: 12px;
+    margin-right: 20px;
+    display: none;
+}
+.personal_right .shezhi .talk_downLoad3 a{
+	text-decoration: none;
+}
+.personal_right .shezhi .talk_downLoad1 img{
+	position: relative;
+	top: 2px;
+}
+.personal_right .shezhi li .font input{
+	width:277px;
+	height:24px;
+	line-height:24px;
+}
+.personal_right .shezhi li .font input.pipei{
+	outline: none;
+	width:50px;
+	text-align:center;
+}
+.personal_right .shezhi li .font input.radio{
+	width:13px;
+	height:13px;
+}
+.personal_right .shezhi li .font b{
+	color: #ff6a6a;
+	visibility: hidden;
+}
+.personal_right .shezhi li .font .moren span{
+	color:#999;
+}
+.personal_right .guolv {
+	margin-left: 20px;
+	
+}
+.personal_right .guolv li {
+	clear: both;
+	line-height: 40px;
+	margin-top: 30px;
+	height:40px;
+}
+.personal_right .guolv li .moxing {
+	float: left;
+	width: 110px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 12px;
+	margin-right: 15px;
+	display: block;
+	color: #666;
+}
+.personal_right .guolv li .switch {
+	margin: 3px 0 0 0;
+}
+.personal_right .guolv li .guanjianci {
+	width: 130px;
+	height: 40px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.personal_right .guolv li .guanjianci .box {
+	position: relative;
+	height: 40px;
+}
+.personal_right .guolv li .guanjianci .box input {
+	position: absolute;
+	width: 126px;
+	height: 34px;
+	line-height:34px;
+	z-index: 2;
+}
+.personal_right .guolv li .guanjianci .box span {
+	position: absolute;
+	right: 0;
+	z-index: 5;
+	bottom: 0px;
+	width: 15px;
+	height: 15px;
+	display: block;
+	cursor: pointer;
+}
+.personal_right .guolv li .guanjianci .box span img {
+	display: block;
+}
+.personal_right .guolv li .add_guanjianci {
+	float: left;
+	cursor: pointer;
+	display: block;
+	width: 83px;
+	height: 31px;
+	margin-top:5px;
+}
+.personal_right .guolv li .text15 {
+	clear: both;
+	font-size: 12px;
+	margin-left:42px;
+}
+.personal_right .guolv li .text15 .add_guanjianci1{
+    float: left;
+    cursor: pointer;
+    display: block;
+    width: 83px;
+    height: 31px;
+}
+.personal_right .guolv li .text15 .input {
+	float: left;
+	margin-right:15px;
+}
+.personal_right .guolv li .text15 .input input {
+	width: 277px;
+	height: 24px;
+	margin-bottom: 10px;
+	display: block;
+}
+.personal_right .guolv li .text15 span {
+	color: #999;
+	display: block;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	margin-left:20px;
+}
+.personal_right .robot_box1,
+.personal_right .shezhi {
+
+	padding-bottom: 20px;
+}
+.personal_right .shezhi .knowlodgeBg{
+	background: url(../img/icon220.png) 5px center no-repeat;
+	text-indent: 23px;
+}
+#updateset_form input,
+#updateset_form label{
+	color: #333;
+}
+.personal_right .robot_box1 .robot_box1_left {
+	width: 172px;
+	float: left;
+	margin: 40px 50px 0 35px;
+}
+.font_z div{
+	float: left;margin-right: 20px;
+}

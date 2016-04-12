@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^changePwd/$', uc.views.uc_changePwd, name='changePwd'),
     url(r'^personalcenter/$', uc.views.uc_pcenter, name='personalcenter'),
     url(r'^createbot/$', uc.views.uc_createbot, name='create_bot'),
+    url(r'^setbot/$', uc.views.uc_setbot, name='set_bot'),
     url(r'^corpusdef/$', uc.views.uc_corpusdef, name='corpus_def'),
     url(r'^funconfig/$', uc.views.uc_funconfig, name='func_config'),
     url(r'^whitelist/$', uc.views.uc_whitelist, name='white_list'),
