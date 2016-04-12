@@ -4,10 +4,352 @@
 
 {% block title %}流氓兔{% endblock %}
 {% block meta %}
+ {% compress css %}
+	<link href="{% static "tuling123/css/assist_user_appid_list.css"%}" rel="stylesheet" type="text/css" />
+ {% endcompress %}
 <meta />
 {% endblock %}
 
-{% block uc_title %}功能配置{% endblock %}
+{% block uc_title %}
+<span>功能选择</span>
+<div id="switch" class="switch" style="display:none;">
+	<div class="switch-on switch-animate">
+		<span class="left">ON</span>
+		<span class="center"></span>
+		<span class="right">OFF</span>
+	</div>
+</div>
+<div class="fenlei1" style="display:none;">
+	<div class="fenleibox">
+		<img src="/static/tuling123/img/icon138.png">
+		<div class="abs" style="width:180px;">
+			功能开启后才能使用下面已选的功能服务
+		</div>
+	</div>
+</div>
+{% endblock %}
 {% block uc_content %}
+<div class="gongneng">
+	<div class="gongneng_box">
+                          <dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>聊天</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
 
+
+		<dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>天气</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+                          <dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>故事</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+                          <dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>灯谜</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+
+
+		<dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>笑话</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+                          <dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>算命</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+                         <dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>看相</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+
+
+		<dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>八卦</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+                          <dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>星座</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+                        <dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>菜谱</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+
+
+		<dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>装修</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+                          <dl class="featureSel_z">
+			<div class="newFeature "></div>
+			<dt>
+	                                        <div class="featureSel_item">
+	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
+					<p>百科</p>
+				</div>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+	</div>
+</div>
+{% endblock %}
+{% block my_js %}
+{% compress js %}
+<script type="text/javascript" src="{% static "layer/layer.js"%}"></script>
+<script type="text/javascript">
+var webtuling = {
+    switchs: function() {
+        //单个
+        var switchLen = jq('.switch:not("#switch")').length;
+        jq('.personal_right .switch:not("#switch")').on('click',
+        function() {
+            if (jq('#switch').children().attr('class') == 'switch-on switch-animate') {
+                cls = jq(this).children().attr('class');
+                if (cls == 'switch-on switch-animate') {
+                    var q = 0;
+                    for (var i = 0; i < switchLen; i++) {
+                        if (jq('.switch:not("#switch")').eq(i).children().attr('class') == 'switch-on switch-animate') {
+                            q++;
+                        };
+                    };
+                    if (q <= 1) {
+                        layer.msg('请最少保留一个功能！', {
+                            icon: 7
+                        });
+                        return false;
+                    };
+                    var strid = jq(this).attr('id');
+                    id = strid;
+                    jq.ajax({
+                        url: "/web/assist_user_appid!ajaxDeleteAppid.action",
+                        data: {
+                            "appid": id
+                        },
+                        type: "POST",
+                        dataType: "json",
+                        cache: false,
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                jq('#' + id).children().attr('class', 'switch-off switch-animate');
+                            } else {
+                                layer.msg('操作失败,请刷新后重试！', {
+                                    icon: 2
+                                });
+                            }
+                        },
+                        error: function() {
+                            layer.msg('操作失败,请刷新后重试！', {
+                                icon: 2
+                            });
+                        }
+                    });
+                } else {
+                    var strid = jq(this).attr('id');
+                    id = strid;
+                    jq.ajax({
+                        url: "/web/assist_user_appid!ajaxAddAppid.action",
+                        data: {
+                            "appid": id
+                        },
+                        type: "POST",
+                        dataType: "json",
+                        cache: false,
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                jq('#' + id).children().attr('class', 'switch-on switch-animate');
+                            } else {
+                                layer.msg('操作失败,请刷新后重试！', {
+                                    icon: 2
+                                });
+                            }
+                        },
+                        error: function() {
+                            layer.msg('操作失败,请刷新后重试！', {
+                                icon: 2
+                            });
+                        }
+                    });
+                };
+            } else {
+                layer.msg('请先打开左上角的开关！', {
+                    icon: 7
+                });
+                return false;
+            }
+        });
+        return this;
+    }
+}
+webtuling.switchs();
+colors= ["#87CEFA", "#FFF0F5", "#D8BFD8", "#9370DB", "#E6E6FA", "#E0FFFF", "#F5FFFA", "#FAFAD2", "#FFEBCD"];
+jq('.featureSel_item').css({
+    "background-color": this.colors[Math.floor(this.colors.length * Math.random())]
+});
+
+jq(function() {
+    // 提示
+    jq('.fenlei1 img').on('mouseover',
+    function() {
+        jq(this).next().show();
+    });
+    jq('.fenlei1 img').on('mouseout',
+    function() {
+        jq(this).next().hide();
+    });
+}); 
+</script>
+{% endcompress %}
 {% endblock %}

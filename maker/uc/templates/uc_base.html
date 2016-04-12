@@ -36,7 +36,7 @@
   <div class="personal_right"> 
       <div class="personal_right_box mini" style="padding-bottom: 0;"> 
              <div class="personal_head"> 
-                 <span>{% block uc_title %}{% endblock %}</span> 
+                 {% block uc_title %}{% endblock %}
             </div> 
             {% block uc_content %}
             {% endblock %}
@@ -425,6 +425,7 @@ var loginStatus = true;
     })
 </script>
 
-
+{% block my_js %}
+{% endblock %}
 </body>
 </html>

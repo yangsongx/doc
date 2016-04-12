@@ -1,0 +1,99 @@
+.personal_right .gongneng {
+	margin: 0 15px;
+	margin-bottom:80px;
+	overflow:hidden;
+}
+.personal_right .gongneng .gongneng_box {
+	margin: 0 auto;
+	width: 100%;
+}
+.personal_right .gongneng .gongneng_box dl {
+	width: 120px;
+	float: left;
+	margin: 20px 30px 0 0;
+	position: relative;
+}
+.personal_right .gongneng .gongneng_box dl dt {
+	width: 120px;
+	height: 120px;
+}
+.personal_right .gongneng .gongneng_box dl .featureSel_item {
+	width: 100px;
+	height: 100px;
+	margin-top: 10px;
+	margin-left: 10px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	text-align: center;
+	vertical-align: center;
+}
+
+.personal_right .gongneng .gongneng_box dl .featureSel_item img {
+	width: 70px;
+	height: 70px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	margin-top: 5px;
+}
+
+.personal_right .gongneng .gongneng_box dl .featureSel_item p {
+	margin-top: 5px;
+	font-size: 14px;
+	color:#000;
+}
+
+
+
+.personal_right .gongneng .gongneng_box dl dd {
+	margin: 10px auto 0;
+}
+.personal_right .gongneng .gongneng_box dl dd a {
+	width: 90px;
+	color: #fff;
+	height: 35px;
+	margin: 0 auto;
+	display: block;
+	font-size: 12px;
+	line-height: 35px;
+	text-align: center;
+	border-radius: 5px;
+	background: #ff9957;
+	text-decoration: none;
+}
+.personal_right .gongneng .gongneng_box dl dd.icon {
+	background: url(../img/icon104.png) no-repeat;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 5;
+	width: 40px;
+	height: 40px;
+	margin: 0;
+}
+.personal_right .gongneng .gongneng_box dl dd .switch {
+	width: 100px;
+	float: none;
+	margin: 0 auto;
+}
+.featureSel_z{
+	position: relative;
+}
+.featureSel_z .newFeature{
+	width: 52px; 
+	height: 32px;
+	background: url(../img/icon195.png) no-repeat ;
+	position: absolute;
+	right: -10px;
+	top: -10px;
+	display: none;
+}
+.featureSel_z .newFeature.active{
+	display: block;
+}
+
+.personal_right .fenlei1 .fenleibox{
+     float:left;
+     position: relative;
+}
