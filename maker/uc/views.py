@@ -237,7 +237,8 @@ def uc_login(request):
             print u
             if u.is_authenticated():
                 print 'Wow, you already logedin'
-                return HttpResponse('TODO ALREADY LOGIN UI')
+                # Note - for already login, just redirect to Usercenter
+                return HttpResponseRedirect('/uc/personalcenter/')
 
         usr = AccountForm()
 
