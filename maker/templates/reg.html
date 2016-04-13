@@ -2,20 +2,167 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>用户注册</title>
+    <base href="/account">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title ng-bind="title + ' · DaoCloud'"></title>
+    <link href="https://dn-daoaccount-prod.qbox.me/static/css/account-framework-eaa96a31.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/animate-custom.css" />
+    <script src="https://dn-daoaccount-prod.qbox.me/static/js/account-framework-f949fa76.js"></script>
+    <script src="https://dn-daoaccount-prod.qbox.me/static/js/account-app-0cdf5721.js"></script>
+    <style>
+        .page-signup .have-account {
+            font-size: 16px;
+        }
+        .media p {
+            float: left;
+            margin-top: 3px;
+        }
+        .media-left .fa {
+            color: rgb(85, 85, 85);
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .media-left .fa:hover {
+            color: #9d9d9d;
+        }
+        .page-signin .not-a-member {
+            font-size: 18px;
+        }
+        .page-signup .have-account {
+            font-size: 18px;
+        }
+        .page-signup .signup-text {
+            font-size: 20px;
+            font-style: normal;
+        }
+
+        .page-signin .signin-text span {
+            font-size: 20px;
+            font-style: normal;
+        }
+
+        .container1 > div,
+        .container2 > div,
+        .container3 > div {
+            width: 6px;
+            height: 6px;
+            background-color: #5383b4;
+            border-radius: 100%;
+            position: absolute;
+            -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
+            animation: bouncedelay 1.2s infinite ease-in-out;
+            /* Prevent first frame from flickering when animation starts */
+
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        @-webkit-keyframes bouncedelay {
+            0%, 80%, 100% {
+                -webkit-transform: scale(0.0)
+            }
+            40% {
+                -webkit-transform: scale(1.0)
+            }
+        }
+        @keyframes bouncedelay {
+            0%, 80%, 100% {
+                transform: scale(0.0);
+                -webkit-transform: scale(0.0);
+            }
+            40% {
+                transform: scale(1.0);
+                -webkit-transform: scale(1.0);
+            }
+        }
+
+        @-webkit-keyframes bouncedelay {
+            0%, 80%, 100% {
+                -webkit-transform: scale(0.0)
+            }
+            40% {
+                -webkit-transform: scale(1.0)
+            }
+        }
+        @keyframes bouncedelay {
+            0%, 80%, 100% {
+                transform: scale(0.0);
+                -webkit-transform: scale(0.0);
+            }
+            40% {
+                transform: scale(1.0);
+                -webkit-transform: scale(1.0);
+            }
+        }
+    </style>
 </head>
-  <style type="text/css">
-    body{color:#efd;background:#453;padding:0 5em;margin:0}
-    h1{padding:2em 1em;background:#675}
-    h2{color:#bf8;border-top:1px dotted #fff;margin-top:2em}
-    p{margin:1em 0}
-  </style>
-<body>
-<h1>注册:</h1>
-    <form method = 'post' enctype="multipart/form-data">
-    {{user.as_p}}
-        <input type="submit" value = "ok" />
-    </form>
+
+<body class="body-blue theme-clean global-color_sun" ng-class="{'page-signin': signin, 'page-signup': signup}" data-spy="scroll" data-target=".navbar" ng-show="hasToken">
+
+<div class="wrapper body-inverse">
+    <div class="container">
+        <section>
+            <div id="container_demo" >
+                <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+                <a class="hiddenanchor" id="toregister"></a>
+                <a class="hiddenanchor" id="tologin"></a>
+                <div id="wrapper">
+                    <div id="login" class="animate form">
+                        <form method = 'post' enctype="multipart/form-data" autocomplete="on">
+                            <h1> Sign up </h1>
+                            <p>
+                                <label for="id_user_name" class="" data-icon="e" > 邮箱账号</label>
+                                <input id="id_user_name" name="user_name" required="required" type="email" placeholder="mysupermail@mail.com"/>
+                            </p>
+                            <p>
+                                <label for="id_password" class="youpasswd" data-icon="p">密码 </label>
+                                <input id="id_password" name="password" required="required" type="password" placeholder="输入密码"/>
+                            </p>
+                            <p>
+                                <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">再次输入密码 </label>
+                                <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="输入密码"/>
+                            </p>
+                            <p class="signin button">
+                                <input type="submit" value="Sign up"/>
+                            </p>
+                            <p class="change_link">
+                                已有账号 ?
+                                <a href="/uc/login/" class="to_register"> 登录 </a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+<!-- / wrapper -->
+
+<div class="footer-wrapper">
+    <!-- footer wrapper -->
+    <hr>
+    <div class="container">
+        <footer>
+            <ul class="list-inline pull-left">
+                <li>
+                    <a href="http://www.miitbeian.gov.cn/">沪ICP备14048409号-1</a>
+                </li>
+            </ul>
+        </footer>
+    </div>
+    <!-- /container -->
+</div>
+<!-- / footer wrapper -->
+
 </body>
 </html>
+

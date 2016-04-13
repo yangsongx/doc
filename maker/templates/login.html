@@ -17,44 +17,6 @@
     <link rel="stylesheet" type="text/css" href="static/css/animate-custom.css" />
     <script src="https://dn-daoaccount-prod.qbox.me/static/js/account-framework-f949fa76.js"></script>
     <script src="https://dn-daoaccount-prod.qbox.me/static/js/account-app-0cdf5721.js"></script>
-    <script>
-        var ua = navigator.userAgent;
-        var b = ua.indexOf("MSIE ");
-        if (b >= 0) {
-            console.log(parseFloat(ua.substring(b + 5, ua.indexOf(";", b))));
-            if(parseFloat(ua.substring(b + 5, ua.indexOf(";", b))) <= 9) {
-                window.location.href="/not-support";
-            }
-        }
-    </script>
-
-    <script>
-        var toHttp = function() {
-            var protocol = window.location.protocol;
-            if(protocol !== 'http:') {
-                var href = window.location.href;
-                window.location.href = href.replace(/https/, "http");
-            }
-        };
-    </script>
-
-    <script type="text/javascript">
-        angular.module('cloudSign.config', [])
-                .constant('CONFIG', {
-                    baseUrl: 'https://api.daocloud.io/',
-                    domain: '.daocloud.io',
-                    homepage: 'https://www.daocloud.io/',
-                    account: 'https://account.daocloud.io/',
-                    dashboard: 'https://dashboard.daocloud.io/',
-                    githubClientId: 'a26a25589f569fa90d5d',
-                    vendor: '',
-                });
-    </script>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
     <style>
         .page-signup .have-account {
             font-size: 16px;
@@ -81,24 +43,12 @@
             font-size: 20px;
             font-style: normal;
         }
-        .page-signup .form-actions .signup-btn {
-            font-size: 16px;
-        }
+
         .page-signin .signin-text span {
             font-size: 20px;
             font-style: normal;
         }
-        .page-signin .form-actions .signin-btn {
-            font-size: 16px;
-        }
-        .spinner {
-            width: 60px;
-            height: 60px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+
         .container1 > div,
         .container2 > div,
         .container3 > div {
@@ -114,79 +64,7 @@
             -webkit-animation-fill-mode: both;
             animation-fill-mode: both;
         }
-        .spinner .spinner-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-        .container2 {
-            -webkit-transform: rotateZ(45deg);
-            transform: rotateZ(45deg);
-        }
-        .container3 {
-            -webkit-transform: rotateZ(90deg);
-            transform: rotateZ(90deg);
-        }
-        .circle1 {
-            top: 0;
-            left: 0;
-        }
-        .circle2 {
-            top: 0;
-            right: 0;
-        }
-        .circle3 {
-            right: 0;
-            bottom: 0;
-        }
-        .circle4 {
-            left: 0;
-            bottom: 0;
-        }
-        .container2 .circle1 {
-            -webkit-animation-delay: -1.1s;
-            animation-delay: -1.1s;
-        }
-        .container3 .circle1 {
-            -webkit-animation-delay: -1.0s;
-            animation-delay: -1.0s;
-        }
-        .container1 .circle2 {
-            -webkit-animation-delay: -0.9s;
-            animation-delay: -0.9s;
-        }
-        .container2 .circle2 {
-            -webkit-animation-delay: -0.8s;
-            animation-delay: -0.8s;
-        }
-        .container3 .circle2 {
-            -webkit-animation-delay: -0.7s;
-            animation-delay: -0.7s;
-        }
-        .container1 .circle3 {
-            -webkit-animation-delay: -0.6s;
-            animation-delay: -0.6s;
-        }
-        .container2 .circle3 {
-            -webkit-animation-delay: -0.5s;
-            animation-delay: -0.5s;
-        }
-        .container3 .circle3 {
-            -webkit-animation-delay: -0.4s;
-            animation-delay: -0.4s;
-        }
-        .container1 .circle4 {
-            -webkit-animation-delay: -0.3s;
-            animation-delay: -0.3s;
-        }
-        .container2 .circle4 {
-            -webkit-animation-delay: -0.2s;
-            animation-delay: -0.2s;
-        }
-        .container3 .circle4 {
-            -webkit-animation-delay: -0.1s;
-            animation-delay: -0.1s;
-        }
+
         @-webkit-keyframes bouncedelay {
             0%, 80%, 100% {
                 -webkit-transform: scale(0.0)
@@ -205,79 +83,7 @@
                 -webkit-transform: scale(1.0);
             }
         }
-        .spinner .spinner-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-        .container2 {
-            -webkit-transform: rotateZ(45deg);
-            transform: rotateZ(45deg);
-        }
-        .container3 {
-            -webkit-transform: rotateZ(90deg);
-            transform: rotateZ(90deg);
-        }
-        .circle1 {
-            top: 0;
-            left: 0;
-        }
-        .circle2 {
-            top: 0;
-            right: 0;
-        }
-        .circle3 {
-            right: 0;
-            bottom: 0;
-        }
-        .circle4 {
-            left: 0;
-            bottom: 0;
-        }
-        .container2 .circle1 {
-            -webkit-animation-delay: -1.1s;
-            animation-delay: -1.1s;
-        }
-        .container3 .circle1 {
-            -webkit-animation-delay: -1.0s;
-            animation-delay: -1.0s;
-        }
-        .container1 .circle2 {
-            -webkit-animation-delay: -0.9s;
-            animation-delay: -0.9s;
-        }
-        .container2 .circle2 {
-            -webkit-animation-delay: -0.8s;
-            animation-delay: -0.8s;
-        }
-        .container3 .circle2 {
-            -webkit-animation-delay: -0.7s;
-            animation-delay: -0.7s;
-        }
-        .container1 .circle3 {
-            -webkit-animation-delay: -0.6s;
-            animation-delay: -0.6s;
-        }
-        .container2 .circle3 {
-            -webkit-animation-delay: -0.5s;
-            animation-delay: -0.5s;
-        }
-        .container3 .circle3 {
-            -webkit-animation-delay: -0.4s;
-            animation-delay: -0.4s;
-        }
-        .container1 .circle4 {
-            -webkit-animation-delay: -0.3s;
-            animation-delay: -0.3s;
-        }
-        .container2 .circle4 {
-            -webkit-animation-delay: -0.2s;
-            animation-delay: -0.2s;
-        }
-        .container3 .circle4 {
-            -webkit-animation-delay: -0.1s;
-            animation-delay: -0.1s;
-        }
+
         @-webkit-keyframes bouncedelay {
             0%, 80%, 100% {
                 -webkit-transform: scale(0.0)
@@ -298,86 +104,79 @@
         }
     </style>
 </head>
-  <style type="text/css">
-    body{color:#efd;background:#253;padding:0 5em;margin:0}
-    h2{color:#1c8;border-top:1px dotted #fff;margin-top:2em}
-    p{margin:1em 0}
-  </style>
-<body class="body-blue theme-clean global-color_sun" ng-class="{'page-signin': signin, 'page-signup': signup}" data-spy="scroll" data-target=".navbar" ng-show="!hasToken">
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="https://www.daocloud.io/" target="_self" style="height: 36px;">
-                <img style="height: 36px;margin-top: -6px" alt="DaoCloud" src="https://dn-daoweb-resource.qbox.me/images/dashboard/daocloud-logo-black.svg" onerror="toHttp()">
-            </a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown" ng-if="!thirdparty.isDaoVoice">
-                    <a href="https://dashboard.daocloud.io/" target="_self">控制台</a>
-                </li>
-                <li class="dropdown" ng-if="!thirdparty.isDaoVoice">
-                    <a href="http://blog.daocloud.io" target="_blank">博客</a>
-                </li>
-                <li class="dropdown" ng-if="!thirdparty.isDaoVoice">
-                    <a href="http://open.daocloud.io/" target="_blank">社区</a>
-                </li>
-                <li class="dropdown" ng-if="!thirdparty.isDaoVoice">
-                    <a href="http://docs.daocloud.io/" target="_blank">文档</a>
-                </li>
-                <li class="dropdown" ng-if="!thirdparty.isDaoVoice">
-                    <a href="http://get.daocloud.io/" target="_blank">下载</a>
-                </li>
-                <hr class="hidden-md hidden-sm hidden-lg index-xs-hr" ng-if="!thirdparty.isDaoVoice">
-                <li class="dropdown hidden-md hidden-sm hidden-lg">
-                    <a  target="_self" id="nav-sign-up" ng-click="gotosignin()">登录
-                        <!-- <b class="caret"></b> -->
-                    </a>
-                </li>
-                <li class="dropdown hidden-md hidden-sm hidden-lg">
-                    <a target="_self" id="nav-sign-in" ng-click="gotosignup()">注册
-                    </a>
-                </li>
-                <li class="dropdown hidden-md hidden-sm hidden-lg" id="nav-user-bar">
-                </li>
 
-            </ul>
-            <ul class="nav navbar-nav navbar-right hidden-xs">
-                <li id="sign-up">
-                    <button type="button" class="btn btn-success" ng-click="gotosignup()">注册</button>
-                </li>
-                <li id="sign-in">
-                    <button type="button" class="btn btn-default" ng-click="gotosignin()">登录</button>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+<body class="body-blue theme-clean global-color_sun" ng-class="{'page-signin': signin, 'page-signup': signup}" data-spy="scroll" data-target=".navbar" ng-show="!hasToken">
+<!--<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+    <!--<div class="container">-->
+        <!--<div class="navbar-header">-->
+            <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">-->
+                <!--<span class="sr-only">Toggle navigation</span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+            <!--</button>-->
+            <!--<a class="navbar-brand" href="https://www.daocloud.io/" target="_self" style="height: 36px;">-->
+                <!--<img style="height: 36px;margin-top: -6px" alt="DaoCloud" src="https://dn-daoweb-resource.qbox.me/images/dashboard/daocloud-logo-black.svg" onerror="toHttp()">-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div class="navbar-collapse collapse">-->
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li class="dropdown" ng-if="!thirdparty.isDaoVoice">-->
+                    <!--<a href="https://dashboard.daocloud.io/" target="_self">控制台</a>-->
+                <!--</li>-->
+                <!--<li class="dropdown" ng-if="!thirdparty.isDaoVoice">-->
+                    <!--<a href="http://blog.daocloud.io" target="_blank">博客</a>-->
+                <!--</li>-->
+                <!--<li class="dropdown" ng-if="!thirdparty.isDaoVoice">-->
+                    <!--<a href="http://open.daocloud.io/" target="_blank">社区</a>-->
+                <!--</li>-->
+                <!--<li class="dropdown" ng-if="!thirdparty.isDaoVoice">-->
+                    <!--<a href="http://docs.daocloud.io/" target="_blank">文档</a>-->
+                <!--</li>-->
+                <!--<li class="dropdown" ng-if="!thirdparty.isDaoVoice">-->
+                    <!--<a href="http://get.daocloud.io/" target="_blank">下载</a>-->
+                <!--</li>-->
+                <!--<hr class="hidden-md hidden-sm hidden-lg index-xs-hr" ng-if="!thirdparty.isDaoVoice">-->
+                <!--<li class="dropdown hidden-md hidden-sm hidden-lg">-->
+                    <!--<a  target="_self" id="nav-sign-up" ng-click="gotosignin()">登录-->
+                        <!--&lt;!&ndash; <b class="caret"></b> &ndash;&gt;-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="dropdown hidden-md hidden-sm hidden-lg">-->
+                    <!--<a target="_self" id="nav-sign-in" ng-click="gotosignup()">注册-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="dropdown hidden-md hidden-sm hidden-lg" id="nav-user-bar">-->
+                <!--</li>-->
+
+            <!--</ul>-->
+            <!--<ul class="nav navbar-nav navbar-right hidden-xs">-->
+                <!--<li id="sign-up">-->
+                    <!--<button type="button" class="btn btn-success" ng-click="gotosignup()">注册</button>-->
+                <!--</li>-->
+                <!--<li id="sign-in">-->
+                    <!--<button type="button" class="btn btn-default" ng-click="gotosignin()">登录</button>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 <!-- Body -->
 <div class="wrapper body-inverse">
     <div class="container">
         <section>
             <div id="container_demo" >
-                <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
-                <a class="hiddenanchor" id="toregister"></a>
-                <a class="hiddenanchor" id="tologin"></a>
                 <div id="wrapper">
                     <div id="login" class="animate form">
-                        <form  action="mysuperscript.php" autocomplete="on">
+                        <form method = 'post' enctype="multipart/form-data" autocomplete="on">
                             <h1>Log in</h1>
                             <p>
-                                <label for="username" class="uname" data-icon="u" > 输入邮箱或者账号 </label>
-                                <input id="username" name="username" required="required" type="text" placeholder="邮箱或账号"/>
+                                <label for="id_user_name" class="uname" data-icon="u" > 输入邮箱或者账号 </label>
+                                <input id="id_user_name" name="user_name" required="required" type="text" placeholder="邮箱或账号"/>
                             </p>
                             <p>
-                                <label for="password" class="youpasswd" data-icon="p"> 输入密码 </label>
-                                <input id="password" name="password" required="required" type="password" placeholder="密码" />
+                                <label for="id_password" class="youpasswd" data-icon="p"> 输入密码 </label>
+                                <input id="id_password" name="password" required="required" type="password" placeholder="密码" />
                             </p>
                             <p class="keeplogin">
                                 <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
@@ -386,46 +185,17 @@
                             <p class="login button">
                                 <input type="submit" value="登录" />
                             </p>
+                            <p class="change_link">
+                                还没有账号 ?
+                                <a class="to_register" href="/uc/reg/">注册</a>
+                            </p>
                         </form>
                     </div>
-
-                    <!--<div id="register" class="animate form">-->
-                        <!--<form  action="mysuperscript.php" autocomplete="on">-->
-                            <!--<h1> Sign up </h1>-->
-                            <!--<p>-->
-                                <!--<label for="usernamesignup" class="uname" data-icon="u">Your username</label>-->
-                                <!--<input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />-->
-                            <!--</p>-->
-                            <!--<p>-->
-                                <!--<label for="emailsignup" class="youmail" data-icon="e" > Your email</label>-->
-                                <!--<input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/>-->
-                            <!--</p>-->
-                            <!--<p>-->
-                                <!--<label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>-->
-                                <!--<input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>-->
-                            <!--</p>-->
-                            <!--<p>-->
-                                <!--<label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>-->
-                                <!--<input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>-->
-                            <!--</p>-->
-                            <!--<p class="signin button">-->
-                                <!--<input type="submit" value="Sign up"/>-->
-                            <!--</p>-->
-                            <!--<p class="change_link">-->
-                                <!--Already a member ?-->
-                                <!--<a href="#tologin" class="to_register"> Go and log in </a>-->
-                            <!--</p>-->
-                        <!--</form>-->
-                    <!--</div>-->
-
                 </div>
             </div>
         </section>
     </div>
-        <!--<form method = 'post' enctype="multipart/form-data">-->
-            <!--{{user.as_p}}-->
-            <!--<input type="submit" value = "ok" />-->
-        <!--</form>-->
+
 </div>
 <!-- / wrapper -->
 
@@ -438,18 +208,6 @@
                 <li>
                     <a href="http://www.miitbeian.gov.cn/">沪ICP备14048409号-1</a>
                 </li>
-                <!--  <li>
-                   <a href="about-us.html">About Us</a>
-                 </li>
-                 <li>
-                   <a href="#">Privacy Policy</a>
-                 </li>
-                 <li>
-                   <a href="#">Terms and Conditions</a>
-                 </li>
-                 <li>
-                   <a href="contact-us.html">Contact Us</a>
-                 </li> -->
             </ul>
         </footer>
     </div>
@@ -457,36 +215,6 @@
 </div>
 <!-- / footer wrapper -->
 
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?11dbf453d8b02449a4a52199679ea61e";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-57261294-7', 'auto');
-    ga('send', 'pageview');
-
-</script>
-<script>
-    (function(i, s, o, g, r, a, m) {i['DaoVoiceObject'] = r;i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//widget.daovoice.io/widget/91af7bf3.js', 'daovoice');
-    daovoice('init', {
-        app_id: "91af7bf3"
-    });
-
-    daovoice('update');
-</script>
 
 
 </body>
