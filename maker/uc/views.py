@@ -15,7 +15,7 @@ from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 
-from models import AccountProfile
+from models import AccountProfile, RobotType
 
 
 # This is just a HTML FORM wrapper, not related with
@@ -70,7 +70,6 @@ def send_activation_mail(httphost, email):
     return ticket
 
 ###################################################################################
-# TODO this API currently just sending mail, actually it SHOULD compare with DB
 def activate_email_account(ticket, email):
     ret = -1
     try:
@@ -95,6 +94,55 @@ def activate_email_account(ticket, email):
         return HttpResponse('TODO - UI for mail activation OK')
     else:
         return HttpResponse('TODO - UI for mail activation NOT OK')
+
+###################################################################################
+def create_robot(post_form, user):
+    print 'TODO code, will add in the future'
+    r_obj = RobotType(rob_sex = post_form['robotsettings.gender'],
+            rob_alias = post_form['robotsettings.nickname'] )
+    r_obj.save()
+
+    a_obj = AccountProfile(user_id = user.id,
+            robot_id = r_obj)
+    a_obj.save()
+
+    return 0
+
+###################################################################################
+def set_robot_info(post_form, uid):
+    print 'TODO code, will add in the future'
+    return 0
+
+###################################################################################
+def uc_apiListRobot(request):
+    ret = {}
+    ret['code'] = 0
+
+    try:
+        if request.method == 'POST':
+            js_data = json.loads(request.body)
+            usr_profile = AccountProfile.objects.filter(user_id = js_data['userid'])
+            i = 1
+            tmp = []
+            for it in usr_profile:
+                item = {}
+                print 'got the new item'
+                robj = RobotType.objects.get(id=it.robot_id_id)
+                item['index'] = i
+                item['name'] = robj.rob_alias
+                item['gender'] = robj.rob_sex
+                item['create'] = str(robj.rob_creation)
+
+                tmp.append(item)
+                i += 1
+
+            ret['list'] = tmp
+    except:
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        ret['code'] = -1
+        ret['msg'] = info
+
+    return HttpResponse(json.dumps(ret))
 
 #
 # Create your views here.
@@ -247,15 +295,45 @@ def uc_pcenter(request):
 
 @login_required
 def uc_createbot(request):
-    return render_to_response('uc_create_bot.html', {
-        "cur": u"l_01",
-        }, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        print 'Will creating...'
+        try:
+            create_robot(request.POST, request.user)
+        except:
+            info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+            print info # FIXME - currently I just log the exception
+
+        return HttpResponse('TODO UI - Robert Creation [Successfully]- Try Start it somewhere!')
+
+    else:
+        print 'just GET'
+        return render_to_response('uc_create_bot.html', {
+            "cur": u"l_01",
+            }, context_instance=RequestContext(request))
 
 @login_required
 def uc_setbot(request):
-    return render_to_response('uc_set_bot.html', {
-        "cur": u"l_02",
-        }, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        try:
+            print 'POST, get data'
+            print request.POST
+            post_data = request.POST
+            print post_data['robotsettings.age'] # TODO - all FORM fields
+            print 'the user are'
+            print request.user
+            print request.user.id
+            set_robot_info(post_data, request.user.id)
+        except:
+            info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+            print info # FIXME - currently I just log the exception
+
+        return HttpResponse('TODO UI - Robert Setting [Successfully]!')
+
+    else:
+        print 'a GET'
+        return render_to_response('uc_set_bot.html', {
+            "cur": u"l_02",
+            }, context_instance=RequestContext(request))
 
 @login_required
 def uc_corpusdef(request):

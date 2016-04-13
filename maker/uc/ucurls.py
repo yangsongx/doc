@@ -5,6 +5,7 @@ from django.contrib.auth.views import login, logout
 import uc.views
 
 urlpatterns = [
+    url(r'^apiListRobot/$', uc.views.uc_apiListRobot, name = 'apiListRobot'),
     url(r'^reg/$', uc.views.uc_reg, name = 'uc_reg'),
     url(r'^login/$', uc.views.uc_login, name = 'uc_login'),
     url(r'^logout/$', uc.views.uc_logout, name = 'uc_logout'),

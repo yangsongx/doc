@@ -9,5 +9,44 @@
 
 {% block uc_title %}<span>机器人创建</span>{% endblock %}
 {% block uc_content %}
+        <!-- Added by ysx -->
+        <div>
+            <h>TODO - List your robots here</h>
+            <li></li>
+        </div>
+        <form id="updateset_form" action="/uc/createbot/" method="post"
+              enctype="multipart/form-data">
+            <div class="robot_box1 row">
+                <div class="robot_box1_right">
+                    <ul>
+                        <li>
+                            <span>机器人昵称</span>
 
+                            <div class="right">
+                                <input type="text" id="nickname" name="robotsettings.nickname"
+                                       value="图灵机器人" id="name"/>
+                                <b style="visibility: visible;"></b>
+                            </div>
+                        </li>
+                        <li>
+                            <span>机器人性别</span>
+
+                            <div class="right radio" id="sex">
+                                <input id="sex1" value="male" name="robotsettings.gender"
+                                       checked
+                                       type="radio" name="sex"/>男
+                                <input id="sex2" value="female" name="robotsettings.gender"
+                                       
+                                       type="radio" name="sex"/>女
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="btns">
+                <button class="submit">创建</button>
+            </div>
+        </form>
+        <!-- END of Added by ysx -->
 {% endblock %}

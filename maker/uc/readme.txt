@@ -1,5 +1,12 @@
 APIs:
 
+[Preface] return code definition:
+
+  code :
+    -1 - exception happen
+     0 - Successful case
+     1 - user already existed in DB
+
 ========================================================================
 1. /uc/checkExistence/ - 确认用户名是否已存在
 
@@ -35,3 +42,31 @@ Sample:
 ========================================================================
 3. /uc/forgetPwd/ - 用户忘记密码
 TODO - 根据前端设计的方便，决定使用FORM还是JSON格式
+
+========================================================================
+4. /uc/apiListRobot/ - 列举出当前用户下的robot
+
+HTTP POST, JSON格式
+
+Req:
+  {
+      "userid":100
+  }
+
+Response:
+  {
+      "code": 0,
+      "list" :[ {...}, {...} ]
+  }
+
+Sample:
+
+    $ curl --request POST -d '{"userid":100}' "192.168.4.245:9001/uc/apiListRobot/"
+    $ {
+        "code": 0,
+        "list":
+            [
+              {"index":1,"name":"hello1" },
+              {"index":2,"name":"hello2" },
+            ]
+      }
