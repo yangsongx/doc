@@ -113,6 +113,37 @@ def set_robot_info(post_form, uid):
     print 'TODO code, will add in the future'
     return 0
 
+###################################################################################
+def uc_apiListRobot(request):
+    ret = {}
+    ret['code'] = 0
+
+    try:
+        if request.method == 'POST':
+            js_data = json.loads(request.body)
+            usr_profile = AccountProfile.objects.filter(user_id = js_data['userid'])
+            i = 1
+            tmp = []
+            for it in usr_profile:
+                item = {}
+                print 'got the new item'
+                robj = RobotType.objects.get(id=it.robot_id_id)
+                item['index'] = i
+                item['name'] = robj.rob_alias
+                item['gender'] = robj.rob_sex
+                item['create'] = str(robj.rob_creation)
+
+                tmp.append(item)
+                i += 1
+
+            ret['list'] = tmp
+    except:
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        ret['code'] = -1
+        ret['msg'] = info
+
+    return HttpResponse(json.dumps(ret))
+
 #
 # Create your views here.
 
