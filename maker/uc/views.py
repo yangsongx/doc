@@ -70,7 +70,6 @@ def send_activation_mail(httphost, email):
     return ticket
 
 ###################################################################################
-# TODO this API currently just sending mail, actually it SHOULD compare with DB
 def activate_email_account(ticket, email):
     ret = -1
     try:
@@ -95,6 +94,11 @@ def activate_email_account(ticket, email):
         return HttpResponse('TODO - UI for mail activation OK')
     else:
         return HttpResponse('TODO - UI for mail activation NOT OK')
+
+###################################################################################
+def set_robot_info(post_form, uid):
+    print 'TODO code, will add in the future'
+    return 0
 
 #
 # Create your views here.
@@ -253,9 +257,27 @@ def uc_createbot(request):
 
 @login_required
 def uc_setbot(request):
-    return render_to_response('uc_set_bot.html', {
-        "cur": u"l_02",
-        }, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        try:
+            print 'POST, get data'
+            print request.POST
+            post_data = request.POST
+            print post_data['robotsettings.age'] # TODO - all FORM fields
+            print 'the user are'
+            print request.user
+            print request.user.id
+            set_robot_info(post_data, request.user.id)
+        except:
+            info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+            print info # FIXME - currently I just log the exception
+
+        return HttpResponse('TODO UI - Robert Setting [Successfully]!')
+
+    else:
+        print 'a GET'
+        return render_to_response('uc_set_bot.html', {
+            "cur": u"l_02",
+            }, context_instance=RequestContext(request))
 
 @login_required
 def uc_corpusdef(request):

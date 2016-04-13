@@ -15,6 +15,10 @@ from django.db import models
 
 class RobotType(models.Model):
     description = models.CharField(max_length=255, blank=True,null=True)
+    rob_sex = models.BooleanField(default=True)
+    rob_age = models.IntegerField(blank=True, null=True)
+    rob_alias = models.CharField(max_length=256, blank=True)
+    rob_creation = models.DateTimeField(blank=True,null=True)
 
 #Only available for @AccountProfile::allow_reply is True
 class WhiteNameList(models.Model):
@@ -37,8 +41,6 @@ class AccountProfile(models.Model):
     mail_act = models.CharField(max_length=256, blank=True)
     mail_act_expire = models.DateTimeField(blank=True,null=True)
     robot_id = models.ForeignKey(RobotType, blank=True, null=True)
-    robot_alias = models.CharField(max_length=256, blank=True)
-    robot_creation = models.DateTimeField(blank=True,null=True)
     allow_reply = models.BooleanField(default=True)
     list_reply = models.ForeignKey(WhiteNameList, blank=True, null=True)
     customization = models.ForeignKey(UserCustomization, blank=True, null=True)
