@@ -70,3 +70,27 @@ Sample:
               {"index":2,"name":"hello2" },
             ]
       }
+
+========================================================================
+5. /uc/apiDelRobot/ - 删除当前用户下的robot
+
+HTTP POST, JSON格式
+
+Req:
+  {
+      "userid":100,
+      "robid":102
+  }
+
+Response:
+  {
+      "code": 0,
+  }
+
+Sample:
+
+    $ curl --request POST -d '{"userid":100, "robid":102}' "192.168.4.245:9001/uc/apiDelRobot/"
+    $ {
+        "code": 0,
+      }
+

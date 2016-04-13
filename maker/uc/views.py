@@ -144,6 +144,32 @@ def uc_apiListRobot(request):
 
     return HttpResponse(json.dumps(ret))
 
+###################################################################################
+def uc_apiDelRobot(request):
+    ret = {}
+    ret['code'] = 0
+
+    try:
+        if request.method == 'POST':
+            js_data = json.loads(request.body)
+            print 'need code to remove the DB entry(%d -> %d)' \
+                %(js_data['userid'], js_data['robid'])
+            obj = AccountProfile.objects.get(
+                    user_id = js_data['userid'],
+                    robot_id_id = js_data['robid']
+                    )
+            print 'got this one, delete it with associate robot'
+            r_obj = RobotType.objects.get(id=obj.robot_id_id)
+
+            r_obj.delete()
+            obj.delete()
+
+    except:
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        ret['code'] = -1
+        ret['msg'] = info
+
+    return HttpResponse(json.dumps(ret))
 #
 # Create your views here.
 
