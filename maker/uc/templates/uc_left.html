@@ -1,149 +1,64 @@
-<div class="personal_left"> 
-       <div class="sidebar"> 
-              <div class="sidebar_header"></div> 
-              <div class="sidebar_nav"> 
-               <ul class="uls"> 
-                    <li> 
-                           <div class="uls_header text_name" text_name="我的机器人"> 
-                            <!-- active  展开 --> 
-                            <div class="newFeatures_z active" style="display:none;" id="planet"> 
-                             <i></i> 
-                             <span class="circle1"></span> 
-                             <span class="circle2"></span> 
-                             <span class="circle3"></span> 
-                             <span class="circle4"></span> 
-                             <span class="circle5"></span> 
-                            </div> 
-                            <span class="left"></span> 
-                            <span class="center mini_hide">我的机器人</span> 
-                           </div> 
-                           <ul class="lis"> 
-                                  <!-- <li id="l_01" class="active" num="1"> <a class="text_name" href="javascript:void(0)" text_name="数据概览"> <em data_href="/web/data_overview!index.action?cur=l_01" class="aClick"></em> 
-                                      <div class="icon"> 
-                                              <span><img src="/static/tuling123/img/icon70.png" /></span> 
-                                      </div> <span class="name mini_hide">数据概览</span> </a> 
-                                  </li>  -->
-                                  <li id="l_01" num="21"> <a class="text_name" href="javascript:void(0)" text_name="机器人创建"> <em data_href="{% url 'create_bot' %}" class="aClick"></em> 
-                                        <div class="icon"> 
-                                              <span><img src="/static/tuling123/img/icon71.png" /></span> 
-                                        </div> <span class="name mini_hide">机器人创建</span> </a>
-                                 </li> 
-                                  <li id="l_02" num="21"> <a class="text_name" href="javascript:void(0)" text_name="机器人设定"> <em data_href="{% url 'set_bot' %}" class="aClick"></em> 
-                                        <div class="icon"> 
-                                              <span><img src="/static/tuling123/img/icon71.png" /></span> 
-                                        </div> <span class="name mini_hide">机器人设定</span> </a>
-                                 </li> 
-                                  <li id="l_03" num="3"> <a class="text_name" href="javascript:void(0)" text_name="语料库自定义"> <em data_href="{% url 'corpus_def' %}" class="aClick"></em> 
-                                        <div class="icon"> 
-                                              <span><img src="/static/tuling123/img/icon72.png" /></span> 
-                                        </div> <span class="name mini_hide">语料库自定义</span> </a> 
-                                 </li> 
-                                  <li id="l_04" num="4"> <a class="text_name" href="javascript:void(0)" text_name="功能配置"> <em data_href="{% url 'func_config' %}" class="aClick"></em> 
-                                        <div class="icon"> 
-                                               <span><img src="/static/tuling123/img/icon73.png" /></span> 
-                                        </div> <span class="name mini_hide">功能配置</span> </a> 
-                                 </li> 
-                                  <li id="l_05" num="5"> <a class="text_name" href="javascript:void(0)" text_name="白名单管理"> <em data_href="{% url 'white_list' %}" class="aClick"></em> 
-                                        <div class="icon"> 
-                                              <span><img src="/static/tuling123/img/icon89.png" /></span> 
-                                        </div> <span class="name mini_hide">白名单管理</span> </a>
-                                  </li>
-                           </ul> 
-                     </li> 
-                    <!--<li> 
-                         <div class="uls_header text_name" text_name="高级拓展"> 
-                          <div class="newFeatures_z active" style="display:none;" id="super"> 
-                           <i></i> 
-                           <span class="circle1"></span> 
-                           <span class="circle2"></span> 
-                           <span class="circle3"></span> 
-                           <span class="circle4"></span> 
-                           <span class="circle5"></span> 
-                          </div> 
-                          <span class="left"></span> 
-                          <span class="center mini_hide">高级拓展</span> 
-                         </div> 
-                         <ul class="lis"> 
-                          <li id="l_07" num="71"> <a class="text_name" href="javascript:void(0)" text_name="拓展商城"> <em data_href="/web/assist_user_appid!index.action?cur=l_07" class="aClick"></em> 
-                            <div class="icon"> 
-                             <span><img src="/static/tuling123/img/icon76.png" /></span> 
-                            </div> <span class="name mini_hide">拓展商城</span> </a> </li> 
-                         </ul>
-                      </li>  -->
-                    <li>
-                           <div class="uls_header text_name" text_name="用户中心"> 
-                                <div class="newFeatures_z active" style="display:none;" id="user"> 
-                                       <i></i> 
-                                       <span class="circle1"></span> 
-                                       <span class="circle2"></span> 
-                                       <span class="circle3"></span> 
-                                       <span class="circle4"></span> 
-                                       <span class="circle5"></span> 
-                                </div> 
-                                <span class="left"></span> 
-                                <span class="center mini_hide">用户中心</span> 
-                           </div> 
-                           <ul class="lis"> 
-                                <li id="l_06" num="8"> <a href="javascript:void(0)" text_name="基本资料"> <em data_href="{% url 'basic_info' %}" class="aClick"></em> 
-                                      <div class="icon"> 
-                                            <span><img src="/static/tuling123/img/icon77.png" /></span> 
-                                      </div> <span class="name mini_hide">基本资料</span> </a> 
-                                </li> 
-                                <!-- <li id="l_09" num="9"> <a class="text_name" href="javascript:void(0)" text_name="安全设置"> <em data_href="/web/member_center!security.action?cur=l_09" class="aClick"></em> 
-                                       <div class="icon"> 
-                                            <span><img src="/static/tuling123/img/icon78.png" /></span> 
-                                      </div> <span class="name mini_hide">安全设置</span> </a> 
-                                </li> 
-                                <li id="l_10" num="10"> <a class="text_name" href="javascript:void(0)" text_name="实名认证"> <em data_href="/web/certificate!index.action?cur=l_10" class="aClick"></em> 
-                                      <div class="icon"> 
-                                          <span><img src="/static/tuling123/img/icon79.png" /></span> 
-                                      </div> <span class="name mini_hide">实名认证</span> </a> 
-                                </li> 
-                                <li id="l_12" num="11"> <a class="text_name" href="javascript:void(0)" text_name="我的订单"> <em data_href="/web/order!index.action?cur=l_12" class="aClick"></em> 
-                                      <div class="icon"> 
-                                            <span><img src="/static/tuling123/img/icon177.png" /></span> 
-                                      </div> <span class="name mini_hide">我的订单</span> </a> 
-                                </li>  -->
-                           </ul> 
-                    </li> 
-                    <li> 
-                           <div class="uls_header text_name" text_name="消息中心"> 
-                                  <div class="newFeatures_z active" style="display:none;" id="message"> 
-                                         <i></i> 
-                                         <span class="circle1"></span> 
-                                         <span class="circle2"></span> 
-                                         <span class="circle3"></span> 
-                                         <span class="circle4"></span> 
-                                         <span class="circle5"></span> 
-                                  </div> 
-                                  <span class="left"></span> 
-                                  <span class="center mini_hide">消息中心</span> 
-                           </div> 
-                           <ul class="lis"> 
-                                  <li id="l_07" num="12"> <a class="text_name" href="javascript:void(0)" text_name="系统公告"> <em data_href="{% url 'system_notify' %}" class="aClick"></em> 
-                                        <div class="icon"> 
-                                              <span><img src="/static/tuling123/img/icon196.png" /></span> 
-                                        </div> <span class="name mini_hide">系统公告</span> </a> 
-                                  </li> 
-                                  <li id="l_08" num="13"> <a class="text_name" href="javascript:void(0)" text_name="站内信"> <em data_href="{% url 'site_msg' %}" class="aClick"></em> 
-                                        <div class="icon"> 
-                                              <span><img src="/static/tuling123/img/icon182.png" style="position:relative;top:1px" /></span> 
-                                        </div> <span class="name mini_hide">站内信</span> <i></i> </a>
-                                  </li> 
-                                  <li id="l_09" num="8"> <a class="text_name" href="javascript:void(0)" text_name="产品动态"> <em data_href="{% url 'personalcenter' %}" class="aClick"></em> 
-                                          <div class="icon"> 
-                                                <span><img src="/static/tuling123/img/icon80.png" /></span> 
-                                          </div> <span class="name mini_hide">产品动态</span> </a>
-                                  </li>
-                           </ul>
-                     </li>
-               </ul>
-              </div> 
-       </div> 
-       <div class="move_text"> 
-            <div class="move_text_bg"> 
-                  <span></span> 
-            </div> 
-            <div class="text"></div> 
-       </div>   
-</div> 
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="/static/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>李开复</p>
+          <!-- Status -->
+          <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+        </div>
+      </div>
+
+      <!-- search form (Optional) -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header"></li>
+        <!-- Optionally, you can add icons to the links -->
+        <li class="treeview">
+          <a href="#"><i class="fa fa-dashboard"></i> <span>我的机器人</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li id="l_02" ><a href="{% url 'set_bot' %}"><i class="fa fa-circle-o"></i>机器人设定</a></li>
+            <li id="l_01" ><a href="{% url 'create_bot' %}"><i class="fa fa-circle-o"></i>机器人创建</a></li>
+            <li id="l_03" ><a href="{% url 'corpus_def' %}"><i class="fa fa-circle-o"></i>语料库自定义</a></li>
+            <li id="l_04" ><a href="{% url 'func_config' %}"><i class="fa fa-circle-o"></i>功能配置</a></li>
+            <li id="l_05" ><a href="{% url 'white_list' %}"><i class="fa fa-circle-o"></i>白名单管理</a></li>
+          </ul>
+        </li>
+       
+        <li class="treeview">
+          <a href="#"><i class="fa fa-user"></i> <span>用户中心</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li id="l_06" ><a href="{% url 'basic_info' %}"><i class="fa fa-circle-o"></i>基本资料</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-envelope-o"></i> <span>消息中心</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li id="l_07" ><a href="{% url 'system_notify' %}"><i class="fa fa-circle-o"></i>系统公告</a></li>
+            <li id="l_08" ><a href="{% url 'site_msg' %}"><i class="fa fa-circle-o"></i>站内信</a></li>
+            <li id="l_01" ><a href="{% url 'personalcenter' %}"><i class="fa fa-circle-o"></i>产品动态</a></li>
+          </ul>
+        </li>
+        
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
