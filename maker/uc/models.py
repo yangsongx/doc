@@ -18,7 +18,9 @@ class RobotType(models.Model):
     rob_sex = models.BooleanField(default=True)
     rob_age = models.IntegerField(blank=True, null=True)
     rob_alias = models.CharField(max_length=256, blank=True)
-    rob_creation = models.DateTimeField(blank=True,null=True)
+    rob_creation = models.DateTimeField(auto_now_add=True)
+    rob_modification = models.DateTimeField(auto_now=True)
+
 
 #Only available for @AccountProfile::allow_reply is True
 class WhiteNameList(models.Model):

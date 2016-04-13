@@ -15,7 +15,7 @@ from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 
-from models import AccountProfile
+from models import AccountProfile, RobotType
 
 
 # This is just a HTML FORM wrapper, not related with
@@ -94,6 +94,19 @@ def activate_email_account(ticket, email):
         return HttpResponse('TODO - UI for mail activation OK')
     else:
         return HttpResponse('TODO - UI for mail activation NOT OK')
+
+###################################################################################
+def create_robot(post_form, user):
+    print 'TODO code, will add in the future'
+    r_obj = RobotType(rob_sex = post_form['robotsettings.gender'],
+            rob_alias = post_form['robotsettings.nickname'] )
+    r_obj.save()
+
+    a_obj = AccountProfile(user_id = user.id,
+            robot_id = r_obj)
+    a_obj.save()
+
+    return 0
 
 ###################################################################################
 def set_robot_info(post_form, uid):
@@ -251,9 +264,21 @@ def uc_pcenter(request):
 
 @login_required
 def uc_createbot(request):
-    return render_to_response('uc_create_bot.html', {
-        "cur": u"l_01",
-        }, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        print 'Will creating...'
+        try:
+            create_robot(request.POST, request.user)
+        except:
+            info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+            print info # FIXME - currently I just log the exception
+
+        return HttpResponse('TODO UI - Robert Creation [Successfully]- Try Start it somewhere!')
+
+    else:
+        print 'just GET'
+        return render_to_response('uc_create_bot.html', {
+            "cur": u"l_01",
+            }, context_instance=RequestContext(request))
 
 @login_required
 def uc_setbot(request):
