@@ -345,6 +345,8 @@ def uc_pcenter(request):
     return render_to_response('uc_home.html', {
         "cur": u"l_09",
         "user_name": request.user.username,
+        "join_since":str(request.user.date_joined),
+        "last_login":str(request.user.last_login)
         }, context_instance=RequestContext(request))
 
 @login_required
