@@ -3,213 +3,251 @@
 {% load staticfiles %}
 {% load compress %}
 <head>
-  <meta charset="UTF-8">
+  <!--<meta charset="UTF-8">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>{% block title %}流氓兔{% endblock %}</title>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="/static/css/basecss/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/static/js/basejs/jquery-1.11.1.min.js"></script>
+    <!-- Custom Theme files -->
+    <link href="/static/css/basecss/style.css" rel='stylesheet' type='text/css' />
+    <link href="/static/css/basecss/footer.css" rel='stylesheet' type='text/css' />
+    <!-- Custom Theme files -->
+    <link href='http://fonts.useso.com/css?family=Playball' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" href="/static/images/favicon.ico">
   <link rel="stylesheet" type="text/css" href="{% static "css/common.css"%}" >
   <link rel="stylesheet" type="text/css" href="{% static "css/footer.css"%}" >
   <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/common.js"%}"></script>
-  <script>
-    var jq = jQuery.noConflict();
-  </script>
+
+    <!----start-top-nav-script---->
+    <script>
+        $(function() {
+            var pull 		= $('#pull');
+            menu 		= $('nav ul');
+            menuHeight	= menu.height();
+            $(pull).on('click', function(e) {
+                e.preventDefault();
+                menu.slideToggle();
+            });
+            $(window).resize(function(){
+                var w = $(window).width();
+                if(w > 320 && menu.is(':hidden')) {
+                    menu.removeAttr('style');
+                }
+            });
+        });
+    </script>
+    <!----//End-top-nav-script---->
+    <script src="/static/js/basejs/jquery.easydropdown.js"></script>
+    <!----- start-Share-instantly-slider---->
+    <!-- Prettify -->
+    <link href="/static/css/basecss/owl.carousel.css" rel="stylesheet">
+    <script src="/static/js/basejs/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo , #owl-demo1").owlCarousel({
+                items : 1,
+                lazyLoad : true,
+                autoPlay : true,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo3").owlCarousel({
+                items : 4,
+                lazyLoad : true,
+                autoPlay : true,
+                navigation: false,
+                pagination: false,
+            });
+        });
+    </script>
+    <!----- //End-Share-instantly-slider---->
+    <script type="text/javascript" src="/static/js/basejs/hover_pack.js"></script>
   {% block meta %}
   {% endblock %}
+
+    <style type="text/css">
+        body {background-color: white}
+        header {background-color: white}
+    </style>
 </head>
 <body>
-  <div class="base_wrap">
-      {% block nav_main %}
-      <div class="header_bg">
-          <div class="header">
-            <div class="logo float_left">
-              <a href="/"><img src="/static/images/logo.jpg" class="logo float_left"/></a>
+<div class="header">
+    <div class="container">
+        <div class="clearfix"></div>
+        <div class="header_top">
+            <div class="logo">
+                <a href="index.html"><img src="/static/images/baseimages/logo.png" alt=""></a>
             </div>
-            <div id="nav_main" class="float_left"  style="margin:20px 0 0 50px;">
-                <div class="inner1">
-                  <div class="inner2">
-                    <div id="nav_main_bar">
-                      <ul>
-                        <li class="current">
-                          <div class="bm">
-                            <div class="inner">
-                              <div class="inner3">
-                                <div class="inner4"><a href="/">首页<br/>Home</a></div>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="bm">
-                            <div class="inner">
-                              <div class="inner3">
-                                <div class="inner4"><a class="{% block nav_main_maker %}{% endblock %}" href="#">定制中心<br/>Maker Center<span class="arrow">▼</span></a></div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="lm">
-                            <div class="inner5">
-                              <div class="inner6">
-                                <ul>
-                                 <li><a href="http://www.ioniconline.com">虚拟机器人&nbsp;VirtualRobot</a></li>
-                                <li><a href="http://www.ioniconline.com">智能硬件&nbsp;SmartHardware</a></li>
-                                <li><a href="http://www.ioniconline.com">游戏定制&nbsp;GameCustom</a></li>
-                                  <li class="clear"></li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="bm">
-                            <div class="inner">
-                              <div class="inner3">
-                                <div class="inner4"> <a class="{% block nav_main_cases %}{% endblock %}" href="">案例中心<br/>Case Center<span class="arrow">▼</span></a></div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="lm">
-                            <div class="inner5">
-                              <div class="inner6">
-                                <ul>
-                                  <li><a href="http://www.ioniconline.com">流氓兔&nbsp;GangsterRabbit</a></li>
-                                  <li><a href="http://www.gezishuo.com">小格格&nbsp;GeZiShuo</a></li>
-                                  <li><a href="http://www.21ke.com">老克搞机&nbsp;21KE</a></li>
-                                  <li class="clear"></li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-
-                        <li>
-                          <div class="bm">
-                            <div class="inner">
-                              <div class="inner3">
-                                <div class="inner4"><a class="{% block nav_main_service %}{% endblock %}" href="">服务中心<br/> Service Center<span class="arrow">▼</span></a></div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="lm">
-                            <div class="inner5">
-                              <div class="inner6">
-                                <ul>
-                                  <li><a href="http://www.ioniconline.com">接口文档&nbsp;Interface&Docs</a></li>
-                                  <li><a href="http://www.ioniconline.com">智能问答&nbsp;Smart Q&A</a></li>
-                                  <li><a href="http://www.ioniconline.com">意见反馈&nbsp;Feedback</a></li>
-                                  <li class="clear"></li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="bm">
-                            <div class="inner">
-                              <div class="inner3">
-                                <div class="inner4"><a href="/uc/personalcenter/" class="{% block nav_main_account %}{% endblock %}" href="">用户中心<br>User Center<span class="arrow">▼</span></a></div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="lm">
-                            <div class="inner5">
-                              <div class="inner6">
-                                <ul>
-                                 {% if request.user.is_authenticated %}
-                                        <li><a href="{% url 'personalcenter' %}">个人中心&nbsp;PersonalCenter</a></li>
-                                        <li><a href="/uc/logout/">退出&nbsp;Signout</a></li>
-                                  {% else %}
-                                      <li><a href="/uc/login/"><span class="login_ico shipCar_ico"></span>登录&nbsp;Signin</a></li>
-                                      <li><a href="/uc/reg/"><span class="login_ico shipCar_ico"></span>注册&nbsp;Signup</a></li>
-                                  {% endif %}
-                                  <li><a href="http://www.ioniconline.com">应用下载&nbsp;AppDownload</a></li>
-                                  <li><a href="http://www.ioniconline.com">微信服务&nbsp;WechatService</a></li>
-                                  <li class="clear"></li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-      </div>
-      {% endblock %}
-      {% block content %}{% endblock %}
-      {% block footer %}
-      <div id="footer_wrap" class="footer_wrap">
-        <div class="footer">
-          <div class="footer_box">
-            <div class="left">
-                <h1>关注我们</h1>
-                <p>QQ群: XXXXXXXX</p>
-                <p>邮件: XXXXXXXX@liumangtu.cn</p>
-                <p>
-                    <a style="margin-right:15px;" href="#" target="_blank">联系我们</a>
-                </p>
-            </div>
-            <div class="left">
-              <h1>友情链接</h1>
-              <div class="uls">
-                <ul>
-                      <li>
-                        <a href="http://bbs.tuling123.com" title="图灵机器人论坛" target="_blank">图灵机器人论坛</a>
-                      </li>
-                      <li>
-                        <a href="http://www.xiaoweirobot.com" title="微信机器人" target="_blank">微信机器人</a>
-                      </li>
-                      <li>
-                        <a href="http://xfyun.cn/" title="讯飞开放平台" target="_blank">讯飞开放平台</a>
-                      </li>
-                      <li>
-                        <a href="http://www.weixinyunduan.com" title="微讯云端" target="_blank">微讯云端</a>
-                      </li>
-                      <li>
-                        <a href="http://bbs.htc.com" title="HTC论坛" target="_blank">HTC论坛</a>
-                      </li>
-                      <li>
-                        <a href="http://apistore.baidu.com/" title="API  Store" target="_blank">API  Store</a>
-                      </li>
-                      <li>
-                        <a href="http://www.rongcloud.cn" title="融云即时通讯云" target="_blank">融云即时通讯云</a>
-                      </li>
-                      <li>
-                        <a href="http://cqp.cc/forum.php" title="酷Q社区" target="_blank">酷Q社区</a>
-                      </li>
-                      <li>
-                        <a href="http://www.apicloud.com/" title="APICloud" target="_blank">APICloud</a>
-                      </li>
-                      <li>
-                        <a href="http://www.javaapk.com" title="JavaApk" target="_blank">JavaApk</a>
-                      </li>
-                      <li>
-                        <a href="http://yuyin.baidu.com" title="百度语音" target="_blank">百度语音</a>
-                      </li>
-                      <li>
-                        <a href="http://www.jikexueyuan.com" title="安卓开发" target="_blank">安卓开发</a>
-                      </li>
+            <div class="menu">
+                <a class="toggleMenu" href="#"><img src="/static/images/baseimages/nav_icon.png" alt="" /> </a>
+                <ul class="nav" id="nav">
+                    <li class="current"><a href="index.html">home</a></li>
+                    <li><a href="http://www.ioniconline.com">About</a></li>
+                    <li><a href="http://www.ioniconline.com">Services</a></li>
+                    <li><a href="http://www.ioniconline.com">Blog</a></li>
+                    <li><a href="http://www.ioniconline.com">Portfolio</a></li>
+                    <li><a href="http://www.ioniconline.com">Shortcodes</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'personalcenter' %}">个人中心&nbsp;PersonalCenter</a></li>
+                    <li><a href="/uc/logout/">退出&nbsp;Signout</a></li>
+                    {% else %}
+                    <li><a href="/uc/login/"><span class="login_ico shipCar_ico"></span>登录&nbsp;Signin</a></li>
+                    <li><a href="/uc/reg/"><span class="login_ico shipCar_ico"></span>注册&nbsp;Signup</a></li>
+                    {% endif %}
                 </ul>
-              </div>
+                <script type="text/javascript" src="/static/js/basejs/responsive-nav.js"></script>
             </div>
-            <div class="left" style="margin-right:0;">
-                <h1>联系电话</h1>
-                <p>客服：025-XXXXXXXX</p>
-                <p>商务：025-XXXXXXXX</p>
-                <p>工作日 ： 9:00-17:30</p>
+            <div class="clearfix"> </div>
+            <!----//End-top-nav---->
+        </div>
+    </div>
+</div>
+<!----//End-header---->
+<div class="banner">
+    <div class="banner_container">
+        <div class="wmuSlider example1">
+            <div class="wmuSliderWrapper">
+                <article style="position: absolute; width: 100%; opacity: 0;">
+                    <div class="banner_right">
+                        <h1>Welcome to <span class="color1">G</span>elios<span class="color1">.</span></h1>
+                        <h2>Awesome , Clean & Unique Template</h2>
+                        <a href="#" title="Online Reservation" class="btn btn-primary btn-normal btn-inline " target="_self">Read More about gelios</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </article>
+                <article style="position: relative; width: 100%; opacity: 1;">
+                    <div class="banner_right">
+                        <h1>Welcome to <span class="color1">G</span>elios<span class="color1">.</span></h1>
+                        <h2>There are many variations</h2>
+                        <a href="#" title="Online Reservation" class="btn btn-primary btn-normal btn-inline " target="_self">Read More about gelios</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </article>
             </div>
-            <div class="foter_bottom">
-                <p>
-                  {% if request.is_mobile %}<a href="/?flavour=mobile">触屏版</a> | {% endif %} <a href="">法律声明</a> | <a href="">意见反馈</a>
-                  <br/>
-                  @Copyright 2016 www.liumangtu.com, All Rights Reserved. ICP备案：苏ICP备xxxxxxxx号
-                </p>
-            </div>
-         </div>
-      </div>
-      {% endblock %}
-  </div>
+            <a class="wmuSliderPrev">Previous</a><a class="wmuSliderNext">Next</a>
+            <script src="/static/js/basejs/jquery.wmuSlider.js"></script>
+            <script>
+                $('.example1').wmuSlider();
+            </script>
+        </div>
+    </div>
+</div>
+
+<div class="grid_1 text-center">
+    <div class="container">
+        <div class="col-md-4 box_1">
+            <i class="icon1"> </i>
+            <h3>Web Design</h3>
+            <p>Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
+        </div>
+        <div class="col-md-4 box_1">
+            <i class="icon2"> </i>
+            <h3>Web Development</h3>
+            <p>Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
+        </div>
+        <div class="col-md-4 box_1">
+            <i class="icon3"> </i>
+            <h3>Simple and Clean</h3>
+            <p>Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
+        </div>
+    </div>
+</div>
+
+<div class="new">
+    <div class="container">
+        <h3>What New</h3>
+        <div class="col-md-4 col_3">
+            <ul class="date_grid">
+                <li class="date_left">
+                    <div class="date">
+				<span>
+				 15
+				</span>
+                        06
+                    </div>
+                </li>
+                <li class="date_right">
+                    <p>Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
+                </li>
+                <div class="clearfix"> </div>
+            </ul>
+            <p class="m_1">Lollipop liquorice lollipop ice cream cheesecake halvah jelly-o. Gummies lollipop macaroon marshmallow icing. Cookie chupa chups cake dessert lollipop marzipan donut apple pie.</p>
+            <a href="#"><span class="more">More Information</span></a>
+        </div>
+        <div class="col-md-4 col_3">
+            <ul class="date_grid">
+                <li class="date_left">
+                    <div class="date">
+				<span>
+				 15
+				</span>
+                        06
+                    </div>
+                </li>
+                <li class="date_right">
+                    <p>Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
+                </li>
+                <div class="clearfix"> </div>
+            </ul>
+            <p class="m_1">Lollipop liquorice lollipop ice cream cheesecake halvah jelly-o. Gummies lollipop macaroon marshmallow icing. Cookie chupa chups cake dessert lollipop marzipan donut apple pie.</p>
+            <a href="#"><span class="more">More Information</span></a>
+        </div>
+        <div class="col-md-4 col_3">
+            <ul class="date_grid">
+                <li class="date_left">
+                    <div class="date">
+				<span>
+				 15
+				</span>
+                        06
+                    </div>
+                </li>
+                <li class="date_right">
+                    <p>Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
+                </li>
+                <div class="clearfix"> </div>
+            </ul>
+            <p class="m_1">Lollipop liquorice lollipop ice cream cheesecake halvah jelly-o. Gummies lollipop macaroon marshmallow icing. Cookie chupa chups cake dessert lollipop marzipan donut apple pie.</p>
+            <a href="#"><span class="more">More Information</span></a>
+        </div>
+    </div>
+</div>
+
+<!-- content结束-->
+<div class="friendLink">
+    <div class="linkWrap">
+        <h2>友情链接</h2>
+        <div1 class="linkContent clearfix">
+            <p><a href="http://www.ioniconline.com" target="_blank">ioniconline</a><span>|</span></p>
+
+            <p><a href="http://www.ioniconline.com" target="_blank">ioniconline中文官网</a><span>|</span></p>
+
+            <p><a href="http://www.ioniconline.com" target="_blank">ioniconline梦工场</a><span>|</span></p>
+
+
+
+        </div1>
+    </div>
+</div>
+<!-- footer开始-->
+<div class="basefooter">
+    <div class="footerWrap1"> <a href="http://weibo.com/cocos2dx" class="yinqing" target="_blank"></a> <a href="javascript:void(0);" class="weixin"></a>
+        <div class="wxpop"> <img src="/static/images/baseimages/logo.png" width="142" height="150" alt=""/></div>
+        <a href="javascript:void(0);" class="qq"></a>
+        <div class="qqpop"> <img src="/static/images/baseimages/logo.png" width="142" height="150" alt=""/> </div>
+        <p> 技术咨询邮箱：support@cocos.com<br/>
+            2015 @ Cocos.com  沪ICP备14008742号-5  <a style="color:#989da4;width:80px;background:url();margin-right:-1px;" href="http://www.cocos.com/about_us/" target="_blank">关于我们</a>
+        </p>
+    </div>
+</div>
+<!-- footer结束-->
+
   <script type="text/javascript">
 /*  jq(document).ready(function() {
     //高亮导航
@@ -227,12 +265,12 @@
  jq(function() {
   var originalCur = jq("#nav_main li.current");
   jq("#nav_main li").mousemove(function(){
-    jq("#nav_main li").removeClass("current"); 
-    jq(this).addClass("current");    
+    jq("#nav_main li").removeClass("current");
+    jq(this).addClass("current");
     jq(this).children(".lm").show().animate({left : 15,top : 40}, "fast");
   });
   jq("#nav_main li").mouseleave(function(){
-   jq(this).removeClass("current"); 
+   jq(this).removeClass("current");
     jq(this).children(".lm").stop(true,true).animate({left:0,top:0},100,function(){
       jq(this).hide();
     });
