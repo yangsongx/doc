@@ -65,14 +65,8 @@ SECRET_KEY = '9&7g$^rgo&6v&e445f(f^gdpk=uq7o*y-fvq$cys323ig3257$'
 set_ffmpeg_env()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if is_ksyun_server() != None:
-    DEBUG = False
-    CAREDEAR_DEBUG_MODE = False
-else:
-    DEBUG = True
-    CAREDEAR_DEBUG_MODE = True
-
-DEBUG = False
+DEBUG = True
+CAREDEAR_DEBUG_MODE = True
 
 
 ALLOWED_HOSTS = ['*']
