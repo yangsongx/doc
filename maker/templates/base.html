@@ -18,6 +18,17 @@
       <link rel="stylesheet" type="text/css" href="{% static "css/common.css"%}" >
       <link rel="stylesheet" type="text/css" href="{% static "css/footer.css"%}" >
       <link href="/static/css/basecss/owl.carousel.css" rel="stylesheet">
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+      <!-- Ionicons -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+      <!-- Theme style -->
+      <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+      <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+            page. However, you can choose any other skin. Make sure you
+            apply the skin class to the body tag so the changes take effect.
+      -->
+      <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
       <style type="text/css">
              body {background-color: white}
               header {background-color: white}
@@ -120,11 +131,11 @@
                 <div class="menu">
                     <a class="toggleMenu" href="#"><img src="/static/images/baseimages/nav_icon.png" alt="" /> </a>
                     <ul class="nav" id="nav">
-                        <li class="current"><a href="/"><span class="nav_hanzi">首页</span>&nbsp;Home</a></li>
-                        <li><a href="http://www.ioniconline.com"><span class="nav_hanzi">关于我们</span>&nbsp;About</a></li>
-                        <li><a href="http://www.ioniconline.com"><span class="nav_hanzi">服务</span>&nbsp;Service</a></li>
-                        <li><a href="http://www.ioniconline.com"><span class="nav_hanzi">社区</span>&nbsp;Blog</a></li>
-                        <li><a href="http://www.ioniconline.com"><span class="nav_hanzi">大事记</span>&nbsp;Portfolio</a></li>
+                        <li class="{% block nav_main_home %}{% endblock %}"><a href="/"><span class="nav_hanzi">首页</span>&nbsp;Home</a></li>
+                        <li class="{% block nav_main_about %}{% endblock %}"><a href="{% url 'home_about' %}"><span class="nav_hanzi">关于我们</span>&nbsp;About</a></li>
+                        <li class="{% block nav_main_service %}{% endblock %}"><a href="{% url 'home_service' %}"><span class="nav_hanzi">服务</span>&nbsp;Service</a></li>
+                        <li class="{% block nav_main_blog %}{% endblock %}"><a href="{% url 'home_blog' %}"><span class="nav_hanzi">社区</span>&nbsp;Blog</a></li>
+                        <li class="{% block nav_main_port %}{% endblock %}"><a href="{% url 'home_portfolio' %}"><span class="nav_hanzi">大事记</span>&nbsp;Portfolio</a></li>
                         {% if request.user.is_authenticated %}
                             <li><a href="{% url 'personalcenter' %}"><span class="nav_hanzi">个人中心</span>&nbsp;UC</a></li>
                             <li><a href="/uc/logout/"><span class="nav_hanzi">退出</span>&nbsp;Signout</a></li>
@@ -166,7 +177,7 @@
         <a href="javascript:void(0);" class="qq"></a>
         <div class="qqpop"> <img src="/static/images/baseimages/logo.png" width="142" height="150" alt=""/> </div>
         <p> 技术咨询邮箱：support@botdocker.com<br/>
-            2016@ botdocker.com  苏ICP备14008742号-5  <a style="color:#989da4;width:80px;background:url();margin-right:-1px;" href="/about_us" target="">关于我们</a>
+            2016@ botdocker.com  苏ICP备14008742号-5  <a style="color:#989da4;width:80px;background:url();margin-right:-1px;" href="{% url 'home_about' %}" target="">关于我们</a>
         </p>
     </div>
 </div>

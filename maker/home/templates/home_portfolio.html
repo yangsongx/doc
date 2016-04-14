@@ -1,17 +1,20 @@
-{% extends "uc_base.html" %}
+{% extends "base.html" %}
 {% load staticfiles %}
 {% load compress %}
 
-{% block title %}流氓兔{% endblock %}
+{% block title %}Bot Docker{% endblock %}
 {% block meta %}
 <meta />
-  {% endblock %}
+{% compress css%}
+<link href="/static/css/swiper.min.css" rel="stylesheet" type="text/css">
+{% endcompress %}
+{% endblock %}
+{% block nav_main_port %}current{% endblock %}
 
-{% block uc_title %}<span>产品动态</span>{% endblock %}
-{% block uc_position %}消息中心{% endblock %}
-
-{% block uc_content %}
-      {% include 'our_portfolio.html'%}
+{% block content %}
+     <div style="padding:20px;">
+             {% include 'our_portfolio.html'%}
+      </div>
 {% endblock %}  
 {% block my_js %}
 <script>
@@ -36,5 +39,5 @@
     }
   )
 
-</script
+</script>
 {% endblock %}  

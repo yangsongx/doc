@@ -29,6 +29,8 @@ urlpatterns = [
 
     # NOTE - All usercenter(uc) are under uc APP...
     url(r'^uc/', include('uc.ucurls')),
+     url(r'^home/', include('home.urls')),
+
     url(r'^wxbot/start/(?P<sid>.+)/$', webviews.views.startWxBot, name='startWxBot'),
     url(r'^wxbot/stop/(?P<sid>.+)/$', webviews.views.stopWxBot, name='stopWxBot'),
     url(r'^wxbot/restart/(?P<sid>.+)/$', webviews.views.restartWxBot, name='restartWxBot'),
@@ -36,6 +38,7 @@ urlpatterns = [
     url(r'^wxbot/getqr/(?P<sid>.+)/$', webviews.views.getQR, name='getWxQR'),
     url(r'^wxbot/getstatus/(?P<sid>.+)/$', webviews.views.getWxBotStatus, name='getWxBotStatus'),
     url(r'^dashboard/launcher/$', webviews.views.gotoDashboard, name='gotoDashboard'),
+
 ]
 
 if settings.DEBUG is False:

@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     'django_mobile',
     'mathfilters',
     'uc', # User Center
+    'home',
 )
 
 MIDDLEWARE_CLASSES = (
