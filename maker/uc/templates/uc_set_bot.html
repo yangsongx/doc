@@ -4,9 +4,6 @@
 
 {% block title %}流氓兔{% endblock %}
 {% block meta %}
- {% compress css %}
-	<link href="{% static "tuling123/css/robot_settings_index.css"%}" rel="stylesheet" type="text/css" />
- {% endcompress %}
 <meta />
 {% endblock %}
 
@@ -112,7 +109,6 @@
 {% compress js %}
 <!-- <script type="text/javascript" src="{% static "laydate/laydate.js"%}"></script> -->
 <script type="text/javascript" src="{% static "layer/layer.js"%}"></script>
-<script type="text/javascript" src="{% static "tuling123/js/admin_base.js"%}"></script>
 
 <script type="text/javascript">
 var status = false
@@ -123,7 +119,7 @@ if (status == "true") {
     jq.get("/web/robot_settings!ajaxDelete.action", {},
     function(data) {})
 }
-var webtuling = {
+var webrobot = {
     // 弹出层
     bins: function() {
 
@@ -229,7 +225,7 @@ var webtuling = {
         return this;
     }
 }
-webtuling.bins().switchs().service();
+webrobot.bins().switchs().service();
 
 //图片上传
 jq(function() {
@@ -289,7 +285,7 @@ jq(function() {
     function(event) {
         var len = jq('#xinzengguanjianci').attr('data-len');
         if (jq('#guolv').attr('switch-data') == 'true' && jq('.box_z').length < len) {
-            inputs = '<div class="box_z"><input type="text" maxlength="100" value="" placeholder="请在此输入关键词回复"/><em><img src="/static/tuling123/img/icon84.png" class="img_z"></em></div>';
+            inputs = '<div class="box_z"><input type="text" maxlength="100" value="" placeholder="请在此输入关键词回复"/><em><img src="/static/images/uc_icon84.png" class="img_z"></em></div>';
             if (lens >= len) {
                 lens = len;
                 return false;
@@ -508,7 +504,7 @@ jq(function() {
                         <div class="box">\
                                 <input maxlength="50" type="text">\
                                 <span onclick="boxbins(this)" z-index="3" >\
-                                    <img src="/static/tuling123/img/icon84.png">\
+                                    <img src="/static/images/uc_icon84.png">\
                                 </span>\
                             </div>\
                         </div>';

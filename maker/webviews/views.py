@@ -211,8 +211,9 @@ def getWxBotStatus(request, sid):
 
 
 def my404(request):
-    #return render(request,'error404.html')
-    return HttpResponse("our 404")
+    return render_to_response('error404.html', context_instance=RequestContext(request))
+    # return render(request,'error404.html')
+    # return HttpResponse("our 404")
 
 def my500(request):
     return render(request,'error404.html')

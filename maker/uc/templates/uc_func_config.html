@@ -5,7 +5,7 @@
 {% block title %}流氓兔{% endblock %}
 {% block meta %}
  {% compress css %}
-	<link href="{% static "tuling123/css/assist_user_appid_list.css"%}" rel="stylesheet" type="text/css" />
+	<link href="{% static "css/uc_function_config_list.css"%}" rel="stylesheet" type="text/css" />
  {% endcompress %}
 <meta />
 {% endblock %}
@@ -21,7 +21,7 @@
 </div>
 <div class="fenlei1" style="display:none;">
 	<div class="fenleibox">
-		<img src="/static/tuling123/img/icon138.png">
+		<img src="/static/images/uc_icon138.png">
 		<div class="abs" style="width:180px;">
 			功能开启后才能使用下面已选的功能服务
 		</div>
@@ -286,7 +286,7 @@
 {% compress js %}
 <script type="text/javascript" src="{% static "layer/layer.js"%}"></script>
 <script type="text/javascript">
-var webtuling = {
+var webrobot = {
     switchs: function() {
         //单个
         var switchLen = $('.switch:not("#switch")').length;
@@ -369,8 +369,8 @@ var webtuling = {
         return this;
     }
 }
-webtuling.switchs();
-colors= ["#87CEFA", "#FFF0F5", "#D8BFD8", "#9370DB", "#E6E6FA", "#E0FFFF", "#F5FFFA", "#FAFAD2", "#FFEBCD"];
+webrobot.switchs();
+colors= ["#0087CEFA", "#00FFF0F5", "#00D8BFD8", "#009370DB", "#00E6E6FA", "#00E0FFFF", "#00F5FFFA", "#00FAFAD2", "#00FFEBCD"];
 $('.featureSel_item').css({
     "background-color": this.colors[Math.floor(this.colors.length * Math.random())]
 });

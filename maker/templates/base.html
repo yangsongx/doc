@@ -1,29 +1,37 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <HTML>
-{% load staticfiles %}
-{% load compress %}
-<head>
-  <!--<meta charset="UTF-8">-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>{% block title %}流氓兔{% endblock %}</title>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <link href="/static/css/basecss/bootstrap.css" rel='stylesheet' type='text/css' />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/static/js/basejs/jquery-1.11.1.min.js"></script>
-    <!-- Custom Theme files -->
-    <link href="/static/css/basecss/style.css" rel='stylesheet' type='text/css' />
-    <link href="/static/css/basecss/footer.css" rel='stylesheet' type='text/css' />
-    <!-- Custom Theme files -->
-    <link href='http://fonts.useso.com/css?family=Playball' rel='stylesheet' type='text/css'>
-  <link rel="shortcut icon" href="/static/images/favicon.ico">
-  <link rel="stylesheet" type="text/css" href="{% static "css/common.css"%}" >
-  <link rel="stylesheet" type="text/css" href="{% static "css/footer.css"%}" >
-  <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
-  <script type="text/javascript" src="{% static "js/common.js"%}"></script>
+    {% load staticfiles %}
+    {% load compress %}
+    <head>
+      <!--<meta charset="UTF-8">-->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>{% block title %}Bot Docker{% endblock %}</title>
 
-    <!----start-top-nav-script---->
-    <script>
+      <link href="/static/css/basecss/bootstrap.css" rel='stylesheet' type='text/css' />
+      <!-- Custom Theme files -->
+      <link href="/static/css/basecss/style.css" rel='stylesheet' type='text/css' />
+      <link href="/static/css/basecss/footer.css" rel='stylesheet' type='text/css' />
+      <!-- Custom Theme files -->
+      <link href='http://fonts.useso.com/css?family=Playball' rel='stylesheet' type='text/css'>
+      <link rel="shortcut icon" href="/static/images/favicon.ico">
+      <link rel="stylesheet" type="text/css" href="{% static "css/common.css"%}" >
+      <link rel="stylesheet" type="text/css" href="{% static "css/footer.css"%}" >
+      <link href="/static/css/basecss/owl.carousel.css" rel="stylesheet">
+      <style type="text/css">
+             body {background-color: white}
+              header {background-color: white}
+       </style>
+      <script type="text/javascript" src="/static/js/basejs/hover_pack.js"></script>
+      <script type="text/javascript" src="/static/js/basejs/responsive-nav.js"></script>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
+      <script type="text/javascript" src="{% static "js/common.js"%}"></script>
+      <script type="application/x-javascript"> 
+             addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+      </script>
+      <!----start-top-nav-script---->
+      <script>
         $(function() {
             var pull 		= $('#pull');
             menu 		= $('nav ul');
@@ -44,7 +52,6 @@
     <script src="/static/js/basejs/jquery.easydropdown.js"></script>
     <!----- start-Share-instantly-slider---->
     <!-- Prettify -->
-    <link href="/static/css/basecss/owl.carousel.css" rel="stylesheet">
     <script src="/static/js/basejs/owl.carousel.js"></script>
     <script>
         $(document).ready(function() {
@@ -66,160 +73,78 @@
             });
         });
     </script>
-    <!----- //End-Share-instantly-slider---->
-    <script type="text/javascript" src="/static/js/basejs/hover_pack.js"></script>
-  {% block meta %}
-  {% endblock %}
 
-    <style type="text/css">
-        body {background-color: white}
-        header {background-color: white}
-    </style>
+    <script type="text/javascript">
+    /*  jq(document).ready(function() {
+        //高亮导航
+        jq(".header ul li").mouseover(function(){
+          jq(this).addClass('current');
+          jq(this).find(".main_nav_son").show();
+          jq(this).find("em.menu_ico").addClass('menu_ico_over');
+        }).mouseleave(function(){
+          jq(this).removeClass('current');
+          jq(this).find(".main_nav_son").hide();
+          jq(this).find("em.menu_ico").removeClass('menu_ico_over');
+        });
+    });*/
+
+    jq(function() {
+      var originalCur = jq("#nav_main li.current");
+      jq("#nav_main li").mousemove(function(){
+        jq("#nav_main li").removeClass("current");
+        jq(this).addClass("current");
+        jq(this).children(".lm").show().animate({left : 15,top : 40}, "fast");
+    });
+      jq("#nav_main li").mouseleave(function(){
+         jq(this).removeClass("current");
+         jq(this).children(".lm").stop(true,true).animate({left:0,top:0},100,function(){
+          jq(this).hide();
+      });
+         originalCur.addClass("current");
+     });
+    });
+
+    </script>
+    <!----- //End-Share-instantly-slider---->
+    {% block meta %}
+    {% endblock %}
 </head>
 <body>
-<div class="header">
-    <div class="container">
-        <div class="clearfix"></div>
-        <div class="header_top">
-            <div class="logo">
-                <a href="index.html"><img src="/static/images/baseimages/logo.png" alt=""></a>
-            </div>
-            <div class="menu">
-                <a class="toggleMenu" href="#"><img src="/static/images/baseimages/nav_icon.png" alt="" /> </a>
-                <ul class="nav" id="nav">
-                    <li class="current"><a href="index.html">home</a></li>
-                    <li><a href="http://www.ioniconline.com">About</a></li>
-                    <li><a href="http://www.ioniconline.com">Services</a></li>
-                    <li><a href="http://www.ioniconline.com">Blog</a></li>
-                    <li><a href="http://www.ioniconline.com">Portfolio</a></li>
-                    <li><a href="http://www.ioniconline.com">Shortcodes</a></li>
-                    {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'personalcenter' %}">个人中心&nbsp;PersonalCenter</a></li>
-                    <li><a href="/uc/logout/">退出&nbsp;Signout</a></li>
-                    {% else %}
-                    <li><a href="/uc/login/"><span class="login_ico shipCar_ico"></span>登录&nbsp;Signin</a></li>
-                    <li><a href="/uc/reg/"><span class="login_ico shipCar_ico"></span>注册&nbsp;Signup</a></li>
-                    {% endif %}
-                </ul>
-                <script type="text/javascript" src="/static/js/basejs/responsive-nav.js"></script>
-            </div>
-            <div class="clearfix"> </div>
-            <!----//End-top-nav---->
-        </div>
-    </div>
-</div>
-<!----//End-header---->
-<div class="banner">
-    <div class="banner_container">
-        <div class="wmuSlider example1">
-            <div class="wmuSliderWrapper">
-                <article style="position: absolute; width: 100%; opacity: 0;">
-                    <div class="banner_right">
-                        <h1>Welcome to <span class="color1">G</span>elios<span class="color1">.</span></h1>
-                        <h2>Awesome , Clean & Unique Template</h2>
-                        <a href="#" title="Online Reservation" class="btn btn-primary btn-normal btn-inline " target="_self">Read More about gelios</a>
-                    </div>
-                    <div class="clearfix"></div>
-                </article>
-                <article style="position: relative; width: 100%; opacity: 1;">
-                    <div class="banner_right">
-                        <h1>Welcome to <span class="color1">G</span>elios<span class="color1">.</span></h1>
-                        <h2>There are many variations</h2>
-                        <a href="#" title="Online Reservation" class="btn btn-primary btn-normal btn-inline " target="_self">Read More about gelios</a>
-                    </div>
-                    <div class="clearfix"></div>
-                </article>
-            </div>
-            <a class="wmuSliderPrev">Previous</a><a class="wmuSliderNext">Next</a>
-            <script src="/static/js/basejs/jquery.wmuSlider.js"></script>
-            <script>
-                $('.example1').wmuSlider();
-            </script>
-        </div>
-    </div>
-</div>
-
-<div class="grid_1 text-center">
-    <div class="container">
-        <div class="col-md-4 box_1">
-            <i class="icon1"> </i>
-            <h3>Web Design</h3>
-            <p>Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
-        </div>
-        <div class="col-md-4 box_1">
-            <i class="icon2"> </i>
-            <h3>Web Development</h3>
-            <p>Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
-        </div>
-        <div class="col-md-4 box_1">
-            <i class="icon3"> </i>
-            <h3>Simple and Clean</h3>
-            <p>Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
-        </div>
-    </div>
-</div>
-
-<div class="new">
-    <div class="container">
-        <h3>What New</h3>
-        <div class="col-md-4 col_3">
-            <ul class="date_grid">
-                <li class="date_left">
-                    <div class="date">
-				<span>
-				 15
-				</span>
-                        06
-                    </div>
-                </li>
-                <li class="date_right">
-                    <p>Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
-                </li>
+    <div class="header">
+        <div class="container">
+            <div class="clearfix"></div>
+            <div class="header_top">
+                <div class="logo">
+                    <a href="/"><img src="/static/images/baseimages/logo.png" alt=""></a>
+                </div>
+                <div class="menu">
+                    <a class="toggleMenu" href="#"><img src="/static/images/baseimages/nav_icon.png" alt="" /> </a>
+                    <ul class="nav" id="nav">
+                        <li class="current"><a href="/"><span class="nav_hanzi">首页</span>&nbsp;Home</a></li>
+                        <li><a href="http://www.ioniconline.com"><span class="nav_hanzi">关于我们</span>&nbsp;About</a></li>
+                        <li><a href="http://www.ioniconline.com"><span class="nav_hanzi">服务</span>&nbsp;Service</a></li>
+                        <li><a href="http://www.ioniconline.com"><span class="nav_hanzi">社区</span>&nbsp;Blog</a></li>
+                        <li><a href="http://www.ioniconline.com"><span class="nav_hanzi">大事记</span>&nbsp;Portfolio</a></li>
+                        {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'personalcenter' %}"><span class="nav_hanzi">个人中心</span>&nbsp;UC</a></li>
+                            <li><a href="/uc/logout/"><span class="nav_hanzi">退出</span>&nbsp;Signout</a></li>
+                        {% else %}
+                            <li><a href="/uc/login/"><span class="login_ico shipCar_ico"></span><span class="nav_hanzi">登录</span>&nbsp;Signin</a></li>
+                            <li><a href="/uc/reg/"><span class="login_ico shipCar_ico"></span><span class="nav_hanzi">注册</span>&nbsp;Signup</a></li>
+                        {% endif %}
+                    </ul>
+                    
+                </div>
                 <div class="clearfix"> </div>
-            </ul>
-            <p class="m_1">Lollipop liquorice lollipop ice cream cheesecake halvah jelly-o. Gummies lollipop macaroon marshmallow icing. Cookie chupa chups cake dessert lollipop marzipan donut apple pie.</p>
-            <a href="#"><span class="more">More Information</span></a>
-        </div>
-        <div class="col-md-4 col_3">
-            <ul class="date_grid">
-                <li class="date_left">
-                    <div class="date">
-				<span>
-				 15
-				</span>
-                        06
-                    </div>
-                </li>
-                <li class="date_right">
-                    <p>Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
-                </li>
-                <div class="clearfix"> </div>
-            </ul>
-            <p class="m_1">Lollipop liquorice lollipop ice cream cheesecake halvah jelly-o. Gummies lollipop macaroon marshmallow icing. Cookie chupa chups cake dessert lollipop marzipan donut apple pie.</p>
-            <a href="#"><span class="more">More Information</span></a>
-        </div>
-        <div class="col-md-4 col_3">
-            <ul class="date_grid">
-                <li class="date_left">
-                    <div class="date">
-				<span>
-				 15
-				</span>
-                        06
-                    </div>
-                </li>
-                <li class="date_right">
-                    <p>Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus Morbi in dui quis est pulvinar</p>
-                </li>
-                <div class="clearfix"> </div>
-            </ul>
-            <p class="m_1">Lollipop liquorice lollipop ice cream cheesecake halvah jelly-o. Gummies lollipop macaroon marshmallow icing. Cookie chupa chups cake dessert lollipop marzipan donut apple pie.</p>
-            <a href="#"><span class="more">More Information</span></a>
+                <!----//End-top-nav---->
+            </div>
         </div>
     </div>
-</div>
-
+    <!----//End-header---->
+{% block content %}
+{% endblock %}
 <!-- content结束-->
+
 <div class="friendLink">
     <div class="linkWrap">
         <h2>友情链接</h2>
@@ -229,61 +154,24 @@
             <p><a href="http://www.ioniconline.com" target="_blank">ioniconline中文官网</a><span>|</span></p>
 
             <p><a href="http://www.ioniconline.com" target="_blank">ioniconline梦工场</a><span>|</span></p>
-
-
-
-        </div1>
+        </div>
     </div>
 </div>
+
 <!-- footer开始-->
 <div class="basefooter">
-    <div class="footerWrap1"> <a href="http://weibo.com/cocos2dx" class="yinqing" target="_blank"></a> <a href="javascript:void(0);" class="weixin"></a>
+    <div class="footerWrap1"> 
+        <a href="/" class="yinqing" target="_blank"></a> <a href="javascript:void(0);" class="weixin"></a>
         <div class="wxpop"> <img src="/static/images/baseimages/logo.png" width="142" height="150" alt=""/></div>
         <a href="javascript:void(0);" class="qq"></a>
         <div class="qqpop"> <img src="/static/images/baseimages/logo.png" width="142" height="150" alt=""/> </div>
-        <p> 技术咨询邮箱：support@cocos.com<br/>
-            2015 @ Cocos.com  沪ICP备14008742号-5  <a style="color:#989da4;width:80px;background:url();margin-right:-1px;" href="http://www.cocos.com/about_us/" target="_blank">关于我们</a>
+        <p> 技术咨询邮箱：support@botdocker.com<br/>
+            2016@ botdocker.com  苏ICP备14008742号-5  <a style="color:#989da4;width:80px;background:url();margin-right:-1px;" href="/about_us" target="">关于我们</a>
         </p>
     </div>
 </div>
 <!-- footer结束-->
-
-  <script type="text/javascript">
-/*  jq(document).ready(function() {
-    //高亮导航
-    jq(".header ul li").mouseover(function(){
-      jq(this).addClass('current');
-      jq(this).find(".main_nav_son").show();
-      jq(this).find("em.menu_ico").addClass('menu_ico_over');
-    }).mouseleave(function(){
-      jq(this).removeClass('current');
-      jq(this).find(".main_nav_son").hide();
-      jq(this).find("em.menu_ico").removeClass('menu_ico_over');
-    });
-  });*/
-
- jq(function() {
-  var originalCur = jq("#nav_main li.current");
-  jq("#nav_main li").mousemove(function(){
-    jq("#nav_main li").removeClass("current");
-    jq(this).addClass("current");
-    jq(this).children(".lm").show().animate({left : 15,top : 40}, "fast");
-  });
-  jq("#nav_main li").mouseleave(function(){
-   jq(this).removeClass("current");
-    jq(this).children(".lm").stop(true,true).animate({left:0,top:0},100,function(){
-      jq(this).hide();
-    });
-    originalCur.addClass("current");
-  });
-});
-
-  </script>
 {% block my_js %}
-<script type="text/javascript" src="/static/js/yuyue.js"></script>
-  <script type="text/javascript">
-      quickApply.init();
-  </script>
 {% endblock %}
 </body>
 </HTML>
