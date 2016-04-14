@@ -72,6 +72,9 @@ else:
     DEBUG = True
     CAREDEAR_DEBUG_MODE = True
 
+DEBUG = False
+
+
 ALLOWED_HOSTS = ['*']
 
 # Application definition

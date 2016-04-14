@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from . import settings
+import webviews.views
 import uc.views
 
 urlpatterns = [
-    url(r'^$', 'webviews.views.maker_index', name='home'),
+    url(r'^$', webviews.views.maker_index, name='home'),
     url(r'^admin/', include(admin.site.urls)),
 #url(r'^grappelli/', include('grappelli.urls')),
 
@@ -28,21 +29,18 @@ urlpatterns = [
 
     # NOTE - All usercenter(uc) are under uc APP...
     url(r'^uc/', include('uc.ucurls')),
-    url(r'^wxbot/start/(?P<sid>.+)/$', 'webviews.views.startWxBot', name='startWxBot'),
-    url(r'^wxbot/stop/(?P<sid>.+)/$', 'webviews.views.stopWxBot', name='stopWxBot'),
-    url(r'^wxbot/restart/(?P<sid>.+)/$', 'webviews.views.restartWxBot', name='restartWxBot'),
-    url(r'^wxbot/getlog/(?P<sid>.+)/$', 'webviews.views.getWxBotLog', name='getWxBotLog'),
-    url(r'^wxbot/getqr/(?P<sid>.+)/$', 'webviews.views.getQR', name='getWxQR'),
-    url(r'^wxbot/getstatus/(?P<sid>.+)/$', 'webviews.views.getWxBotStatus', name='getWxBotStatus'),
-    url(r'^dashboard/launcher/$', 'webviews.views.gotoDashboard', name='gotoDashboard'),
+    url(r'^wxbot/start/(?P<sid>.+)/$', webviews.views.startWxBot, name='startWxBot'),
+    url(r'^wxbot/stop/(?P<sid>.+)/$', webviews.views.stopWxBot, name='stopWxBot'),
+    url(r'^wxbot/restart/(?P<sid>.+)/$', webviews.views.restartWxBot, name='restartWxBot'),
+    url(r'^wxbot/getlog/(?P<sid>.+)/$',webviews.views.getWxBotLog, name='getWxBotLog'),
+    url(r'^wxbot/getqr/(?P<sid>.+)/$', webviews.views.getQR, name='getWxQR'),
+    url(r'^wxbot/getstatus/(?P<sid>.+)/$', webviews.views.getWxBotStatus, name='getWxBotStatus'),
+    url(r'^dashboard/launcher/$', webviews.views.gotoDashboard, name='gotoDashboard'),
 ]
 
 if settings.DEBUG is False:
     urlpatterns += [ url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),]
 
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns += [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ]
+handler404 = 'webviews.views.my404'
+handler500 = 'webviews.views.my500'
 
