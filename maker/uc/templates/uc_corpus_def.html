@@ -10,4 +10,109 @@
 {% block uc_title %}<span>语料库自定义</span>{% endblock %}
 {% block uc_content %}
 
+ <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">新增</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">问题</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" placeholder="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">答案</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputPassword3" placeholder="">
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="submit" class="btn btn-info">提交</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+
+
+  <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">您的语料库</h3>
+                <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="搜索">
+
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered">
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th style="width: 80px">问题</th>
+                  <th >答案</th>
+                  <th style="width: 40px">状态</th>
+                  <th style="width: 160px">操作</th>
+                </tr>
+                <tr>
+                  <td>1.</td>
+                  <td>李开复</td>
+                  <td>李开复，1961年12月3日出生于台湾省新北</td>
+                  <td><span class="badge bg-red">公开</span></td>
+                  <td>
+                     <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
+                     <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td>2.</td>
+                  <td>李开复</td>
+                  <td>李开复，1961年12月3日出生于台湾省新北</td>
+                  <td><span class="badge bg-red">公开</span></td>
+                  <td>
+                     <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
+                     <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>3.</td>
+                  <td>李开复</td>
+                  <td>李开复，1961年12月3日出生于台湾省新北</td>
+                  <td><span class="badge bg-red">公开</span></td>
+                  <td>
+                     <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
+                     <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
+                  </td>
+                </tr>
+                  
+              </table>
+             </div> 
+                  
+               
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">&laquo;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">&raquo;</a></li>
+              </ul>
+            </div>
+ </div>   
+
 {% endblock %}
