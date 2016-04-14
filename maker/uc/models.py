@@ -13,6 +13,16 @@ from django.db import models
 # Also note: You'll have to insert the output of 'django-admin sqlcustom [app_label]'
 # into your database.
 
+#Only available for @AccountProfile::allow_reply is True
+class WhiteNameList(models.Model):
+    name_list = models.CharField(max_length=1024,blank=True,null=True)
+
+#FIXME - this should obsoleted as we use @CorpusData?
+class UserCustomization(models.Model):
+    question = models.CharField(max_length=255, blank=True,null=True)
+    answer = models.CharField(max_length=512, blank=True,null=True)
+
+
 class RobotType(models.Model):
     description = models.CharField(max_length=255, blank=True,null=True)
     rob_sex = models.BooleanField(default=True)
@@ -20,23 +30,14 @@ class RobotType(models.Model):
     rob_alias = models.CharField(max_length=256, blank=True)
     rob_creation = models.DateTimeField(auto_now_add=True)
     rob_modification = models.DateTimeField(auto_now=True)
-
-
-#Only available for @AccountProfile::allow_reply is True
-class WhiteNameList(models.Model):
-    name_list = models.CharField(max_length=1024,blank=True,null=True)
-
-class UserCustomization(models.Model):
-    question = models.CharField(max_length=255, blank=True,null=True)
-    answer = models.CharField(max_length=512, blank=True,null=True)
-
+#
 # TODO - ysx
 # in order to give a quick/usable demo, currently use MySQL store this,
 # in final product, we will move to MongoDB smoothly
 class CorpusData(models.Model):
     question = models.CharField(max_length=255, blank=True,null=True)
-    answer = models.CharField(max_length=512, blank=True,null=True)
-
+    answer = models.CharField(max_length=1024, blank=True,null=True)
+    rob = models.ForeignKey(RobotType, blank=True, null=True)
 
 class AccountProfile(models.Model):
     user_id = models.BigIntegerField(blank=True,null=True) # This is id from django's User model
@@ -45,6 +46,5 @@ class AccountProfile(models.Model):
     robot_id = models.ForeignKey(RobotType, blank=True, null=True)
     allow_reply = models.BooleanField(default=True)
     list_reply = models.ForeignKey(WhiteNameList, blank=True, null=True)
-    customization = models.ForeignKey(UserCustomization, blank=True, null=True)
     gender = models.BooleanField(default=True)
     address = models.CharField(max_length=255, blank=True,null=True)

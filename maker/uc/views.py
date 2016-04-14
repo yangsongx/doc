@@ -15,7 +15,7 @@ from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 
-from models import AccountProfile, RobotType
+from models import AccountProfile, RobotType, CorpusData
 
 
 # This is just a HTML FORM wrapper, not related with
@@ -108,6 +108,16 @@ def create_robot(post_form, user):
 
     return 0
 
+
+###################################################################################
+def set_corpus_info(post_form, user, robot):
+    print 'will add  corpus data in the DB'
+    c_obj = CorpusData(
+            question = post_form['corpus.question'],
+            answer = post_form['corpus.answer'],
+            rob_id = robot)
+    c_obj.save()
+    return 0
 ###################################################################################
 def set_robot_info(post_form, uid):
     print 'TODO code, will add in the future'
@@ -364,9 +374,23 @@ def uc_setbot(request):
 
 @login_required
 def uc_corpusdef(request):
-    return render_to_response('uc_corpus_def.html', {
-        "cur": u"l_03",
-        }, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        print 'the POST'
+        try:
+            print request.POST
+            # TODO - how to handle the robot under a user?
+            set_corpus_info(request.POST, request.user, 2)
+        except:
+            info = "(corpusdef) %s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+            print info # FIXME - currently I just log the exception
+
+        return HttpResponse('save your own corpus[Successfully]')
+    else:
+        print 'GET'
+
+        return render_to_response('uc_corpus_def.html', {
+            "cur": u"l_03",
+            }, context_instance=RequestContext(request))
 
 @login_required
 def uc_funconfig(request):

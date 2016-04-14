@@ -94,3 +94,26 @@ Sample:
         "code": 0,
       }
 
+========================================================================
+6. /uc/apiListCustCorpus/ -
+
+HTTP POST, JSON格式
+
+Req:
+  {
+      "userid":100,
+      "robid":102
+  }
+
+Response:
+  {
+      "code": 0,
+  }
+
+Sample:
+
+    $ curl --request POST -d '{"userid":100, "robid":102}' "192.168.4.245:9001/uc/apiListCustCorpus/"
+    $ {
+        "code": 0,
+      }
+
