@@ -10,14 +10,18 @@ from django import forms
 from django.contrib.auth import authenticate, login, logout, REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 
-from models import AccountProfile, RobotType, CorpusData
+from models import AccountProfile, Robot, CorpusData
 
 
+# TODO [2016-04-14 This class will be obsoleted soon, we can directly
+# use the HTML's FORM data.
+#
 # This is just a HTML FORM wrapper, not related with
 # django's user models or user-defined models at all
 class AccountForm(forms.Form):
@@ -38,8 +42,14 @@ def is_valid_email(email):
 ###################################################################################
 # return 0 means OK, otherwise password or name not match
 def _is_user_existed(name):
-    existed = 1
-    print 'TODO , you need implement the code here'
+    existed = 0
+    try:
+        obj = User.objects.get(username = name)
+        existed = 1
+    except ObjectDoesNotExist:
+        info = "+%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        print info
+
     return existed
 
 ###################################################################################
@@ -98,18 +108,21 @@ def activate_email_account(ticket, email):
 ###################################################################################
 def create_robot(post_form, user):
     print 'TODO code, will add in the future'
-    r_obj = RobotType(rob_sex = post_form['robotsettings.gender'],
-            rob_alias = post_form['robotsettings.nickname'] )
-    r_obj.save()
 
-    a_obj = AccountProfile(user_id = user.id,
-            robot_id = r_obj)
-    a_obj.save()
+#r_obj = Robot(rob_sex = post_form['robotsettings.gender'],
+#           rob_alias = post_form['robotsettings.nickname'],
+#           owner = user)
+#   TODO - just stub code
+    r_obj = Robot(rob_sex = 1,
+                rob_alias = 'debug',
+                owner = user)
+    r_obj.save()
 
     return 0
 
 
 ###################################################################################
+# TODO - this prototype(parameter) need re-define, as DB is re-designed
 def set_corpus_info(post_form, user, robot):
     print 'will add  corpus data in the DB'
     c_obj = CorpusData(
@@ -131,18 +144,20 @@ def uc_apiListRobot(request):
     try:
         if request.method == 'POST':
             js_data = json.loads(request.body)
-            usr_profile = AccountProfile.objects.filter(user_id = js_data['userid'])
+            uid = js_data['userid']
+
+            rob = Robot.objects.filter(owner_id = uid)
+            print '%d ==> %d robots' %(uid, len(rob))
+
             i = 1
             tmp = []
-            for it in usr_profile:
-                item = {}
-                print 'got the new item'
-                robj = RobotType.objects.get(id=it.robot_id_id)
-                item['index'] = i
-                item['name'] = robj.rob_alias
-                item['gender'] = robj.rob_sex
-                item['create'] = str(robj.rob_creation)
 
+            for it in rob:
+                print 'go'
+                item = {}
+                item['index'] = i
+                item['name'] = it.rob_alias
+                item['create'] = str(it.rob_creation)
                 tmp.append(item)
                 i += 1
 
@@ -169,7 +184,7 @@ def uc_apiDelRobot(request):
                     robot_id_id = js_data['robid']
                     )
             print 'got this one, delete it with associate robot'
-            r_obj = RobotType.objects.get(id=obj.robot_id_id)
+            r_obj = Robot.objects.get(id=obj.robot_id_id)
 
             r_obj.delete()
             obj.delete()
@@ -252,6 +267,7 @@ def uc_login(request):
                     login(request, ret) # Note - This will auto-add session by django
                     print request.session.keys()
                     print request.session.get('_auth_user_id')
+
                     redirect_to = request.POST.get(REDIRECT_FIELD_NAME,
                             request.GET.get(REDIRECT_FIELD_NAME, ''))
                     print 'this is contained redirected URL, redirect_to len:%d' %(len(redirect_to))
@@ -289,7 +305,7 @@ def uc_logout(request):
 ###################################################################################
 # Check if the user already existed or NOT
 #
-def uc_checkExistence(request):
+def uc_apiCheckExistence(request):
     ret = {}
     ret['code'] = 0
 
@@ -372,6 +388,7 @@ def uc_setbot(request):
             "cur": u"l_02",
             }, context_instance=RequestContext(request))
 
+###################################################################################
 @login_required
 def uc_corpusdef(request):
     if request.method == 'POST':
