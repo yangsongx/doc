@@ -65,6 +65,7 @@ class WXBot:
         self.public_list = []  # public account list
         self.group_list = []  # group chat list
         self.special_list = []  # special list account
+        self.auto_accept = True
 
         if not os.path.exists(self.workspace):
             os.makedirs(self.workspace)
@@ -558,6 +559,12 @@ class WXBot:
             elif self.is_special(msg['FromUserName']):  # Special
                 msg_type_id = 6
                 user['name'] = self.get_contact_prefer_name(self.get_contact_name(user['id']))
+            elif msg['MsgType'] == 37:
+                logger.debug( '[MsgType]  == 37')
+                if self.auto_accept:
+                    self.accept_invite(msg)
+                else:
+                    continue
             else:
                 msg_type_id = 99
                 user['name'] = 'unknown'
@@ -689,8 +696,6 @@ class WXBot:
     def run(self):
         self.mc.set("WX:%s:status"%self.bot_id, "init")
         self.get_uuid()
-        self.gen_qr_code(self.workspace+'/qr.png')
-        logger.debug( '[INFO] Please use WeChat to scan the QR code .')
 
         self.mc.set("WX:%s:status"%self.bot_id, "wait4login")
         result = self.wait4login()
@@ -750,8 +755,10 @@ class WXBot:
         r = self.session.get(url)
         r.encoding = 'utf-8'
         data = r.text
+        logger.debug( 'do_request data = %s' % data)
         param = re.search(r'window.code=(\d+);', data)
-        code = param.group(1)
+        if param: #fix bug, if user scan qrcode and wait timeout, param= none
+            code = param.group(1)
         return code, data
 
     def wait4login(self):
@@ -763,18 +770,20 @@ class WXBot:
         tip=0, the request wait for user confirm,
                200: confirmed
         '''
+        self.gen_qr_code(self.workspace+'/qr.png')
+        logger.debug( '[INFO] Please use WeChat to scan the QR code .')
+
         LOGIN_TEMPLATE = 'https://login.weixin.qq.com/cgi-bin/mmwebwx-bin/login?tip=%s&uuid=%s&_=%s'
         tip = 1
 
         try_later_secs = 2
-        #MAX_RETRY_TIMES = 10
+        MAX_RETRY_TIMES = 10
 
         code = UNKONWN
 
-        #retry_time = MAX_RETRY_TIMES
-        #while retry_time > 0:
-        while True:
-            url = LOGIN_TEMPLATE % (tip, self.uuid, int(time.time()))
+        retry_time = MAX_RETRY_TIMES
+        while retry_time > 0:
+            url = LOGIN_TEMPLATE % (tip, self.uuid, int(time.time()))            
             code, data = self.do_request(url)
             if code == SCANED:
                 logger.debug( '[INFO] Please confirm to login .')
@@ -789,14 +798,14 @@ class WXBot:
                 logger.debug( '[ERROR] WeChat login timeout. retry in %s secs later...'%(try_later_secs, ))
 
                 tip = 1 #need to reset tip, because the server will reset the peer connection
-                #retry_time -= 1
                 time.sleep(try_later_secs)
+                retry_time -= 1
             else:
                 logger.debug( ('[ERROR] WeChat login exception return_code=%s. retry in %s secs later...' %
                         (code, try_later_secs)))
                 tip = 1
-                #retry_time -= 1
                 time.sleep(try_later_secs)
+                retry_time -= 1
 
         return code
 
@@ -951,3 +960,24 @@ class WXBot:
         with open(fn, 'wb') as f:
             f.write(data)
         return fn
+
+
+    def accept_invite(self, msg):
+        logger.debug('accept_invite, msg = %s' % msg)
+        info = msg['RecommendInfo']
+        url = self.base_uri + '/webwxverifyuser?r=%s&pass_ticket=%s' % (int(time.time())*1000, self.pass_ticket)
+        params = {
+            'BaseRequest': self.base_request,
+            'skey': self.skey,
+            'VerifyContent': "Welcome to robot world!",
+            "VerifyUserListSize": 1,
+            "VerifyUserList": [ {"Value": info['UserName'], "VerifyUserTicket":info['Ticket']} ],
+            "SceneListCount":1,
+            "Opcode":3,
+            "SceneList":[33]
+        }
+        logger.debug('url = %s ' % url)
+        logger.debug('params = %s ' % params)
+        dic = self.session.post(url, data=json.dumps(params))
+        logger.debug(dic)
+        return;
