@@ -27,6 +27,7 @@ class AccountProfile(models.Model):
 
 class WhiteNameList(models.Model):
     name_list = models.CharField(max_length=1024,blank=True,null=True)
+    owner = models.ForeignKey(User, blank=True, null=True)
 
 #FIXME - this should obsoleted as we use @CorpusData?
 class UserCustomization(models.Model):
@@ -48,5 +49,5 @@ class Robot(models.Model):
 class CorpusData(models.Model):
     question = models.CharField(max_length=255, blank=True,null=True)
     answer = models.CharField(max_length=1024, blank=True,null=True)
-    rob = models.ForeignKey(Robot, blank=True, null=True)
+    owner = models.ForeignKey(User, blank=True, null=True)
 

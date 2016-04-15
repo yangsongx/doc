@@ -102,9 +102,7 @@ HTTP POST, JSON格式
 Req:
   {
       "userid":100,
-      "robid":102
   }
-if "robid" is -1, then it means list all the corpus under current user.
 
 Response:
   {
@@ -113,7 +111,7 @@ Response:
 
 Sample:
 
-    $ curl --request POST -d '{"userid":100, "robid":102}' "192.168.4.245:9001/uc/apiListCustCorpus/"
+    $ curl --request POST -d '{"userid":100}' "192.168.4.245:9001/uc/apiListCustCorpus/"
     $ {
         "code": 0,
       }

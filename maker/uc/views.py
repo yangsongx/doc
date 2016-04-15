@@ -122,15 +122,17 @@ def create_robot(post_form, user):
 
 
 ###################################################################################
-# TODO - this prototype(parameter) need re-define, as DB is re-designed
-def set_corpus_info(post_form, user, robot):
+def set_corpus_info(post_form, user):
     print 'will add  corpus data in the DB'
+
     c_obj = CorpusData(
             question = post_form['corpus.question'],
             answer = post_form['corpus.answer'],
-            rob_id = robot)
+            owner = user)
     c_obj.save()
+
     return 0
+
 ###################################################################################
 def set_robot_info(post_form, uid):
     print 'TODO code, will add in the future'
@@ -303,6 +305,22 @@ def uc_logout(request):
     return HttpResponse('TODO, need a sign off UI page here')
 
 ###################################################################################
+def uc_apiListCustCorpus(request):
+    ret = {}
+    ret['code'] = 0
+
+    try:
+        print 'code not completed YET, dependent on UI design'
+        js_data = json.loads(request.body)
+
+    except:
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        ret['code'] = -1
+        ret['msg'] = info
+
+    return HttpResponse(json.dumps(ret))
+
+###################################################################################
 # Check if the user already existed or NOT
 #
 def uc_apiCheckExistence(request):
@@ -401,7 +419,7 @@ def uc_corpusdef(request):
         try:
             print request.POST
             # TODO - how to handle the robot under a user?
-            set_corpus_info(request.POST, request.user, 2)
+            set_corpus_info(request.POST, request.user)
         except:
             info = "(corpusdef) %s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
             print info # FIXME - currently I just log the exception
