@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}Bot Docker{% endblock %}
+{% block meta %}
+<meta />
+{% compress css%}
+<link href="/static/css/swiper.min.css" rel="stylesheet" type="text/css">
+{% endcompress %}
+{% endblock %}
+{% block nav_main_port %}current{% endblock %}
+
+{% block content %}
+     <div style="padding:20px;">
+             {% include 'our_portfolio.html'%}
+      </div>
+{% endblock %}  
+{% block my_js %}
+<script>
+  $('.details').click(
+    
+    function(){
+      if( $(this).attr('st') == 'off' ){
+        //未展开
+        $(this).attr('st','on');
+        //展开
+        $(this).html('收起');
+        $(this).parent().next().show();
+        $(this).css('background','url(/template/web/img/icon190.png) left center no-repeat')
+
+      }else{
+        $(this).attr('st','off');
+        //收起
+        $(this).html('查看详情');
+        $(this).parent().next().hide();
+        $(this).css('background','url(/template/web/img/icon191.png) left center no-repeat')
+      }
+    }
+  )
+
+</script>
+{% endblock %}  

@@ -5,12 +5,13 @@ from django.contrib.auth.views import login, logout
 import uc.views
 
 urlpatterns = [
+    url(r'^apiCheckExistence/$', uc.views.uc_apiCheckExistence, name='checkExistence'), # Using Django >= 1.9 style ^_^
+    url(r'^apiListCustCorpus/$', uc.views.uc_apiListCustCorpus, name = 'apiListCustCorpus'),
     url(r'^apiListRobot/$', uc.views.uc_apiListRobot, name = 'apiListRobot'),
     url(r'^apiDelRobot/$', uc.views.uc_apiDelRobot, name = 'apiDelRobot'),
     url(r'^reg/$', uc.views.uc_reg, name = 'uc_reg'),
     url(r'^login/$', uc.views.uc_login, name = 'uc_login'),
     url(r'^logout/$', uc.views.uc_logout, name = 'uc_logout'),
-    url(r'^checkExistence/$', uc.views.uc_checkExistence, name='checkExistence'), # Using Django >= 1.9 style ^_^
     url(r'^changePwd/$', uc.views.uc_changePwd, name='changePwd'),
     url(r'^personalcenter/$', uc.views.uc_pcenter, name='personalcenter'),
     url(r'^createbot/$', uc.views.uc_createbot, name='create_bot'),

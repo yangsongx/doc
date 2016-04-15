@@ -8,8 +8,8 @@ function lmt_log(log) {
 //For paginate directly full get request
 function paginate_full_refresh(allPage, curPage,hrefUrl){
      pager_full_refresh(allPage, curPage);
-     jq(".pctype").click(function(ipage) {
-         var ipage = jq(this).attr('id');
+     $(".pctype").click(function(ipage) {
+         var ipage = $(this).attr('id');
          location.href = hrefUrl + '?page=' + ipage;
      });
 }
@@ -25,10 +25,10 @@ function pager_full_refresh(allPage, curPage) {
 
     if (allPage <= 1) {
           //隐藏分页
-           jq("#page_nav").hide();
+           $("#page_nav").hide();
            return;
     } else {
-           jq("#page_nav").show();
+           $("#page_nav").show();
     }
 
        //中间最多显示多少个页码
@@ -129,24 +129,24 @@ function pager_full_refresh(allPage, curPage) {
         }
     }
 
-    jq("#page_nav").html(content);
+    $("#page_nav").html(content);
 };
 /*====================liumangtu pager end ======*/
 
 /*====================uc active begin ======*/
 function cut_active(cur) {
-    jq('.lis li').removeClass('active');
-    jq('#' + cur).addClass('active');
-    jq('#' + cur).parent().show().prev().addClass('active');
-    var lislen = jq('.lis').length;
+    $('.treeview-menu li').removeClass('active');
+    $('#' + cur).addClass('active');
+    $('#' + cur).parent().show().prev().addClass('active');
+    var lislen = $('.treeview-menu').length;
     for (var j = 0; j < lislen; j++) {
-        if (jq('.lis').eq(j).css('display') == 'block') {
-            jq('.lis').eq(j).find('a').addClass('text_name');
+        if ($('.treeview-menu').eq(j).css('display') == 'block') {
+            $('.treeview-menu').eq(j).find('a').addClass('text_name');
         } else {
-            jq('.lis').eq(j).find('a').removeClass('text_name');
+            $('.treeview-menu').eq(j).find('a').removeClass('text_name');
         }
     }
-    var text_name = jq('.sidebar_nav .text_name');
+    var text_name = $('.sidebar_nav .text_name');
     var lens = text_name.length;
     for (var q = 0; q < lens; q++) {
         text_name.eq(q).attr({

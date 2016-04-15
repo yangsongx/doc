@@ -1,430 +1,147 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
 {% load staticfiles %}
 {% load compress %}
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>产品动态 - Powered By TURING</title>
-	<meta name="Author" content="TURING Team" />
-	<meta name="Copyright" content="TURING" />
-	<link rel="icon" href="favicon.ico" type="image/x-icon" />
-      {% compress css %}
-	<link href="{% static "tuling123/css/reset.css"%}" rel="stylesheet" type="text/css" />
-	<link href="{% static "tuling123/css/top.css"%}" rel="stylesheet" type="text/css" />
-	<link href="{% static "tuling123/css/left.css"%}" rel="stylesheet" type="text/css" />
-	<link href="{% static "tuling123/css/zmsg.css"%}" rel="stylesheet" type="text/css" />
-	<link href="{% static "tuling123/css/bins.css"%}" rel="stylesheet" type="text/css" />
-	<link href="{% static "tuling123/css/base.css"%}" rel="stylesheet" type="text/css" />
-      <style>
-        .aClick {
-          display: none;
-        }
-      </style> 
-      {% endcompress %}
-        {% block meta %}
-        {% endblock %}
+  {% block meta %}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{% block title %}{% endblock %}</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  {% endblock %}
+  {% compress css %}
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect.
+  -->
+  <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  
+  {% endcompress %}
+
 </head>
-<body class="memberCenter messagePage_z">
-        {% block uc_header %}
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+          {% block uc_main_header %}
                 {% include 'uc_header.html'%}
         {% endblock %}
-
+  <!-- Left side column. contains the logo and sidebar -->
         {% block uc_left %}
                 {% include 'uc_left.html'%}
         {% endblock %}
-  <div class="personal_right"> 
-      <div class="personal_right_box mini" style="padding-bottom: 0;"> 
-             <div class="personal_head"> 
-                 {% block uc_title %}{% endblock %}
-            </div> 
-            {% block uc_content %}
-            {% endblock %}
-     </div> 
-  </div> 
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+     {% block uc_content_header %}
+      <h1>
+        {% block uc_title %}{% endblock %}
+<!--        <small>{% block uc_title_desc %}Optional description{% endblock %}</small>-->
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">{% block uc_position %}我的机器人{% endblock %}</li>
+      </ol>
+      {% endblock %}
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Your Page Content Here -->
+      {% block uc_content %}
+      {% endblock %}
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="pull-right hidden-xs">
+      Make Your Bot
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2016 <a href="#">BotDocker.com</a>.</strong> All rights reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+        {% block uc_right_slide %}
+                {% include 'uc_right_slide.html'%}
+        {% endblock %}
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
 {% compress js %}
-{% endcompress %}
-<script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
-<script>
-  var jq = jQuery.noConflict();
-</script>
-<script type="text/javascript" src="{% static "tuling123/js/base.js"%}"></script>
-<script type="text/javascript" src="{% static "tuling123/js/browser.js"%}"></script>
-<!--[if lte IE 6]>
-<script type="text/javascript" src="{% static "tuling123/common/js/belatedPNG.js"%}"></script>
-<script type="text/javascript">
-  // 解决IE6透明PNG图片BUG
-  DD_belatedPNG.fix(".belatedPNG");
-</script>
-<![endif]-->
+<!-- jQuery 2.2.0 -->
+<script src="/static/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/static/dist/js/app.min.js"></script>
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. Slimscroll is required when using the
+     fixed layout. -->\
 <script type="text/javascript" src="{% static "js/common.js"%}"></script>
-<script> 
-    jq('#navlist1').hover(function() {
-        jq('.navlistIcon').css('background', 'url(/static/tuling123/img/icon189.png) center no-repeat');
-    },
-    function() {
-        jq('.navlistIcon').css('background', 'url(/static/tuling123/img/icon183.png) center no-repeat');
-    });
+{% endcompress %}
 
-/*jq(function() {
-    jq.ajax({
-        url: "/web/instation_message!getUnreadIMMCount.action",
-        type: "POST",
-        dataType: "json",
-        cache: false,
-        success: function(data) {
-            if (data.sumCount > 99) {
-                jq('#zxx').show();
-                jq('#zxx').html('99+');
-            } else if (data.sumCount > 0) {
-                jq('#zxx').show();
-                jq('#zxx').append("" + data.sumCount + "");
-            }
-            if (data.immCount > 99) {
-                jq('#znx').html('(99+)');
-            } else if (data.immCount > 0) {
-                jq('#znx').append("(" + data.immCount + ")");
-            }
-            if (data.amCount > 99) {
-                jq('#xtgg').html('(99+)');
-            } else if (data.amCount > 0) {
-                jq('#xtgg').append("(" + data.amCount + ")");
-            }
-
-        },
-        error: function() {
-            console.log('error');
-        }
-    });
-});*/
-           data = {"sumCount":"100","immCount":"100","amCount":"100"};
-           if (data.sumCount > 99) {
-                jq('#zxx').show();
-                jq('#zxx').html('99+');
-            } else if (data.sumCount > 0) {
-                jq('#zxx').show();
-                jq('#zxx').append("" + data.sumCount + "");
-            }
-            if (data.immCount > 99) {
-                jq('#znx').html('(99+)');
-            } else if (data.immCount > 0) {
-                jq('#znx').append("(" + data.immCount + ")");
-            }
-            if (data.amCount > 99) {
-                jq('#xtgg').html('(99+)');
-            } else if (data.amCount > 0) {
-                jq('#xtgg').append("(" + data.amCount + ")");
-            }
-
-/*<img src="/static/tuling123/img/icon120.png"/>*/
-
-//判断会员是否登录
-/*jq.ajax({
-			url: "/web/member!ajaxMemberVerify.action",
-			type: "POST",
-			dataType: "json",
-			//async: false,
-			cache: false,
-			success: function(data) {
-				if (data.status) {
-					//已登录
-					jq('.login').remove();
-					jq('.zhuce').remove();
-					jq('.gerenzhongxin').show();
-				} else {
-					//未登录
-					jq('.gerenzhongxin').hide();
-				}
-			}
-		});*/
-
-//获取用户等级
-/*jq.ajax({
-    url: "/web/member!ajax4MemberRank.action",
-    type: "POST",
-    dataType: "json",
-    //async: false,
-    cache: false,
-    success: function(data) {
-        if (data == 1) {
-            jq('#userType').addClass('bzb');
-            jq('#userType').attr('title', '标准版');
-            jq('#userType').show();
-        } else if (data == 3) {
-            jq('#userType').addClass('bzbed');
-            jq('#userType').attr('title', '标准版');
-            jq('#userType').show();
-        } else if (data == 2) {
-            jq('#userType').addClass('etb');
-            jq('#userType').attr('title', '儿童版');
-            jq('#userType').show();
-        } else {
-            jq('#userType').hide();
-        }
-    }
-});*/
-//TODO
-jq('#userType').addClass('bzbed');
-jq('#userType').attr('title', '标准版');
-jq('#userType').show();
-
-jq(window).scroll(function() {
-    top = jq('body').scrollTop();
-    if (top >= '110') {
-        jq('#header').css({
-            'background': 'rgba(255,255,255,0.95)'
-        });
-    } else {
-        jq('#header').css({
-            'background': 'rgba(255,255,255,1)'
-        });
-    }
-})
-
-var webtuling = {
-    header: function() {
-        jq('.news').on('mouseover',
-        function() {
-            jq(this).addClass('on');
-            jq(this).children('.uls').show();
-        });
-        jq('.news').on('mouseout',
-        function() {
-            jq(this).removeClass('on');
-            jq(this).children('.uls').hide();
-        });
-        return this;
-    }
-}
-webtuling.header();
-var loginStatus = true; 
-</script>
-<script>
-    /*jq(function () {
-        var cur = "l_11";
-        jq('.lis li').removeClass('active');
-        jq('#' + cur).addClass('active');
-        jq('#' + cur).parent().show().prev().addClass('active');
-        var lislen = jq('.lis').length;
-        for (var j = 0; j < lislen; j++) {
-            if (jq('.lis').eq(j).css('display') == 'block') {
-                jq('.lis').eq(j).find('a').addClass('text_name');
-            } else {
-                jq('.lis').eq(j).find('a').removeClass('text_name');
-            }
-            ;
-        }
-        ;
-        var text_name = jq('.sidebar_nav .text_name');
-        var lens = text_name.length;
-        for (var q = 0; q < lens; q++) {
-            text_name.eq(q).attr({
-                y: (q + 1) * 40
-            });
-        }
-        ;
-    });*/
+<script type="text/javascript" >
     var curUrl = "{{cur}}";
     console.log("cut_active=" + curUrl);
-    jq(function(){
+    $(function(){
         cut_active(curUrl);
     });
 </script> 
-<script>
-    //展示以及菜单的红点提示
-    if (false || false || false || false || false || false || false || false || false || false) {
-        jq("#planet").show();
-    }
-    if (false || false || false || false || false || false || false || false || false || false) {
-        jq("#user").show();
-    }
-    if (false || false || false || false || false || false || false || false || false || false) {
-        jq("#super").show();
-    }
-    if (false || false || false || false || false || false || false || false || false || false) {
-        jq("#message").show();
-    }
-
-    // 新功能圆点标识 点击消失
-    function circle(obj) {
-        if (obj.find('.newFeatures_z')) {
-            obj.find('.newFeatures_z i').hide();
-            obj.find('.newFeatures_z span').each(function() {
-                var newLeft = parseInt(jq(this).css('left')) + parseInt(jq(this).css('width')) / 2;
-                var newTop = parseInt(jq(this).css('top')) + parseInt(jq(this).css('height')) / 2;
-                jq(this).show().animate({
-                    'width': 0,
-                    'height': 0,
-                    'left': newLeft,
-                    'top': newTop
-                },
-                500,
-                function() {
-                    jq(this).hide();
-                });
-            });
-        }
-    }
-
-    jq('.lis li').click(function() {
-        var $_this = jq(this);
-        if (jq(this).find('.newFeatures_z').css('display') == 'block') {
-            jQuery.post("/web/member!hasClicked.action", {
-                num: jq(this).attr('num')
-            },
-            function() {
-                window.location = $_this.find('em').attr('data_href');
-            })
-        } else {
-            window.location = $_this.find('em').attr('data_href');
-        }
-
-        circle(jq(this))
-    })
-
-    var webtuling = {
-        //菜单滚动功能
-    navScroll: function () {
-                jq('.sidebar_nav').height(jq(window).height() - 89 - 40);
-                jq(window).on('resize', function () {
-                    jq('.sidebar_nav').height(jq(window).height() - 89 - 40);
-                })
-                return this;
-            },
-        // 知识库左边菜单的高度
-        personalh: function() {
-            var html_h = jq('html').height() - 89;
-            jq('.personal_left').height(html_h);
-            return this;
-        },
-        // personal_left 内容
-        sidebar: function() {
-            var i = 0;
-            var w = null;
-            var textname = jq('.sidebar_nav .text_name');
-            var len = textname.length;
-            var lislen = jq('.lis').length;
-            jq('.sidebar .sidebar_header').on('click',
-            function() {
-                jq('.newFeatures_z').toggleClass('active') // 新功能标识，红点的显示隐藏
-                jq('.personal_left').toggleClass('mini');
-                jq('.personal_right').toggleClass('mini');
-                w = jq('.personal_left').width();
-            });
-            //获取 top的值
-            for (var j = 0; j < lislen; j++) {
-                if (jq('.lis').eq(j).css('display') == 'block') {
-                    jq('.lis').eq(j).find('a').addClass('text_name');
-                } else {
-                    jq('.lis').eq(j).find('a').removeClass('text_name');
-                };
-            };
-
-            jq('.sidebar_nav .uls_header .right').on('click',
-            function() {
-                return false;
-            });
-            // 重新获取top的值
-            // 以下是菜单互不影响的实现
-            jq('.sidebar_nav .uls_header').on('click',
-            function() {
-
-                if (jq(this).next().css('display') == 'block') {
-                    jq(this).removeClass('active');
-                    jq(this).next().slideUp();
-                    jq('.uls').find('a').addClass('text_name');
-                    jq(this).next().find('a').removeClass('text_name');
-                } else {
-                    jq(this).addClass('active');
-                    jq(this).next().slideDown();
-                    jq('.uls').find('a').removeClass('text_name');
-                    jq(this).next().find('a').addClass('text_name');
-                }
-                var text_name = jq('.sidebar_nav .text_name');
-                var lens = text_name.length;
-
-                move_text(text_name);
-            });
-
-            function move_text(textname) {
-                textname.on('mouseover',
-                function() {
-                    if (w == 55) {
-                        var name = jq(this).attr('text_name');
-                        var y = jq(this).attr('y');
-                        jq('.move_text .text').html(name);
-                        jq('.move_text').css({
-                            'right': '-125px',
-                            'top': jq(this).offset().top - 85 + 'px',
-                            display: 'block'
-                        });
-                    } else {
-                        return false;
-                    };
-                });
-                textname.on('mouseout',
-                function() {
-                    if (w == 55) {
-                        jq('.move_text').hide();
-                        jq('.move_text .text').html(' ');
-                    } else {
-                        return false;
-                    };
-                });
-            }
-
-            move_text(textname);
-            return this;
-        },
-        // 三级导航
-        bins: function() {
-            // bins 弹出框
-            var binslen = jq('.bins').children().not('.bg').length;
-            var m = 0;
-            var n = 0;
-            var objw = [];
-            var objh = [];
-            for (n; n < binslen; n++) {
-                m++;
-                objw[n] = jq('.bins_content' + m).width();
-                objh[n] = jq('.bins_content' + m).height();
-                jq('.bins_content' + m).css({
-                    'marginLeft': -objw[n] / 2,
-                    'marginTop': -objh[n] / 2
-                });
-            };
-            // bins 弹出框
-            var i = 1;
-            var j = 0;
-            var binslen = jq('.bins_btn').length;
-            for (i; i <= binslen; i++) {
-                jq('.bins_btn' + i).attr('index', i);
-                jq('.bins_btn' + i).click(function() {
-                    j = jq(this).attr('index');
-                    jq('.bins').show();
-                    jq('.bins_content' + j).show().siblings().hide();
-                    jq('.bins .bg').show();
-                });
-                jq('.bins .btn-default').on('click',
-                function() {
-                    jq('.bins').hide();
-                    jq('.bins_content' + j).show().siblings().hide();
-                    jq('.bins .bg').hide();
-                });
-            };
-            return this;
-        }
-    }
-
-    webtuling.navScroll().personalh().sidebar().bins();
-    //左侧导航高度自适应
-    jq(window).on('resize',
-    function() {
-        var h = jq(window).height() - 89;
-        jq('.personal_left').height(h);
-    })
-</script>
-
 {% block my_js %}
 {% endblock %}
 </body>

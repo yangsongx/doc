@@ -5,7 +5,7 @@
 {% block title %}流氓兔{% endblock %}
 {% block meta %}
  {% compress css %}
-	<link href="{% static "tuling123/css/assist_user_appid_list.css"%}" rel="stylesheet" type="text/css" />
+	<link href="{% static "css/uc_function_config_list.css"%}" rel="stylesheet" type="text/css" />
  {% endcompress %}
 <meta />
 {% endblock %}
@@ -21,7 +21,7 @@
 </div>
 <div class="fenlei1" style="display:none;">
 	<div class="fenleibox">
-		<img src="/static/tuling123/img/icon138.png">
+		<img src="/static/images/uc_icon138.png">
 		<div class="abs" style="width:180px;">
 			功能开启后才能使用下面已选的功能服务
 		</div>
@@ -30,14 +30,17 @@
 {% endblock %}
 {% block uc_content %}
 <div class="gongneng">
-	<div class="gongneng_box">
-                          <dl class="featureSel_z">
+	<div class="gongneng_box row">
+		<dl class="featureSel_z small-box bg-red ">
 			<div class="newFeature "></div>
 			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>聊天</p>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-pie-graph"></i>
+				            </div>
+				           <h2 class="small-box-footer">聊天</h2>
 				</div>
+			</dt>
 			<dd>
 				<div class="switch" id="2300100">
 					<div class="switch-on switch-animate">
@@ -50,13 +53,16 @@
 		</dl>
 
 
-		<dl class="featureSel_z">
+		<dl class="featureSel_z  small-box bg-blue ">
 			<div class="newFeature "></div>
 			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>天气</p>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-android-bicycle"></i>
+				            </div>
+				           <h2 class="small-box-footer">天气</h2>
 				</div>
+			</dt>
 			<dd>
 				<div class="switch" id="2300100">
 					<div class="switch-on switch-animate">
@@ -67,13 +73,16 @@
 				</div>
 			</dd>
 		</dl>
-                          <dl class="featureSel_z">
+		<dl class="featureSel_z  small-box bg-green ">
 			<div class="newFeature "></div>
 			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>故事</p>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-android-add-circle"></i>
+				            </div>
+				           <h2 class="small-box-footer">故事</h2>
 				</div>
+			</dt>
 			<dd>
 				<div class="switch" id="2300100">
 					<div class="switch-on switch-animate">
@@ -84,66 +93,16 @@
 				</div>
 			</dd>
 		</dl>
-                          <dl class="featureSel_z">
+		<dl class="featureSel_z  small-box bg-yellow ">
 			<div class="newFeature "></div>
 			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>灯谜</p>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-android"></i>
+				            </div>
+				            <h2 class="small-box-footer">灯谜</h2>
 				</div>
-			<dd>
-				<div class="switch" id="2300100">
-					<div class="switch-on switch-animate">
-						<span class="left">ON</span>
-						<span class="center"></span>
-						<span class="right">OFF</span>
-					</div>
-				</div>
-			</dd>
-		</dl>
-
-
-		<dl class="featureSel_z">
-			<div class="newFeature "></div>
-			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>笑话</p>
-				</div>
-			<dd>
-				<div class="switch" id="2300100">
-					<div class="switch-on switch-animate">
-						<span class="left">ON</span>
-						<span class="center"></span>
-						<span class="right">OFF</span>
-					</div>
-				</div>
-			</dd>
-		</dl>
-                          <dl class="featureSel_z">
-			<div class="newFeature "></div>
-			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>算命</p>
-				</div>
-			<dd>
-				<div class="switch" id="2300100">
-					<div class="switch-on switch-animate">
-						<span class="left">ON</span>
-						<span class="center"></span>
-						<span class="right">OFF</span>
-					</div>
-				</div>
-			</dd>
-		</dl>
-                         <dl class="featureSel_z">
-			<div class="newFeature "></div>
-			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>看相</p>
-				</div>
+			</dt>
 			<dd>
 				<div class="switch" id="2300100">
 					<div class="switch-on switch-animate">
@@ -156,13 +115,16 @@
 		</dl>
 
 
-		<dl class="featureSel_z">
+		<dl class="featureSel_z  small-box bg-gray ">
 			<div class="newFeature "></div>
 			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>八卦</p>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-instagram"></i>
+				            </div>
+					<h2 class="small-box-footer">笑话</h2>
 				</div>
+			</dt>
 			<dd>
 				<div class="switch" id="2300100">
 					<div class="switch-on switch-animate">
@@ -173,13 +135,16 @@
 				</div>
 			</dd>
 		</dl>
-                          <dl class="featureSel_z">
+		<dl class="featureSel_z  small-box bg-light-blue">
 			<div class="newFeature "></div>
 			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>星座</p>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-foursquare"></i>
+				            </div>
+					<h2 class="small-box-footer">算命</h2>
 				</div>
+			</dt>
 			<dd>
 				<div class="switch" id="2300100">
 					<div class="switch-on switch-animate">
@@ -190,13 +155,16 @@
 				</div>
 			</dd>
 		</dl>
-                        <dl class="featureSel_z">
+		<dl class="featureSel_z  small-box bg-teal ">
 			<div class="newFeature "></div>
 			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>菜谱</p>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-pinterest"></i>
+				            </div>
+					<h2 class="small-box-footer">看相</h2>
 				</div>
+			</dt>
 			<dd>
 				<div class="switch" id="2300100">
 					<div class="switch-on switch-animate">
@@ -209,13 +177,16 @@
 		</dl>
 
 
-		<dl class="featureSel_z">
+		<dl class="featureSel_z  small-box bg-orange ">
 			<div class="newFeature "></div>
 			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>装修</p>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-linkedin"></i>
+				            </div>
+					<h2 class="small-box-footer">八卦</h2>
 				</div>
+			</dt>
 			<dd>
 				<div class="switch" id="2300100">
 					<div class="switch-on switch-animate">
@@ -226,13 +197,78 @@
 				</div>
 			</dd>
 		</dl>
-                          <dl class="featureSel_z">
+		<dl class="featureSel_z  small-box bg-fuchsia ">
 			<div class="newFeature "></div>
 			<dt>
-	                                        <div class="featureSel_item">
-	                                        <img src="/static/tuling123/img/fuc_config_icon.png" />
-					<p>百科</p>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-python"></i>
+				            </div>
+					<h2 class="small-box-footer">星座</h2>
 				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+		<dl class="featureSel_z  small-box bg-maroon ">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-twitter"></i>
+				            </div>
+					<h2 class="small-box-footer">菜谱</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+
+
+		<dl class="featureSel_z  small-box bg-olive ">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-usd"></i>
+				            </div>
+					<h2 class="small-box-footer">装修</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">ON</span>
+						<span class="center"></span>
+						<span class="right">OFF</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+		<dl class="featureSel_z  small-box bg-lime ">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-wordpress"></i>
+				            </div>
+					<h2 class="small-box-footer">百科</h2>
+				</div>
+			</dt>
 			<dd>
 				<div class="switch" id="2300100">
 					<div class="switch-on switch-animate">
@@ -250,18 +286,18 @@
 {% compress js %}
 <script type="text/javascript" src="{% static "layer/layer.js"%}"></script>
 <script type="text/javascript">
-var webtuling = {
+var webrobot = {
     switchs: function() {
         //单个
-        var switchLen = jq('.switch:not("#switch")').length;
-        jq('.personal_right .switch:not("#switch")').on('click',
+        var switchLen = $('.switch:not("#switch")').length;
+        $('.content-wrapper .switch:not("#switch")').on('click',
         function() {
-            if (jq('#switch').children().attr('class') == 'switch-on switch-animate') {
-                cls = jq(this).children().attr('class');
+            if ($('#switch').children().attr('class') == 'switch-on switch-animate') {
+                cls = $(this).children().attr('class');
                 if (cls == 'switch-on switch-animate') {
                     var q = 0;
                     for (var i = 0; i < switchLen; i++) {
-                        if (jq('.switch:not("#switch")').eq(i).children().attr('class') == 'switch-on switch-animate') {
+                        if ($('.switch:not("#switch")').eq(i).children().attr('class') == 'switch-on switch-animate') {
                             q++;
                         };
                     };
@@ -271,9 +307,9 @@ var webtuling = {
                         });
                         return false;
                     };
-                    var strid = jq(this).attr('id');
+                    var strid = $(this).attr('id');
                     id = strid;
-                    jq.ajax({
+                    $.ajax({
                         url: "/web/assist_user_appid!ajaxDeleteAppid.action",
                         data: {
                             "appid": id
@@ -283,7 +319,7 @@ var webtuling = {
                         cache: false,
                         success: function(data) {
                             if (data.status == 'success') {
-                                jq('#' + id).children().attr('class', 'switch-off switch-animate');
+                                $('#' + id).children().attr('class', 'switch-off switch-animate');
                             } else {
                                 layer.msg('操作失败,请刷新后重试！', {
                                     icon: 2
@@ -297,9 +333,9 @@ var webtuling = {
                         }
                     });
                 } else {
-                    var strid = jq(this).attr('id');
+                    var strid = $(this).attr('id');
                     id = strid;
-                    jq.ajax({
+                    $.ajax({
                         url: "/web/assist_user_appid!ajaxAddAppid.action",
                         data: {
                             "appid": id
@@ -309,7 +345,7 @@ var webtuling = {
                         cache: false,
                         success: function(data) {
                             if (data.status == 'success') {
-                                jq('#' + id).children().attr('class', 'switch-on switch-animate');
+                                $('#' + id).children().attr('class', 'switch-on switch-animate');
                             } else {
                                 layer.msg('操作失败,请刷新后重试！', {
                                     icon: 2
@@ -333,21 +369,21 @@ var webtuling = {
         return this;
     }
 }
-webtuling.switchs();
+webrobot.switchs();
 colors= ["#87CEFA", "#FFF0F5", "#D8BFD8", "#9370DB", "#E6E6FA", "#E0FFFF", "#F5FFFA", "#FAFAD2", "#FFEBCD"];
-jq('.featureSel_item').css({
+$('.gongneng_box dl').css({
     "background-color": this.colors[Math.floor(this.colors.length * Math.random())]
 });
 
-jq(function() {
+$(function() {
     // 提示
-    jq('.fenlei1 img').on('mouseover',
+    $('.fenlei1 img').on('mouseover',
     function() {
-        jq(this).next().show();
+        $(this).next().show();
     });
-    jq('.fenlei1 img').on('mouseout',
+    $('.fenlei1 img').on('mouseout',
     function() {
-        jq(this).next().hide();
+        $(this).next().hide();
     });
 }); 
 </script>

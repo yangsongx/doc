@@ -259,3 +259,7 @@ a img {
 #nav_main .lm a:hover {
   background: url("../images/nav/nav-main-sub-item-bg.png") no-repeat left center;
 }
+
+.nav_hanzi {
+    font-size:18px;
+}

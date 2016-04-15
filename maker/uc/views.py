@@ -10,14 +10,18 @@ from django import forms
 from django.contrib.auth import authenticate, login, logout, REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 
-from models import AccountProfile, RobotType
+from models import AccountProfile, Robot, CorpusData
 
 
+# TODO [2016-04-14 This class will be obsoleted soon, we can directly
+# use the HTML's FORM data.
+#
 # This is just a HTML FORM wrapper, not related with
 # django's user models or user-defined models at all
 class AccountForm(forms.Form):
@@ -38,8 +42,14 @@ def is_valid_email(email):
 ###################################################################################
 # return 0 means OK, otherwise password or name not match
 def _is_user_existed(name):
-    existed = 1
-    print 'TODO , you need implement the code here'
+    existed = 0
+    try:
+        obj = User.objects.get(username = name)
+        existed = 1
+    except ObjectDoesNotExist:
+        info = "+%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        print info
+
     return existed
 
 ###################################################################################
@@ -98,13 +108,28 @@ def activate_email_account(ticket, email):
 ###################################################################################
 def create_robot(post_form, user):
     print 'TODO code, will add in the future'
-    r_obj = RobotType(rob_sex = post_form['robotsettings.gender'],
-            rob_alias = post_form['robotsettings.nickname'] )
+
+#r_obj = Robot(rob_sex = post_form['robotsettings.gender'],
+#           rob_alias = post_form['robotsettings.nickname'],
+#           owner = user)
+#   TODO - just stub code
+    r_obj = Robot(rob_sex = 1,
+                rob_alias = 'debug',
+                owner = user)
     r_obj.save()
 
-    a_obj = AccountProfile(user_id = user.id,
-            robot_id = r_obj)
-    a_obj.save()
+    return 0
+
+
+###################################################################################
+def set_corpus_info(post_form, user):
+    print 'will add  corpus data in the DB'
+
+    c_obj = CorpusData(
+            question = post_form['corpus.question'],
+            answer = post_form['corpus.answer'],
+            owner = user)
+    c_obj.save()
 
     return 0
 
@@ -121,18 +146,20 @@ def uc_apiListRobot(request):
     try:
         if request.method == 'POST':
             js_data = json.loads(request.body)
-            usr_profile = AccountProfile.objects.filter(user_id = js_data['userid'])
+            uid = js_data['userid']
+
+            rob = Robot.objects.filter(owner_id = uid)
+            print '%d ==> %d robots' %(uid, len(rob))
+
             i = 1
             tmp = []
-            for it in usr_profile:
-                item = {}
-                print 'got the new item'
-                robj = RobotType.objects.get(id=it.robot_id_id)
-                item['index'] = i
-                item['name'] = robj.rob_alias
-                item['gender'] = robj.rob_sex
-                item['create'] = str(robj.rob_creation)
 
+            for it in rob:
+                print 'go'
+                item = {}
+                item['index'] = i
+                item['name'] = it.rob_alias
+                item['create'] = str(it.rob_creation)
                 tmp.append(item)
                 i += 1
 
@@ -159,7 +186,7 @@ def uc_apiDelRobot(request):
                     robot_id_id = js_data['robid']
                     )
             print 'got this one, delete it with associate robot'
-            r_obj = RobotType.objects.get(id=obj.robot_id_id)
+            r_obj = Robot.objects.get(id=obj.robot_id_id)
 
             r_obj.delete()
             obj.delete()
@@ -242,6 +269,7 @@ def uc_login(request):
                     login(request, ret) # Note - This will auto-add session by django
                     print request.session.keys()
                     print request.session.get('_auth_user_id')
+
                     redirect_to = request.POST.get(REDIRECT_FIELD_NAME,
                             request.GET.get(REDIRECT_FIELD_NAME, ''))
                     print 'this is contained redirected URL, redirect_to len:%d' %(len(redirect_to))
@@ -277,9 +305,42 @@ def uc_logout(request):
     return HttpResponse('TODO, need a sign off UI page here')
 
 ###################################################################################
+def uc_apiListCustCorpus(request):
+    ret = {}
+    ret['code'] = 0
+
+    try:
+        print 'code not completed YET, dependent on UI design'
+        js_data = json.loads(request.body)
+        uid = js_data['userid']
+
+        c_obj = CorpusData.objects.filter(owner_id = uid)
+
+        i = 1
+        tmp = []
+        for it in c_obj:
+            item = {}
+            item['index'] = i
+            item['q'] = it.question
+            item['a'] = it.answer
+            i += 1
+
+            tmp.append(item)
+
+        ret['list'] = tmp
+
+
+    except:
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        ret['code'] = -1
+        ret['msg'] = info
+
+    return HttpResponse(json.dumps(ret))
+
+###################################################################################
 # Check if the user already existed or NOT
 #
-def uc_checkExistence(request):
+def uc_apiCheckExistence(request):
     ret = {}
     ret['code'] = 0
 
@@ -318,6 +379,9 @@ def uc_changePwd(request):
 def uc_pcenter(request):
     return render_to_response('uc_home.html', {
         "cur": u"l_09",
+        "user_name": request.user.username,
+        "join_since":str(request.user.date_joined),
+        "last_login":str(request.user.last_login)
         }, context_instance=RequestContext(request))
 
 @login_required
@@ -336,6 +400,7 @@ def uc_createbot(request):
         print 'just GET'
         return render_to_response('uc_create_bot.html', {
             "cur": u"l_01",
+            "user_name": request.user.username,
             }, context_instance=RequestContext(request))
 
 @login_required
@@ -360,40 +425,62 @@ def uc_setbot(request):
         print 'a GET'
         return render_to_response('uc_set_bot.html', {
             "cur": u"l_02",
+            "user_name": request.user.username,
             }, context_instance=RequestContext(request))
 
+###################################################################################
 @login_required
 def uc_corpusdef(request):
-    return render_to_response('uc_corpus_def.html', {
-        "cur": u"l_03",
-        }, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        print 'the POST'
+        try:
+            print request.POST
+            # TODO - how to handle the robot under a user?
+            set_corpus_info(request.POST, request.user)
+        except:
+            info = "(corpusdef) %s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+            print info # FIXME - currently I just log the exception
+
+        return HttpResponse('save your own corpus[Successfully]')
+    else:
+        print 'GET'
+
+        return render_to_response('uc_corpus_def.html', {
+            "cur": u"l_03",
+            "user_name": request.user.username,
+            }, context_instance=RequestContext(request))
 
 @login_required
 def uc_funconfig(request):
     return render_to_response('uc_func_config.html', {
         "cur": u"l_04",
+        "user_name": request.user.username,
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_whitelist(request):
     return render_to_response('uc_white_list.html', {
         "cur": u"l_05",
+        "user_name": request.user.username,
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_basicinfo(request):
     return render_to_response('uc_basic_info.html', {
         "cur": u"l_06",
+        "user_name": request.user.username,
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_systemnotify(request):
     return render_to_response('uc_system_notify.html', {
         "cur": u"l_07",
+        "user_name": request.user.username,
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_sitemsg(request):
     return render_to_response('uc_site_msg.html', {
         "cur": u"l_08",
+        "user_name": request.user.username,
         }, context_instance=RequestContext(request))

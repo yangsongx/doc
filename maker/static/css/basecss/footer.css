@@ -1,0 +1,135 @@
+.friendLink {
+    position: relative;
+    width: 100%;
+    min-width: 1000px;
+    background: #343438;
+    padding-top: 30px;
+}
+
+.linkWrap {
+    background: #343438;
+    text-align: left;
+    width: 1000px;
+    margin: 0 auto;
+    color: #989DA4;
+}
+
+.linkWrap h2 {
+    font-size: 14px;
+    line-height: 15px;
+    height: 15px;
+    color: #989DA4;
+}
+
+.linkContent {
+    padding: 4px 0 10px 0;
+}
+
+.linkContent p {
+    float: left;
+    margin-left: 10px;
+    font-size: 12px;
+    line-height: 25px;
+}
+
+.linkContent p a {
+    display: inline-block;
+    vertical-align: middle;
+    color: #989DA4;
+    line-height: 25px;
+}
+
+.linkContent p span {
+    margin-left: 10px;
+    vertical-align: middle;
+    color: #5e5e61;
+    display: inline-block;
+    line-height: 25px;
+}
+
+.clearfix::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.basefooter {
+    width: 100%;
+    min-width: 1000px;
+    height: 195px;
+    background: #343438 url(../../images/cocos/line.png) no-repeat 0 83px;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.footerWrap1 {
+    width: 1000px;
+    height: 55px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.footerWrap1 a.yinqing {
+    background-position: 0px 0px;
+}
+
+.footerWrap1 a {
+    display: inline-block;
+    height: 38px;
+    width: 38px;
+    background: url("/static/images/baseimages/logo.png") no-repeat;
+    margin-right: 15px;
+}
+
+.footerWrap1 a.weixin {
+    position: relative;
+    background-position: -58px 0px;
+}
+
+a {
+    color: #464646;
+    text-decoration: none;
+    outline: none;
+}
+
+.wxpop {
+    position: absolute;
+    width: 142px;
+    height: 150px;
+    left: 430px;
+    bottom: 60px;
+    display: none;
+}
+
+.footerWrap1 a.qq {
+    position: relative;
+    background-position: -116px 0px;
+    margin-right: 0px;
+}
+
+.qqpop {
+    position: absolute;
+    width: 142px;
+    height: 150px;
+    left: 488px;
+    bottom: 60px;
+    display: none;
+}
+
+.basefooter p {
+    padding-top: 25px;
+    font-size: 14px;
+    color: #989DA4;
+    line-height: 28px;
+}
+
+.div1 {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 0 none;
+    font-weight: normal;
+    color: #464646;
+}

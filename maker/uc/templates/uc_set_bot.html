@@ -4,327 +4,111 @@
 
 {% block title %}流氓兔{% endblock %}
 {% block meta %}
- {% compress css %}
-	<link href="{% static "tuling123/css/robot_settings_index.css"%}" rel="stylesheet" type="text/css" />
- {% endcompress %}
 <meta />
 {% endblock %}
 
 {% block uc_title %}<span>机器人设定</span>{% endblock %}
+
+{% block uc_header %}
+      <h1>
+        <small>机器人设定</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">我的机器人</li>
+      </ol>
+{% endblock %}
+
 {% block uc_content %}
- <div class="personal_right_title">
-            <dl class="">
-                <dt><img id="touxiang" class="photos"
-                         src="/static/tuling123/img/kefutouxiang.png"/></dt>
-                <dd>
-                    <div class="changeHead">修改头像</div>
-                </dd>
-            </dl>
-             
-            <form id="updatesetfile_form" action="/web/robot_settings!updatesetfile.action?cur=l_02"
-                  method="post" enctype="multipart/form-data">
-                <input type="file" name="fileTest" id="file"/>
-            </form>
-        </div>
-        <form id="updateset_form" action="/uc/setbot/" method="post"
-              enctype="multipart/form-data">
-            <div class="robot_box1 row">
-                <div class="robot_box1_left">
+ <form class="form-horizontal">
+<div class="box box-primary">
+<div class="box-header with-border">
+  <h3 class="box-title">基本设置</h3>
+</div>
 
-                </div>
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">机器人昵称</label>
 
-                <div class="robot_box1_right">
-                    <ul>
-                        <li>
-                            <span>机器人昵称</span>
+                    <div class="col-sm-10">
+                      <input type="email" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail" class="col-sm-2 control-label">机器人性别</label>
 
-                            <div class="right">
-                                <input type="text" id="nickname" name="robotsettings.nickname"
-                                       value="图灵机器人" id="name"/>
-                                <b style="visibility: visible;"></b>
-                            </div>
-                        </li>
-                        <li>
-                            <span>机器人性别</span>
+                    <div class="col-sm-10">
+                      <input type="email" class="form-control" id="inputEmail" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">机器人年龄</label>
 
-                            <div class="right radio" id="sex">
-                                <input id="sex1" value="male" name="robotsettings.gender"
-                                       checked
-                                       type="radio" name="sex"/>男
-                                <input id="sex2" value="female" name="robotsettings.gender"
-                                       
-                                       type="radio" name="sex"/>女
-                            </div>
-                        </li>
-                        <!-- 新加属性 -->
-                        <li>
-                            <span>爸爸的名字</span>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">爸爸的名字</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>
 
-                            <div class="right">
-                                <input type="text" id="father" name="robotsettings.fatherName"
-                                       value=""/>
-                                <b style="visibility: visible;"></b>
-                            </div>
-                        </li>
-                        <li>
-                            <span>妈妈的名字</span>
+                  <div class="form-group">
+                    <label for="inputSkills" class="col-sm-2 control-label">妈妈的名字</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">喜欢的事情</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>   
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">讨厌的事情</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>  
+     </br>
+</div>
 
-                            <div class="right">
-                                <input type="text" id="mother" name="robotsettings.motherName"
-                                       value=""/>
-                                <b style="visibility: visible;"></b>
-                            </div>
-                        </li>
-                        <li>
-                            <span>喜欢的事情</span>
+<div class="box box-primary">
+<div class="box-header with-border">
+  <h3 class="box-title">高级设置</h3>
+</div>
 
-                            <div class="right">
-                                <input type="text" id="likeThing" name="robotsettings.likeThings"
-                                       value=""/>
-                                <b style="visibility: visible;"></b>
-                            </div>
-                        </li>
-                        <li>
-                            <span>讨厌的事情</span>
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">喜欢的事情</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>   
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">讨厌的事情</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>  
+     </br>
 
-                            <div class="right">
-                                <input type="text" id="unlikeThing" name="robotsettings.dislikeThings"
-                                       value=""/>
-                                <b style="visibility: visible;"></b>
-                            </div>
-                        </li>
-                        <li>
-                            <span>机器人年龄</span>
+ 
+ 
+</div>
 
-                            <div class="right">
-                                <input type="text" id="age" name="robotsettings.age"
-                                       value=""/>
-                                <b>*必填选项</b>
-                            </div>
-                        </li>
-                        <li>
-                            <span>机器人住址</span>
+<div class="box-footer">
+<button type="submit" class="btn btn-primary">保存</button>
+</div>
+</form>
 
-                            <div class="right">
-                                <input type="text" id="address" name="robotsettings.location"
-                                       value=""/>
-                                <b>*必填选项</b>
-                            </div>
-                        </li>
-                        <li>
-                            <span>日调用次数</span>
-
-                            <div class="right cishu">
-                            5000
- 次/日
-                            </div>
-                        </li>
-                        <li style="height:120px">
-                            <span>权限升级</span>
-
-                            <div class="right1">
-                                <b style="color:red;visibility:visible">扫描下方二维码关注图灵机器人订阅号，申请权限</b>
-                                <img src="/static/tuling123/img/wx_code.jpg"/>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="personal_head">
-                <span>高级设置</span>
-            </div>
-            <div class="shezhi row">
-                <ul>
-                    <li style="display:none;">
-                        <div class="fenlei2"></div>
-                        <span class="moshi">语音模式</span>
-
-                        <div class="switch" id="shengyin" data-id="yuyin" id="yuyin-box">
-                            <input type="hidden" id="voiceswitch" name="robotsettings.voiceswitch"
-                                   value="1">
-
-                            <div class="switch-on switch-animate">
-                                <span class="left">ON</span>
-                                <span class="center"></span>
-                                <span class="right">OFF</span>
-                            </div>
-                        </div>
-                        <div class="shengyin  swiatch-data" id="yuyin">
-                            <input type="hidden" id="voicetype" name="robotsettings.voicetype"
-                                   value="0">
-                            <span class="lf active">男声</span>
-                            <span class="sf">女声</span>
-                            <span class="rf">童声</span>
-                        </div>
-                    </li>
-                    <li style="display:none;">
-                        <div class="fenlei2">
-                            <div class="fenleibox">
-                                <img src="/static/tuling123/img/icon138.png">
-
-                                <div class="abs">
-                                    <i>对无答案时进行的设定</i>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="moshi">无答案</span>
-
-                        <div class="font" id="wudaan">
-                            <input autocomplete='off' id="yonghu1" name="robotsettings.learntosay" class="radio"
-                                   type="radio"
-                                   value='1'  
-                                   checked="checked"/>
-                            <label for="yonghu1">学用户说话</label>
-
-                            <div class="moren">
-                                <input autocomplete='off' id="yonghu2" name="robotsettings.learntosay" class="radio"
-                                       type="radio"
-                                       value='0' />
-                                <label for="yonghu2">自定义回答</label>
-                                <input id="zidingyihuida" name="robotsettings.defaultanswer"
-                                       value="" type="text"
-                                       placeholder="请在此回复内容,多个答案以|隔开" maxlength="1000" autocomplete='off'
-                                       style="margin-left:15px"/>
-                                <span>1000个字以内</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fenlei2">
-                            <div class="fenleibox">
-                                <img src="/static/tuling123/img/icon138.png">
-
-                                <div class="abs">
-                                    <i>匹配度可以认为“请求内容和知识库中问题的相似度”，匹配度越高，要求的相似度就越高，当相似度>=设定值时，才会出现知识库中设定的问答。设值范围在10-100</i>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="moshi">匹配度</span>
-
-                        <div class="font">
-                            <input id="pipei" class="pipei" type="text" name="robotsettings.matchdegree"
-                                   value="60"/>%
-                            <b>*不能大于100小于10</b>
-                        </div>
-                    </li>
-                    <li style="display:none;">
-                        <div class="fenlei2">
-                            <div class="fenleibox">
-                                <img src="/static/tuling123/img/icon138.png">
-
-                                <div class="abs">
-                                    <i>通过该设定能告知答案出自何处</i>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="moshi">机器人尾巴</span>
-
-                        <div id="weiba-box" class="switch" data-id="weiba">
-                            <input type="hidden" id="suffixswitch" name="robotsettings.suffixswitch"
-                                   value="1" autocomplete='off'>
-
-                            <div class="switch-on switch-animate">
-                                <span class="left">ON</span>
-                                <span class="center"></span>
-                                <span class="right">OFF</span>
-                            </div>
-                        </div>
-                        <div class="text15  swiatch-data" id="weiba">
-                            <input type="text" maxlength="15" name="robotsettings.suffixcontent"
-                                   value="" placeholder="请在此输入自定义尾巴"/>
-                            <span>15个字以内</span>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-            <div class="personal_head">
-                <span>微信设置</span>
-            </div>
-            <div class="shezhi row">
-                <ul>
-                    <li>
-                        <div class="fenlei2"></div>
-                        <span class="moshi">微信欢迎语</span>
-
-                        <div class="text15  swiatch-data" style="margin-left:0">
-                            <input name="welcomeword" type="text" maxlength="200" value=""
-                                   placeholder="请在此输入微信欢迎语" autocomplete='off'>
-                            <span>200个字以内</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="personal_head">
-                <span>关键词过滤</span>
-            </div>
-            <div class="guolv row">
-                <ul>
-                    <li>
-                        <div class="fenlei2">
-                            <div class="fenleibox" style="margin-top:-5px">
-                                <img src="/static/tuling123/img/icon138.png">
-
-                                <div class="abs">
-                                    <i>针对图灵机器人给出的不合适答案，可通过新增关键词及回复设定来替换掉不满意的结果，该功能开启后才能使用</i>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="moxing">关键词过滤</span>
-
-                        <div class="switch" id="guolv" data-id="guolv">
-                            <input type="hidden" id="onblacklist" name="robotsettings.onblacklist"
-                                   value="1" autocomplete='off'>
-
-
-                            <div class="switch-on switch-animate">
-                                <span class="left">ON</span>
-                                <span class="center"></span>
-                                <span class="right">OFF</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fenlei2"></div>
-                        <span class="moxing">新增关键词</span>
-                        <input type="hidden" id="blacklist" name="robotsettings.blacklist"
-                               value="">
-
-                        <div id="guanjianci" data-len="3">
-                            <div class="add_guanjianci">
-                                <img src="/static/tuling123/img/icon136.png"/>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="fenlei2"></div>
-                        <span style="width:90px;" class="moxing">新增关键词回复</span>
-                        <input type="hidden" id="blackanswer" name="robotsettings.blackanswer"
-                               value="">
-
-                        <div class="text15" id="xinzengguanjianci" data-len="3">
-                            <div class="input">
-                            </div>
-
-                            <div class="add_guanjianci1">
-                                <img src="/static/tuling123/img/icon137.png">
-                            </div>
-                            <span>多个回复请分行添加(最多添加三个)</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="btns">
-                <button class="submit">保 存</button>
-            </div>
-        </form>
 {% endblock %}
 {% block my_js %}
 {% compress js %}
 <!-- <script type="text/javascript" src="{% static "laydate/laydate.js"%}"></script> -->
 <script type="text/javascript" src="{% static "layer/layer.js"%}"></script>
-<script type="text/javascript" src="{% static "tuling123/js/admin_base.js"%}"></script>
 
 <script type="text/javascript">
 var status = false
@@ -335,7 +119,7 @@ if (status == "true") {
     jq.get("/web/robot_settings!ajaxDelete.action", {},
     function(data) {})
 }
-var webtuling = {
+var webrobot = {
     // 弹出层
     bins: function() {
 
@@ -441,7 +225,7 @@ var webtuling = {
         return this;
     }
 }
-webtuling.bins().switchs().service();
+webrobot.bins().switchs().service();
 
 //图片上传
 jq(function() {
@@ -501,7 +285,7 @@ jq(function() {
     function(event) {
         var len = jq('#xinzengguanjianci').attr('data-len');
         if (jq('#guolv').attr('switch-data') == 'true' && jq('.box_z').length < len) {
-            inputs = '<div class="box_z"><input type="text" maxlength="100" value="" placeholder="请在此输入关键词回复"/><em><img src="/static/tuling123/img/icon84.png" class="img_z"></em></div>';
+            inputs = '<div class="box_z"><input type="text" maxlength="100" value="" placeholder="请在此输入关键词回复"/><em><img src="/static/images/uc_icon84.png" class="img_z"></em></div>';
             if (lens >= len) {
                 lens = len;
                 return false;
@@ -720,7 +504,7 @@ jq(function() {
                         <div class="box">\
                                 <input maxlength="50" type="text">\
                                 <span onclick="boxbins(this)" z-index="3" >\
-                                    <img src="/static/tuling123/img/icon84.png">\
+                                    <img src="/static/images/uc_icon84.png">\
                                 </span>\
                             </div>\
                         </div>';

@@ -8,7 +8,7 @@ APIs:
      1 - user already existed in DB
 
 ========================================================================
-1. /uc/checkExistence/ - 确认用户名是否已存在
+1. /uc/apiCheckExistence/ - 确认用户名是否已存在
 
 HTTP POST, JSON格式
 
@@ -31,7 +31,7 @@ Response:
 
 Sample:
 
-    $ curl --request POST -d '{"name":"hello"}' "192.168.4.245:9001/uc/checkExistence/"
+    $ curl --request POST -d '{"name":"hello"}' "192.168.4.245:9001/uc/apiCheckExistence/"
     $ {"code": 0}
 
 ========================================================================
@@ -92,5 +92,37 @@ Sample:
     $ curl --request POST -d '{"userid":100, "robid":102}' "192.168.4.245:9001/uc/apiDelRobot/"
     $ {
         "code": 0,
+      }
+
+========================================================================
+6. /uc/apiListCustCorpus/ - 列举所有corpus数据
+
+HTTP POST, JSON格式
+
+Req:
+  {
+      "userid":100,
+  }
+
+Response:
+  {
+      "code": 0,
+      "list": [ ALL CORPUS LIST]
+  }
+
+Sample:
+
+    $ curl --request POST -d '{"userid":100}' "192.168.4.245:9001/uc/apiListCustCorpus/"
+    $ {
+        "code": 0,
+        "list":
+            [
+              {"index" : 1
+               "q":"how to ...",
+               "a":"you should .."},
+              {"index" : 2
+               "q":"how to ...",
+               "a":"you should .."}
+            ]
       }
 

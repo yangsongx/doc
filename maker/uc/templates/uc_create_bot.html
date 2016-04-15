@@ -1,4 +1,5 @@
- {% extends "uc_base.html" %}
+
+{% extends "uc_base.html" %}
 {% load staticfiles %}
 {% load compress %}
 
@@ -7,46 +8,507 @@
 <meta />
 {% endblock %}
 
-{% block uc_title %}<span>机器人创建</span>{% endblock %}
-{% block uc_content %}
-        <!-- Added by ysx -->
-        <div>
-            <h>TODO - List your robots here</h>
-            <li></li>
-        </div>
-        <form id="updateset_form" action="/uc/createbot/" method="post"
-              enctype="multipart/form-data">
-            <div class="robot_box1 row">
-                <div class="robot_box1_right">
-                    <ul>
-                        <li>
-                            <span>机器人昵称</span>
 
-                            <div class="right">
-                                <input type="text" id="nickname" name="robotsettings.nickname"
-                                       value="图灵机器人" id="name"/>
-                                <b style="visibility: visible;"></b>
-                            </div>
-                        </li>
-                        <li>
-                            <span>机器人性别</span>
+{% block uc_title %}<span>机器人列表</span>{% endblock %}
 
-                            <div class="right radio" id="sex">
-                                <input id="sex1" value="male" name="robotsettings.gender"
-                                       checked
-                                       type="radio" name="sex"/>男
-                                <input id="sex2" value="female" name="robotsettings.gender"
-                                       
-                                       type="radio" name="sex"/>女
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="btns">
-                <button class="submit">创建</button>
-            </div>
-        </form>
-        <!-- END of Added by ysx -->
+{% block uc_header %}
+      <h1>
+        <small>机器人列表</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">我的机器人</li>
+      </ol>
 {% endblock %}
+
+{% block your_css %}
+{% endblock %}
+
+{% block uc_content %}
+    <div class="row">
+        <div class="col-md-4">
+          <!-- Widget: user widget style 1 -->
+          <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-green">
+              <h3 class="widget-user-username">李开复</h3> 
+              <h5 class="widget-user-desc">微信机器人</h5>
+            </div>
+            <div class="widget-user-image">
+              <img class="img-circle" src="/static/dist/img/weixin.jpg" alt="User Avatar">
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-play"></i>
+启动
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-pause"></i>
+停止
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-3">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-bar-chart"></i>
+统计
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+          </div>
+          <!-- /.widget-user -->
+        </div>
+
+        <div class="col-md-4">
+          <!-- Widget: user widget style 1 -->
+          <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-aqua-active">
+              <h3 class="widget-user-username">李开复</h3>
+              <h5 class="widget-user-desc">QQ机器人</h5>
+            </div>
+            <div class="widget-user-image">
+              <img class="img-circle" src="/static/dist/img/qq.jpg" alt="User Avatar">
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-play"></i>
+启动
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-pause"></i>
+停止
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-bar-chart"></i>
+统计
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+          </div>
+          <!-- /.widget-user -->
+        </div>
+
+        <div class="col-md-4">
+          <!-- Widget: user widget style 1 -->
+          <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-red">
+              <h3 class="widget-user-username">李开复</h3>
+              <h5 class="widget-user-desc">微博机器人</h5>
+            </div>
+            <div class="widget-user-image">
+              <img class="img-circle" src="/static/dist/img/weibo.jpg" alt="User Avatar">
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-play"></i>
+启动
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-pause"></i>
+停止
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-bar-chart"></i>
+统计
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+          </div>
+          <!-- /.widget-user -->
+        </div>
+     </div>
+
+     <!-- change by ysx, for temp debug... -->
+     <div class="box-footer">
+        <form action="/uc/createbot/" method="post">
+            <button type="submit" class="btn btn-info">提交</button>
+        </form>
+     </div>
+
+      <!-- /.row -->
+{% endblock %}
+{% block your_js %}
+<script type="text/javascript" src="/static/js/progressbar.js"></script>
+<script type="text/javascript">
+    var line;
+    //var login = 0;
+    function startWxBot() {
+          //updateImg();
+          updateUI(9);
+          console.log("CY start Bot");
+          var sid = getCookie('sid');
+          console.log(sid);
+
+          if (sid != "") {
+            url = '/wxbot/start/' + sid + '/';
+            console.log(url);
+            $.ajax({
+                url: url,
+                //dataType: 'json',
+                type: 'get',
+                contentType: 'application/json',
+                //data: JSON.stringify( { "model" : $("input[name='model']:checked").val(), "description": "" } ),
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    updateImg();
+                    startProgress();
+                    startlog();
+                    startCheck();
+                    updateUI(1);
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                    updateUI(0);
+                }
+            });
+          }
+
+         console.log("CY start Bot  --END");
+    }
+    function stopWxBot() {
+        if(confirm("确定停止您的机器人吗？?")) {
+          updateUI(9); 
+          if (line) {
+              line.set(0.0);
+          }
+          console.log("CY stop Bot");
+          var sid = getCookie('sid');
+          console.log(sid);
+
+          if (sid != "") {
+            url = '/wxbot/stop/' + sid + '/';
+            console.log(url);
+            $.ajax({
+                url: url,
+                //dataType: 'json',
+                type: 'get',
+                contentType: 'application/json',
+                //data: JSON.stringify( { "model" : $("input[name='model']:checked").val(), "description": "" } ),
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    stoplog();
+                    updateUI(0);
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                    updateUI(1);
+                }
+            });
+          }
+
+         console.log("CY stop Bot  --END");
+
+
+        }
+    }
+
+    function restartWxBot() {
+        if(confirm("确定重启您的机器人吗？?")) {
+          updateUI(9);
+          console.log("CY restart Bot");
+          var sid = getCookie('sid');
+          console.log(sid);
+
+          if (sid != "") {
+            url = '/wxbot/restart/' + sid + '/';
+            console.log(url);
+            $.ajax({
+                url: url,
+                //dataType: 'json',
+                type: 'get',
+                contentType: 'application/json',
+                //data: JSON.stringify( { "model" : $("input[name='model']:checked").val(), "description": "" } ),
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    startProgress();
+                    startCheck();
+                    updateImg();
+                    updateUI(1);
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                    updateUI(0);
+                }
+            });
+          }
+        }
+    }
+
+    function startProgress() {
+        if (!line) {
+            line = new ProgressBar.Line('#progress', {
+              duration: 5000,
+              color: '#FCB03C',
+              easing: 'easeInOut',
+              //from: { color: '#eee' },
+              //to: { color: '#000' },
+              //step: function(state, circle, attachment) {
+                //circle.path.setAttribute('stroke', state.color);
+              //  console.log("in step");
+              //  checkForLogin();
+              //}
+           });
+           showToast('error',"请用您的手机微信扫二维码登陆");
+        }
+
+        console.log("do animation");
+        line.animate(1.0,
+             {
+                duration: 5000
+             },
+             function()
+             {
+               line.set(0.0);
+               console.log('Animation has finished');
+               //if (!login) {
+                   updateImg();
+               // }
+             });  // Number from 0.0 to 1.0
+     }
+
+
+
+    function updateImg(){
+          var sid = getCookie('sid');
+          var newqr = ""
+          console.log(sid);
+
+          if (sid != "") {
+            var url = '/wxbot/getqr/' + sid + '/';
+            console.log(url);
+            $.ajax({
+                url: url,
+                //dataType: 'json',
+                type: 'get',
+                contentType: 'application/json',
+                //data: JSON.stringify( { "model" : $("input[name='model']:checked").val(), "description": "" } ),
+                success: function(data) {
+                    var result = JSON.parse(JSON.stringify(data));
+                    console.log(result);
+                    newqr = result.url;
+                    console.log(newqr);
+                    if(newqr != "") {
+                        $("#qrcode").attr("src", newqr);
+                        startProgress();
+                    }else {
+                        showToast('error',"正在初始化，请稍后");
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+         }
+   }
+
+   function updateUI(status) {
+       if (status == 1) {
+           $("#qrcode").show();
+           $("#desp").hide();
+           $("#startBtn").attr('disabled',"true");
+           $("#stopBtn").removeAttr("disabled");
+           $("#restartBtn").removeAttr("disabled");
+       } else if (status == 0){
+           $("#qrcode").hide();
+           $("#desp").show();
+           $("#desp").html("<h3>您尚未创建或启动微信机器人， 请点击“启动”为您创建</h3>");
+           $("#startBtn").removeAttr("disabled");
+           $("#stopBtn").attr('disabled',"true");
+           $("#restartBtn").attr('disabled',"true");
+       } else if (status == 9) {
+           $("#qrcode").show();
+           $("#desp").hide();
+           $("#startBtn").attr('disabled',"true");
+           $("#stopBtn").attr('disabled',"true");
+           $("#restartBtn").attr('disabled',"true");
+       } else if (status == 2) {
+
+           console.log("UPDATE UI with 2");
+           $("#qrcode").hide();
+           line.set(0.0);
+           $("#desp").show();
+           $("#desp").html("<h3>恭喜，您的微信机器人已经启动完成， 快和您的朋友玩起来吧！</h3>");
+           $("#startBtn").attr('disabled',"true");
+           $("#stopBtn").removeAttr("disabled");
+           $("#restartBtn").removeAttr("disabled");
+       }
+
+   }
+
+    function checkForLogin() {
+          console.log("CY check login status");
+          var sid = getCookie('sid');
+          console.log(sid);
+
+          if (sid != "") {
+            url = '/wxbot/getstatus/' + sid + '/';
+            $.ajax({
+                url: url,
+                type: 'get',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    var result = JSON.parse(JSON.stringify(data));
+                    if (result.rc == 2) {
+                        //login = 1;
+                        stopCheck();
+                        updateUI(2);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                    stopCheck();
+
+                }
+            });
+          }
+    }
+
+
+    var checkTimer;
+    function startCheck() {
+        if (!checkTimer) {
+            checkTimer = setInterval(checkForLogin, 3000);
+        }
+    }
+
+    function stopCheck() {
+        clearInterval(checkTimer);
+        checkTimer = null;
+    }
+
+
+    function checkWxBotInitStatus() {
+          updateUI(0);
+          console.log("CY check Bot status");
+          var sid = getCookie('sid');
+          console.log(sid);
+
+          if (sid != "") {
+            url = '/wxbot/getstatus/' + sid + '/';
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'get',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    var result = JSON.parse(JSON.stringify(data));
+                    if (result.rc == 2) {
+                        showToast('error',"您的微信机器人已在运行");
+                        updateUI(1);
+                        startlog();
+                    } else if (result.rc == 1) {
+                        showToast('error',"您的微信机器人虽在运行但未登陆成功，现在给您重新启动，请通过手机客户端扫描二维码"); 
+                        restartWxBot();                  
+                    } else {
+                        updateUI(0);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+          }
+
+         console.log("CY start Bot  --END");
+    }
+
+
+   var logTimer;
+   function getlog() {
+            var sid = getCookie('sid');
+            var url = '/wxbot/getlog/' + sid + '/';
+            $.ajax({
+                url: url,
+                //dataType: 'json',
+                type: 'get',
+                contentType: 'application/json',
+                //data: JSON.stringify( { "model" : $("input[name='model']:checked").val(), "description": "" } ),
+                success: function(data) {
+                    var result = JSON.parse(JSON.stringify(data));
+                    $('#log').html(result.desp);
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+    }
+    function startlog() {
+        logTimer = setInterval(getlog, 3000);
+    }
+
+    function stoplog() {
+        clearInterval(logTimer);
+        $('#log').html("");        
+    }
+
+    window.onload = function() 
+    {
+       console.log("in onload");
+       checkWxBotInitStatus();
+    }
+
+</script>
+{% endblock %}
+
