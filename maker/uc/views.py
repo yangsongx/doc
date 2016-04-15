@@ -312,6 +312,23 @@ def uc_apiListCustCorpus(request):
     try:
         print 'code not completed YET, dependent on UI design'
         js_data = json.loads(request.body)
+        uid = js_data['userid']
+
+        c_obj = CorpusData.objects.filter(owner_id = uid)
+
+        i = 1
+        tmp = []
+        for it in c_obj:
+            item = {}
+            item['index'] = i
+            item['q'] = it.question
+            item['a'] = it.answer
+            i += 1
+
+            tmp.append(item)
+
+        ret['list'] = tmp
+
 
     except:
         info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])

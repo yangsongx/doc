@@ -107,6 +107,7 @@ Req:
 Response:
   {
       "code": 0,
+      "list": [ ALL CORPUS LIST]
   }
 
 Sample:
@@ -114,5 +115,14 @@ Sample:
     $ curl --request POST -d '{"userid":100}' "192.168.4.245:9001/uc/apiListCustCorpus/"
     $ {
         "code": 0,
+        "list":
+            [
+              {"index" : 1
+               "q":"how to ...",
+               "a":"you should .."},
+              {"index" : 2
+               "q":"how to ...",
+               "a":"you should .."}
+            ]
       }
 
