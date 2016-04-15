@@ -92,7 +92,7 @@ body a{
 	top: 0;
 	bottom: 0;
 	padding: 13px;
-	background: url(../images/img-sprite.png) no-repeat 1px 2px #40c0cb;
+	background: url(../../images/baseimages/img-sprite.png) no-repeat 1px 2px #40c0cb;
 }
 /* DROP DOWN WRAPPER */
 .metro div{
@@ -280,7 +280,7 @@ body a{
  }
 /**** Slider *****/
 .banner{
-	background: url(../images/banner.jpg) no-repeat center top;
+	background: url(/static/images/baseimages/banner.jpg) no-repeat center top;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -307,7 +307,7 @@ body a{
 	width: 65px;
 	height: 75px;
 	text-indent: -9999px;
-	background: url(../images/img-sprite.png) no-repeat;
+	background: url(../../images/baseimages/img-sprite.png) no-repeat;
 	top:16em;
 	z-index: 2;
 	cursor: pointer;
@@ -496,19 +496,19 @@ ul.banner_box li.box_but{
 i.icon1{
 	width: 60px;
 	height: 65px;
-	background: url(../images/img-sprite.png)no-repeat -168px -5px;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat -168px -5px;
 	display: inline-block;
 }
 i.icon2{
 	width: 60px;
 	height: 65px;
-	background: url(../images/img-sprite.png)no-repeat -233px -3px;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat -233px -3px;
 	display: inline-block;
 }
 i.icon3{
 	width: 60px;
 	height: 65px;
-	background: url(../images/img-sprite.png)no-repeat -9px -83px;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat -9px -83px;
 	display: inline-block;
 }
 .box_1 h3{
@@ -712,21 +712,21 @@ span.more:hover{
 i.user{
 	width: 20px;
 	height: 20px;
-	background: url(../images/img-sprite.png)no-repeat -83px -90px;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat -83px -90px;
 	float:left;
 	margin-right: 5px;
 }
 i.calender{
 	width: 20px;
 	height: 20px;
-	background: url(../images/img-sprite.png)no-repeat -82px -118px;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat -82px -118px;
 	float:left;
 	margin-right: 5px;
 }
 i.comment{
 	width: 20px;
 	height: 20px;
-	background: url(../images/img-sprite.png)no-repeat -112px -92px;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat -112px -92px;
 	float:left;
 	margin-right: 5px;
 }
@@ -736,7 +736,7 @@ i.comment{
 	padding:10px;
 }
 .twitter{
-	background: url(../images/twitter.jpg) no-repeat center top;
+	background: url(../../images/baseimages/twitter.jpg) no-repeat center top;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -762,7 +762,7 @@ i.comment{
 i.twt{
 	width: 55px;
 	height: 45px;
-	background: url(../images/img-sprite.png)no-repeat -166px -90px;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat -166px -90px;
 	display: inline-block;
 	margin:2em 0;
 }
@@ -881,7 +881,7 @@ ul.footer_social li a i, ul.about_social li a i{
 	width: 25px;
 	height: 25px;
 	display: block;
-	background: url(../images/img-sprite.png)no-repeat;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat;
 }
 ul.footer_social li a i:hover, ul.about_social li a i:hover, ul.share li a i:hover{
 	opacity:0.8;
@@ -964,7 +964,7 @@ ul.widget_links li{
 }
 /*--about--*/
 .about_banner {
-	background: url(../images/about_banner.jpg) no-repeat center top;
+	background: url(../../images/baseimages/about_banner.jpg) no-repeat center top;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -1380,19 +1380,19 @@ h1.m_3{
 i.icon4{
 	width: 60px;
 	height: 65px;
-	background: url(../images/img-sprite.png)no-repeat -5px -192px;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat -5px -192px;
 	display: inline-block;
 }
 i.icon5{
 	width: 60px;
 	height: 65px;
-	background: url(../images/img-sprite.png)no-repeat -65px -192px;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat -65px -192px;
 	display: inline-block;
 }
 i.icon6{
 	width: 60px;
 	height: 65px;
-	background: url(../images/img-sprite.png)no-repeat -118px -195px;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat -118px -195px;
 	display: inline-block;
 }
 .service_grid1 {
@@ -1585,7 +1585,7 @@ ul.dc_pagination li {
 	float:left;
 }
 ul.dc_paginationA06 li.prev{
-	background: url(../images/arrow_left.png)no-repeat 8px 8px;
+	background: url(../../images/baseimages/arrow_left.png)no-repeat 8px 8px;
 	color: #FFF;
 	width: 30px;
 	height: 28px;
@@ -1594,7 +1594,7 @@ ul.dc_paginationA06 li.prev{
 	cursor:pointer;
 }
 ul.dc_paginationA06 li.next{
-	background: url(../images/arrow_right.png)no-repeat 10px 8px;
+	background: url(../../images/baseimages/arrow_right.png)no-repeat 10px 8px;
 	color: #FFF;
 	width: 30px;
 	height: 28px;
@@ -1636,7 +1636,7 @@ ul.dc_pagination li a:hover{
 	background: none;
 }
 .search form input[type="submit"] {
-	background: url('../images/search.png')no-repeat 0px -1px;
+	background: url('../../images/baseimages/search.png')no-repeat 0px -1px;
 	width: 20px;
 	height: 20px;
 	border: none;
@@ -1678,7 +1678,7 @@ ul.blog-list3{
 	list-style: none;
 }
 ul.blog-list li {
-	list-style-image: url(../images/arrow_right.png);
+	list-style-image: url(../../images/baseimages/arrow_right.png);
 	margin: 0 20px 20px;
 }
 ul.blog-list li a {
@@ -1897,7 +1897,7 @@ ul.address{
 i.address_icon, i.msg_icon, i.phone_icon{
 	width: 37px;
 	height: 37px;
-	background: url(../images/img-sprite.png)no-repeat;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat;
 	float: left;
 	border: 1px solid #ddeff1;
 	margin-right: 5%;
@@ -1971,7 +1971,7 @@ ul.share li a i {
 	width: 30px;
 	height: 30px;
 	display: block;
-	background: url(../images/img-sprite.png)no-repeat;
+	background: url(../../images/baseimages/img-sprite.png)no-repeat;
 }
 ul.share li a i.p_tw {
 	background-position: -46px -263px;
@@ -2061,11 +2061,11 @@ p.project_bold1{
 }
 .nbs-flexisel-nav-left {
 	left:94%;
-	background: url(../images/img-sprite.png) no-repeat -137px -260px;
+	background: url(../../images/baseimages/img-sprite.png) no-repeat -137px -260px;
 }
 .nbs-flexisel-nav-right {
 	right: 0px;
-	background: url(../images/img-sprite.png) no-repeat -171px -260px;
+	background: url(../../images/baseimages/img-sprite.png) no-repeat -171px -260px;
 }
 .work_grid h2{
 	text-align:center;	
@@ -2586,7 +2586,7 @@ position:absolute;
 width: 30px;
 height: 30px;
 text-indent: -9999px;
-background: url(../images/arrows1.png) no-repeat;
+background: url(../../images/baseimages/arrows1.png) no-repeat;
 top: 4em;
 z-index: 2;
 cursor: pointer;

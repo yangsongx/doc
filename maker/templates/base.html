@@ -15,8 +15,8 @@
       <!-- Custom Theme files -->
       <link href='http://fonts.useso.com/css?family=Playball' rel='stylesheet' type='text/css'>
       <link rel="shortcut icon" href="/static/images/favicon.ico">
-      <link rel="stylesheet" type="text/css" href="{% static "css/common.css"%}" >
-      <link rel="stylesheet" type="text/css" href="{% static "css/footer.css"%}" >
+      <!--<link rel="stylesheet" type="text/css" href="{% static "css/common.css"%}" >-->
+      <!--<link rel="stylesheet" type="text/css" href="{% static "css/footer.css"%}" >-->
       <link href="/static/css/basecss/owl.carousel.css" rel="stylesheet">
       <!-- Font Awesome -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -36,8 +36,8 @@
       <script type="text/javascript" src="/static/js/basejs/hover_pack.js"></script>
       <script type="text/javascript" src="/static/js/basejs/responsive-nav.js"></script>
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
-      <script type="text/javascript" src="{% static "js/common.js"%}"></script>
+      <!--<script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>-->
+      <!--<script type="text/javascript" src="{% static "js/common.js"%}"></script>-->
       <script type="application/x-javascript"> 
              addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
       </script>
@@ -131,17 +131,18 @@
                 <div class="menu">
                     <a class="toggleMenu" href="#"><img src="/static/images/baseimages/nav_icon.png" alt="" /> </a>
                     <ul class="nav" id="nav">
-                        <li class="{% block nav_main_home %}{% endblock %}"><a href="/"><span class="nav_hanzi">首页</span>&nbsp;Home</a></li>
-                        <li class="{% block nav_main_about %}{% endblock %}"><a href="{% url 'home_about' %}"><span class="nav_hanzi">关于我们</span>&nbsp;About</a></li>
-                        <li class="{% block nav_main_service %}{% endblock %}"><a href="{% url 'home_service' %}"><span class="nav_hanzi">服务</span>&nbsp;Service</a></li>
-                        <li class="{% block nav_main_blog %}{% endblock %}"><a href="{% url 'home_blog' %}"><span class="nav_hanzi">社区</span>&nbsp;Blog</a></li>
-                        <li class="{% block nav_main_port %}{% endblock %}"><a href="{% url 'home_portfolio' %}"><span class="nav_hanzi">大事记</span>&nbsp;Portfolio</a></li>
+                        <li class="{% block nav_main_home %}{% endblock %}"><a href="/"><span class="nav_hanzi">首页</span></a></li>
+                        <li class="{% block nav_main_about %}{% endblock %}"><a href="{% url 'home_about' %}"><span class="nav_hanzi">关于我们</span></a></li>
+                        <li class="{% block nav_main_market %}{% endblock %}"><a href="/"><span class="nav_hanzi">工厂</span></a></li>
+                        <li class="{% block nav_main_service %}{% endblock %}"><a href="{% url 'home_service' %}"><span class="nav_hanzi">服务</span></a></li>
+                        <li class="{% block nav_main_blog %}{% endblock %}"><a href="{% url 'home_blog' %}"><span class="nav_hanzi">社区</span></a></li>
+                        <li class="{% block nav_main_port %}{% endblock %}"><a href="{% url 'home_portfolio' %}"><span class="nav_hanzi">大事记</span></a></li>
                         {% if request.user.is_authenticated %}
-                            <li><a href="{% url 'personalcenter' %}"><span class="nav_hanzi">个人中心</span>&nbsp;UC</a></li>
-                            <li><a href="/uc/logout/"><span class="nav_hanzi">退出</span>&nbsp;Signout</a></li>
+                            <li><a href="{% url 'personalcenter' %}"><span class="nav_hanzi">个人中心</span></a></li>
+                            <li><a href="/"><span class="nav_hanzi">退出</span></a></li>
                         {% else %}
-                            <li><a href="/uc/login/"><span class="login_ico shipCar_ico"></span><span class="nav_hanzi">登录</span>&nbsp;Signin</a></li>
-                            <li><a href="/uc/reg/"><span class="login_ico shipCar_ico"></span><span class="nav_hanzi">注册</span>&nbsp;Signup</a></li>
+                            <li><a href="/uc/login/"><span class="login_ico shipCar_ico"></span><span class="nav_hanzi">登录</span></a></li>
+                            <li><a href="/uc/reg/"><span class="login_ico shipCar_ico"></span><span class="nav_hanzi">注册</span></a></li>
                         {% endif %}
                     </ul>
                     
