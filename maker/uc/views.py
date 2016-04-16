@@ -15,9 +15,11 @@ from django.core.mail import send_mail
 from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
+from django.views.generic import TemplateView
+from django.http import Http404, HttpResponseRedirect
 
+from forms import EditProfileForm
 from models import AccountProfile, Robot, CorpusData
-
 
 # TODO [2016-04-14 This class will be obsoleted soon, we can directly
 # use the HTML's FORM data.
@@ -471,11 +473,37 @@ def uc_whitelist(request):
         }, context_instance=RequestContext(request))
 
 @login_required
-def uc_basicinfo(request):
-    return render_to_response('uc_basic_info.html', {
-        "cur": u"l_06",
-        "user_name": request.user.username,
-        }, context_instance=RequestContext(request))
+def uc_basicinfo(request, edit_profile_form=EditProfileForm):
+    # return render_to_response('uc_basic_info.html', {
+    #     "cur": u"l_06",
+    #     "user_name": request.user.username,
+    #     }, context_instance=RequestContext(request))
+    user = request.user
+    personal_user = None
+    if user.id == None:
+        raise Http404("匿名用户不能访问此页面")
+    personal_user = get_personal_user(user)
+    if personal_user is None:
+        raise Http404("用户不存在")
+
+    form = edit_profile_form(instance = personal_user,initial={})
+
+    if request.method == 'POST':
+        form = edit_profile_form(request.POST, request.FILES, instance=personal_user,
+                                 initial={})
+        # form = edit_profile_form(request.POST,request.FILES,instance = personal_user)
+
+        if form.is_valid():
+             form.save()
+        else :
+             print form
+
+    return render_to_response('uc_basic_info.html',
+                { 
+                    'form': form,
+                    "cur": u"l_06",
+                     "user_name": request.user.username,
+                    }, context_instance=RequestContext(request))
 
 @login_required
 def uc_systemnotify(request):
@@ -490,3 +518,20 @@ def uc_sitemsg(request):
         "cur": u"l_08",
         "user_name": request.user.username,
         }, context_instance=RequestContext(request))
+
+def get_personal_user(user):
+    personal_user = None
+    try:
+        print user.id 
+        # personal_user = AccountProfile.objects.get(user__exact = user.id )
+        personal_user = AccountProfile.objects.get(user_id =  user.id)
+        print 'personal_user.gender'
+        print personal_user.gender
+        # personal_user = AccountForm.objects.get(user__exact=user)
+    except:
+         print 'personal_user.except'
+         pass
+    else:
+         pass
+
+    return personal_user
