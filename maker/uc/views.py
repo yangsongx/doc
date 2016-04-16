@@ -5,7 +5,8 @@ import json
 import re
 import sys
 import uuid
-
+import os
+import md5
 from django import forms
 from django.contrib.auth import authenticate, login, logout, REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
@@ -487,3 +488,96 @@ def uc_sitemsg(request):
         "cur": u"l_08",
         "user_name": request.user.username,
         }, context_instance=RequestContext(request))
+
+@login_required
+def startWxBot(request):
+    data = {}
+    sid = request.user.id
+    rc = os.system("python ./wxctl.py start %s"%sid)
+    rc = rc >> 8
+    if rc == 0:
+        data['rc'] = 0
+        data['desp'] = "sucess"
+    elif rc == 1:
+        data['rc'] = 1
+        data['desp'] = "existing"
+    else:
+        data['rc'] = 2
+        data['desp'] = "failed to start"
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+@login_required
+def stopWxBot(request):
+    data = {}
+    sid = request.user.id
+    rc = os.system("python ./wxctl.py stop %s"%sid)
+    rc = rc >> 8
+    if rc == 0:
+        data['rc'] = 0
+        data['desp'] = "sucess"
+    elif rc == 1:
+        data['rc'] = 1
+        data['desp'] = "not started before"
+    else:
+        data['rc'] = 2
+        data['desp'] = "failed to stop"
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+def get_md5(full_filename):
+    f = file(full_filename, 'rb')
+    return md5.new(f.read()).hexdigest()
+
+@login_required
+def getQR(request):
+    sid = request.user.id
+    data = {}
+    path1 = "./out/%s/qr.png"%sid
+    if os.path.exists(path1):
+        val = get_md5(path1)
+        os.system("cp %s ./static/images/qr/%s.png"%(path1, val))
+        data['rc'] = 0
+        data['url'] = "/static/images/qr/%s.png"%val
+    else:
+        data['rc'] = 1
+        data['url'] = ""
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+@login_required
+def getWxBotLog(request):
+    sid = request.user.id
+    rc = os.system("tail -n 20 out/%s/log.txt > out/%s/log2.txt"%(sid,sid))
+    text = ""
+    with open("out/%s/log2.txt"%sid) as f:
+        for it in f.readlines():
+            it = it.replace('\n','</br>')
+            text += it
+
+    data = {}
+    data['rc'] = 0
+    data['desp'] = text
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+@login_required
+def getWxBotStatus(request):
+    sid = request.user.id
+    print sid
+    data = {}
+    rc = os.system("python ./wxctl.py status %s"%sid)
+    rc = rc >> 8
+    if int(rc) == 0:
+        data['rc'] = 0
+        data['desp'] = "stop"
+    elif rc == 1:
+        data['rc'] = 1
+        data['desp'] = "wait"
+    elif rc == 2:
+        data['rc'] = 2
+        data['desp'] = "login"
+    else:
+        data['rc'] = rc
+        data['desp'] = "failed"
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+

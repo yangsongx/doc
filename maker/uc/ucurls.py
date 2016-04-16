@@ -22,4 +22,9 @@ urlpatterns = [
     url(r'^basicinfo/$', uc.views.uc_basicinfo, name='basic_info'),
     url(r'^systemnotify/$', uc.views.uc_systemnotify, name='system_notify'),
     url(r'^sitemsg/$', uc.views.uc_sitemsg, name='site_msg'),
+    url(r'^wxbot/start/$', uc.views.startWxBot, name='startWxBot'),
+    url(r'^wxbot/stop/$', uc.views.stopWxBot, name='stopWxBot'),
+    url(r'^wxbot/getlog/$',uc.views.getWxBotLog, name='getWxBotLog'),
+    url(r'^wxbot/getqr/$', uc.views.getQR, name='getWxQR'),
+    url(r'^wxbot/getstatus/$', uc.views.getWxBotStatus, name='getWxBotStatus'),
 ]
