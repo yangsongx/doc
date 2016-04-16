@@ -45,7 +45,7 @@
               </div>
               <div class="modal-footer">
                <button onclick="startWxBot()" id="startBtn"   type="button" class="btn btn-primary">启动</button>
-               <button onclick="stopWxBot()"  id="stopBtn"   type="button" class="btn btn-warning">关闭</button>
+               <button onclick="stopWxBot()"  id="stopBtn"   type="button" class="btn btn-warning">停止</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -361,7 +361,7 @@
            $("#qrcode").hide();
            line.set(0.0);
            $("#desp").show();
-           $("#wx_bot_status").html("<h5>恭喜，您的微信机器人已经启动完成， 快和您的朋友玩起来吧！</h5>");
+           $("#wx_bot_status").html("<h5>运行中...</h5>");
            $("#desp").html("<h5>恭喜，您的微信机器人已经启动完成， 快和您的朋友玩起来吧！</h5>");
            $("#startBtn").attr('disabled',"true");
            $("#stopBtn").removeAttr("disabled");
@@ -441,7 +441,6 @@
 
     window.onload = function() 
     {
-       showToast('error',"您的微信机器人已在运行");
        console.log("in onload");
        checkWxBotInitStatus();
     }
