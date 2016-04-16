@@ -308,8 +308,6 @@ def uc_logout(request):
         #"url": "http://bot.ioniconline.com/",
         }, context_instance=RequestContext(request))
 
-    return HttpResponse('TODO, need a sign off UI page here')
-
 ###################################################################################
 def uc_apiListCustCorpus(request):
     ret = {}
@@ -386,8 +384,7 @@ def uc_pcenter(request):
     return render_to_response('uc_home.html', {
         "cur": u"l_09",
         "user_name": request.user.username,
-        "join_since":str(request.user.date_joined),
-        "last_login":str(request.user.last_login)
+        "join_since":str(request.user.date_joined)
         }, context_instance=RequestContext(request))
 
 @login_required
