@@ -139,7 +139,7 @@
                         <li class="{% block nav_main_port %}{% endblock %}"><a href="{% url 'home_portfolio' %}"><span class="nav_hanzi">大事记</span></a></li>
                         {% if request.user.is_authenticated %}
                             <li><a href="{% url 'personalcenter' %}"><span class="nav_hanzi">个人中心</span></a></li>
-                            <li><a href="/"><span class="nav_hanzi">退出</span></a></li>
+                            <li><a href="/uc/logout/"><span class="nav_hanzi">退出</span></a></li>
                         {% else %}
                             <li><a href="/uc/login/"><span class="login_ico shipCar_ico"></span><span class="nav_hanzi">登录</span></a></li>
                             <li><a href="/uc/reg/"><span class="login_ico shipCar_ico"></span><span class="nav_hanzi">注册</span></a></li>

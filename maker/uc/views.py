@@ -302,6 +302,12 @@ def uc_login(request):
 # Sign Off(Logout)
 def uc_logout(request):
     logout(request) # just call django's own framework API
+    return render_to_response('redirect.html', {
+        "title": u"退出中...",
+        "url": "/",
+        #"url": "http://bot.ioniconline.com/",
+        }, context_instance=RequestContext(request))
+
     return HttpResponse('TODO, need a sign off UI page here')
 
 ###################################################################################
