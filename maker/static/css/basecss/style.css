@@ -291,6 +291,7 @@ body a{
 .wmuSlider {
 	position: relative;
 	overflow: hidden;
+	min-height:600px;
 }
 .wmuSlider .wmuSliderWrapper article img {
 	max-width: 100%;
