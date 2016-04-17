@@ -20,6 +20,7 @@ import home.views
 
 urlpatterns = [
     url(r'^about/$', home.views.aboutUs, name='home_about'),
+    url(r'^market/$', home.views.market, name='home_market'),
     url(r'^service/$', home.views.showService, name='home_service'),
     url(r'^blog/$', home.views.showBlogs, name='home_blog'),
     url(r'^portfolio/$', home.views.showPortfolio, name='home_portfolio'),

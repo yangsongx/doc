@@ -18,6 +18,10 @@ def aboutUs(request):
     return render_to_response('home_about.html', {
         }, context_instance=RequestContext(request))
 
+def market(request):
+    return render_to_response('home_market.html', {
+    }, context_instance=RequestContext(request))
+
 def showService(request):
     return render_to_response('home_service.html', {
         }, context_instance=RequestContext(request))

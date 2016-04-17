@@ -133,7 +133,7 @@
                     <ul class="nav" id="nav">
                         <li class="{% block nav_main_home %}{% endblock %}"><a href="/"><span class="nav_hanzi">首页</span></a></li>
                         <li class="{% block nav_main_about %}{% endblock %}"><a href="{% url 'home_about' %}"><span class="nav_hanzi">关于我们</span></a></li>
-                        <li class="{% block nav_main_market %}{% endblock %}"><a href="/"><span class="nav_hanzi">工厂</span></a></li>
+                        <li class="{% block nav_main_market %}{% endblock %}"><a href="{% url 'home_market' %}"><span class="nav_hanzi">工厂</span></a></li>
                         <li class="{% block nav_main_service %}{% endblock %}"><a href="{% url 'home_service' %}"><span class="nav_hanzi">服务</span></a></li>
                         <li class="{% block nav_main_blog %}{% endblock %}"><a href="{% url 'home_blog' %}"><span class="nav_hanzi">社区</span></a></li>
                         <li class="{% block nav_main_port %}{% endblock %}"><a href="{% url 'home_portfolio' %}"><span class="nav_hanzi">大事记</span></a></li>
