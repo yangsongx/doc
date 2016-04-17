@@ -1,7 +1,7 @@
 #coding=utf-8
 from django import forms
 
-from models import (AccountProfile,GENDER_CHOICES)
+from models import (AccountProfile,CorpusData,GENDER_CHOICES)
 
 class EditProfileForm(forms.ModelForm):
     def __init__(self, *args, **kw):
@@ -36,7 +36,6 @@ class EditProfileForm(forms.ModelForm):
 
     def save(self):
 
-        print  self.cleaned_data['address']
         # acccount_profile = super(EditProfileForm, self).save(commit=False)
         # user = self.instance.user#User.objects.get(pk=idx)
         accout_uprofile = self.instance#AccountProfile.objects.get(user_id =  user.id)
@@ -52,3 +51,29 @@ class EditProfileForm(forms.ModelForm):
 
         # accout_uprofile.user = user.save();
         return accout_uprofile
+
+class CorpusForm(forms.ModelForm):
+
+    class Meta:
+        model = CorpusData
+        fields = ('question', 'answer')
+
+    def clean_question(self):
+        question = self.cleaned_data['question']
+        if  question == '':
+            raise forms.ValidationError('问题不能为空')
+        pass
+        return self.cleaned_data['question']
+    def clean_answer(self):
+        answer = self.cleaned_data['answer']
+        if  answer == '':
+            raise forms.ValidationError('答案不能为空')
+        pass
+        return self.cleaned_data['answer']
+
+    def save(self, user):
+        c_obj = CorpusData()
+        c_obj.question = self.cleaned_data['question']
+        c_obj.answer = self.cleaned_data['answer']
+        c_obj.owner = user
+        c_obj.save()

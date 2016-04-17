@@ -3,6 +3,7 @@ from django.conf.urls import include, url
 from django.contrib.auth.views import login, logout
 
 import uc.views
+from uc.views import CorpusListView
 from uc.forms import EditProfileForm
 
 urlpatterns = [
@@ -17,7 +18,8 @@ urlpatterns = [
     url(r'^personalcenter/$', uc.views.uc_pcenter, name='personalcenter'),
     url(r'^createbot/$', uc.views.uc_createbot, name='create_bot'),
     url(r'^setbot/$', uc.views.uc_setbot, name='set_bot'),
-    url(r'^corpusdef/$', uc.views.uc_corpusdef, name='corpus_def'),
+    #url(r'^corpusdef/$', uc.views.uc_corpusdef, name='corpus_def'),
+    url(r'^corpusdef/$',  CorpusListView.as_view(template_name='uc_corpus_def.html'), name='corpus_def'),
     url(r'^funconfig/$', uc.views.uc_funconfig, name='func_config'),
     url(r'^whitelist/$', uc.views.uc_whitelist, name='white_list'),
     url(r'^basicinfo/$', uc.views.uc_basicinfo, name='basic_info'),

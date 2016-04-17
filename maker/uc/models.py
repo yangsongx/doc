@@ -56,7 +56,7 @@ class Robot(models.Model):
 # in order to give a quick/usable demo, currently use MySQL store this,
 # in final product, we will move to MongoDB smoothly
 class CorpusData(models.Model):
-    question = models.CharField(max_length=255, blank=True,null=True)
-    answer = models.CharField(max_length=1024, blank=True,null=True)
-    owner = models.ForeignKey(User, blank=True, null=True)
+    question = models.CharField(max_length=255, blank=False,null=False)
+    answer = models.CharField(max_length=1024, blank=False,null=False)
+    owner = models.ForeignKey(AccountProfile, blank=False, null=False)
 

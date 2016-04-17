@@ -16,20 +16,25 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" action="/uc/corpusdef/" method="post" enctype="multipart/form-data">
+            <form class="form-horizontal" method="post"  id="form" >
+              {% csrf_token %}
               <div class="box-body">
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">问题</label>
+                  <label for="id_question" class="col-sm-2 control-label">问题</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" name="corpus.question" placeholder="">
+                  {{form.question }}
+                   {{form.question.errors }}
+                   <!--  <input type="text" class="form-control" id="{{form.question.auto_id}}"  value="{{form.question.value}}" placeholder=""> -->
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">答案</label>
+                  <label for="id_answer" class="col-sm-2 control-label">答案</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputPassword3" name="corpus.answer"  placeholder="">
+                  {{form.answer }}
+                   {{form.answer.errors }}
+                    <!-- <input type="text" class="form-control" id="id_answer"   placeholder=""> -->
                   </div>
                 </div>
               </div>
@@ -66,53 +71,98 @@
                   <th style="width: 40px">状态</th>
                   <th style="width: 160px">操作</th>
                 </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>李开复</td>
-                  <td>李开复，1961年12月3日出生于台湾省新北</td>
-                  <td><span class="badge bg-red">公开</span></td>
-                  <td>
-                     <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
-                     <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
-                  </td>
-                </tr>
                 
+                {% for item in obj_list %}
                 <tr>
-                  <td>2.</td>
-                  <td>李开复</td>
-                  <td>李开复，1961年12月3日出生于台湾省新北</td>
+                  <td>{{item.id}}</td>
+                  <td>{{item.question}}</td>
+                  <td>{{item.answer}}</td>
                   <td><span class="badge bg-red">公开</span></td>
                   <td>
                      <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
                      <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
                   </td>
                 </tr>
-
-                <tr>
-                  <td>3.</td>
-                  <td>李开复</td>
-                  <td>李开复，1961年12月3日出生于台湾省新北</td>
-                  <td><span class="badge bg-red">公开</span></td>
-                  <td>
-                     <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
-                     <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
-                  </td>
-                </tr>
+                {% endfor %}
+               <!--  <tr>
+                 <td>1.</td>
+                 <td>李开复</td>
+                 <td>李开复，1961年12月3日出生于台湾省新北</td>
+                 <td><span class="badge bg-red">公开</span></td>
+                 <td>
+                    <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
+                 </td>
+               </tr>
+               
+               <tr>
+                 <td>2.</td>
+                 <td>李开复</td>
+                 <td>李开复，1961年12月3日出生于台湾省新北</td>
+                 <td><span class="badge bg-red">公开</span></td>
+                 <td>
+                    <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
+                 </td>
+               </tr>
+               
+               <tr>
+                 <td>3.</td>
+                 <td>李开复</td>
+                 <td>李开复，1961年12月3日出生于台湾省新北</td>
+                 <td><span class="badge bg-red">公开</span></td>
+                 <td>
+                    <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
+                 </td>
+               </tr> -->
                   
               </table>
              </div> 
-                  
                
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
+              <!-- <ul class="pagination pagination-sm no-margin pull-right">
                 <li><a href="#">&laquo;</a></li>
                 <li><a href="#">1</a></li>
                 <li><a href="#">2</a></li>
                 <li><a href="#">3</a></li>
                 <li><a href="#">&raquo;</a></li>
+              </ul> -->
+              <center>
+              <ul class="pagination pagination-sm no-margin ">
+                    <li><a href="{{ request.path }}?page=1">首页</a></li>
+                    {% if page_obj.has_previous %}
+                      <li><a href="{{ request.path }}?page={{ page_obj.previous_page_number}}">上一页</a></li>
+                    {% else %}
+                      <li class="previous disabled"><a>上一页</a></li>
+                    {% endif %}
+                    {% for i in page_obj.paginator.page_range %}
+                      <li {% if page_obj.number == i %}class="active"{% endif %}><a href="{{ request.path }}?page={{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                      <li><a href="{{ request.path }}?page={{ page_obj.next_page_number }}">下一页</a></li>
+                    {% else %}
+                      <li class="previous disabled"><a>下一页</a></li>
+                    {% endif %}
+                    <li><a href="{{ request.path }}?page={{ page_obj.paginator.num_pages }}">尾页</a></li>
               </ul>
+              </center>
             </div>
  </div>   
 
 {% endblock %}
+{% block my_js %}
+<script type="text/javascript" >
+    $(function(){
+        cut_active('l_03');
+    });
+   $(".form-group input").addClass('form-control');
+
+   var sucess = "{{success}}";
+   if (sucess == "yes") {
+          alert("恭喜您，提交成功！")
+          location.href="{{ request.path }}?page=1";
+   }
+</script> 
+{% endblock %}  

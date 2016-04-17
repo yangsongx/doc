@@ -203,6 +203,8 @@ LANGUAGE_CODE = 'zh_CN'
 
 # changed by Yangsongxiang(use the local server's timezone setting)
 TIME_ZONE = 'Asia/Shanghai'
+LANGUAGE_CODE = 'zh-hans'
+AJAXIMAGE_AUTH_TEST = lambda u: True
 
 USE_I18N = True
 
@@ -317,6 +319,10 @@ else:
                 'propagate': True,
                 'level':'DEBUG',
             },
+            'uc': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+            },
             'webviews': {
                 'handlers': ['file'],
                 'level': 'DEBUG',
@@ -324,6 +330,7 @@ else:
         }
     }
 
+PAGINATE_NUMBER = 10
 LOGIN_URL = '/uc/login/'
 
 EMAIL_HOST = 'smtp.mxhichina.com'

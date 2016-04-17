@@ -10,17 +10,27 @@ import md5
 from django import forms
 from django.contrib.auth import authenticate, login, logout, REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
+from django.conf import settings
 from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 from django.views.generic import TemplateView
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic import DetailView
 from django.http import Http404, HttpResponseRedirect
 
-from forms import EditProfileForm
+from forms import EditProfileForm,CorpusForm
+import logging
 from models import AccountProfile, Robot, CorpusData
+from maker.views import ExtraContextTemplateView
+
+logger = logging.getLogger('uc')
 
 # TODO [2016-04-14 This class will be obsoleted soon, we can directly
 # use the HTML's FORM data.
@@ -435,26 +445,28 @@ def uc_setbot(request):
             }, context_instance=RequestContext(request))
 
 ###################################################################################
-@login_required
-def uc_corpusdef(request):
-    if request.method == 'POST':
-        print 'the POST'
-        try:
-            print request.POST
-            # TODO - how to handle the robot under a user?
-            set_corpus_info(request.POST, request.user)
-        except:
-            info = "(corpusdef) %s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
-            print info # FIXME - currently I just log the exception
+# @login_required
+# def uc_corpusdef(request):
+#     if request.method == 'POST':
+#         print 'the POST'
+#         try:
+#             print request.POST
+#             # TODO - how to handle the robot under a user?
+#             personal_user = get_account_user(request.user)
+#             if personal_user is None:
+#                 raise Http404("用户不存在")
+#             set_corpus_info(request.POST, personal_user)
+#         except:
+#             info = "(corpusdef) %s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+#             print info # FIXME - currently I just log the exception
 
-        return HttpResponse('save your own corpus[Successfully]')
-    else:
-        print 'GET'
-
-        return render_to_response('uc_corpus_def.html', {
-            "cur": u"l_03",
-            "user_name": request.user.username,
-            }, context_instance=RequestContext(request))
+#         return HttpResponse('save your own corpus[Successfully]')
+#     else:
+#         print 'GET'
+#         return render_to_response('uc_corpus_def.html', {
+#             "cur": u"l_03",
+#             "user_name": request.user.username,
+#             }, context_instance=RequestContext(request))
 
 @login_required
 def uc_funconfig(request):
@@ -480,7 +492,7 @@ def uc_basicinfo(request, edit_profile_form=EditProfileForm):
     personal_user = None
     if user.id == None:
         raise Http404("匿名用户不能访问此页面")
-    personal_user = get_personal_user(user)
+    personal_user = get_account_user(user)
     if personal_user is None:
         raise Http404("用户不存在")
 
@@ -517,14 +529,12 @@ def uc_sitemsg(request):
         "user_name": request.user.username,
         }, context_instance=RequestContext(request))
 
-def get_personal_user(user):
+def get_account_user(user):
     personal_user = None
     try:
-        print user.id 
+        logger.debug(user.id )
         # personal_user = AccountProfile.objects.get(user__exact = user.id )
         personal_user = AccountProfile.objects.get(user_id =  user.id)
-        print 'personal_user.gender'
-        print personal_user.gender
         # personal_user = AccountForm.objects.get(user__exact=user)
     except:
          print 'personal_user.except'
@@ -625,3 +635,55 @@ def getWxBotStatus(request):
         data['desp'] = "failed"
 
     return HttpResponse(json.dumps(data), content_type="application/json")
+
+class CorpusListView(ListView):
+    model = CorpusData
+    template_name = 'uc_corpus_def.html'
+    paginate_by = settings.PAGINATE_NUMBER
+    context_object_name = 'obj_list'
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CorpusListView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(CorpusListView, self).get_context_data(**kwargs)
+        context['page'] = self.request.GET.get('page', '0')
+        context['form'] = CorpusForm()
+
+        return context
+
+    def get_queryset(self):
+
+        obj_list =  CorpusData.objects.all().order_by('-id')
+        logger.debug('get_queryset')
+        return obj_list
+
+    def post(self, request, *args, **kwargs):
+
+        form = CorpusForm()
+        extra_context = dict()
+        if request.method == 'POST':
+            print 'the POST'
+            # try:
+            print request.POST
+            # TODO - how to handle the robot under a user?
+            form = CorpusForm(request.POST)
+            if form.is_valid():
+                personal_user = get_account_user(request.user)
+                if personal_user is None:
+                    raise Http404("用户不存在")
+                #set_corpus_info(request.POST, personal_user)
+                logger.debug('form.save personal_user')
+                print 'form.save personal_user'
+                form.save(personal_user);
+                extra_context['success'] = 'yes'
+
+            # except:
+            #     info = "(corpusdef) %s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+            #     print info # FIXME - currently I just log the exception
+
+        extra_context['obj_list'] = self.get_queryset()
+        extra_context['form'] = CorpusForm()
+        return ExtraContextTemplateView.as_view(template_name=self.template_name,
+                                            extra_context=extra_context)(request)
