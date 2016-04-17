@@ -16,14 +16,23 @@ from django.contrib.auth.models import User
 
 # 2016-04-14 try map with the models.User, as the top-single model used
 # in this project
+GENDER_CHOICES = (
+        (u'1', '男'),
+        (u'0', '女'),
+ )
+
 class AccountProfile(models.Model):
+
     user = models.OneToOneField(User,unique=True) # This is id from django's User model
     mail_act = models.CharField(max_length=256, blank=True)
     mail_act_expire = models.DateTimeField(blank=True,null=True)
 #allow_reply = models.BooleanField(default=True)
 #   list_reply = models.ForeignKey(WhiteNameList, blank=True, null=True)
-    gender = models.BooleanField(default=True)
+    # gender = models.BooleanField(default=True)
+    gender = models.CharField(max_length=3, choices=GENDER_CHOICES, default=u'1')
     address = models.CharField(max_length=255, blank=True,null=True)
+    nickname = models.CharField(max_length=32, blank=True,null=True)
+    phone_number = models.CharField(max_length=20, blank=True,null=True)
 
 class WhiteNameList(models.Model):
     name_list = models.CharField(max_length=1024,blank=True,null=True)

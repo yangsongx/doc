@@ -2,12 +2,57 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9150a410-047d-4382-ae91-7f6405c94623" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/maker/home/templates/home_market.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/maker/static/js/my_common.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/maker/uc/forms.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/cust_preview_wap.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/loading.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/show_navigation4app.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/base_index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cmsupload.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cust_animation.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cust_app.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cust_model.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cust_ringtone_boot.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cust_ringtone_call.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cust_submit.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cust_wallpaper_head.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cust_wallpaper_lock.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cust_welcome.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/cust_welcome.html2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/feedback.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/getmypackages.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/help.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v1/pyb_index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/base.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/base_index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/cust_animation.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/cust_app.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/cust_model.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/cust_ringtone_boot.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/cust_ringtone_call.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/cust_submit.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/cust_wallpaper_head.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/cust_wallpaper_lock.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/cust_welcome.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/feedback.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/getmypackages.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/help.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/include/base_head.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/include/base_head_wo_preview.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/include/faq.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/include/modal/appDetailModal.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/include/modal/errorModal.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/include/modal/uploadingModal.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/maker/templates/v2/pyb_index.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maker/home/templates/home.html" afterPath="$PROJECT_DIR$/maker/home/templates/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maker/home/urls.py" afterPath="$PROJECT_DIR$/maker/home/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maker/home/views.py" afterPath="$PROJECT_DIR$/maker/home/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maker/templates/base.html" afterPath="$PROJECT_DIR$/maker/templates/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maker/uc/models.py" afterPath="$PROJECT_DIR$/maker/uc/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maker/uc/templates/uc_base.html" afterPath="$PROJECT_DIR$/maker/uc/templates/uc_base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maker/uc/templates/uc_basic_info.html" afterPath="$PROJECT_DIR$/maker/uc/templates/uc_basic_info.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maker/uc/templates/uc_create_bot.html" afterPath="$PROJECT_DIR$/maker/uc/templates/uc_create_bot.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maker/uc/ucurls.py" afterPath="$PROJECT_DIR$/maker/uc/ucurls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/maker/uc/views.py" afterPath="$PROJECT_DIR$/maker/uc/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wx2/wxmain.py" afterPath="$PROJECT_DIR$/wx2/wxmain.py" />
     </list>
     <ignored path="robotlite.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,17 +104,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/maker/home/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/maker/home/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="245">
@@ -77,16 +112,6 @@
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="home_about.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/maker/home/templates/home_about.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -101,11 +126,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/maker/home/templates/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
-              <caret line="98" column="180" selection-start-line="98" selection-start-column="180" selection-end-line="98" selection-end-column="180" />
+            <state relative-caret-position="-1528">
+              <caret line="57" column="6" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
               <folding>
                 <element signature="n#style#0;n#article#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#article#1;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -152,11 +177,11 @@
         <option value="$PROJECT_DIR$/maker/templates/login.html" />
         <option value="$PROJECT_DIR$/maker/static/css/basecss/footer.css" />
         <option value="$PROJECT_DIR$/maker/static/css/basecss/style.css" />
-        <option value="$PROJECT_DIR$/maker/home/templates/home.html" />
         <option value="$PROJECT_DIR$/maker/home/templates/home_market.html" />
         <option value="$PROJECT_DIR$/maker/templates/base.html" />
         <option value="$PROJECT_DIR$/maker/home/urls.py" />
         <option value="$PROJECT_DIR$/maker/home/views.py" />
+        <option value="$PROJECT_DIR$/maker/home/templates/home.html" />
       </list>
     </option>
   </component>
@@ -977,12 +1002,12 @@
       <workItem from="1460635001110" duration="4758000" />
       <workItem from="1460705074948" duration="6156000" />
       <workItem from="1460777491152" duration="5378000" />
-      <workItem from="1460862575119" duration="1103000" />
+      <workItem from="1460862575119" duration="1621000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65226000" />
+    <option name="totallyTimeSpent" value="65744000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="101" width="1168" height="652" extended-state="0" />
@@ -1313,17 +1338,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/maker/home/templates/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="98" column="180" selection-start-line="98" selection-start-column="180" selection-end-line="98" selection-end-column="180" />
-          <folding>
-            <element signature="n#style#0;n#article#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#article#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/maker/home/templates/home_market.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2">
@@ -1370,6 +1384,17 @@
           <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/maker/home/templates/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1528">
+          <caret line="57" column="6" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
+          <folding>
+            <element signature="n#style#0;n#article#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#article#1;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

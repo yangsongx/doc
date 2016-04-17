@@ -3,6 +3,7 @@ from django.conf.urls import include, url
 from django.contrib.auth.views import login, logout
 
 import uc.views
+from uc.forms import EditProfileForm
 
 urlpatterns = [
     url(r'^apiCheckExistence/$', uc.views.uc_apiCheckExistence, name='checkExistence'), # Using Django >= 1.9 style ^_^
@@ -20,6 +21,13 @@ urlpatterns = [
     url(r'^funconfig/$', uc.views.uc_funconfig, name='func_config'),
     url(r'^whitelist/$', uc.views.uc_whitelist, name='white_list'),
     url(r'^basicinfo/$', uc.views.uc_basicinfo, name='basic_info'),
+    # url(r'^basicinfo/$', 'uc.views.uc_basicinfo',  {'edit_profile_form': EditProfileForm, \
+    #     'template_name':'uc_basic_info.html','success_url':'basic_info'}, name='basic_info'),
     url(r'^systemnotify/$', uc.views.uc_systemnotify, name='system_notify'),
     url(r'^sitemsg/$', uc.views.uc_sitemsg, name='site_msg'),
+    url(r'^wxbot/start/$', uc.views.startWxBot, name='startWxBot'),
+    url(r'^wxbot/stop/$', uc.views.stopWxBot, name='stopWxBot'),
+    url(r'^wxbot/getlog/$',uc.views.getWxBotLog, name='getWxBotLog'),
+    url(r'^wxbot/getqr/$', uc.views.getQR, name='getWxQR'),
+    url(r'^wxbot/getstatus/$', uc.views.getWxBotStatus, name='getWxBotStatus'),
 ]
