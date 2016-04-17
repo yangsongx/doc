@@ -25,8 +25,7 @@
 {% endblock %}
 
 {% block uc_content %}
-      <div class="example-modal">
-        <div class="modal modal-default fade" id="wxbotModal" >
+        <div class="modal modal-default fade" id="wxCtrlModal" >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -36,7 +35,7 @@
               </div>
               <div class="modal-body">
                <div class="align-center">
-                 <div>
+                 <div style="text-align:center;">
                    <img datasrc="{{ qrurl}}" id="qrcode" />
                   </div>
                   <p id ="desp"></p>
@@ -53,8 +52,61 @@
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
-      </div>
-      <!-- /.example-modal -->
+
+        <div class="modal modal-default fade" id="wxConfigModal" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">微信机器人配置面板</h4>
+              </div>
+              <div class="modal-body">
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <div class="modal modal-default fade" id="wxStatsModal" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">微信机器人统计面板</h4>
+              </div>
+              <div class="modal-body">
+         <div class="nav-tabs-custom">
+            <!-- Tabs within a box -->
+            <ul class="nav nav-tabs pull-left">
+              <li class="active"><a href="#wx-stats-overall" data-toggle="tab">总体</a></li>
+              <li><a href="#wx-stats-buddies" data-toggle="tab">好友变化</a></li>
+            </ul>
+            <div class="tab-content no-padding">
+              <!-- Morris chart - Sales -->
+              <div class="chart tab-pane active" id="wx-stats-overall" style="position: relative; height: 300px;">
+                 开发中...
+              </div>
+              <div class="chart tab-pane" id="wx-stats-buddies" style="position: relative; height: 300px;">
+              </div>
+            </div>
+          </div>
+          <!-- /.nav-tabs-custom -->
+
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
 
     <div class="row">
         <div class="col-md-4">
@@ -72,7 +124,7 @@
               <div class="row">
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
-                    <a class="btn" onclick="startWxBotModal()" id="startBtn" >
+                    <a class="btn" onclick="startWxCtrlModal()" id="wxCtrlModalBtn" >
                      <i class="fa fa-play"></i>
                      开关
                     </a>
@@ -82,8 +134,8 @@
                 <!-- /.col -->
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
-                    <a class="btn" onclick="stopWxBot()"  id="stopBtn">
-                      <i class="fa fa-pause"></i>
+                    <a class="btn" onclick="startWxConfigModal()"  id="wxConfigModalBtn">
+                      <i class="fa fa-gear"></i>
                       配置
                     </a>
                   </div>
@@ -92,10 +144,10 @@
                 <!-- /.col -->
                 <div class="col-sm-3">
                   <div class="description-block">
-<a class="btn">
-<i class="fa fa-bar-chart"></i>
-统计
-</a>
+                     <a class="btn"  onclick="startWxStatsModal()"  id="wxStatsModalBtn">
+                      <i class="fa fa-bar-chart"></i>
+                      统计
+                     </a>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -133,7 +185,7 @@
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
 <a class="btn">
-<i class="fa fa-pause"></i>
+<i class="fa fa-gear"></i>
 停止
 </a>
                   </div>
@@ -183,7 +235,7 @@
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
 <a class="btn">
-<i class="fa fa-pause"></i>
+<i class="fa fa-gear"></i>
 停止
 </a>
                   </div>
@@ -208,22 +260,24 @@
         </div>
      </div>
 
-     <!-- change by ysx, for temp debug... -->
-     <div class="box-footer">
-        <form action="/uc/createbot/" method="post">
-            <button type="submit" class="btn btn-info">提交</button>
-        </form>
-     </div>
-
       <!-- /.row -->
 {% endblock %}
 {% block my_js %}
 <script type="text/javascript" src="/static/js/progressbar.js"></script>
 <script type="text/javascript">
     var line;
-    function startWxBotModal() {
-        $('#wxbotModal').modal('show');
+    function startWxCtrlModal() {
+        $('#wxCtrlModal').modal('show');
     }
+
+    function startWxConfigModal() {
+        $('#wxCtrlModal').modal('show');
+    } 
+
+    function startWxStatsModal() {
+        $('#wxStatsModal').modal('show');
+    } 
+
     function startWxBot() {
           updateUI(9);
           console.log("CY start Bot");
@@ -262,6 +316,7 @@
                 contentType: 'application/json',
                 success: function(data) {
                     console.log(JSON.stringify(data));
+                    stopCheck();
                     updateUI(0);
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
@@ -438,6 +493,13 @@
             });
 
     }
+
+   $(function () { 
+       $('#wxCtrlModal').on('hide.bs.modal', function () {
+                   console.log("close wxbot modal");
+                   stopCheck();}
+             )
+   });
 
     window.onload = function() 
     {
