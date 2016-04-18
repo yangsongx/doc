@@ -34,6 +34,11 @@ class AccountProfile(models.Model):
     nickname = models.CharField(max_length=32, blank=True,null=True)
     phone_number = models.CharField(max_length=20, blank=True,null=True)
 
+
+    def __unicode__(self):
+        return self.user
+
+
 class WhiteNameList(models.Model):
     name_list = models.CharField(max_length=1024,blank=True,null=True)
     owner = models.ForeignKey(User, blank=True, null=True)

@@ -650,6 +650,7 @@ class CorpusListView(ListView):
         context = super(CorpusListView, self).get_context_data(**kwargs)
         context['page'] = self.request.GET.get('page', '0')
         context['form'] = CorpusForm()
+        context['user_name'] = self.request.user.username
 
         return context
 
