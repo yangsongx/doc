@@ -36,7 +36,7 @@ class AccountProfile(models.Model):
 
 
     def __unicode__(self):
-        return self.user
+        return unicode(self.user)
 
 
 class WhiteNameList(models.Model):

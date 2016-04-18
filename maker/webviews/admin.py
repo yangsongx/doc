@@ -11,7 +11,7 @@ class ModelsAdmin(admin.ModelAdmin):
     actions_selection_counter = False
 
 
-admin.site.register(models.Model, ModelsAdmin)
+#admin.site.register(models.Model, ModelsAdmin)
 
 
 class PackagesAdmin(admin.ModelAdmin):
@@ -24,7 +24,7 @@ class PackagesAdmin(admin.ModelAdmin):
     actions_selection_counter = False
 
 
-admin.site.register(models.Packages, PackagesAdmin)
+#admin.site.register(models.Packages, PackagesAdmin)
 
 
 class RawfilesAdmin(admin.ModelAdmin):
@@ -36,7 +36,7 @@ class RawfilesAdmin(admin.ModelAdmin):
     actions_selection_counter = False
 
 
-admin.site.register(models.Rawfiles, RawfilesAdmin)
+#admin.site.register(models.Rawfiles, RawfilesAdmin)
 
 
 class PrebuiltInfoAdmin(admin.ModelAdmin):
@@ -53,7 +53,7 @@ class PrebuiltInfoAdmin(admin.ModelAdmin):
     actions_selection_counter = False
 
 
-admin.site.register(models.PbInfo, PrebuiltInfoAdmin)
+#admin.site.register(models.PbInfo, PrebuiltInfoAdmin)
 
 
 class PrebuiltCategoryAdmin(admin.ModelAdmin):
@@ -64,7 +64,7 @@ class PrebuiltCategoryAdmin(admin.ModelAdmin):
     actions_selection_counter = False
 
 
-admin.site.register(models.PbCategory, PrebuiltCategoryAdmin)
+#admin.site.register(models.PbCategory, PrebuiltCategoryAdmin)
 
 
 class PrebuiltTypeAdmin(admin.ModelAdmin):
@@ -75,7 +75,7 @@ class PrebuiltTypeAdmin(admin.ModelAdmin):
     actions_selection_counter = False
 
 
-admin.site.register(models.PbType, PrebuiltTypeAdmin)
+#admin.site.register(models.PbType, PrebuiltTypeAdmin)
 
 
 class HelpQAAdmin(admin.ModelAdmin):
@@ -87,4 +87,4 @@ class HelpQAAdmin(admin.ModelAdmin):
     actions_selection_counter = False
 
 
-admin.site.register(models.HelpQA, HelpQAAdmin)
+#admin.site.register(models.HelpQA, HelpQAAdmin)
