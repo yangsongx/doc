@@ -484,17 +484,17 @@ def uc_whitelist(request):
 
 @login_required
 def uc_basicinfo(request, edit_profile_form=EditProfileForm):
-    # return render_to_response('uc_basic_info.html', {
-    #     "cur": u"l_06",
-    #     "user_name": request.user.username,
-    #     }, context_instance=RequestContext(request))
-    user = request.user
     personal_user = None
-    if user.id == None:
-        raise Http404("匿名用户不能访问此页面")
-    personal_user = get_account_user(user)
-    if personal_user is None:
-        raise Http404("用户不存在")
+    try:
+        personal_user = AccountProfile.objects.get(user = request.uer)
+
+    except:
+        # FIXME - I suppose exception only happen for not existed case
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        print info
+        personal_user = AccountProfile(user = request.user,
+                mail_act = 'blank')
+        personal_user.save()
 
     form = edit_profile_form(instance = personal_user,initial={})
 
@@ -529,6 +529,7 @@ def uc_sitemsg(request):
         "user_name": request.user.username,
         }, context_instance=RequestContext(request))
 
+# TODO - below util is un-necessary
 def get_account_user(user):
     personal_user = None
     try:
