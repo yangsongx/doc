@@ -2613,6 +2613,7 @@ ul.banner_box li.box_desc {
 }
 .container {
 	padding: 0!important;
+	/*width: 750px;*/
 }
 .header_top {
 	padding: 0 10px 10px;
