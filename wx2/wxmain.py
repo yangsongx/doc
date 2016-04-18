@@ -11,7 +11,7 @@ sys.setdefaultencoding('utf-8')
 
 import random
 
-
+white_list = ""
 switchWords = ["换个话题吧","我们聊聊其他的吧","说说最新的新闻怎么样","有什么好玩的事情"]
 _nrSwitchWords =len(switchWords) -1
 
@@ -42,8 +42,11 @@ class MyWXBot(WXBot):
     def handle_msg_all(self, msg):
         logger.debug( "CY",msg)
         #return
+        logger.debug( "handle_msg_all msg.user.name = %s" % msg['user']['name'])
+        logger.debug( "handle_msg_all msg.msg_type_id = %d" % msg['msg_type_id'])
+        global white_list 
         try:	
-            if ( msg['msg_type_id'] == 4  or msg['msg_type_id'] ==3 ) and msg['content']['type'] == 0 and ('ChenYang' in msg['user']['name'] or '流氓兔' in msg['user']['name'] or 'ChenYang' in msg['content']['user']['name'] or '流氓兔' in msg['content']['user']['name']):
+            if ( msg['msg_type_id'] == 4  or msg['msg_type_id'] ==3 ) and msg['content']['type'] == 0 and (msg['user']['name'] in white_list):
                 logger.debug( "do smart")
                 time.sleep(2)
                 resp = self._smart(msg['content']['data'])
@@ -96,5 +99,13 @@ if __name__ == '__main__':
     ch.setFormatter(formatter)
     logger.addHandler(fh)
     logger.addHandler(ch)
+
+    # load whileList
+    fn = 'config/whitelist'
+    with open(fn, 'r') as f:
+        white_list = f.read();
+        white_list = white_list.split('/')
+        #print "list=: ", white_list
+    
 
     main()
