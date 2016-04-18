@@ -486,7 +486,8 @@ def uc_whitelist(request):
 def uc_basicinfo(request, edit_profile_form=EditProfileForm):
     personal_user = None
     try:
-        personal_user = AccountProfile.objects.get(user = request.uer)
+        print request.user
+        personal_user = AccountProfile.objects.get(user = request.user)
 
     except:
         # FIXME - I suppose exception only happen for not existed case
@@ -501,7 +502,6 @@ def uc_basicinfo(request, edit_profile_form=EditProfileForm):
     if request.method == 'POST':
         form = edit_profile_form(request.POST, request.FILES, instance=personal_user,
                                  initial={})
-        # form = edit_profile_form(request.POST,request.FILES,instance = personal_user)
 
         if form.is_valid():
              form.save()
