@@ -25,7 +25,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic import DetailView
 from django.http import Http404, HttpResponseRedirect
 
-from forms import EditProfileForm,CorpusForm
+from forms import EditProfileForm,CorpusForm,RobotInfoForm
 import logging
 from models import AccountProfile, Robot, CorpusData
 from maker.views import ExtraContextTemplateView
@@ -144,11 +144,6 @@ def set_corpus_info(post_form, user):
             owner = user)
     c_obj.save()
 
-    return 0
-
-###################################################################################
-def set_robot_info(post_form, uid):
-    print 'TODO code, will add in the future'
     return 0
 
 ###################################################################################
@@ -420,29 +415,41 @@ def uc_createbot(request):
             }, context_instance=RequestContext(request))
 
 @login_required
-def uc_setbot(request):
+def uc_setbot(request, theform = RobotInfoForm):
+    robj = None
+
+    try:
+        robj = Robot.objects.get(owner = request.user)
+    except ObjectDoesNotExist:
+        # make sure exsited one robot
+        robj = Robot(rob_alias = 'default', owner = request.user)
+        robj.save()
+    except:
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        print info
+
+
     if request.method == 'POST':
         try:
             print 'POST, get data'
-            print request.POST
-            post_data = request.POST
-            print post_data['robotsettings.age'] # TODO - all FORM fields
-            print 'the user are'
-            print request.user
-            print request.user.id
-            set_robot_info(post_data, request.user.id)
+            form = theform(request.POST, request.FILES,
+                    instance = robj, initial={})
+            if form.is_valid():
+                form.save()
+
         except:
             info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
             print info # FIXME - currently I just log the exception
 
-        return HttpResponse('TODO UI - Robert Setting [Successfully]!')
-
     else:
         print 'a GET'
-        return render_to_response('uc_set_bot.html', {
-            "cur": u"l_02",
+        form = theform(instance=robj, initial={})
+
+    return render_to_response('uc_set_bot.html', {
+            "form": form,
             "user_name": request.user.username,
             }, context_instance=RequestContext(request))
+
 
 ###################################################################################
 # @login_required

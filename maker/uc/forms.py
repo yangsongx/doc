@@ -1,7 +1,7 @@
 #coding=utf-8
 from django import forms
 
-from models import (AccountProfile,CorpusData,GENDER_CHOICES)
+from models import (AccountProfile,CorpusData,Robot,GENDER_CHOICES)
 
 class EditProfileForm(forms.ModelForm):
     def __init__(self, *args, **kw):
@@ -77,3 +77,32 @@ class CorpusForm(forms.ModelForm):
         c_obj.answer = self.cleaned_data['answer']
         c_obj.owner = user
         c_obj.save()
+
+class RobotInfoForm(forms.ModelForm):
+    def __init__(self, *args, **kw):
+        super(RobotInfoForm, self).__init__(*args, **kw)
+
+        robj = self.instance;
+        self.fields['rob_alias'].required = False
+        self.fields['rob_alias'].initial = robj.rob_alias
+
+        self.fields['rob_gender'] = forms.ChoiceField(choices=GENDER_CHOICES)
+        self.fields['rob_gender'].initial = robj.rob_sex
+
+        self.fields['rob_age'].required = False
+        self.fields['rob_age'].initial = robj.rob_age
+
+    class Meta:
+        model = Robot
+        exclude = ['owner']
+
+    def save(self):
+
+        robj = self.instance
+        robj.rob_alias= self.cleaned_data['rob_alias']
+        robj.rob_sex= self.cleaned_data['rob_gender']
+        robj.rob_age= self.cleaned_data['rob_age']
+
+        robj.save()
+
+        return robj
