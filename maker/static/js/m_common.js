@@ -1,4 +1,4 @@
-/*====================mobile liumangtu pager begin ======*/
+/*====================mobile botdocker pager begin ======*/
 //For paginate directly full get request
 function m_paginate_full_refresh(allPage, curPage,hrefUrl){
     jq(".widget-pagination-pages").change(function(event) {
@@ -73,4 +73,4 @@ function m_pager_refresh(_json) {
 
     jq("#page_nav").html(content);
 };
-/*====================mobile liumangtu pager end ======*/
+/*====================mobile botdocker pager end ======*/

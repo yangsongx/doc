@@ -142,7 +142,7 @@
     {% compress js%}
         <script type="text/javascript" src="/static/js/swiper.min.js"></script>
         <script type="text/javascript">
-             (window.jQuery || window.Zepto), jq(document).ready(function() {
+             (window.jQuery || window.Zepto), $(document).ready(function() {
                 {
                     new Swiper(".swiper-container", {
                         autoplay: 3e3,

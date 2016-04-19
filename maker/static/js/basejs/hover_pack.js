@@ -1,69 +1,69 @@
-jQuery(document).ready(function(){
+$(document).ready(function(){
 	
 	
 	/* Slide */
-	jQuery('#slide a').each(function(index, element) {
-		jQuery(this).hoverdir();
+	$('#slide a').each(function(index, element) {
+		$(this).hoverdir();
 	});
 	
 	/* Stroke */
-	jQuery('.b-link-stroke').prepend('<div class="b-top-line"></div>');
-	jQuery('.b-link-stroke').prepend('<div class="b-bottom-line"></div>');
+	$('.b-link-stroke').prepend('<div class="b-top-line"></div>');
+	$('.b-link-stroke').prepend('<div class="b-bottom-line"></div>');
 	
 	/* Twist */
-	jQuery('.b-link-twist').prepend('<div class="b-top-line"><b></b></div>');
-	jQuery('.b-link-twist').prepend('<div class="b-bottom-line"><b></b></div>');
-	jQuery('.b-link-twist img').each(function(index, element) {
-		jQuery(this).css('visibility','hidden');
-		jQuery(this).parent().find('.b-top-line, .b-bottom-line').css('background-image','url('+jQuery(this).attr('src')+')');
+	$('.b-link-twist').prepend('<div class="b-top-line"><b></b></div>');
+	$('.b-link-twist').prepend('<div class="b-bottom-line"><b></b></div>');
+	$('.b-link-twist img').each(function(index, element) {
+		$(this).css('visibility','hidden');
+		$(this).parent().find('.b-top-line, .b-bottom-line').css('background-image','url('+$(this).attr('src')+')');
 	});
 
 	/* Flip */
-	jQuery('.b-link-flip').prepend('<div class="b-top-line"><b></b></div>');
-	jQuery('.b-link-flip').prepend('<div class="b-bottom-line"><b></b></div>');
-	jQuery('.b-link-flip img').each(function(index, element) {
-		jQuery(this).css('visibility','hidden');
-		jQuery(this).parent().find('.b-top-line, .b-bottom-line').css('background-image','url('+jQuery(this).attr('src')+')');
+	$('.b-link-flip').prepend('<div class="b-top-line"><b></b></div>');
+	$('.b-link-flip').prepend('<div class="b-bottom-line"><b></b></div>');
+	$('.b-link-flip img').each(function(index, element) {
+		$(this).css('visibility','hidden');
+		$(this).parent().find('.b-top-line, .b-bottom-line').css('background-image','url('+$(this).attr('src')+')');
 		
 	});
 	
 	/* Fade */
-	jQuery('.b-link-fade').each(function(index, element) {
-		jQuery(this).append('<div class="b-top-line"></div>')
+	$('.b-link-fade').each(function(index, element) {
+		$(this).append('<div class="b-top-line"></div>')
 	});
 	
 	/* Flow */
-	jQuery('.b-link-flow').each(function(index, element) {
-		jQuery(this).append('<div class="b-top-line"></div>')
+	$('.b-link-flow').each(function(index, element) {
+		$(this).append('<div class="b-top-line"></div>')
 	});
 	
 	/* Box */
-	jQuery('.b-link-box').prepend('<div class="b-top-line"></div>');
-	jQuery('.b-link-box').prepend('<div class="b-bottom-line"></div>');
+	$('.b-link-box').prepend('<div class="b-top-line"></div>');
+	$('.b-link-box').prepend('<div class="b-bottom-line"></div>');
 	
 	/* Stripe */
-	jQuery('.b-link-stripe').each(function(index, element) {
-		jQuery(this).prepend('<div class="b-line b-line1"></div><div class="b-line b-line2"></div><div class="b-line b-line3"></div><div class="b-line b-line4"></div><div class="b-line b-line5"></div>');
+	$('.b-link-stripe').each(function(index, element) {
+		$(this).prepend('<div class="b-line b-line1"></div><div class="b-line b-line2"></div><div class="b-line b-line3"></div><div class="b-line b-line4"></div><div class="b-line b-line5"></div>');
 	}); 
 	
 	/* Apart */
-	jQuery('.b-link-apart-vertical, .b-link-apart-horisontal').each(function(index, element) {
-		jQuery(this).prepend('<div class="b-top-line"></div><div class="b-bottom-line"></div><div class="b-top-line-up"></div><div class="b-bottom-line-up"></div>');
+	$('.b-link-apart-vertical, .b-link-apart-horisontal').each(function(index, element) {
+		$(this).prepend('<div class="b-top-line"></div><div class="b-bottom-line"></div><div class="b-top-line-up"></div><div class="b-bottom-line-up"></div>');
 	});
 	
 	/* diagonal */
-	jQuery('.b-link-diagonal').each(function(index, element) {
-		jQuery(this).prepend('<div class="b-line-group"><div class="b-line b-line1"></div><div class="b-line b-line2"></div><div class="b-line b-line3"></div><div class="b-line b-line4"></div><div class="b-line b-line5"></div></div>');
+	$('.b-link-diagonal').each(function(index, element) {
+		$(this).prepend('<div class="b-line-group"><div class="b-line b-line1"></div><div class="b-line b-line2"></div><div class="b-line b-line3"></div><div class="b-line b-line4"></div><div class="b-line b-line5"></div></div>');
 	}); 
 	
 	/* Zoom */
-	jQuery('.b-link-zoom').hover(
+	$('.b-link-zoom').hover(
 		function(){
-				jQuery('.b-link-zoom').addClass('b-scale');
-				jQuery(this).removeClass('b-scale');
+				$('.b-link-zoom').addClass('b-scale');
+				$(this).removeClass('b-scale');
 			},
 		function(){
-				jQuery('.b-link-zoom').removeClass('b-scale');
+				$('.b-link-zoom').removeClass('b-scale');
 			}
 	);
 	

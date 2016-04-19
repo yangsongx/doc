@@ -154,7 +154,7 @@ if _check_env_type() == 1:
   DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'liumangtu',
+        'NAME': 'botdocker',
         'USER': 'admin',
         'PASSWORD': 'admin123',
         'HOST': 'localhost',

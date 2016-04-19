@@ -4,7 +4,7 @@ function lmt_log(log) {
     }
 }
 
-/*====================liumangtu pager begin ======*/
+/*====================botdocker pager begin ======*/
 //For paginate directly full get request
 function paginate_full_refresh(allPage, curPage,hrefUrl){
      pager_full_refresh(allPage, curPage);
@@ -131,7 +131,7 @@ function pager_full_refresh(allPage, curPage) {
 
     $("#page_nav").html(content);
 };
-/*====================liumangtu pager end ======*/
+/*====================botdocker pager end ======*/
 
 /*====================uc active begin ======*/
 function cut_active(cur) {

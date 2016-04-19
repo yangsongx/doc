@@ -4,6 +4,7 @@
     {% load compress %}
     <head>
       <!--<meta charset="UTF-8">-->
+        {% compress css %}
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <title>{% block title %}Bot Docker{% endblock %}</title>
@@ -33,10 +34,12 @@
              body {background-color: white}
               header {background-color: white}
        </style>
+         {% endcompress %}
+         {% compress js %}
+      <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
       <script type="text/javascript" src="/static/js/basejs/hover_pack.js"></script>
       <script type="text/javascript" src="/static/js/basejs/responsive-nav.js"></script>
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
+      <!-- $uery (necessary for Bootstrap's JavaScript plugins) -->
       <script type="text/javascript" src="{% static "js/common.js"%}"></script>
       <script type="application/x-javascript"> 
              addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
@@ -86,36 +89,37 @@
     </script>
 
     <script type="text/javascript">
-    /*  jq(document).ready(function() {
+    /*  $(document).ready(function() {
         //高亮导航
-        jq(".header ul li").mouseover(function(){
-          jq(this).addClass('current');
-          jq(this).find(".main_nav_son").show();
-          jq(this).find("em.menu_ico").addClass('menu_ico_over');
+        $(".header ul li").mouseover(function(){
+          $(this).addClass('current');
+          $(this).find(".main_nav_son").show();
+          $(this).find("em.menu_ico").addClass('menu_ico_over');
         }).mouseleave(function(){
-          jq(this).removeClass('current');
-          jq(this).find(".main_nav_son").hide();
-          jq(this).find("em.menu_ico").removeClass('menu_ico_over');
+          $(this).removeClass('current');
+          $(this).find(".main_nav_son").hide();
+          $(this).find("em.menu_ico").removeClass('menu_ico_over');
         });
     });*/
 
-    jq(function() {
-      var originalCur = jq("#nav_main li.current");
-      jq("#nav_main li").mousemove(function(){
-        jq("#nav_main li").removeClass("current");
-        jq(this).addClass("current");
-        jq(this).children(".lm").show().animate({left : 15,top : 40}, "fast");
+    $(function() {
+      var originalCur = $("#nav_main li.current");
+      $("#nav_main li").mousemove(function(){
+        $("#nav_main li").removeClass("current");
+        $(this).addClass("current");
+        $(this).children(".lm").show().animate({left : 15,top : 40}, "fast");
     });
-      jq("#nav_main li").mouseleave(function(){
-         jq(this).removeClass("current");
-         jq(this).children(".lm").stop(true,true).animate({left:0,top:0},100,function(){
-          jq(this).hide();
+      $("#nav_main li").mouseleave(function(){
+         $(this).removeClass("current");
+         $(this).children(".lm").stop(true,true).animate({left:0,top:0},100,function(){
+          $(this).hide();
       });
          originalCur.addClass("current");
      });
     });
 
     </script>
+    {% endcompress %}
     <!----- //End-Share-instantly-slider---->
     {% block meta %}
     {% endblock %}
