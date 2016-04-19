@@ -18,13 +18,10 @@ urlpatterns = [
     url(r'^personalcenter/$', uc.views.uc_pcenter, name='personalcenter'),
     url(r'^createbot/$', uc.views.uc_createbot, name='create_bot'),
     url(r'^setbot/$', uc.views.uc_setbot, name='set_bot'),
-    #url(r'^corpusdef/$', uc.views.uc_corpusdef, name='corpus_def'),
     url(r'^corpusdef/$',  CorpusListView.as_view(template_name='uc_corpus_def.html'), name='corpus_def'),
     url(r'^funconfig/$', uc.views.uc_funconfig, name='func_config'),
     url(r'^whitelist/$', uc.views.uc_whitelist, name='white_list'),
     url(r'^basicinfo/$', uc.views.uc_basicinfo, name='basic_info'),
-    # url(r'^basicinfo/$', 'uc.views.uc_basicinfo',  {'edit_profile_form': EditProfileForm, \
-    #     'template_name':'uc_basic_info.html','success_url':'basic_info'}, name='basic_info'),
     url(r'^systemnotify/$', uc.views.uc_systemnotify, name='system_notify'),
     url(r'^sitemsg/$', uc.views.uc_sitemsg, name='site_msg'),
     url(r'^wxbot/start/$', uc.views.startWxBot, name='startWxBot'),
