@@ -390,7 +390,6 @@ def uc_changePwd(request):
 @login_required
 def uc_pcenter(request):
     return render_to_response('uc_home.html', {
-        "cur": u"l_09",
         "user_name": request.user.username,
         "join_since":str(request.user.date_joined)
         }, context_instance=RequestContext(request))
@@ -410,7 +409,6 @@ def uc_createbot(request):
     else:
         print 'just GET'
         return render_to_response('uc_create_bot.html', {
-            "cur": u"l_01",
             "user_name": request.user.username,
             }, context_instance=RequestContext(request))
 
@@ -454,14 +452,12 @@ def uc_setbot(request, theform = RobotInfoForm):
 @login_required
 def uc_funconfig(request):
     return render_to_response('uc_func_config.html', {
-        "cur": u"l_04",
         "user_name": request.user.username,
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_whitelist(request):
     return render_to_response('uc_white_list.html', {
-        "cur": u"l_05",
         "user_name": request.user.username,
         }, context_instance=RequestContext(request))
 
@@ -494,21 +490,18 @@ def uc_basicinfo(request, edit_profile_form=EditProfileForm):
     return render_to_response('uc_basic_info.html',
                 { 
                     'form': form,
-                    "cur": u"l_06",
                      "user_name": request.user.username,
                     }, context_instance=RequestContext(request))
 
 @login_required
 def uc_systemnotify(request):
     return render_to_response('uc_system_notify.html', {
-        "cur": u"l_07",
         "user_name": request.user.username,
         }, context_instance=RequestContext(request))
 
 @login_required
 def uc_sitemsg(request):
     return render_to_response('uc_site_msg.html', {
-        "cur": u"l_08",
         "user_name": request.user.username,
         }, context_instance=RequestContext(request))
 

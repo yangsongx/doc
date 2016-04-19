@@ -286,6 +286,9 @@
 {% compress js %}
 <script type="text/javascript" src="{% static "layer/layer.js"%}"></script>
 <script type="text/javascript">
+    $(function(){
+        cut_active('l_04');
+    });
 var webrobot = {
     switchs: function() {
         //单个

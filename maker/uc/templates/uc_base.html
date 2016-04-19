@@ -138,14 +138,6 @@ desired effect
      fixed layout. -->\
 <script type="text/javascript" src="{% static "js/common.js"%}"></script>
 {% endcompress %}
-
-<script type="text/javascript" >
-    var curUrl = "{{cur}}";
-    console.log("cut_active=" + curUrl);
-    $(function(){
-        cut_active(curUrl);
-    });
-</script> 
 {% block my_js %}
 {% endblock %}
 </body>

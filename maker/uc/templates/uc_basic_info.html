@@ -80,6 +80,9 @@
 {% endblock %}
 {% block my_js %}
 <script>
+    $(function(){
+        cut_active('l_06');
+    });
    // $(".form-group #id_username").attr("disabled",true); 
    // $(".form-group #id_email").attr("disabled",true); 
    $(".form-group input").addClass('form-control');

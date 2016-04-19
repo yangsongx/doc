@@ -265,6 +265,10 @@
 {% block my_js %}
 <script type="text/javascript" src="/static/js/progressbar.js"></script>
 <script type="text/javascript">
+    $(function(){
+        cut_active('l_01');
+    });
+
     var line;
     function startWxCtrlModal() {
         $('#wxCtrlModal').modal('show');

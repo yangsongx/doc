@@ -117,6 +117,10 @@
 <script type="text/javascript" src="{% static "layer/layer.js"%}"></script>
 
 <script type="text/javascript">
+    $(function(){
+        cut_active('l_02');
+    });
+
 var status = false
 if (status == "true") {
     layer.msg('导出失败，请重试！', {
