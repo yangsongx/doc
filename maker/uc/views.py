@@ -451,30 +451,6 @@ def uc_setbot(request, theform = RobotInfoForm):
             }, context_instance=RequestContext(request))
 
 
-###################################################################################
-# @login_required
-# def uc_corpusdef(request):
-#     if request.method == 'POST':
-#         print 'the POST'
-#         try:
-#             print request.POST
-#             # TODO - how to handle the robot under a user?
-#             personal_user = get_account_user(request.user)
-#             if personal_user is None:
-#                 raise Http404("用户不存在")
-#             set_corpus_info(request.POST, personal_user)
-#         except:
-#             info = "(corpusdef) %s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
-#             print info # FIXME - currently I just log the exception
-
-#         return HttpResponse('save your own corpus[Successfully]')
-#     else:
-#         print 'GET'
-#         return render_to_response('uc_corpus_def.html', {
-#             "cur": u"l_03",
-#             "user_name": request.user.username,
-#             }, context_instance=RequestContext(request))
-
 @login_required
 def uc_funconfig(request):
     return render_to_response('uc_func_config.html', {
@@ -543,7 +519,6 @@ def get_account_user(user):
         logger.debug(user.id )
         # personal_user = AccountProfile.objects.get(user__exact = user.id )
         personal_user = AccountProfile.objects.get(user_id =  user.id)
-        # personal_user = AccountForm.objects.get(user__exact=user)
     except:
          print 'personal_user.except'
          pass
