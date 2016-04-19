@@ -16,11 +16,16 @@ switchWords = ["换个话题吧","我们聊聊其他的吧","说说最新的新�
 _nrSwitchWords =len(switchWords) -1
 
 class MyWXBot(WXBot):
-    def _smart(self, word):
+
+    def __init__(self, bot_id):
+        WXBot.__init__(self, bot_id)
+        self.robot_switch = True
+
+    def _smart(self, word, uid):
         if True:
             url = 'http://i2.jiqid.com/robot/'
-
-            payload = {'text': word, 'uid':"tester" ,'type': 0, 'tts': 0}
+            uid = uid[2:66]
+            payload = {'text': word, 'uid':uid ,'type': 0, 'tts': 0}
 
             resp = ""
             try:
@@ -39,36 +44,70 @@ class MyWXBot(WXBot):
             logger.debug( time.time())
             return resp.encode('utf-8')
 
+
+    def auto_switch(self, msg):
+        msg_data = msg['content']['data']
+        stop_cmd = [u'退下', u'走开', u'关闭', u'关掉', u'休息', u'滚开']
+        start_cmd = [u'出来', u'启动', u'工作']
+        if self.robot_switch:
+            for i in stop_cmd:
+                if i == msg_data:
+                    self.robot_switch = False
+                    self.send_msg_by_uid(u'[Robot]' + u'机器人已关闭！', msg['to_user_id'])
+        else:
+            for i in start_cmd:
+                if i == msg_data:
+                    self.robot_switch = True
+                    self.send_msg_by_uid(u'[Robot]' + u'机器人已开启！', msg['to_user_id'])
+
     def handle_msg_all(self, msg):
-        logger.debug( "CY",msg)
-        #return
-        logger.debug( "handle_msg_all msg.user.name = %s" % msg['user']['name'])
-        logger.debug( "handle_msg_all msg.msg_type_id = %d" % msg['msg_type_id'])
-        global white_list 
-        try:	
-            if ( msg['msg_type_id'] == 4  or msg['msg_type_id'] ==3 ) and msg['content']['type'] == 0 and (msg['user']['name'] in white_list):
-                logger.debug( "do smart")
-                time.sleep(2)
-                resp = self._smart(msg['content']['data'])
-                print( msg['content']['data'], resp)
-                if resp == msg['content']['data']:
-                    logger.debug( "repeated")
-                    resp = switchWords[random.randint(0, _nrSwitchWords)]
-                else:
-                    logger.debug( "not same")
+        logger.debug(msg)
+        try:
+            if not self.robot_switch and msg['msg_type_id'] != 1:
+                logger.debug("run in switch")
+                return
+            if msg['msg_type_id'] == 1 and msg['content']['type'] == 0:  # reply to self
+                logger.debug("reply to self")
+                self.auto_switch(msg)
+            elif msg['msg_type_id'] == 4 and msg['content']['type'] == 0:  # text message from contact
+                logger.debug("reply to somebody")
+                self.send_msg_by_uid(self._smart(msg['content']['data'], msg['user']['id']), msg['user']['id'])
+            elif msg['msg_type_id'] == 3 and msg['content']['type'] == 0:  # group text message
+                logger.debug("reply to group")
+                if 'detail' in msg['content']:
+                    logger.debug("CY -1")
+                    my_names = self.get_group_member_name(self.my_account['UserName'], msg['user']['id'])
+                    if my_names is None:
+                        my_names = {}
+                    if 'NickName' in self.my_account and self.my_account['NickName']:
+                        my_names['nickname2'] = self.my_account['NickName']
+                    if 'RemarkName' in self.my_account and self.my_account['RemarkName']:
+                        my_names['remark_name2'] = self.my_account['RemarkName']
+                        
+                    logger.debug("CY -2")
 
-                if len(resp) > 150:
-                    tmp = resp.decode('utf-8')
-                    resp = tmp[:40].encode('utf-8')
-                logger.debug(type(resp))
-                logger.debug(resp)
+                    is_at_me = False
+                    for detail in msg['content']['detail']:
+                        if detail['type'] == 'at':
+                            for k in my_names:
+                                if my_names[k] and my_names[k] == detail['value']:
+                                    is_at_me = True
+                                    break
+                    if is_at_me:
+                        logger.debug("CY -3")
 
-                self.send_msg_by_uid(resp, msg['user']['id'])
-            else:
-                logger.debug( "skip")
+                        src_name = msg['content']['user']['name']
+                        #reply = 'to ' + src_name + ': '
+                        reply = ""
+                        if msg['content']['type'] == 0:  # text message
+                            reply += self._smart(msg['content']['desc'], msg['content']['user']['id'])
+                        else:
+                            reply += u"对不起，只认字，其他杂七杂八的我都不认识，,,???,,"
+                        self.send_msg_by_uid(reply, msg['user']['id'])
         except:
-            logger.debug( "err01")
-          
+            import sys
+            info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+            logger.debug('an exception' + info)
 
 '''
     def schedule(self):
@@ -101,11 +140,14 @@ if __name__ == '__main__':
     logger.addHandler(ch)
 
     # load whileList
-    fn = 'config/whitelist'
-    with open(fn, 'r') as f:
-        white_list = f.read();
-        white_list = white_list.split('/')
-        #print "list=: ", white_list
-    
+    fn = 'out/%s/whitelist'%sys.argv[1]
+    try:
+        with open(fn, 'r') as f:
+            white_list = f.read();
+            white_list = white_list.split('/')
+            #print "list=: ", white_list
+    except:
+        logger.debug("whitelist file is not there")
+        
 
     main()
