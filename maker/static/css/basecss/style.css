@@ -164,7 +164,7 @@ body a{
 	color: #fff;
 }
 .header_top {
-	padding:2em 0 3em;
+	padding:2em 0 2em;
 }
 .logo{
 	float:left;
@@ -213,7 +213,10 @@ body a{
 .nav:before,
 .nav:after {
     content: " "; 
-    display: table; 
+    display: table;
+	padding-top: 0.5em;
+	padding-right: 0px;
+	padding-bottom: 0.5em;
 }
 .nav:after {
     clear: both;
@@ -342,7 +345,7 @@ body a{
 	font-size:2.5em;
 	color:#8f9899;
 	font-weight:100;
-	margin:1em 0 2em;
+	margin: 1.5em 0 2em 3.5em;
 }
 .btn.btn-primary, .btn1.btn1-primary1, .btn2.btn2-primary2, .btn3.btn3-primary3{
 	font-size:1em;
