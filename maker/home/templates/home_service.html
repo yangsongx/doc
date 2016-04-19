@@ -10,34 +10,11 @@
 {% endcompress %}
 {% endblock %}
 {% block nav_main_service %}current{% endblock %}
-
+ {% block page_title %}服务中心{% endblock %}
 {% block content %}
      <div style="padding:20px;">
             SerVICE
       </div>
 {% endblock %}  
 {% block my_js %}
-<script>
-  $('.details').click(
-    
-    function(){
-      if( $(this).attr('st') == 'off' ){
-        //未展开
-        $(this).attr('st','on');
-        //展开
-        $(this).html('收起');
-        $(this).parent().next().show();
-        $(this).css('background','url(/template/web/img/icon190.png) left center no-repeat')
-
-      }else{
-        $(this).attr('st','off');
-        //收起
-        $(this).html('查看详情');
-        $(this).parent().next().hide();
-        $(this).css('background','url(/template/web/img/icon191.png) left center no-repeat')
-      }
-    }
-  )
-
-</script>
 {% endblock %}  

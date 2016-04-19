@@ -1,4 +1,4 @@
-{% extends "m_base.html" %}
+{% extends "base.html" %}
 {% load staticfiles %}
 {% load compress %}
 
@@ -10,17 +10,26 @@
 {% endcompress %}
 {% endblock %}
 {% block nav_back %} 
-    <li><a href="/" style="padding:0 10px"><img src="/static/images/logo.jpg" style="width:40px;height:32px;float:left;margin-top: 4px;"></a></li>
+    <li><a href="/" style="padding:0 10px"><img src="{% static "images/baseimages/logo.png"%}"style="width:40px;height:32px;float:left;margin-top: 4px;"></a></li>
 {% endblock %}
-      {% block page_title %}
-              <h1 class="header_title_text">首页</h1>
-       {% endblock %}
+     
+ {% block page_title %}首页 {% endblock %}
+
 {% block content %}
 <div class="index_page" id="indexPage">
     <section>
         <div class="swiper-container">
-            <div class="swiper-wrapper">
-                {% include "ad_test_data.html" %}
+            <div class="swiper-wrapper" style="max-height:300px" >
+               <figure  class="swiper-slide">
+                  <a href="{% url 'home_about' %}">
+                      <img src="{% static "images/baseimages/banner.jpg"%}" max-height="400px" width="100%">
+                  </a>
+              </figure>
+              <figure  class="swiper-slide">
+                  <a href="{% url 'home_about' %}">
+                      <img src="{% static "images/baseimages/about_banner.jpg"%}" max-height="400px" width="100%">
+                  </a>
+              </figure>
             </div>
             <div class="swiper-pagination">
             </div>
@@ -29,27 +38,34 @@
     <section>
         <ul class="main-enter bottom-half-pixel clearfix">
             <li>
-                <a class="click-point" data-point="2_1_1_1" href="#">
+                <a class="click-point" data-point="2_1_1_1" href="{% url 'home_market' %}">
                     <span class="m3icon icon-zxtuku-enter"></span>
-                    <h2>定制中心</h2>
+                    <h4>Bot 工场</h4>
                 </a>
             </li>
             <li>
-                <a class="click-point" data-point="2_1_1_5" href="#">
+                <a class="click-point" data-point="2_1_1_5" href="{% url 'home_service' %}">
                     <span class="m3icon icon-zxgl-enter"></span>
-                    <h2>案例中心</h2>
+                    <h4>服务中心</h4>
                 </a>
             </li>
             <li>
-                <a class="click-point" data-point="2_1_1_4" href="#">
-                    <span class="m3icon icon-zxgx-enter"></span>
-                    <h2>服务中心</h2>
-                </a>
+                 {% if request.user.is_authenticated %}
+                      <a class="click-point" data-point="2_1_1_4" href="{% url 'personalcenter' %}">
+                        <span class="m3icon icon-zxgx-enter"></span>
+                        <h4>用户中心</h4>
+                    </a>
+                {% else %}
+                      <a class="click-point" data-point="2_1_1_4" href="/signin">
+                        <span class="m3icon icon-zxgx-enter"></span>
+                        <h4>登录注册</h4>
+                    </a>
+                {% endif %}
             </li>
             <li>
-                <a class="click-point" data-point="2_1_1_7" href="#">
+                <a class="click-point" data-point="2_1_1_7" href="{% url 'home_about' %}">
                     <span class="m3icon icon-pptm-enter"></span>
-                    <h2>用户中心</h2>
+                    <h4>关于我们</h4>
                 </a>
             </li>
         </ul>

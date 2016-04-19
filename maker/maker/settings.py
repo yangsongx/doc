@@ -109,17 +109,17 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     #'cas.backends.CASBackend',
 )
-if is_ksyun_server()!=None:
-    CAS_SERVER_URL = 'http://login.21ke.com/cas/'
-else:
-    CAS_SERVER_URL = 'http://login.21ke.com:9999/cas/'
-CAS_LOGOUT_COMPLETELY = True
-CAS_PROVIDE_URL_TO_LOGOUT = True
+# if is_ksyun_server()!=None:
+#     CAS_SERVER_URL = 'http://login.botdocker.com/cas/'
+# else:
+#     CAS_SERVER_URL = 'http://login.botdocker.com:9999/cas/'
+# CAS_LOGOUT_COMPLETELY = True
+# CAS_PROVIDE_URL_TO_LOGOUT = True
 
 
-CAS_RESPONSE_CALLBACKS = (
-                 'webviews.views.cas_response',
-             )
+# CAS_RESPONSE_CALLBACKS = (
+#                  'webviews.views.cas_response',
+#              )
 
 ROOT_URLCONF = 'maker.urls'
 
