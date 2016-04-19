@@ -53,11 +53,11 @@ def is_valid_email(email):
         return 0
 
 ###################################################################################
-# return 0 means OK, otherwise password or name not match
+# return 1 means user already existed in DB
 def _is_user_existed(name):
     existed = 0
     try:
-        obj = User.objects.get(username = name)
+        obj = User.objects.get(username = name, is_active=1)
         existed = 1
     except ObjectDoesNotExist:
         info = "+%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
