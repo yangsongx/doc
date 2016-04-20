@@ -28,7 +28,7 @@ def seg_datafile(leading, fnitem):
 
     return txt
 
-def start_ml():
+def loading_data_file():
     fdocs = []
     for it in os.walk('mldata/'):
         for filename in it[2]:
@@ -61,15 +61,20 @@ def start_ml():
 
 
     mydict = corpora.Dictionary(texts)
-    mydict.save('/tmp/deerwester.dict')
+    mydict.save('./deerwester.dict')
     print mydict
     print ' \n'
     print json.dumps(mydict.token2id, ensure_ascii=False)
 
     print '=====VECTOR====\n'
     myvec = [mydict.doc2bow(text) for text in texts]
-    corpora.MmCorpus.serialize('/tmp/deerwester.mm', myvec)
+    corpora.MmCorpus.serialize('./deerwester.mm', myvec)
     print myvec
+    return 0
+
+def start_ml():
+    if not os.path.exists('./deerwester.dict'):
+        loading_data_file()
 
     print '==== Try modeling the data ====\n'
     mydict = corpora.Dictionary.load('/tmp/deerwester.dict')
@@ -83,8 +88,18 @@ def start_ml():
 
     tfidf_vec = mytfidf[myvec]
     print tfidf_vec
-    for vec in tfidf_vec:
-        print vec
+#    for vec in tfidf_vec:
+#        print vec
+
+
+    mylsi = gensim.models.LsiModel(tfidf_vec, id2word = mydict, num_topics=10)
+    corpus_lsi = mylsi[tfidf_vec]
+    print 'can u see below topics?'
+    mylsi.print_topics(2)
+
+    print 'my'
+#for v in corpus_lsi:
+#       print v
 
     return 0
 
