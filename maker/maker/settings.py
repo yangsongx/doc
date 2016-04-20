@@ -335,7 +335,7 @@ LOGIN_URL = '/uc/login/'
 
 EMAIL_HOST = 'smtp.mxhichina.com'
 EMAIL_PORT = '25'
-EMAIL_HOST_USER = 'help@robotdocker.com'
+EMAIL_HOST_USER = 'help@botdocker.com'
 EMAIL_HOST_PASSWORD = 'Robot@Lite'
 EMAIL_USE_TLS = False
 

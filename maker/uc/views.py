@@ -84,7 +84,7 @@ def send_activation_mail(httphost, email):
     print 'sending with send_mail...'
     ret = send_mail(mail_title, # Subject
             mail_body, #message
-            'help@robotdocker.com', # from email
+            'help@botdocker.com', # from email
             [email], #recipient list
             fail_silently=False)
     print 'finished with'
