@@ -5,6 +5,7 @@ import json
 import jieba
 
 from collections import defaultdict
+import gensim
 from gensim import corpora, models, similarities
 
 def seg_datafile(leading, fnitem):
@@ -64,6 +65,26 @@ def start_ml():
     print mydict
     print ' \n'
     print json.dumps(mydict.token2id, ensure_ascii=False)
+
+    print '=====VECTOR====\n'
+    myvec = [mydict.doc2bow(text) for text in texts]
+    corpora.MmCorpus.serialize('/tmp/deerwester.mm', myvec)
+    print myvec
+
+    print '==== Try modeling the data ====\n'
+    mydict = corpora.Dictionary.load('/tmp/deerwester.dict')
+    myvec = corpora.MmCorpus('/tmp/deerwester.mm')
+    print myvec
+
+    mytfidf = gensim.models.TfidfModel(myvec)
+
+    test_vec = [(0,1), (1,10), (4, 3)]
+    print(mytfidf[test_vec])
+
+    tfidf_vec = mytfidf[myvec]
+    print tfidf_vec
+    for vec in tfidf_vec:
+        print vec
 
     return 0
 
