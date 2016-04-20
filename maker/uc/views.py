@@ -15,6 +15,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
@@ -614,7 +615,7 @@ def getWxBotStatus(request):
 
 class CorpusListView(ListView):
     model = CorpusData
-    template_name = 'uc_corpus_def.html'
+    template_name = 'uc_corpus_list.html'
     paginate_by = settings.PAGINATE_NUMBER
     context_object_name = 'obj_list'
     
@@ -655,6 +656,7 @@ class CorpusListView(ListView):
                 print 'form.save personal_user'
                 form.save(personal_user);
                 extra_context['success'] = 'yes'
+                return redirect(reverse('corpus_list'))
 
             # except:
             #     info = "(corpusdef) %s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
@@ -664,3 +666,17 @@ class CorpusListView(ListView):
         extra_context['form'] = CorpusForm()
         return ExtraContextTemplateView.as_view(template_name=self.template_name,
                                             extra_context=extra_context)(request)
+
+def corpus_delete(request, next_url='corpus_list'):
+    logger.debug('delete corpus ')
+    if request.method == 'POST':
+        idx = request.POST.get('id')
+        result = ({'status':'ok'})
+        if idx != None:
+            try:
+                 CorpusData.objects.get(id = idx).delete()
+            except Exception, e:
+                logger.debug(u'%s'%e)
+                result = ({'status':'error'})
+        return JsonResponse(result)
+    return redirect(reverse(next_url))

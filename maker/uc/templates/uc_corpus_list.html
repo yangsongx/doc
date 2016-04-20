@@ -80,55 +80,15 @@
                   <td><span class="badge bg-red">公开</span></td>
                   <td>
                      <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
-                     <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
+                     <a class="btn btn-social-icon action-del" pk_id="{{item.id}}"><i class="fa fa-remove "></i></a> 
                   </td>
                 </tr>
-                {% endfor %}
-               <!--  <tr>
-                 <td>1.</td>
-                 <td>李开复</td>
-                 <td>李开复，1961年12月3日出生于台湾省新北</td>
-                 <td><span class="badge bg-red">公开</span></td>
-                 <td>
-                    <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
-                 </td>
-               </tr>
-               
-               <tr>
-                 <td>2.</td>
-                 <td>李开复</td>
-                 <td>李开复，1961年12月3日出生于台湾省新北</td>
-                 <td><span class="badge bg-red">公开</span></td>
-                 <td>
-                    <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
-                 </td>
-               </tr>
-               
-               <tr>
-                 <td>3.</td>
-                 <td>李开复</td>
-                 <td>李开复，1961年12月3日出生于台湾省新北</td>
-                 <td><span class="badge bg-red">公开</span></td>
-                 <td>
-                    <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-social-icon"><i class="fa fa-remove"></i></a> 
-                 </td>
-               </tr> -->
-                  
+                {% endfor %}                  
               </table>
              </div> 
                
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-              <!-- <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">&raquo;</a></li>
-              </ul> -->
               <center>
               <ul class="pagination pagination-sm no-margin ">
                     <li><a href="{{ request.path }}?page=1">首页</a></li>
@@ -161,8 +121,45 @@
 
    var sucess = "{{success}}";
    if (sucess == "yes") {
-          alert("恭喜您，提交成功！")
-          location.href="{{ request.path }}?page=1";
+          showToast('success',"恭喜您，提交成功！");
+          // location.href="{{ request.path }}?page=1";
    }
+
+   $(document).ready(function() {
+    $(".action-del").click(function(){
+      var id = $(this).attr("pk_id");
+      if (confirm("确定要删除吗？")) {
+        $.ajax({
+         headers: {
+             'X-CSRFToken': '{{ csrf_token }}',
+          },
+          type: "POST",
+          url: "{% url 'corpus_delete' %}",
+          data:{
+            "id":id,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          error: function(request) {
+            // alert("删除出错了！");
+            showToast('error',"删除出错了！");
+          },
+          success: function(data) {
+            var status = data.status
+            if (status != 'ok') {
+              console.log(status);
+            }else {
+              {% ifequal obj_list.count 1 %}
+                  window.location.href ="{{ request.path }}";
+              {% else %}
+                  location.reload();
+              {% endifequal %}
+            }
+          }
+        });
+      } else {
+        return false;
+      }
+    });
+  })
 </script> 
 {% endblock %}  

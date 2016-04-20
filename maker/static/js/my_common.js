@@ -63,7 +63,7 @@ function showToast(level, str) {
     } else if  (level == 'warning') {
         toastr.warning(str);
     } else if  (level == 'error') {
-        toastr.success(str);
+        toastr.error(str);
     }
 
 }
