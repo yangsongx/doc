@@ -45,7 +45,7 @@ function showToast(level, str) {
         "debug": false,
         "newestOnTop": false,
         "progressBar": false,
-        "positionClass": "toast-top-full-width",
+        "positionClass": "toast-top-center",
         "preventDuplicates": false,
         "onclick": null,
         "showDuration": "300",
@@ -63,7 +63,7 @@ function showToast(level, str) {
     } else if  (level == 'warning') {
         toastr.warning(str);
     } else if  (level == 'error') {
-        toastr.error(str);
+        toastr.success(str);
     }
 
 }
