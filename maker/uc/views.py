@@ -17,7 +17,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 from django.views.generic import TemplateView
@@ -670,13 +670,14 @@ class CorpusListView(ListView):
 def corpus_delete(request, next_url='corpus_list'):
     logger.debug('delete corpus ')
     if request.method == 'POST':
-        idx = request.POST.get('id')
+        idx = request.POST['id']
         result = ({'status':'ok'})
         if idx != None:
             try:
-                 CorpusData.objects.get(id = idx).delete()
+                 CorpusData.objects.get(id = int(idx)).delete()
             except Exception, e:
                 logger.debug(u'%s'%e)
                 result = ({'status':'error'})
         return JsonResponse(result)
+
     return redirect(reverse(next_url))
