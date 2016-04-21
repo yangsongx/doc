@@ -104,6 +104,16 @@ class MyWXBot(WXBot):
                         else:
                             reply += u"对不起，只认字，其他杂七杂八的我都不认识，,,???,,"
                         self.send_msg_by_uid(reply, msg['user']['id'])
+            elif msg['msg_type_id'] == 3 and msg['content']['type'] == 4:  # group voice message
+                file_path = msg['content']['path']
+                asr = self._audio2Text(file_path)
+                src_name = msg['content']['user']['name']
+                logger.debug(src_name)
+                if asr != "":
+                    resp = "[微信助手] %s说: %s" % (src_name, asr)
+                else:
+                    resp = "[微信助手] 无法识别%s刚刚的语音消息，暂时只支持普通话" % src_name
+                self.send_msg_by_uid(resp, msg['user']['id'])
         except:
             import sys
             info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])

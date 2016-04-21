@@ -8,7 +8,7 @@ import pyqrcode
 import requests
 import json
 import xml.dom.minidom
-import urllib
+import urllib, urllib2
 import time
 import re
 import random
@@ -17,6 +17,7 @@ import HTMLParser
 import memcache
 import logging
 import mimetypes
+import base64
 
 UNKONWN = 'unkonwn'
 SUCCESS = '200'
@@ -448,6 +449,7 @@ class WXBot:
             msg_content['data'] = self.get_voice_url(msg_id)
             if self.DEBUG:
                 voice = self.get_voice(msg_id)
+                msg_content['path'] = voice
                 logger.debug( '    %s[Voice] %s' % (msg_prefix, voice))
         elif mtype == 42:
             msg_content['type'] = 5
@@ -1095,6 +1097,53 @@ class WXBot:
         print "resp:", dic
         return dic['BaseResponse']['Ret'] == 0
     """
+    def _get_token(self):
+        #FIXME add cache
+        apiKey = "DrLHArA9fNxO0ueRGTj0M7oP"
+        secretKey = "c5795c38aba4463fa59002e5b553962b"
+        auth_url = "https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=" + apiKey + "&client_secret=" + secretKey
+        res = urllib2.urlopen(auth_url)
+        json_data = res.read()
+        logger.debug(res)
+        return json.loads(json_data)['access_token']
 
+    def _audio2Text(self, path):
+        file_amr = path.replace("mp3", "amr")
+        cmd = "./bin/ffmpeg -i " + path + " -ar 8000 " + file_amr
+        logger.debug(cmd)
+        rc = os.system(cmd)
 
+        token = self._get_token()
+        logger.debug(token)
+
+        f = open(file_amr, 'r')
+        if f is not None:
+            speech = base64.b64encode(f.read())
+            size = os.path.getsize(file_amr)
+            update = json.dumps({
+                'format': 'amr',
+                'rate': '8000',
+                'channel': 1,
+                'cuid': "baider",
+                'token': token,
+                'speech': speech,
+                'len': size
+            })
+            r = urllib2.urlopen('http://vop.baidu.com/server_api', update)
+            t = r.read()
+            result = json.loads(t)
+            logger.debug(result)
+            if result['err_msg'] == 'success.':
+                word = result['result'][0].encode('utf-8')
+                if word != '':
+                    if word[len(word) - 3:len(word)] == '，':
+                        return word[0:len(word) - 3]
+                    else:
+                        return word
+                else:
+                    return ''
+            else:
+                return ""
+
+        return ''
 
