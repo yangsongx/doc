@@ -77,7 +77,7 @@
 	margin: 0;
 }
 .content-wrapper .gongneng .gongneng_box dl dd .switch {
-	width: 100px;
+	width: 60px;
 	float: none;
 	margin: 0 auto;
 }
@@ -121,12 +121,12 @@
 	-ms-user-select: none;
 	-o-user-select: none;
 	user-select: none;
-	width: 100px;
-	height: 33px;
+	width: 60px;
+	height: 23px;
 }
 .switch .switch-animate {
 	width: 150px;
-	height: 33px;
+	height: 23px;
 	display: inline-block;
 	position: relative;
 	top: 0;
@@ -139,27 +139,27 @@
 	left: 0;
 }
 .switch .switch-animate.switch-off {
-	left: -50%;
+	left: -52%;
 }
  .switch .switch-animate span {
 	float: left;
-	width: 50px;
-	height: 33px;
+	width: 30px;
+	height: 23px;
 	display: block;
 	text-align: center;
-	line-height: 33px;
+	line-height: 23px;
 	font-size: 12px;
 	padding: 0;
-
 	border: 0;
+	color:#000;
 }
 .switch .switch-animate .left {
-	background: #CAE1FF;
-	color: #fff;
+	background: #00a65a;
+	color: #444;
 }
  .switch .switch-animate .center {
 	background: #e3e7eb;
 }
 .switch .switch-animate .right {
-	background: #cbd1d7;
+	background: #dd4b39;
 }
