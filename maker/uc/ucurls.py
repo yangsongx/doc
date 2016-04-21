@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^setbot/$', uc.views.uc_setbot, name='set_bot'),
     url(r'^corpuslist/$',  CorpusListView.as_view(template_name='uc_corpus_list.html'), name='corpus_list'),
     url(r'^corpus/delete$', uc.views.corpus_delete, {'next_url':'corpus_list'}, name='corpus_delete'),
+    url(r'^corpus/edit$', uc.views.corpus_edit, name='corpus_edit'),
     url(r'^funconfig/$', uc.views.uc_funconfig, name='func_config'),
     url(r'^whitelist/$', uc.views.uc_whitelist, name='white_list'),
     url(r'^basicinfo/$', uc.views.uc_basicinfo, name='basic_info'),

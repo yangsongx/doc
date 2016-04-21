@@ -62,14 +62,12 @@ class CorpusForm(forms.ModelForm):
         question = self.cleaned_data['question']
         if  question == '':
             raise forms.ValidationError('问题不能为空')
-        pass
-        return self.cleaned_data['question']
+        return question
     def clean_answer(self):
         answer = self.cleaned_data['answer']
         if  answer == '':
             raise forms.ValidationError('答案不能为空')
-        pass
-        return self.cleaned_data['answer']
+        return answer
 
     def save(self, user):
         c_obj = CorpusData()

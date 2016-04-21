@@ -10,9 +10,9 @@
 {% block uc_title %}<span>语料库自定义</span>{% endblock %}
 {% block uc_content %}
 
- <div class="box box-info">
+        <div class="box box-info" id="box_add" >
             <div class="box-header with-border">
-              <h3 class="box-title">新增</h3>
+              <h3  class="box-title">新增</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -44,7 +44,35 @@
               </div>
               <!-- /.box-footer -->
             </form>
-          </div>
+       </div>
+
+       <div  id="box_edit" class="box box-info" style="display: none">
+            <div class="box-header with-border">
+                      <h3  class="box-title">修改</h3>
+            </div>
+            <form class="form-horizontal" >
+              <div class="box-body">
+                    <div class="form-group">
+                          <label for="edit_question" class="col-sm-2 control-label">问题</label>
+
+                          <div class="col-sm-10">
+                                 <input type="text" class="form-control" id="edit_question"  placeholder="">
+                          </div>
+                    </div>
+                    <div class="form-group">
+                          <label for="edit_answer" class="col-sm-2 control-label">答案</label>
+
+                          <div class="col-sm-10">
+                                <input type="text" class="form-control" id="edit_answer"   placeholder="">
+                          </div>
+                    </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                      <button id="edit_submit" class="btn btn-info">修改</button>
+              </div>
+              </form>
+     </div>
 
 
   <div class="box">
@@ -73,13 +101,13 @@
                 </tr>
                 
                 {% for item in obj_list %}
-                <tr>
-                  <td>{{item.id}}</td>
-                  <td>{{item.question}}</td>
-                  <td>{{item.answer}}</td>
+                <tr class="corpus_item">
+                  <td class="corpus_id">{{item.id}}</td>
+                  <td class="corpus_question">{{item.question}}</td>
+                  <td class="corpus_answer">{{item.answer}}</td>
                   <td><span class="badge bg-red">公开</span></td>
                   <td>
-                     <a class="btn btn-social-icon"><i class="fa fa-edit"></i></a>
+                     <a class="btn btn-social-icon action-edit"><i class="fa fa-edit"></i></a>
                      <a class="btn btn-social-icon action-del" pk_id="{{item.id}}"><i class="fa fa-remove "></i></a> 
                   </td>
                 </tr>
@@ -114,52 +142,102 @@
 {% endblock %}
 {% block my_js %}
 <script type="text/javascript" >
-    $(function(){
-        cut_active('l_03');
-    });
-   $(".form-group input").addClass('form-control');
+      $(function(){
+          cut_active('l_03');
+      });
+     $(".form-group input").addClass('form-control');
 
-   var sucess = "{{success}}";
-   if (sucess == "yes") {
-          showToast('success',"恭喜您，提交成功！");
-          // location.href="{{ request.path }}?page=1";
-   }
+     var sucess = "{{success}}";
+     if (sucess == "yes") {
+            showToast('success',"恭喜您，提交成功！");
+     }
 
-   $(document).ready(function() {
-    $(".action-del").click(function(){
-      var id = $(this).attr("pk_id");
-      if (confirm("确定要删除吗？")) {
-        $.ajax({
-         headers: {
-             'X-CSRFToken': '{{ csrf_token }}',
-          },
-          type: "POST",
-          url: "{% url 'corpus_delete' %}",
-          data:{
-            "id":id,
-            'csrfmiddlewaretoken': '{{ csrf_token }}'
-          },
-          error: function(request) {
-            // alert("删除出错了！");
-            showToast('error',"删除出错了！");
-          },
-          success: function(data) {
-            var status = data.status
-            if (status != 'ok') {
-              console.log(status);
-            }else {
-              {% ifequal obj_list.count 1 %}
-                  window.location.href ="{{ request.path }}";
-              {% else %}
-                  location.reload();
-              {% endifequal %}
-            }
-          }
-        });
-      } else {
-        return false;
-      }
-    });
-  })
+     $(document).ready(function() {
+          $(".action-edit").click(function(){
+              var itm_parent =  $(this).parents(".corpus_item") ;
+              var id = itm_parent.children(".corpus_id").text();
+              var question = itm_parent.children(".corpus_question").text();
+              var answer = itm_parent.children(".corpus_answer").text();
+
+             lmt_log(question);
+              $("#box_add").hide();
+              $("#box_edit").show();
+              $("#edit_question").val(question);
+              $("#edit_answer").val(answer);
+
+
+             $("#edit_submit").click(function(){
+                      var qVal = $("#edit_question").val();
+                      var aVal = $("#edit_answer").val();
+                      if (qVal.length==0|| aVal.length==0 ){
+                            return 
+                      }
+                      $.ajax({
+                             headers: {
+                                     'X-CSRFToken': '{{ csrf_token }}',
+                              },
+                              type: "POST",
+                              url: "{% url 'corpus_edit' %}",
+                              data:{
+                                   "id":id,
+                                   "question":qVal,
+                                    "answer":aVal,
+                                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                              },
+                              error: function(request) {
+                                    showToast('error',"修改出错了！");
+                              },
+                              success: function(data) {
+                                    var status = data.status
+                                    if (status != 'ok') {
+                                          console.log(status);
+                                    }else {
+                                          {% ifequal obj_list.count 1 %}
+                                                  window.location.href ="{{ request.path }}";
+                                          {% else %}
+                                                  location.reload();
+                                          {% endifequal %}
+                                    }
+                              }
+                      });
+               });
+          });
+   })
+
+       $(document).ready(function() {
+              $(".action-del").click(function(){
+                  var id = $(this).attr("pk_id");
+                  if (confirm("确定要删除吗？")) {
+                        $.ajax({
+                               headers: {
+                                       'X-CSRFToken': '{{ csrf_token }}',
+                                },
+                                type: "POST",
+                                url: "{% url 'corpus_delete' %}",
+                                data:{
+                                      "id":id,
+                                      'csrfmiddlewaretoken': '{{ csrf_token }}'
+                                },
+                                error: function(request) {
+                                      showToast('error',"修改出错了！");
+                                },
+                                success: function(data) {
+                                      var status = data.status
+                                      if (status != 'ok') {
+                                            console.log(status);
+                                      }else {
+                                            {% ifequal obj_list.count 1 %}
+                                                    window.location.href ="{{ request.path }}";
+                                            {% else %}
+                                                    location.reload();
+                                            {% endifequal %}
+                                      }
+                                }
+                        });
+                } else {
+                        return false;
+                }
+              });
+       })
 </script> 
 {% endblock %}  
