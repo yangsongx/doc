@@ -72,6 +72,7 @@ def loading_data_file():
     print myvec
     return 0
 
+####################################################
 def start_ml():
     if not os.path.exists('./deerwester.dict'):
         loading_data_file()
@@ -81,25 +82,28 @@ def start_ml():
     myvec = corpora.MmCorpus('/tmp/deerwester.mm')
     print myvec
 
-    mytfidf = gensim.models.TfidfModel(myvec)
+#    mytfidf = gensim.models.TfidfModel(myvec)
 
-    test_vec = [(0,1), (1,10), (4, 3)]
-    print(mytfidf[test_vec])
 
-    tfidf_vec = mytfidf[myvec]
-    print tfidf_vec
+#    tfidf_vec = mytfidf[myvec]
+#    print tfidf_vec
 #    for vec in tfidf_vec:
 #        print vec
 
 
-    mylsi = gensim.models.LsiModel(tfidf_vec, id2word = mydict, num_topics=10)
-    corpus_lsi = mylsi[tfidf_vec]
-    print 'can u see below topics?'
-    mylsi.print_topics(2)
+# Creating a LSI model....
+    mylsi = gensim.models.LsiModel(corpus = myvec, id2word = mydict)
+    print '====================='
+    mylsi.print_topics(10)
+    print '====================='
+    test_texts = ['音乐', '可乐', '雨']
+    test_vec = mydict.doc2bow(test_texts)
+    print 'the test vector:'
+    print test_vec
+    test_vec_lsi = mylsi[test_vec]
+    print test_vec_lsi
+    print 'mark----'
 
-    print 'my'
-#for v in corpus_lsi:
-#       print v
 
     return 0
 
