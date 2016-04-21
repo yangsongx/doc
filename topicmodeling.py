@@ -5,9 +5,11 @@ import json
 import jieba
 
 from collections import defaultdict
+from pprint import pprint
 import gensim
 from gensim import corpora, models, similarities
 
+fdocs = []
 def seg_datafile(leading, fnitem):
     fn = '%s%s' %(leading, fnitem)
     fd = open(fn)
@@ -29,7 +31,6 @@ def seg_datafile(leading, fnitem):
     return txt
 
 def loading_data_file():
-    fdocs = []
     for it in os.walk('mldata/'):
         for filename in it[2]:
             fdocs.append(filename)
@@ -76,10 +77,14 @@ def loading_data_file():
 def start_ml():
     if not os.path.exists('./deerwester.dict'):
         loading_data_file()
+    else:
+        for it in os.walk('mldata/'):
+            for filename in it[2]:
+                fdocs.append(filename)
 
     print '==== Try modeling the data ====\n'
-    mydict = corpora.Dictionary.load('/tmp/deerwester.dict')
-    myvec = corpora.MmCorpus('/tmp/deerwester.mm')
+    mydict = corpora.Dictionary.load('./deerwester.dict')
+    myvec = corpora.MmCorpus('./deerwester.mm')
     print myvec
 
 #    mytfidf = gensim.models.TfidfModel(myvec)
@@ -94,15 +99,35 @@ def start_ml():
 # Creating a LSI model....
     mylsi = gensim.models.LsiModel(corpus = myvec, id2word = mydict)
     print '====================='
-    mylsi.print_topics(10)
+    mylsi.print_topics(100)
     print '====================='
-    test_texts = ['音乐', '可乐', '雨']
+    test_texts = ['电影', '专家', '骗子']
     test_vec = mydict.doc2bow(test_texts)
     print 'the test vector:'
     print test_vec
     test_vec_lsi = mylsi[test_vec]
     print test_vec_lsi
     print 'mark----'
+
+    index = similarities.MatrixSimilarity(mylsi[myvec])
+    print index
+
+    sims = index[test_vec_lsi]
+    print list(enumerate(sims))
+
+    sims = sorted(enumerate(sims), key=lambda item: -item[1])
+    print '==== sorted result:'
+    print sims
+
+    print '\n\n'
+    most_similar = sims[0][0]
+    print '\n\n'
+
+
+    print fdocs[most_similar]
+
+#print json.dumps(mydict.token2id).decode("utf-8")
+#print json.dumps(mydict.token2id, ensure_ascii=False)
 
 
     return 0
