@@ -114,6 +114,15 @@ class MyWXBot(WXBot):
                 else:
                     resp = "[微信助手] 无法识别%s刚刚的语音消息，暂时只支持普通话" % src_name
                 self.send_msg_by_uid(resp, msg['user']['id'])
+
+                if True:
+                    try:
+                        if "兔" in asr:
+                            resp = self._smart(asr, msg['user']['id'])
+                            self.send_msg_by_uid(resp, msg['user']['id'])
+                    except:
+                        logger.debug("failed to send resp")
+
         except:
             import sys
             info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
