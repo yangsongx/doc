@@ -40,9 +40,15 @@ class MyWXBot(WXBot):
                     resp += data['url']
             except:
                 resp = "我没听懂哎"
+
+            resp = resp.replace("米小兔", "流氓兔")
+            resp = resp.replace("米兔", "流氓兔")
+            resp = resp.replace("图灵机器人", "")
+            resp = resp.replace("机器岛", "世界")
+            resp = resp.replace("你说的内容我暂时还没法理解", "哦")
               
             logger.debug( time.time())
-            # TODO - resp.encode is answer for wxbot.py:439- TODO's question, need record to DB
+            # TODO - resp.encode is respwer for wxbot.py:439- TODO's question, need record to DB
             return resp.encode('utf-8')
 
 
@@ -118,9 +124,28 @@ class MyWXBot(WXBot):
 
                 if True:
                     try:
-                        if "兔" in asr:
+                        #if "兔" in asr:
+                        if True:
                             resp = self._smart(asr, msg['user']['id'])
                             self.send_msg_by_uid(resp, msg['user']['id'])
+                    except:
+                        logger.debug("failed to send resp")
+
+            elif msg['msg_type_id'] == 4 and msg['content']['type'] == 4:  # private voice message
+                file_path = msg['content']['path']
+                asr = self._audio2Text(file_path)
+                src_name = msg['user']['name']
+                logger.debug(src_name)
+                if asr != "":
+                    resp = "[微信助手] %s说: %s" % (src_name, asr)
+                else:
+                    resp = "[微信助手] 无法识别%s刚刚的语音消息，暂时只支持普通话" % src_name
+                self.send_msg_by_uid(resp, msg['user']['id'])
+
+                if True:
+                    try:
+                        resp = self._smart(asr, msg['user']['id'])
+                        self.send_msg_by_uid(resp, msg['user']['id'])
                     except:
                         logger.debug("failed to send resp")
 
