@@ -17,7 +17,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.http import HttpRequest, HttpResponse,HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 from django.views.generic import TemplateView
@@ -647,9 +647,7 @@ class CorpusListView(ListView):
         form = CorpusForm()
         extra_context = dict()
         if request.method == 'POST':
-            print 'the POST'
             # try:
-            print request.POST
             # TODO - how to handle the robot under a user?
             form = CorpusForm(request.POST)
             if form.is_valid():
@@ -658,7 +656,6 @@ class CorpusListView(ListView):
                     raise Http404("用户不存在")
                 #set_corpus_info(request.POST, personal_user)
                 logger.debug('form.save personal_user')
-                print 'form.save personal_user'
                 form.save(personal_user);
                 extra_context['success'] = 'yes'
                 return redirect(reverse('corpus_list'))
@@ -675,13 +672,34 @@ class CorpusListView(ListView):
 def corpus_delete(request, next_url='corpus_list'):
     logger.debug('delete corpus ')
     if request.method == 'POST':
-        idx = request.POST.get('id')
+        idx = request.POST['id']
         result = ({'status':'ok'})
         if idx != None:
             try:
-                 CorpusData.objects.get(id = idx).delete()
+                 CorpusData.objects.get(id = int(idx)).delete()
             except Exception, e:
                 logger.debug(u'%s'%e)
                 result = ({'status':'error'})
         return JsonResponse(result)
+
     return redirect(reverse(next_url))
+
+def corpus_edit(request,):
+    logger.debug('edit corpus ')
+    if request.method == 'POST':
+        idx = request.POST['id']
+        question = request.POST['question']
+        answer = request.POST['answer']
+        print question
+        print answer
+        result = ({'status':'ok'})
+        if idx != None:
+            try:
+                 new_data = CorpusData.objects.get(id = int(idx))
+                 new_data.question = question;
+                 new_data.answer = answer;
+                 new_data.save();
+            except Exception, e:
+                logger.debug(u'%s'%e)
+                result = ({'status':'error'})
+        return JsonResponse(result)
