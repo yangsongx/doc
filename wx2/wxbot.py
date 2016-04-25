@@ -899,8 +899,11 @@ class WXBot:
         r.encoding = 'utf-8'
         data = r.text
         pm = re.search(r'window.synccheck=\{retcode:"(\d+)",selector:"(\d+)"\}', data)
-        retcode = pm.group(1)
-        selector = pm.group(2)
+        if pm is not None:
+            retcode = pm.group(1)
+            selector = pm.group(2)
+        else:
+            retcode = "-1"
         return [retcode, selector]
 
     def sync(self):
