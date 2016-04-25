@@ -115,9 +115,11 @@ def activate_email_account(ticket, email):
 
 
     if ret == 0:
-        return HttpResponse('TODO - UI for mail activation OK')
+        # return HttpResponse('TODO - UI for mail activation OK')
+        return render_to_response('regfail.html',{'user': usr})
     else:
-        return HttpResponse('TODO - UI for mail activation NOT OK')
+        # return HttpResponse('TODO - UI for mail activation NOT OK')
+        return render_to_response('regfail.html')
 
 ###################################################################################
 def create_robot(post_form, user):
@@ -244,7 +246,7 @@ def uc_reg(request):
                 obj.save()
 
             # TODO reg OK should NOT return below HTML UI
-            return HttpResponse('TODO - UI : reg OK, you can login now.')
+            return render_to_response('regok.html', {'user':usr})
     else:
         ticket = request.GET.get('ticket')
         print ticket
@@ -288,10 +290,12 @@ def uc_login(request):
                         #FIXME - currently, login would lead user to the center panel
                         return redirect('/uc/personalcenter/')
                 else:
-                    return HttpResponse('TOOD-UI You need activate your account!')
+                    # return HttpResponse('TOOD-UI You need activate your account!')
+                    return render_to_response('loginfailforneedactive.html', {'user':usr})
             else:
                 print 'Failed case!'
-                return HttpResponse('TODO- failed login')
+                return render_to_response('loginfail.html', {'user':usr})
+                # return HttpResponse('TODO- failed login')
 
     else:
         print 'GET method'
@@ -372,6 +376,7 @@ def uc_apiCheckExistence(request):
         ret['msg'] = info
 
     return HttpResponse(json.dumps(ret))
+
 ###################################################################################
 def uc_changePwd(request):
     ret = {}

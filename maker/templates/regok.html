@@ -2,16 +2,66 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>用户注册Successful</title>
+    <base href="/account">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title ng-bind="title + ' · DaoCloud'"></title>
+    <link href="https://dn-daoaccount-prod.qbox.me/static/css/account-framework-eaa96a31.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/animate-custom.css" />
+    <script src="https://dn-daoaccount-prod.qbox.me/static/js/account-framework-f949fa76.js"></script>
+    <script src="https://dn-daoaccount-prod.qbox.me/static/js/account-app-0cdf5721.js"></script>
+
 </head>
-  <style type="text/css">
-    body{color:#efd;background:#253;padding:0 5em;margin:0}
-    h1{padding:2em 1em;background:#675}
-    h2{color:#af8;border-top:1px dotted #fff;margin-top:2em}
-    p{margin:1em 0}
-  </style>
-<body>
-<h1>Congruatulations! TODO - need a redirect URL here...probably</h1>
+
+<body class="body-blue theme-clean global-color_sun" ng-class="{'page-signin': signin, 'page-signup': signup}" data-spy="scroll" data-target=".navbar" ng-show="hasToken">
+
+<div class="wrapper body-inverse">
+    <div class="container">
+        <section>
+            <div id="container_demo" >
+                <div id="wrapper">
+                    <div id="login" class="animate form">
+                        <form method = 'post' enctype="multipart/form-data" autocomplete="on">
+                            <h1> 激活邮件发送成功 </h1>
+                            <p>
+                                <label  > 请到注册邮箱激活你的账号，激活成功后可以登录！</label>
+                            </p>
+                            <p class="signin button">
+                                <a href="/uc/login/" class="to_register"> 登录 </a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+<!-- / wrapper -->
+
+<div class="footer-wrapper">
+    <!-- footer wrapper -->
+    <hr>
+    <div class="container">
+        <footer>
+            <ul class="list-inline pull-left">
+                <li>
+                    <a href="http://www.miitbeian.gov.cn/">沪ICP备14048409号-1</a>
+                </li>
+            </ul>
+        </footer>
+    </div>
+    <!-- /container -->
+</div>
+<!-- / footer wrapper -->
+
 </body>
 </html>
+
