@@ -42,6 +42,7 @@ class MyWXBot(WXBot):
                 resp = "我没听懂哎"
               
             logger.debug( time.time())
+            # TODO - resp.encode is answer for wxbot.py:439- TODO's question, need record to DB
             return resp.encode('utf-8')
 
 

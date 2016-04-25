@@ -436,6 +436,7 @@ class WXBot:
                 if self.DEBUG:
                     try:
                         logger.debug( '    %s[Text] %s' % (msg_prefix, msg_content['data']))
+                        #TODO this is sent-from data in msg_content['data'], need record to DB
                     except UnicodeEncodeError:
                         logger.debug( '    %s[Text] (illegal text).' % msg_prefix)
         elif mtype == 3:
