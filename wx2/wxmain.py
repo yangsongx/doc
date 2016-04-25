@@ -1,13 +1,13 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 from wxbot import *
 import time
-import sys
 import logging
 
+import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
+
 
 import random
 
@@ -15,17 +15,110 @@ white_list = ""
 switchWords = ["换个话题吧","我们聊聊其他的吧","说说最新的新闻怎么样","有什么好玩的事情"]
 _nrSwitchWords =len(switchWords) -1
 
+key2Gif = {
+    'hello': {"in": ["你好", "在吗"],
+           "out": ["你好"]},
+    'who': {"in": ["你是谁"],
+            "out": ["我是"]},
+    'bye': {"in": ["再见", "拜拜"],
+           "out": ["再见", "拜拜"]},
+    'naive': {"in": ["你好可爱"],
+           "out": ["人见人爱"]},
+    'photo': {"in": ["发照片", "你的照片", "发张照片","美女","帅哥","美"],
+            "out": []},
+    'money': {"in": [],
+              "out": []},
+    'pity': {"in": [],
+           "out": []},
+    'cry': {"in": ["哭", "呜呜"],
+          "out": ["哭", "呜呜"]},
+    'morning': {"in": ["早上好", "早啊"],
+            "out": ["早上好", "早啊"]},
+    'night': {"in": ["晚安"],
+           "out": ["晚安"]},
+    'laugh': {"in": ["哈哈", "呵呵", "笑脸"],
+          "out": ["哈哈", "哈皮"]},
+    'thanks': {"in": ["谢谢", "感谢"],
+           "out": ["不客气", "谢谢"]},
+    'admir': {"in": ["牛逼", "赞", "厉害"],
+          "out": ["赞"]},
+}
+
+gifDic = {}
+
+
+def load_gif_repo():
+    rootdir = "./gif/"
+    global gifDic
+
+    for parent, dirnames, filenames in os.walk(rootdir):
+        for filename in filenames:
+            key = re.sub(r".*/", "", parent)
+            if key not in gifDic:
+                gifDic[key] = []
+
+            gifDic[key].append(os.path.join(parent, filename))
+    print gifDic
+
+def getGifByCate(cate):
+    if cate in gifDic:
+        idx = random.randint(0, len(gifDic[cate]) - 1)
+        return gifDic[cate][idx]
+    else:
+        return None
+
+
+def get_gif_per_text(query, resp):
+    cate = "others"
+    for it in key2Gif:
+        for ain in key2Gif[it]['in']:
+            if ain in query:
+                cate = it
+                return cate
+        for aout in key2Gif[it]['out']:
+            if aout in resp:
+                cate = it
+                return cate
+    return cate
+
+
+def pick_gif_per_text(query, resp):
+    cate = get_gif_per_text(query, resp)
+    print cate
+    ratio = 0
+    if cate == 'photo':
+        ratio = 1
+    return getGifByCate(cate), ratio, cate
+
 class MyWXBot(WXBot):
 
     def __init__(self, bot_id):
         WXBot.__init__(self, bot_id)
         self.robot_switch = True
 
+
+    def _respond_gif(self, word, resp, to, po):
+        gifFile, ratio, cate = pick_gif_per_text(word, resp)
+        logger.debug(gifFile)
+        ifShow = 1
+        if ratio < 1:
+            a = random.randint(0, po)
+            if a > (po-2):
+                ifShow = 1
+            else:
+                ifShow = 0
+
+        if ifShow == 1:
+        #if True:
+            if gifFile is not None:
+                self.send_image(to, gifFile)
+
+
     def _smart(self, word, uid):
         if True:
             url = 'http://i2.jiqid.com/robot/'
-            uid = uid[2:66]
-            payload = {'text': word, 'uid':uid ,'type': 0, 'tts': 0}
+            uid2 = uid[2:66]
+            payload = {'text': word, 'uid':uid2 ,'type': 0, 'tts': 0}
 
             resp = ""
             try:
@@ -46,7 +139,22 @@ class MyWXBot(WXBot):
             resp = resp.replace("图灵机器人", "")
             resp = resp.replace("机器岛", "世界")
             resp = resp.replace("你说的内容我暂时还没法理解", "哦")
-              
+             
+            '''
+            gifFile, ratio, cate = pick_gif_per_text(word, resp)
+            logger.debug(gifFile)
+            ifShow = 1
+            if ratio < 1:
+                ifShow = random.randint(0, 5)
+
+            #if ifShow > 3:
+            if True:
+                if gifFile is not None:
+                    logger.debug(gifFile)
+                    self.send_image(uid, gifFile)
+            '''
+            self._respond_gif(word, resp, uid, 5)
+ 
             logger.debug( time.time())
             # TODO - resp.encode is respwer for wxbot.py:439- TODO's question, need record to DB
             return resp.encode('utf-8')
@@ -78,7 +186,8 @@ class MyWXBot(WXBot):
                 self.auto_switch(msg)
             elif msg['msg_type_id'] == 4 and msg['content']['type'] == 0:  # text message from contact
                 logger.debug("reply to somebody")
-                self.send_msg_by_uid(self._smart(msg['content']['data'], msg['user']['id']), msg['user']['id'])
+                resp = self._smart(msg['content']['data'], msg['user']['id'])
+                self.send_msg_by_uid(resp, msg['user']['id'])
             elif msg['msg_type_id'] == 3 and msg['content']['type'] == 0:  # group text message
                 logger.debug("reply to group")
                 if 'detail' in msg['content']:
@@ -107,10 +216,13 @@ class MyWXBot(WXBot):
                         #reply = 'to ' + src_name + ': '
                         reply = ""
                         if msg['content']['type'] == 0:  # text message
-                            reply += self._smart(msg['content']['desc'], msg['content']['user']['id'])
+                            reply += self._smart(msg['content']['desc'], msg['user']['id'])
                         else:
                             reply += u"对不起，只认字，其他杂七杂八的我都不认识，,,???,,"
                         self.send_msg_by_uid(reply, msg['user']['id'])
+                    else:
+                        word = msg['content']['desc']
+                        self._respond_gif(word, word, msg['user']['id'], 10)
             elif msg['msg_type_id'] == 3 and msg['content']['type'] == 4:  # group voice message
                 file_path = msg['content']['path']
                 asr = self._audio2Text(file_path)
@@ -162,9 +274,10 @@ class MyWXBot(WXBot):
 
 
 def main():
+    load_gif_repo()
     bot = MyWXBot(sys.argv[1])
     bot.DEBUG = True
-    bot.conf['qr'] = 'png'
+    bot.conf['qr'] = 'tty'
     bot.run()
 
 

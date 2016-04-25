@@ -18,6 +18,10 @@ import memcache
 import logging
 import mimetypes
 import base64
+from requests_toolbelt.multipart.encoder import MultipartEncoder
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 UNKONWN = 'unkonwn'
 SUCCESS = '200'
@@ -990,7 +994,7 @@ class WXBot:
         dic = self.session.post(url, data=json.dumps(params))
         logger.debug(dic)
         return;
-    """
+   
     def webwxuploadmedia(self, image_name):
         print "enter webwxuploadmedia", image_name
         url = 'https://file.wx.qq.com/cgi-bin/mmwebwx-bin/webwxuploadmedia?f=json'
@@ -1100,7 +1104,7 @@ class WXBot:
         dic = r.json()
         print "resp:", dic
         return dic['BaseResponse']['Ret'] == 0
-    """
+
     def _get_token(self):
         #FIXME add cache
         apiKey = "DrLHArA9fNxO0ueRGTj0M7oP"
