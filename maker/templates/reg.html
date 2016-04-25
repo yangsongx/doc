@@ -17,92 +17,7 @@
     <link rel="stylesheet" type="text/css" href="static/css/animate-custom.css" />
     <script src="https://dn-daoaccount-prod.qbox.me/static/js/account-framework-f949fa76.js"></script>
     <script src="https://dn-daoaccount-prod.qbox.me/static/js/account-app-0cdf5721.js"></script>
-    <style>
-        .page-signup .have-account {
-            font-size: 16px;
-        }
-        .media p {
-            float: left;
-            margin-top: 3px;
-        }
-        .media-left .fa {
-            color: rgb(85, 85, 85);
-            margin-left: 5px;
-            cursor: pointer;
-        }
-        .media-left .fa:hover {
-            color: #9d9d9d;
-        }
-        .page-signin .not-a-member {
-            font-size: 18px;
-        }
-        .page-signup .have-account {
-            font-size: 18px;
-        }
-        .page-signup .signup-text {
-            font-size: 20px;
-            font-style: normal;
-        }
 
-        .page-signin .signin-text span {
-            font-size: 20px;
-            font-style: normal;
-        }
-
-        .container1 > div,
-        .container2 > div,
-        .container3 > div {
-            width: 6px;
-            height: 6px;
-            background-color: #5383b4;
-            border-radius: 100%;
-            position: absolute;
-            -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
-            animation: bouncedelay 1.2s infinite ease-in-out;
-            /* Prevent first frame from flickering when animation starts */
-
-            -webkit-animation-fill-mode: both;
-            animation-fill-mode: both;
-        }
-
-        @-webkit-keyframes bouncedelay {
-            0%, 80%, 100% {
-                -webkit-transform: scale(0.0)
-            }
-            40% {
-                -webkit-transform: scale(1.0)
-            }
-        }
-        @keyframes bouncedelay {
-            0%, 80%, 100% {
-                transform: scale(0.0);
-                -webkit-transform: scale(0.0);
-            }
-            40% {
-                transform: scale(1.0);
-                -webkit-transform: scale(1.0);
-            }
-        }
-
-        @-webkit-keyframes bouncedelay {
-            0%, 80%, 100% {
-                -webkit-transform: scale(0.0)
-            }
-            40% {
-                -webkit-transform: scale(1.0)
-            }
-        }
-        @keyframes bouncedelay {
-            0%, 80%, 100% {
-                transform: scale(0.0);
-                -webkit-transform: scale(0.0);
-            }
-            40% {
-                transform: scale(1.0);
-                -webkit-transform: scale(1.0);
-            }
-        }
-    </style>
 </head>
 
 <body class="body-blue theme-clean global-color_sun" ng-class="{'page-signin': signin, 'page-signup': signup}" data-spy="scroll" data-target=".navbar" ng-show="hasToken">
@@ -131,7 +46,7 @@
                                 <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="输入密码"/>
                             </p>
                             <p class="signin button">
-                                <input type="submit" value="Sign up"/>
+                                <input href="#" type="submit" value="注册"/>
                             </p>
                             <p class="change_link">
                                 已有账号 ?
