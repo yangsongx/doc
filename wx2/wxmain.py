@@ -22,14 +22,22 @@ key2Gif = {
            "out": ["你好"]},
     'who': {"in": ["你是谁"],
             "out": ["我是"]},
+    'girl': {"in": ["美女"],
+            "out": ["美女"]},
+
+    'boy': {"in": ["帅哥"],
+            "out": ["帅哥"]},
+
+    'bishi': {"in": ["鄙视", "阴险"],
+            "out": ["鄙视", "阴险"]},
     'bye': {"in": ["再见", "拜拜"],
            "out": ["再见", "拜拜"]},
     'naive': {"in": ["你好可爱"],
            "out": ["人见人爱"]},
     'photo': {"in": ["发照片", "你的照片", "发张照片","美女","帅哥","美"],
             "out": []},
-    'money': {"in": [],
-              "out": []},
+    'money': {"in": ["红包"],
+              "out": ["红包"]},
     'pity': {"in": [],
            "out": []},
     'cry': {"in": ["哭", "呜呜"],
@@ -51,6 +59,8 @@ gifDic = {}
 
 def load_gif_repo():
     rootdir = "./gif/"
+    if os.path.exists("/d/gif/"):
+        rootdir = "/d/gif/"
     global gifDic
 
     for parent, dirnames, filenames in os.walk(rootdir):
@@ -155,7 +165,7 @@ class MyWXBot(WXBot):
                     logger.debug(gifFile)
                     self.send_image(uid, gifFile)
             '''
-            self._respond_gif(word, resp, uid, 5)
+            self._respond_gif(word, resp, uid, 4)
  
             logger.debug( time.time())
             print 'answer:%s ===> %s' %(word, resp.encode('utf-8'))
@@ -237,6 +247,9 @@ class MyWXBot(WXBot):
                                 if my_names[k] and my_names[k] == detail['value']:
                                     is_at_me = True
                                     break
+                    if not is_at_me:
+                        if "#" in msg['content']['desc'] or "@" in msg['content']['desc'] or "流氓兔" in msg['content']['desc']:
+                            is_at_me = True
                     if is_at_me:
                         logger.debug("CY -3")
 
@@ -305,6 +318,7 @@ def main():
     load_gif_repo()
     bot = MyWXBot(sys.argv[1])
     bot.DEBUG = True
+    #bot.conf['qr'] = 'png'
     bot.conf['qr'] = 'tty'
     bot.run()
 
