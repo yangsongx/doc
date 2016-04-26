@@ -4,6 +4,8 @@ from wxbot import *
 import time
 import logging
 
+import MySQLdb
+
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -156,9 +158,35 @@ class MyWXBot(WXBot):
             self._respond_gif(word, resp, uid, 5)
  
             logger.debug( time.time())
-            # TODO - resp.encode is respwer for wxbot.py:439- TODO's question, need record to DB
+            print 'answer:%s ===> %s' %(word, resp.encode('utf-8'))
+            # FIXME - the @uid here maybe need parse section instead of whole data inserted into DB....
+            self.record_into_db(uid, word, resp.encode('utf-8'))
             return resp.encode('utf-8')
 
+
+# FIXME - need a reasonable method for writing to DB
+# * pre-connect to DB will be resource-wasting if too much process running
+# * one-connect on one-write will be performance-latency
+    def record_into_db(self, uid, ques, ans):
+        try:
+            db = MySQLdb.connect(user='root',
+                db = 'maker',
+                passwd='robotlite@8',
+                host='www.ioniconline.com',
+                port=33060)
+            print 'connected [OK]'
+            cursor = db.cursor()
+            sql_cmd = 'INSERT INTO uc_usermessagedata (q,a,user_id) VALUES (\'%s\', \'%s\', \'%s\')' \
+                    %(ques, ans, uid)
+            cursor.execute(sql_cmd)
+            db.commit()
+            db.close()
+            print 'write into DB [OK]'
+        except:
+            info = "+%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+            print info
+
+        return 0
 
     def auto_switch(self, msg):
         msg_data = msg['content']['data']

@@ -65,3 +65,8 @@ class CorpusData(models.Model):
     answer = models.CharField(max_length=1024, blank=False,null=False)
     owner = models.ForeignKey(AccountProfile, blank=False, null=False)
 
+#FIXME - temp put in MySQL, will moved to MongoDB smoothly in the future
+class UserMessageData(models.Model):
+    q = models.CharField(max_length=255, blank=True,null=True)
+    a = models.CharField(max_length=512, blank=True,null=True)
+    user_id = models.CharField(max_length=32, blank=True, null=True)
