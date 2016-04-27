@@ -1,0 +1,13 @@
+*.pyc
+*.log
+*.amr
+*.mp3
+maker/out/*
+maker/static/images/qr/*.png
+maker/saved/*
+wx/saved/*
+wx/saved/msgimgs/*
+wx/saved/videos/*
+wx/saved/voices/*
+wx/out/*
+wx2/out/*

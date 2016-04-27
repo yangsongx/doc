@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}BotDocker{% endblock %}
+{% block meta %}
+<meta />
+{% compress css%}
+<link href="/static/css/swiper.min.css" rel="stylesheet" type="text/css">
+{% endcompress %}
+{% endblock %}
+{% block nav_main_home %}current{% endblock %}
+
+{% block content %}
+<!-- <div class="home_main">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {% include "ad_test_data.html" %}
+            </div>
+            <div class="swiper-pagination">
+            </div>
+        </div>
+</div> -->
+
+<div class="wmuSlider example1">
+
+    <div class="wmuSliderWrapper">
+        <article style="position: absolute; width: 100%; opacity: 0;">
+            <div class="banner">
+                <div class="banner_container">
+                    <div class="banner_right">
+                        <h2>基于人工智能的bot云平台</h2>
+                        <a href="/home/about/" title="了解更多" class="btn btn-primary btn-normal btn-inline " target="_self">了解BotDocker更多</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </article>
+        <article style="position: relative; width: 100%; opacity: 1;">
+            <div class="about_banner">
+                <div class="banner_container">
+                    <div class="banner_right">
+                        <h2>基于人工智能的bot云平台</h2>
+                        <a href="/home/about/" title="了解更多" class="btn btn-primary btn-normal btn-inline " target="_self">了解BotDocker更多</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </article>
+    </div>
+    <a class="wmuSliderPrev">Previous</a><a class="wmuSliderNext">Next</a>
+    <script src="/static/js/basejs/jquery.wmuSlider.js"></script>
+    <script>
+        $('.example1').wmuSlider();
+    </script>
+</div>
+
+    <div class="grid_1 text-center">
+        <div class="container">
+            <div class="col-md-4 box_1">
+                <i class="icon1"> </i>
+                <h3>自然语言系统</h3>
+                <p>拥有最强大的中文语言系统， 能听懂你所表述的每句话，并能作出相应的回答。</p>
+                <p><span class="color1">2000</span>万条知识图谱，<span class="color1">100</span>万条平行语料，<span class="color1">90%</span>中文语义识别分析能力，中文自然语言处理，中文自然语言合成</p>
+            </div>
+            <div class="col-md-4 box_1">
+                <i class="icon2"> </i>
+                <h3>支持群聊的人工智能</h3>
+                <p>超智云端大脑，支持多人群聊，能记忆你的语言信息，并对每个人作出相应的回答。</p>
+                <p><span class="color1">9</span>层语义理解体系，多信息语义处理，云脑处理</p>
+            </div>
+            <div class="col-md-4 box_1">
+                <i class="icon3"> </i>
+                <h3>用户个性化定制</h3>
+                <p>基于NLP技术的高智能知识库满足不同场景的个性化及商业需求</p>
+                <p>打包超过<span class="color1">500</span>多种实用生活服务功能</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="new">
+        <div class="container">
+            <h3>What New</h3>
+            <div class="col-md-4 col_3">
+                <ul class="date_grid">
+                    <li class="date_left">
+                        <div class="date">
+                            <span>
+                               16
+                           </span>
+                           04
+                       </div>
+                   </li>
+                   <li class="date_right">
+                    <p>BotDocker 内测版上线</p>
+                </li>
+                <div class="clearfix"> </div>
+            </ul>
+            <p class="m_1">国际上对机器人的概念已经逐渐趋近一致。一般来说，人们都可以接受这种说法，即机器人是靠自身动力和控制能力来实现各种功能的一种机器。联合国标准化组织采纳了美国机器人协会给机器人下的定义：“一种可编程和多功能的操作机；或是为了执行不同的任务而具有可用电脑改变和可编程动作的专门系统。”它能为人类带来许多方便之处！</p>
+            <a href="#"><span class="more">More Information</span></a>
+        </div>
+        <div class="col-md-4 col_3">
+            <ul class="date_grid">
+                <li class="date_left">
+                    <div class="date">
+                        <span>
+                           16
+                       </span>
+                       03
+                   </div>
+               </li>
+               <li class="date_right">
+                <p> BotDocker 原型定义</p>
+            </li>
+            <div class="clearfix"> </div>
+        </ul>
+        <p class="m_1">国际上对机器人的概念已经逐渐趋近一致。一般来说，人们都可以接受这种说法，即机器人是靠自身动力和控制能力来实现各种功能的一种机器。联合国标准化组织采纳了美国机器人协会给机器人下的定义：“一种可编程和多功能的操作机；或是为了执行不同的任务而具有可用电脑改变和可编程动作的专门系统。”它能为人类带来许多方便之处！</p>
+        <a href="#"><span class="more">More Information</span></a>
+        </div>
+            <div class="col-md-4 col_3">
+                <ul class="date_grid">
+                    <li class="date_left">
+                        <div class="date">
+                            <span>
+                               15
+                           </span>
+                           03
+                       </div>
+                   </li>
+                   <li class="date_right">
+                    <p>BotDocker团队组建</p>
+                </li>
+                <div class="clearfix"> </div>
+            </ul>
+            <p class="m_1"></p>
+            <a href="#"><span class="more">More Information</span></a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block my_js %}
+    {% compress js%}
+        <script type="text/javascript" src="/static/js/swiper.min.js"></script>
+        <script type="text/javascript">
+             (window.jQuery || window.Zepto), $(document).ready(function() {
+                {
+                    new Swiper(".swiper-container", {
+                        autoplay: 3e3,
+                        pagination: ".swiper-pagination",
+                        nextButton: '.swiper-button-next',
+                        prevButton: '.swiper-button-prev',
+                        paginationClickable: true,
+                        preloadImages: false,
+                        lazyLoading: true,
+                        centeredSlides: true,
+                        autoplayDisableOnInteraction: true
+                    })
+                }
+            });     
+        </script>
+    {% endcompress %}
+{% endblock %}

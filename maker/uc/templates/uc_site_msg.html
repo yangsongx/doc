@@ -1,0 +1,28 @@
+ {% extends "uc_base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}Bot Docker{% endblock %}
+{% block meta %}
+<meta />
+{% endblock %}
+
+{% block uc_title %}<span>站内信</span>{% endblock %}
+{% block uc_position %}消息中心{% endblock %}
+
+{% block uc_content %}
+
+<div class="box box-primary">
+<div class="box-header with-border">
+  <h3 class="box-title">此功能正在建设中...</h3>
+</div>
+ <div ><img class="img-responsive pad" alt="Photo" src="/static/images/under_construction.png"></div>
+</div>
+{% endblock %}
+{% block my_js %}
+<script>
+    $(function(){
+        cut_active('l_08');
+    });
+    </script>
+    {% endblock %}

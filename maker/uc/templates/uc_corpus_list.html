@@ -1,0 +1,243 @@
+ {% extends "uc_base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}Bot Docker{% endblock %}
+{% block meta %}
+<meta />
+{% endblock %}
+
+{% block uc_title %}<span>语料库自定义</span>{% endblock %}
+{% block uc_content %}
+
+        <div class="box box-info" id="box_add" >
+            <div class="box-header with-border">
+              <h3  class="box-title">新增</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal" method="post"  id="form" >
+              {% csrf_token %}
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="id_question" class="col-sm-2 control-label">问题</label>
+
+                  <div class="col-sm-10">
+                  {{form.question }}
+                   {{form.question.errors }}
+                   <!--  <input type="text" class="form-control" id="{{form.question.auto_id}}"  value="{{form.question.value}}" placeholder=""> -->
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="id_answer" class="col-sm-2 control-label">答案</label>
+
+                  <div class="col-sm-10">
+                  {{form.answer }}
+                   {{form.answer.errors }}
+                    <!-- <input type="text" class="form-control" id="id_answer"   placeholder=""> -->
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="submit" class="btn btn-info">提交</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+       </div>
+
+       <div  id="box_edit" class="box box-info" style="display: none">
+            <div class="box-header with-border">
+                      <h3  class="box-title">修改</h3>
+            </div>
+            <form class="form-horizontal" >
+              <div class="box-body">
+                    <div class="form-group">
+                          <label for="edit_question" class="col-sm-2 control-label">问题</label>
+
+                          <div class="col-sm-10">
+                                 <input type="text" class="form-control" id="edit_question"  placeholder="">
+                          </div>
+                    </div>
+                    <div class="form-group">
+                          <label for="edit_answer" class="col-sm-2 control-label">答案</label>
+
+                          <div class="col-sm-10">
+                                <input type="text" class="form-control" id="edit_answer"   placeholder="">
+                          </div>
+                    </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                      <button id="edit_submit" class="btn btn-info">修改</button>
+              </div>
+              </form>
+     </div>
+
+
+  <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">您的语料库</h3>
+                <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="搜索">
+
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered">
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th style="width: 80px">问题</th>
+                  <th >答案</th>
+                  <th style="width: 40px">状态</th>
+                  <th style="width: 160px">操作</th>
+                </tr>
+                
+                {% for item in obj_list %}
+                <tr class="corpus_item">
+                  <td class="corpus_id">{{item.id}}</td>
+                  <td class="corpus_question">{{item.question}}</td>
+                  <td class="corpus_answer">{{item.answer}}</td>
+                  <td><span class="badge bg-red">公开</span></td>
+                  <td>
+                     <a class="btn btn-social-icon action-edit"><i class="fa fa-edit"></i></a>
+                     <a class="btn btn-social-icon action-del" pk_id="{{item.id}}"><i class="fa fa-remove "></i></a> 
+                  </td>
+                </tr>
+                {% endfor %}                  
+              </table>
+             </div> 
+               
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+              <center>
+              <ul class="pagination pagination-sm no-margin ">
+                    <li><a href="{{ request.path }}?page=1">首页</a></li>
+                    {% if page_obj.has_previous %}
+                      <li><a href="{{ request.path }}?page={{ page_obj.previous_page_number}}">上一页</a></li>
+                    {% else %}
+                      <li class="previous disabled"><a>上一页</a></li>
+                    {% endif %}
+                    {% for i in page_obj.paginator.page_range %}
+                      <li {% if page_obj.number == i %}class="active"{% endif %}><a href="{{ request.path }}?page={{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                      <li><a href="{{ request.path }}?page={{ page_obj.next_page_number }}">下一页</a></li>
+                    {% else %}
+                      <li class="previous disabled"><a>下一页</a></li>
+                    {% endif %}
+                    <li><a href="{{ request.path }}?page={{ page_obj.paginator.num_pages }}">尾页</a></li>
+              </ul>
+              </center>
+            </div>
+ </div>   
+
+{% endblock %}
+{% block my_js %}
+<script type="text/javascript" >
+      $(function(){
+          cut_active('l_03');
+      });
+     $(".form-group input").addClass('form-control');
+
+     var sucess = "{{success}}";
+     if (sucess == "yes") {
+            showToast('success',"恭喜您，提交成功！");
+     }
+
+     $(document).ready(function() {
+          $(".action-edit").click(function(){
+              var itm_parent =  $(this).parents(".corpus_item") ;
+              var id = itm_parent.children(".corpus_id").text();
+              var question = itm_parent.children(".corpus_question").text();
+              var answer = itm_parent.children(".corpus_answer").text();
+
+             lmt_log(question);
+              $("#box_add").hide();
+              $("#box_edit").show();
+              $("#edit_question").val(question);
+              $("#edit_answer").val(answer);
+
+
+             $("#edit_submit").click(function(){
+                      var qVal = $("#edit_question").val();
+                      var aVal = $("#edit_answer").val();
+                      if (qVal.length==0|| aVal.length==0 ){
+                            return 
+                      }
+                      $.ajax({
+                             headers: {
+                                     'X-CSRFToken': '{{ csrf_token }}',
+                              },
+                              type: "POST",
+                              url: "{% url 'corpus_edit' %}",
+                              data:{
+                                   "id":id,
+                                   "question":qVal,
+                                    "answer":aVal,
+                                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                              },
+                              error: function(request) {
+                                    showToast('error',"修改出错了！");
+                              },
+                              success: function(data) {
+                                    var status = data.status
+                                    if (status != 'ok') {
+                                          console.log(status);
+                                    }else {
+                                          {% ifequal obj_list.count 1 %}
+                                                  window.location.href ="{{ request.path }}";
+                                          {% else %}
+                                                  location.reload();
+                                          {% endifequal %}
+                                    }
+                              }
+                      });
+               });
+          });
+   })
+
+       $(document).ready(function() {
+              $(".action-del").click(function(){
+                  var id = $(this).attr("pk_id");
+                  if (confirm("确定要删除吗？")) {
+                        $.ajax({
+                               headers: {
+                                       'X-CSRFToken': '{{ csrf_token }}',
+                                },
+                                type: "POST",
+                                url: "{% url 'corpus_delete' %}",
+                                data:{
+                                      "id":id,
+                                      'csrfmiddlewaretoken': '{{ csrf_token }}'
+                                },
+                                error: function(request) {
+                                      showToast('error',"修改出错了！");
+                                },
+                                success: function(data) {
+                                      var status = data.status
+                                      if (status != 'ok') {
+                                            console.log(status);
+                                      }else {
+                                            {% ifequal obj_list.count 1 %}
+                                                    window.location.href ="{{ request.path }}";
+                                            {% else %}
+                                                    location.reload();
+                                            {% endifequal %}
+                                      }
+                                }
+                        });
+                } else {
+                        return false;
+                }
+              });
+       })
+</script> 
+{% endblock %}  

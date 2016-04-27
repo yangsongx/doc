@@ -1,0 +1,50 @@
+ {% extends "uc_base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}Bot Docker{% endblock %}
+{% block meta %}
+<meta />
+{% endblock %}
+
+{% block uc_title %}<span>白名单管理</span>{% endblock %}
+{% block uc_content %}
+<div class="box box-primary">
+<div class="box-header with-border">
+  <h3 class="box-title">此功能正在建设中...</h3>
+</div>
+ <div ><img class="img-responsive pad" alt="Photo" src="/static/images/under_construction.png"></div>
+</div>
+{% endblock %}
+{% block my_js %}
+<script>
+    $(function(){
+        cut_active('l_05');
+    });
+	/*jq(function () {
+		var cur = "l_11";
+		jq('.lis li').removeClass('active');
+		jq('#' + cur).addClass('active');
+		jq('#' + cur).parent().show().prev().addClass('active');
+		var lislen = jq('.lis').length;
+		for (var j = 0; j < lislen; j++) {
+			if (jq('.lis').eq(j).css('display') == 'block') {
+				jq('.lis').eq(j).find('a').addClass('text_name');
+			} else {
+				jq('.lis').eq(j).find('a').removeClass('text_name');
+			}
+			;
+		}
+		;
+		var text_name = jq('.sidebar_nav .text_name');
+		var lens = text_name.length;
+		for (var q = 0; q < lens; q++) {
+			text_name.eq(q).attr({
+				y: (q + 1) * 40
+			});
+		}
+		;
+	});*/
+
+</script> 
+{% endblock %}

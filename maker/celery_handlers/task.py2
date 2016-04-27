@@ -1,0 +1,203 @@
+#coding:utf-8
+
+# [History]
+# 2015-07-06 Begin support lock screen feature
+# 2015-07-03 Begin support ringtone feature
+#
+from celery import Celery
+from celery import shared_task
+from celery.result import ResultBase
+from Manifest import ManiFest
+from ZFile import ZFile
+import zipfile
+from qiniu import put_file, Auth
+from Manifest import Bootanimation
+from Manifest import Ringer, AppItem, LockScreen
+
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+from models import Packages
+from models import Rawfiles
+from models import Model
+import json
+import os
+import Global
+from shutil import rmtree
+import redis
+from redis_lock import RedisLock
+import sys
+import time
+from audioCrop import audio_crop
+import utils
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+#use rabbitMQ as celery result backend
+if utils.is_ksyun_server() != None:
+    app = Celery(task='tools.tools.task',
+                 backend='amqp',
+                 broker='amqp://guest@yz-maker1//')
+    app.conf.CELERY_RESULT_BACKEND = 'amqp://guest@yz-maker1//'
+else:
+    app = Celery(task='tools.tools.task',
+                 backend='amqp',
+                 broker='amqp://guest@localhost//')
+    app.conf.CELERY_RESULT_BACKEND = 'amqp://guest@localhost//'
+
+
+@app.task(trail=True)
+def myadd(x, y):
+    #m1=MyTest(name="pyb")
+    #m1.save()
+    #up_token='5haoQZguw4iGPnjUuJnhOGufZMjrQnuSdySzGboj:jTiIFM3HYBkr0BQvAsOZAnoxEro=:eyJzY29wZSI6ImNkc3RhdGljIiwiZGVhZGxpbmUiOjE0MzU1NjgzNzJ9'
+    #ret = audio_crop('webviews/318.mp3', 'webviews/318_crop.mp3', 10, 100) == 0
+    #if ret == 0:
+    #    return 300
+    #return ret
+    #up_token='5haoQZguw4iGPnjUuJnhOGufZMjrQnuSdySzGboj:dik2dYY9I_cP2rBiCCJEHm0H28w=:eyJzY29wZSI6ImNkc3RhdGljIiwiZGVhZGxpbmUiOjE0MzU1NzUyOTZ9'
+    access_key = '5haoQZguw4iGPnjUuJnhOGufZMjrQnuSdySzGboj'
+    secret_key = 'OADMEtVegAXAhCJBhRSXXeEd_YRYzEPyHwzJDs95'
+    q = Auth(access_key, secret_key)
+    up_token = q.upload_token('cdstatic')
+
+    maker_id = 248
+
+    mf = ManiFest(maker_id)
+    mf.prepareWriter()
+    mf.createGlobalItems("verCode", "19", "m2d", "helloworld")
+    r = Ringer(maker_id, mf)
+    ringer_download_status, ringer_list = r.handlingRingtone()
+    zfile2 = ZFile(str(maker_id) + ".zip",
+                   mode='w',
+                   basedir='',
+                   compression=zipfile.ZIP_DEFLATED)
+    zfile2.addfile("manifest")
+    if ringer_download_status == Global.MAKER_DOWNLOADER_STATUS_SUCCESS:
+        for i in ringer_list:
+            zfile2.addfile(i['fileName'])
+    zfile2.close()
+
+    #tmp.constructBootanimation()
+    #time.sleep(3)
+    return 400
+
+
+#############################################################################
+@app.task(trail=True)
+def createZipBall(up_token, maker_id):
+    r_obj = redis.Redis(host=Global.REDIS_LOCK_HOST,
+                        port=Global.REDIS_LOCK_PORT,
+                        db=Global.REDIS_LOCK_DB_NUM)
+    lock = RedisLock(r_obj, str(maker_id),
+                     lock_timeout=Global.REDIS_LOCK_TIMEOUT)
+    if not lock.acquire():
+        print "Maker ID %s running" % maker_id
+        return 99, 0, "TASK_RUNNING"
+    obj = Packages.objects.get(id=int(maker_id))
+    mf = ManiFest(maker_id)
+    mf.prepareWriter()
+    model_name = Model.objects.get(id=obj.mod.id).name
+    print "model_name:%s" % model_name
+    mf.createGlobalItems("verCode", "19", model_name, obj.description)
+
+    # bootanimation stuff..
+    bm = Bootanimation(maker_id, manifest=mf)
+    status, obj = bm.getAnimationFiles()
+    if status == Global.MAKER_DOWNLOADER_STATUS_SUCCESS:
+        zfile = ZFile("bootanimation.zip",
+                      mode='w',
+                      basedir=Global.BOOTANIMATION_TMP)
+        zfile.adddir()
+        zfile.close()
+
+        md5_val = zfile.get_md5('bootanimation.zip')
+        bm.createBootManifestItems("0", "bootanimation.zip", md5_val, "",
+                                   "helloworld")
+    elif status < Global.MAKER_DOWNLOADER_STATUS_2NOTHING:
+        lock.release()
+        os.chdir(utils.get_base_dir())
+        return 60, str(status), "DOWNLOAD_BOOT_ERROR"
+
+    # lock screen image stuff...
+    ls = LockScreen(maker_id, mf)
+    status, ls_list = ls.handlingLockScreen()
+    if status < Global.MAKER_DOWNLOADER_STATUS_2NOTHING:
+        print "download image files from qiniu error"
+        lock.release()
+        os.chdir(utils.get_base_dir())
+        return "61", str(ls_list), "DOWNLOAD_LOCK_ERROR"
+
+    # ringtone stuff...
+    rn = Ringer(maker_id, mf)
+    status, ringer_list = rn.handlingRingtone()
+    if status < Global.MAKER_DOWNLOADER_STATUS_2NOTHING:
+        print "download audio files from qiniu error(%d)" % status
+        lock.release()
+        os.chdir(utils.get_base_dir())
+        return "62", "", "DOWNLOAD_AUDIO_ERROR"
+    #prebuilt-App stuff...
+    ap = AppItem(maker_id, mf)
+    ap.handlingAppItem()
+
+    zfile2 = ZFile(str(maker_id) + ".zip",
+                   mode='w',
+                   basedir='',
+                   compression=zipfile.ZIP_DEFLATED)
+    if os.path.exists('bootanimation.zip'):
+        zfile2.addfile('bootanimation.zip')
+    zfile2.addfile('manifest')
+    if ringer_list != None:
+        for i in ringer_list:
+            zfile2.addfile(i['fileName'])
+    if ls_list != None:
+        for i in ls_list:
+            zfile2.addfile(i['fileName'])
+    zfile2.close()
+    file_path = str(maker_id) + ".zip"
+    key = zfile2.get_md5(file_path)
+    file_size = os.path.getsize(str(maker_id) + ".zip")
+    ret, info = put_file(up_token, key, file_path)
+    #back to django home
+    os.chdir(utils.get_base_dir())
+
+    if info.status_code == 200:
+        rmtree(str(maker_id))
+        print "upload %s success" % file_path
+    lock.release()
+    return info.status_code, file_size, key
+
+#####################################################################################
+
+
+def create_bootanimation(mid):
+    path = '/tmp/boot-%d' % (mid)
+    cmd = 'cd %s && zip -r -Z store %d-bootanimation.zip *' % (path, mid)
+    r = os.system(cmd)
+    if r == 0:
+        print 'good to generate the boot zip'
+    else:
+        print 'failed generate the boot zip'
+
+    return 'NOT implemented YET'
+
+
+# consum the req for /v1/maker/gen
+@app.task(trail=True)
+def consumer_do_gen(makerid):
+    ret = {}
+    try:
+        obj = Rawfiles.objects \
+                .filter(maker_id=makerid)
+        print 'totally %d files for the package' % (len(obj))
+        ret['code'] = '0'
+        ret['pinCode'] = str(len(obj))
+    except:
+        import sys
+        info = "%s || %s" % (sys.exc_info()[0], sys.exc_info()[1])
+        print 'an exception' + info
+        ret['code'] = '4'  #incorrect request
+        return json.dumps(ret)
+
+    return json.dumps(ret)

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load autoVersion %}
+{% load compress %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>意见反馈</title>
+{% compress css%}
+    <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="/static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<style>
+    .modal-dialog-center {
+        margin-top: 20%;
+    }
+
+    .align-center {
+        margin:2px auto;
+        text-align:center;
+    }
+</style>
+{% endcompress %}
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-md-9 col-sm-9">
+          <h4 class="page-header" style="font-size:22px">请输入您的宝贵意见和建议，每个意见都是产品不断改进的动力！</h1>
+          <form id="fb-form">
+            <input type="hidden" name="src" id="src" value="{{ src }}" /> 
+            <input type="hidden" name="ver" id="ver" value="{{ ver }}" /> 
+            <input type="hidden" name="uid" id="uid" value="{{ uid }}" /> 
+            <div>
+                <label class="control-label" for="inputSuccess" style="font-size:18px">问题反馈：</label>
+                <textarea class="form-control" id="desp" rows="4" maxlength="300" placeholder="输入300字以内" style="font-size:18px"></textarea>
+            </div>
+            <br>
+
+            <div>
+                <label class="control-label" for="inputSuccess" style="font-size:18px">您的联系方式:</label>
+                <textarea class="form-control" name="contacts" rows="2" id="contacts" maxlength="100" placeholder="请留下您的手机号码，QQ或Email，我们会尽快与您取得联系！" style="font-size:18px"></textarea>
+                </div>
+
+            <br>
+            <div class="align-center">
+                <button type="submit" class="btn btn-primary" style="height:50px;width:90px;font-size:22px">提交</button>
+            </div>
+          </form>
+    </div>
+  </div>
+
+
+<div class="modal fade" id="errorModal" tabindex="-1" >
+    <div class="modal-dialog modal-dialog-center" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" data-toggle="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">出错了</h3>
+            </div>
+            <div class="modal-body">
+               <div>
+                  <h4>问题反馈不能为空，请输入</h4>
+               </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changeModal" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-center" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+               <div>
+                <h3 class="modal-title">谢谢</h3>
+               </div>
+            </div>
+            <div class="modal-body">
+               <div>
+                  <h4>您的意见反馈已经提交成功</h4>
+               </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btn_close_page" type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% compress js%}
+<script src="/static/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+<script src="/static/dist/js/sb-admin-2.js"></script>
+
+<script type="text/javascript">
+    (function($){
+        function processForm( e ){
+
+            if (document.getElementById('desp').value.length==0) {
+               $('#errorModal').modal('show');
+               return false;
+            }
+
+            $.ajax({
+                url: '/feedback/',
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify( { "src" : $('#src').val(), "ver": $('#ver').val(), "uid": $('#uid').val(), "desp": $('#desp').val(), "contacts": $('#contacts').val()} ),
+                success: function(data) {
+                    $('#changeModal').modal('show');
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    //do nothing so far
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#fb-form').submit( processForm );
+    })(jQuery);
+
+    $('#btn_close_page').bind('click', function() {
+        window.android_obj.closeWebViewActivity();
+    });
+
+</script>
+{% endcompress %}
+</body>
+</html>
+

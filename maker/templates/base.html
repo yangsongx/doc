@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML>
+    {% load staticfiles %}
+    {% load compress %}
+    <head>
+      <!--<meta charset="UTF-8">-->
+        {% compress css %}
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>{% block title %}Bot Docker{% endblock %}</title>
+
+      <link href="/static/css/basecss/bootstrap.css" rel='stylesheet' type='text/css' />
+      <!-- Custom Theme files -->
+      <link href="/static/css/basecss/style.css" rel='stylesheet' type='text/css' />
+      <link href="/static/css/basecss/footer.css" rel='stylesheet' type='text/css' />
+      <!-- Custom Theme files -->
+      <link href='http://fonts.useso.com/css?family=Playball' rel='stylesheet' type='text/css'>
+      <link rel="shortcut icon" href="/static/images/favicon.ico">
+      <!--<link rel="stylesheet" type="text/css" href="{% static "css/common.css"%}" >-->
+      <!--<link rel="stylesheet" type="text/css" href="{% static "css/footer.css"%}" >-->
+      <link href="/static/css/basecss/owl.carousel.css" rel="stylesheet">
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+      <!-- Ionicons -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+      <!-- Theme style -->
+      <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+      <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+            page. However, you can choose any other skin. Make sure you
+            apply the skin class to the body tag so the changes take effect.
+      -->
+      <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
+      <style type="text/css">
+             body {background-color: white}
+              header {background-color: white}
+       </style>
+         {% endcompress %}
+         {% compress js %}
+      <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
+      <script type="text/javascript" src="/static/js/basejs/hover_pack.js"></script>
+      <script type="text/javascript" src="/static/js/basejs/responsive-nav.js"></script>
+      <!-- $uery (necessary for Bootstrap's JavaScript plugins) -->
+      <script type="text/javascript" src="{% static "js/common.js"%}"></script>
+      <script type="application/x-javascript"> 
+             addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+      </script>
+      <!----start-top-nav-script---->
+      <script>
+        $(function() {
+            var pull 		= $('#pull');
+            menu 		= $('nav ul');
+            menuHeight	= menu.height();
+            $(pull).on('click', function(e) {
+                e.preventDefault();
+                menu.slideToggle();
+            });
+            $(window).resize(function(){
+                var w = $(window).width();
+                if(w > 320 && menu.is(':hidden')) {
+                    menu.removeAttr('style');
+                }
+            });
+        });
+    </script>
+    <!----//End-top-nav-script---->
+    <script src="/static/js/basejs/jquery.easydropdown.js"></script>
+    <!----- start-Share-instantly-slider---->
+    <!-- Prettify -->
+    <script src="/static/js/basejs/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo , #owl-demo1").owlCarousel({
+                items : 1,
+                lazyLoad : true,
+                autoPlay : true,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo3").owlCarousel({
+                items : 4,
+                lazyLoad : true,
+                autoPlay : true,
+                navigation: false,
+                pagination: false,
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+    /*  $(document).ready(function() {
+        //高亮导航
+        $(".header ul li").mouseover(function(){
+          $(this).addClass('current');
+          $(this).find(".main_nav_son").show();
+          $(this).find("em.menu_ico").addClass('menu_ico_over');
+        }).mouseleave(function(){
+          $(this).removeClass('current');
+          $(this).find(".main_nav_son").hide();
+          $(this).find("em.menu_ico").removeClass('menu_ico_over');
+        });
+    });*/
+
+    $(function() {
+      var originalCur = $("#nav_main li.current");
+      $("#nav_main li").mousemove(function(){
+        $("#nav_main li").removeClass("current");
+        $(this).addClass("current");
+        $(this).children(".lm").show().animate({left : 15,top : 40}, "fast");
+    });
+      $("#nav_main li").mouseleave(function(){
+         $(this).removeClass("current");
+         $(this).children(".lm").stop(true,true).animate({left:0,top:0},100,function(){
+          $(this).hide();
+      });
+         originalCur.addClass("current");
+     });
+    });
+
+    </script>
+    {% endcompress %}
+    <!----- //End-Share-instantly-slider---->
+    {% block meta %}
+    {% endblock %}
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="clearfix"></div>
+            <div class="header_top">
+                <div class="logo">
+                    <a href="/"><img src="/static/images/baseimages/logo.png" alt=""></a>
+                </div>
+                <div class="menu">
+                    <a class="toggleMenu" href="#"><img src="/static/images/baseimages/nav_icon.png" alt="" /> </a>
+                    <ul class="nav" id="nav">
+                        <li class="{% block nav_main_home %}{% endblock %}"><a href="/"><span class="nav_hanzi">首页</span></a></li>
+                        <li class="{% block nav_main_about %}{% endblock %}"><a href="{% url 'home_about' %}"><span class="nav_hanzi">关于我们</span></a></li>
+                        <li class="{% block nav_main_market %}{% endblock %}"><a href="{% url 'home_market' %}"><span class="nav_hanzi">Bot工场</span></a></li>
+                        <li class="{% block nav_main_service %}{% endblock %}"><a href="{% url 'home_service' %}"><span class="nav_hanzi">服务</span></a></li>
+                        <li class="{% block nav_main_blog %}{% endblock %}"><a href="{% url 'home_blog' %}"><span class="nav_hanzi">社区</span></a></li>
+                        <li class="{% block nav_main_port %}{% endblock %}"><a href="{% url 'home_portfolio' %}"><span class="nav_hanzi">大事记</span></a></li>
+                        {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'personalcenter' %}"><span class="nav_hanzi">个人中心</span></a></li>
+                            <li><a href="/uc/logout/"><span class="nav_hanzi">退出</span></a></li>
+                        {% else %}
+                            <li><a href="/uc/login/"><span class="login_ico shipCar_ico"></span><span class="nav_hanzi">登录</span></a></li>
+                            <li><a href="/uc/reg/"><span class="login_ico shipCar_ico"></span><span class="nav_hanzi">注册</span></a></li>
+                        {% endif %}
+                    </ul>
+                    
+                </div>
+                <div class="clearfix"> </div>
+                <!----//End-top-nav---->
+            </div>
+        </div>
+    </div>
+    <!----//End-header---->
+{% block content %}
+{% endblock %}
+<!-- content结束-->
+
+<div class="friendLink">
+    <div class="linkWrap">
+        <h2>友情链接</h2>
+        <div1 class="linkContent clearfix">
+            <p><a href="http://www.ioniconline.com" target="_blank">ioniconline</a><span>|</span></p>
+
+            <p><a href="http://www.ioniconline.com" target="_blank">ioniconline中文官网</a><span>|</span></p>
+
+            <p><a href="http://www.ioniconline.com" target="_blank">ioniconline梦工场</a><span>|</span></p>
+        </div>
+    </div>
+</div>
+
+<!-- footer开始-->
+<div class="basefooter">
+    <div class="footerWrap1"> 
+        <a href="/" class="yinqing" target="_blank"></a> <a href="javascript:void(0);" class="weixin"></a>
+        <div class="wxpop"> <img src="/static/images/baseimages/img-sprite.png" width="142" height="150" alt=""/></div>
+        <a href="javascript:void(0);" class="qq"></a>
+        <div class="qqpop"> <img src="/static/images/baseimages/img-sprite.png" width="142" height="150" alt=""/> </div>
+        <p> 技术咨询邮箱：support@botdocker.com<br/>
+            2016@ botdocker.com  苏ICP备15054017号-2  <a style="color:#989da4;width:80px;background:url();margin-right:-1px;" href="{% url 'home_about' %}" target="">关于我们</a>
+        </p>
+    </div>
+</div>
+<!-- footer结束-->
+{% block my_js %}
+{% endblock %}
+</body>
+</HTML>

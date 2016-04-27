@@ -1,0 +1,72 @@
+.footer_wrap .footer {
+	width: 100%;
+	height:241px;
+	margin-top:25px;
+	padding-top: 40px;
+	background: #CAE1FF;
+	background-size: 100% 100%;
+}
+.footer_wrap .footer .footer_box {
+	width: 900px;
+	height: 200px;
+	margin: 0 auto;
+}
+.footer_wrap .footer h1 {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 25px;
+	color: #000;
+	font-size: 14px;
+	font-weight: bold;
+}
+.footer_wrap .footer .left {
+	float: left;
+	margin-right: 80px;
+}
+.footer_wrap .footer .left .uls {
+	width: 340px;
+}
+.footer_wrap .footer .left .uls li {
+	float: left;
+	width: 110px; 
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nofooter_wrap;
+}
+.footer_wrap .footer .left .uls li a {
+	font-size: 12px;
+	line-height: 20px;
+	margin: 0 0 10px;
+	color: #000;
+	display: block;
+	text-decoration: none;
+}
+.footer_wrap .footer .left p,
+.footer_wrap .footer .left p a {
+	font-size: 12px;
+	line-height: 20px;
+	margin: 0 0 10px;
+	color: #000;
+}
+.footer_wrap .footer .left .left_r {
+	margin-top: 38px;
+}
+.footer_wrap .footer .left .left_r .b {
+	width:100px;
+	height:125px;
+	font-size: 14px;
+	margin-left: 30px;
+	line-height: 25px;
+	text-align: center;
+}
+.footer_wrap .foter_bottom {
+	clear: both;
+	width: 100%;
+	border-top: 1px solid #d7d7d7;
+	padding-top:10px;
+	height: 40px;
+	line-height: 30px;
+	color: #666666;
+	text-align: center;
+	font-size: 12px;
+}

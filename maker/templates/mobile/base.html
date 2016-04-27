@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML>
+{% load staticfiles %}
+{% load compress %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
+  <meta name="applicable-device" content="mobile">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>{% block title %}Bot Docker{% endblock %}</title>
+  <link rel="shortcut icon" href="/static/images/favicon.ico">
+  {% compress css %}
+      <link rel="stylesheet" type="text/css" href="{% static "css/m_common.css"%}">
+      <link rel="stylesheet" type="text/css" href="{% static "gnmenu/css/normalize.css"%}" />
+      <link rel="stylesheet" type="text/css" href="{% static "gnmenu/css/component.css"%}"/>
+      <link href="/static/css/basecss/bootstrap.css" rel='stylesheet' type='text/css' />
+      <!-- Custom Theme files -->
+      <link href="/static/css/basecss/style.css" rel='stylesheet' type='text/css' />
+      <link href="/static/css/basecss/footer.css" rel='stylesheet' type='text/css' />
+      <!-- Custom Theme files -->
+      <link href='http://fonts.useso.com/css?family=Playball' rel='stylesheet' type='text/css'>
+      <link rel="shortcut icon" href="/static/images/favicon.ico">
+      <!--<link rel="stylesheet" type="text/css" href="{% static "css/common.css"%}" >-->
+      <!--<link rel="stylesheet" type="text/css" href="{% static "css/footer.css"%}" >-->
+      <link href="/static/css/basecss/owl.carousel.css" rel="stylesheet">
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+      <!-- Ionicons -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+      <!-- Theme style -->
+      <link rel="stylesheet" href="/static/dist/css/AdminLTE.min.css">
+      <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+            page. However, you can choose any other skin. Make sure you
+            apply the skin class to the body tag so the changes take effect.
+      -->
+      <link rel="stylesheet" href="/static/dist/css/skins/skin-blue.min.css">
+      <style type="text/css">
+             body {background-color: white}
+              header {background-color: white}
+       </style>
+         {% endcompress %}
+         {% compress js %}
+      <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
+      <script type="text/javascript" src="/static/js/basejs/hover_pack.js"></script>
+      <script type="text/javascript" src="/static/js/basejs/responsive-nav.js"></script>
+      <!-- $uery (necessary for Bootstrap's JavaScript plugins) -->
+      <script type="text/javascript" src="{% static "js/common.js"%}"></script>
+      <script type="application/x-javascript"> 
+             addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+      </script>
+      <!----start-top-nav-script---->
+      <script>
+        $(function() {
+            var pull    = $('#pull');
+            menu    = $('nav ul');
+            menuHeight  = menu.height();
+            $(pull).on('click', function(e) {
+                e.preventDefault();
+                menu.slideToggle();
+            });
+            $(window).resize(function(){
+                var w = $(window).width();
+                if(w > 320 && menu.is(':hidden')) {
+                    menu.removeAttr('style');
+                }
+            });
+        });
+    </script>
+    <!----//End-top-nav-script---->
+    <script src="/static/js/basejs/jquery.easydropdown.js"></script>
+    <!----- start-Share-instantly-slider---->
+    <!-- Prettify -->
+    <script src="/static/js/basejs/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo , #owl-demo1").owlCarousel({
+                items : 1,
+                lazyLoad : true,
+                autoPlay : true,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#owl-demo3").owlCarousel({
+                items : 4,
+                lazyLoad : true,
+                autoPlay : true,
+                navigation: false,
+                pagination: false,
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+    /*  $(document).ready(function() {
+        //高亮导航
+        $(".header ul li").mouseover(function(){
+          $(this).addClass('current');
+          $(this).find(".main_nav_son").show();
+          $(this).find("em.menu_ico").addClass('menu_ico_over');
+        }).mouseleave(function(){
+          $(this).removeClass('current');
+          $(this).find(".main_nav_son").hide();
+          $(this).find("em.menu_ico").removeClass('menu_ico_over');
+        });
+    });*/
+
+    $(function() {
+      var originalCur = $("#nav_main li.current");
+      $("#nav_main li").mousemove(function(){
+        $("#nav_main li").removeClass("current");
+        $(this).addClass("current");
+        $(this).children(".lm").show().animate({left : 15,top : 40}, "fast");
+    });
+      $("#nav_main li").mouseleave(function(){
+         $(this).removeClass("current");
+         $(this).children(".lm").stop(true,true).animate({left:0,top:0},100,function(){
+          $(this).hide();
+      });
+         originalCur.addClass("current");
+     });
+    });
+
+    </script>
+             {% endcompress %}
+  {% block meta %}
+  {% endblock %}
+</head>
+<body>
+<header >
+<nav id="dt-hd-nav">
+        <ul id="gn-menu" class="gn-menu-main">
+              {% block nav_back %}
+                    <li><a class="codrops-icon codrops-icon-prev" href="javascript:history.go(-1);"><span>返回</span></a></li>
+              {% endblock %}
+              <li class="gn-trigger">
+                    <a class="gn-icon gn-icon-menu"></a>
+                    <nav class="gn-menu-wrapper">
+                          <div class="gn-scroller">
+                                  <ul class="gn-menu">
+                                        <li>
+                                              <a class="gn-icon" href="/"><i class="m3icon icon-gn-home">&nbsp;&nbsp;&nbsp;&nbsp;</i><span>首页</span></a>
+                                        </li>
+                                        <li><a class="gn-icon"><i class="m3icon icon-gn-maker">&nbsp;&nbsp;&nbsp;&nbsp;</i><span>定制中心</span></a>
+                                              <ul class="gn-submenu">
+                                                    <li><a href="{% url 'home_market' %}" class="gn-icon"><span>Bot工场</span></a></li>
+                                                    <li><a href="{% url 'home_portfolio' %}" class="gn-icon"><span>大事记</span></a></li>
+                                                    <li><a href="#" class="gn-icon"><span>智能游戏待开发中。。。</span></a></li>
+                                              </ul>
+                                        </li>
+                                        <li><a class="gn-icon"><i class="m3icon icon-gn-service">&nbsp;&nbsp;&nbsp;&nbsp;</i><span>服务中心</span></a>
+                                              <ul class="gn-submenu">
+                                                   <li><a href="{% url 'home_service' %}" class="gn-icon"><span>服务</span></a></li>
+                                                   <li><a href="{% url 'home_blog' %}" class="gn-icon"><span>社区</span></a></li>
+                                                    <li><a href="#" class="gn-icon"><span>接口文档开发中。。。</span></a></li>
+                                                    <li><a href="#" class="gn-icon"><span>意见反馈开发中。。。</span></a></li>
+                                              </ul>
+                                        </li>
+                                        <li><a class="gn-icon"><i class="m3icon icon-gn-account">&nbsp;&nbsp;&nbsp;&nbsp;</i><span>用户中心</span></a>
+                                              <ul class="gn-submenu">
+                                                  {% if request.user.is_authenticated %}
+                                                        <li><a href="{% url 'personalcenter' %}"class="gn-icon"><span>个人中心</span></a></li>
+                                                        <li><a href="/uc/logout/"class="gn-icon"><span>退出</span></a></li>
+                                                  {% else %}
+                                                      <li><a href="/signin"class="gn-icon"><span></span>登录</a></li>
+                                                      <li><a href="/signup"class="gn-icon"><span></span>注册</a></li>
+                                                  {% endif %}
+                                                  <li><a href="#"class="gn-icon"><span>应用App开发中。。。</span></a></li>
+                                                  <li><a href="#"class="gn-icon"><span>微信服务号开发中。。。</span></a></li>
+                                              </ul>
+                                        </li>
+                                         <li><a class="gn-icon"><i class="m3icon icon-gn-cases">&nbsp;&nbsp;&nbsp;&nbsp;</i><span>关于我们</span></a>
+                                              <ul class="gn-submenu">
+                                                    <li><a href="{% url 'home_about' %}" class="gn-icon"><span>关于我们&nbsp;About US</span></a></li>
+                                                    <li><a href="http://www.ioniconline.com" class="gn-icon"><span>Ionic Online</span></a></li>
+                                                    <li><a href="http://app.mi.com/detail/83631" class="gn-icon"><span>亲连助手</span></a></li>
+                                              </ul>
+                                        </li>
+                                  </ul>
+                          </div><!-- /gn-scroller -->
+                    </nav>
+                </li>
+         </ul>
+    </nav>
+     <h1 class="header_title_text text-overflow"> {% block page_title %} {% endblock %}</h1>
+</header>
+{% block myheader %}
+{% endblock %}
+<div style="margin-top: 40px;">
+{% block content %}
+{% endblock %}
+</div>
+<div class="pg-ft">
+    <ul class="terminal-nav">
+        <li><a class="active" href="/?flavour=mobile">触屏版</a></li>
+        <li><span class="i-sep"></span><a href="/?flavour=full">电脑版</a></li>
+        <li><span class="i-sep"></span><a href="#">关于我们</a></li>
+    </ul>
+    <div class="company-info">Bot Docker：<a href="http://www.botdocker.com">www.botdocker.com</a>&nbsp;ICP备案：苏ICP备15054017号-2 </div>
+</div>
+{% compress js %}
+     <script type="text/javascript" src="{% static "js/jquery-1.11.3.min.js"%}"></script>
+     <script>
+           var jq = jQuery.noConflict();
+     </script>
+     <script type="text/javascript" src="{% static "js/swiper.min.js"%}"></script>
+    <script type="text/javascript" src="{% static "js/m_common.js"%}"></script>
+    <script type="text/javascript" src="{% static "gnmenu/js/modernizr.custom.js"%}"></script>
+    <script type="text/javascript" src="{% static "gnmenu/js/classie.js"%}"></script>
+    <script type="text/javascript" src="{% static "gnmenu/js/gnmenu.js"%}"></script>
+    <script type="text/javascript" >
+          new gnMenu( document.getElementById( 'gn-menu' ) );
+    </script>
+{% endcompress %}
+{% block my_js %}
+{% endblock %}
+</body>
+</HTML>

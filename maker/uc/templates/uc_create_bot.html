@@ -1,0 +1,515 @@
+
+{% extends "uc_base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}Bot Docker{% endblock %}
+{% block meta %}
+<meta />
+{% endblock %}
+
+
+{% block uc_title %}<span>机器人列表</span>{% endblock %}
+
+{% block uc_header %}
+      <h1>
+        <small>机器人列表</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">我的机器人</li>
+      </ol>
+{% endblock %}
+
+{% block your_css %}
+{% endblock %}
+
+{% block uc_content %}
+        <div class="modal modal-default fade" id="wxCtrlModal" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">微信机器人控制面板</h4>
+              </div>
+              <div class="modal-body">
+               <div class="align-center">
+                 <div style="text-align:center;">
+                   <img datasrc="{{ qrurl}}" id="qrcode" />
+                  </div>
+                  <p id ="desp"></p>
+                </div>
+                <div class="progress" id="progress"></div>
+              </div>
+              <div class="modal-footer">
+               <button onclick="startWxBot()" id="startBtn"   type="button" class="btn btn-primary">启动</button>
+               <button onclick="stopWxBot()"  id="stopBtn"   type="button" class="btn btn-warning">停止</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <div class="modal modal-default fade" id="wxConfigModal" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">微信机器人配置面板</h4>
+              </div>
+              <div class="modal-body">
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <div class="modal modal-default fade" id="wxStatsModal" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">微信机器人统计面板</h4>
+              </div>
+              <div class="modal-body">
+         <div class="nav-tabs-custom">
+            <!-- Tabs within a box -->
+            <ul class="nav nav-tabs pull-left">
+              <li class="active"><a href="#wx-stats-overall" data-toggle="tab">总体</a></li>
+              <li><a href="#wx-stats-buddies" data-toggle="tab">好友变化</a></li>
+            </ul>
+            <div class="tab-content no-padding">
+              <!-- Morris chart - Sales -->
+              <div class="chart tab-pane active" id="wx-stats-overall" style="position: relative; height: 300px;">
+                 开发中...
+              </div>
+              <div class="chart tab-pane" id="wx-stats-buddies" style="position: relative; height: 300px;">
+              </div>
+            </div>
+          </div>
+          <!-- /.nav-tabs-custom -->
+
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+    <div class="row">
+        <div class="col-md-4">
+          <!-- Widget: user widget style 1 -->
+          <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-green">
+              <h3 class="widget-user-username">微信机器人</h3> 
+              <h5 class="widget-user-desc" id="wx_bot_status">未启动</h5>
+            </div>
+            <div class="widget-user-image">
+              <img class="img-circle" src="/static/dist/img/weixin.jpg" alt="User Avatar">
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+                    <a class="btn" onclick="startWxCtrlModal()" id="wxCtrlModalBtn" >
+                     <i class="fa fa-play"></i>
+                     开关
+                    </a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+                    <a class="btn" onclick="startWxConfigModal()"  id="wxConfigModalBtn">
+                      <i class="fa fa-gear"></i>
+                      配置
+                    </a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-3">
+                  <div class="description-block">
+                     <a class="btn"  onclick="startWxStatsModal()"  id="wxStatsModalBtn">
+                      <i class="fa fa-bar-chart"></i>
+                      统计
+                     </a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+          </div>
+          <!-- /.widget-user -->
+        </div>
+
+        <div class="col-md-4">
+          <!-- Widget: user widget style 1 -->
+          <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-aqua-active">
+              <h3 class="widget-user-username">QQ机器人</h3>
+              <h5 class="widget-user-desc" id="wx_bot_status">开发中...</h5>
+            </div>
+            <div class="widget-user-image">
+              <img class="img-circle" src="/static/dist/img/qq.jpg" alt="User Avatar">
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-play"></i>
+启动
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-gear"></i>
+停止
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-bar-chart"></i>
+统计
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+          </div>
+          <!-- /.widget-user -->
+        </div>
+
+        <div class="col-md-4">
+          <!-- Widget: user widget style 1 -->
+          <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-red">
+              <h3 class="widget-user-username">微博机器人</h3>
+              <h5 class="widget-user-desc" id="wx_bot_status">开发中...</h5>
+            </div>
+            <div class="widget-user-image">
+              <img class="img-circle" src="/static/dist/img/weibo.jpg" alt="User Avatar">
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-play"></i>
+启动
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 border-right">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-gear"></i>
+停止
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4">
+                  <div class="description-block">
+<a class="btn">
+<i class="fa fa-bar-chart"></i>
+统计
+</a>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+          </div>
+          <!-- /.widget-user -->
+        </div>
+     </div>
+
+      <!-- /.row -->
+{% endblock %}
+{% block my_js %}
+<script type="text/javascript" src="/static/js/progressbar.js"></script>
+<script type="text/javascript">
+    $(function(){
+        cut_active('l_01');
+    });
+
+    var line;
+    function startWxCtrlModal() {
+        $('#wxCtrlModal').modal('show');
+    }
+
+    function startWxConfigModal() {
+        $('#wxCtrlModal').modal('show');
+    } 
+
+    function startWxStatsModal() {
+        $('#wxStatsModal').modal('show');
+    } 
+
+    function startWxBot() {
+          updateUI(9);
+          console.log("CY start Bot");
+
+            url = '/uc/wxbot/start/';
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'get',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    updateImg();
+                    startProgress();
+                    startCheck();
+                    updateUI(1);
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                    updateUI(0);
+                }
+            });
+    }
+
+    function stopWxBot() {
+        if(confirm("确定停止您的机器人吗？?")) {
+          updateUI(9); 
+          if (line) {
+              line.set(0.0);
+          }
+            url = '/uc/wxbot/stop/';
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'get',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    stopCheck();
+                    updateUI(0);
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                    updateUI(1);
+                }
+            });
+
+         console.log("CY stop Bot  --END");
+
+        }
+    }
+
+    function startProgress() {
+        if (!line) {
+            line = new ProgressBar.Line('#progress', {
+              duration: 5000,
+              color: '#FCB03C',
+              easing: 'easeInOut',
+              //from: { color: '#eee' },
+              //to: { color: '#000' },
+              //step: function(state, circle, attachment) {
+                //circle.path.setAttribute('stroke', state.color);
+              //  console.log("in step");
+              //  checkForLogin();
+              //}
+           });
+           showToast('error',"请用您的手机微信扫二维码登陆");
+        }
+
+        console.log("do animation");
+        line.animate(1.0,
+             {
+                duration: 5000
+             },
+             function()
+             {
+               line.set(0.0);
+               console.log('Animation has finished');
+               //if (!login) {
+                   updateImg();
+               // }
+             });  // Number from 0.0 to 1.0
+     }
+
+
+
+    function updateImg(){
+          var newqr = ""
+            var url = '/uc/wxbot/getqr/';
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'get',
+                contentType: 'application/json',
+                success: function(data) {
+                    var result = JSON.parse(JSON.stringify(data));
+                    console.log(result);
+                    newqr = result.url;
+                    console.log(newqr);
+                    if(newqr != "") {
+                        $("#qrcode").attr("src", newqr);
+                        startProgress();
+                    }else {
+                        showToast('error',"正在初始化，请稍后");
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+   }
+
+   function updateUI(status) {
+       if (status == 1) {
+           $("#qrcode").show();
+           $("#desp").hide();
+           $("#startBtn").attr('disabled',"true");
+           $("#stopBtn").removeAttr("disabled");
+           $("#restartBtn").removeAttr("disabled");
+       } else if (status == 0){
+           $("#qrcode").hide();
+           $("#desp").show();
+           $("#desp").html("<h5>您尚未创建或启动微信机器人， 请点击“启动”为您创建</h5>");
+           $("#startBtn").removeAttr("disabled");
+           $("#stopBtn").attr('disabled',"true");
+           $("#restartBtn").attr('disabled',"true");
+       } else if (status == 9) {
+           $("#qrcode").show();
+           $("#desp").hide();
+           $("#startBtn").attr('disabled',"true");
+           $("#stopBtn").attr('disabled',"true");
+           $("#restartBtn").attr('disabled',"true");
+       } else if (status == 2) {
+           console.log("UPDATE UI with 2");
+           $("#qrcode").hide();
+           line.set(0.0);
+           $("#desp").show();
+           $("#wx_bot_status").html("<h5>运行中...</h5>");
+           $("#desp").html("<h5>恭喜，您的微信机器人已经启动完成， 快和您的朋友玩起来吧！</h5>");
+           $("#startBtn").attr('disabled',"true");
+           $("#stopBtn").removeAttr("disabled");
+           $("#restartBtn").removeAttr("disabled");
+       }
+
+   }
+
+    function checkForLogin() {
+          console.log("CY check login status");
+
+            url = '/uc/wxbot/getstatus/';
+            $.ajax({
+                url: url,
+                type: 'get',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    var result = JSON.parse(JSON.stringify(data));
+                    if (result.rc == 2) {
+                        //login = 1;
+                        stopCheck();
+                        updateUI(2);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                    stopCheck();
+
+                }
+            });
+    }
+
+
+    var checkTimer;
+    function startCheck() {
+        if (!checkTimer) {
+            checkTimer = setInterval(checkForLogin, 3000);
+        }
+    }
+
+    function stopCheck() {
+        clearInterval(checkTimer);
+        checkTimer = null;
+    }
+
+
+    function checkWxBotInitStatus() {
+          updateUI(0);
+          console.log("CY check Bot status");
+
+            url = '/uc/wxbot/getstatus/' ;
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'get',
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    var result = JSON.parse(JSON.stringify(data));
+                    if (result.rc == 2) {
+                        showToast('error',"您的微信机器人已在运行");
+                        updateUI(1);
+                    } else if (result.rc == 1) {
+                        showToast('error',"TODO: 您的微信机器人虽在运行但未登陆成功，现在给您重新启动，请通过手机客户端扫描二维码"); 
+                        //restartWxBot();                  
+                    } else {
+                        updateUI(0);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+    }
+
+   $(function () { 
+       $('#wxCtrlModal').on('hide.bs.modal', function () {
+                   console.log("close wxbot modal");
+                   stopCheck();}
+             )
+   });
+
+    window.onload = function() 
+    {
+       console.log("in onload");
+       checkWxBotInitStatus();
+    }
+
+</script>
+{% endblock %}
+

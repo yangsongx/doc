@@ -1,0 +1,402 @@
+ {% extends "uc_base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}Bot Docker{% endblock %}
+{% block meta %}
+ {% compress css %}
+	<link href="{% static "css/uc_function_config_list.css"%}" rel="stylesheet" type="text/css" />
+ {% endcompress %}
+<meta />
+{% endblock %}
+
+{% block uc_title %}
+<span>功能选择</span>
+<div id="switch" class="switch" style="display:none;">
+	<div class="switch-on switch-animate">
+		<span class="left">开</span>
+		<span class="center"></span>
+		<span class="right">关</span>
+	</div>
+</div>
+<div class="fenlei1" style="display:none;">
+	<div class="fenleibox">
+		<img src="/static/images/uc_icon138.png">
+		<div class="abs" style="width:180px;">
+			功能开启后才能使用下面已选的功能服务
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block uc_content %}
+<div class="gongneng">
+	<div class="gongneng_box row">
+		<dl class="featureSel_z small-box ">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-pie-graph"></i>
+				            </div>
+				           <h2 class="small-box-footer">聊天</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+
+
+		<dl class="featureSel_z  small-box ">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-android-bicycle"></i>
+				            </div>
+				           <h2 class="small-box-footer">天气</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+		<dl class="featureSel_z  small-box ">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-android-add-circle"></i>
+				            </div>
+				           <h2 class="small-box-footer">故事</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+		<dl class="featureSel_z  small-box ">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-android"></i>
+				            </div>
+				            <h2 class="small-box-footer">灯谜</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-off switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+
+
+		<dl class="featureSel_z  small-box">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-instagram"></i>
+				            </div>
+					<h2 class="small-box-footer">笑话</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+		<dl class="featureSel_z  small-box">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-foursquare"></i>
+				            </div>
+					<h2 class="small-box-footer">算命</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-off switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+		<dl class="featureSel_z  small-box">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-pinterest"></i>
+				            </div>
+					<h2 class="small-box-footer">看相</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+
+
+		<dl class="featureSel_z  small-box">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-linkedin"></i>
+				            </div>
+					<h2 class="small-box-footer">八卦</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+		<dl class="featureSel_z  small-box ">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-python"></i>
+				            </div>
+					<h2 class="small-box-footer">星座</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+		<dl class="featureSel_z  small-box">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-twitter"></i>
+				            </div>
+					<h2 class="small-box-footer">菜谱</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+
+
+		<dl class="featureSel_z  small-box">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-usd"></i>
+				            </div>
+					<h2 class="small-box-footer">装修</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-on switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+		<dl class="featureSel_z  small-box ">
+			<div class="newFeature "></div>
+			<dt>
+				<div class="featureSel_item">
+				           <div class="icon">
+				              <i class="ion ion-social-wordpress"></i>
+				            </div>
+					<h2 class="small-box-footer">百科</h2>
+				</div>
+			</dt>
+			<dd>
+				<div class="switch" id="2300100">
+					<div class="switch-off switch-animate">
+						<span class="left">开</span>
+						<span class="center"></span>
+						<span class="right">关</span>
+					</div>
+				</div>
+			</dd>
+		</dl>
+	</div>
+</div>
+{% endblock %}
+{% block my_js %}
+{% compress js %}
+<script type="text/javascript" src="{% static "layer/layer.js"%}"></script>
+<script type="text/javascript">
+    $(function(){
+        cut_active('l_04');
+    });
+var webrobot = {
+    switchs: function() {
+        //单个
+        var switchLen = $('.switch:not("#switch")').length;
+        $('.content-wrapper .switch:not("#switch")').on('click',
+        function() {
+            if ($('#switch').children().attr('class') == 'switch-on switch-animate') {
+                cls = $(this).children().attr('class');
+                if (cls == 'switch-on switch-animate') {
+                    var q = 0;
+                    for (var i = 0; i < switchLen; i++) {
+                        if ($('.switch:not("#switch")').eq(i).children().attr('class') == 'switch-on switch-animate') {
+                            q++;
+                        };
+                    };
+                    if (q <= 1) {
+                        layer.msg('请最少保留一个功能！', {
+                            icon: 7
+                        });
+                        return false;
+                    };
+                    var strid = $(this).attr('id');
+                    id = strid;
+                    $.ajax({
+                        url: "/web/assist_user_appid!ajaxDeleteAppid.action",
+                        data: {
+                            "appid": id
+                        },
+                        type: "POST",
+                        dataType: "json",
+                        cache: false,
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                $('#' + id).children().attr('class', 'switch-off switch-animate');
+                            } else {
+                                layer.msg('操作失败,请刷新后重试！', {
+                                    icon: 2
+                                });
+                            }
+                        },
+                        error: function() {
+                            layer.msg('操作失败,请刷新后重试！', {
+                                icon: 2
+                            });
+                        }
+                    });
+                } else {
+                    var strid = $(this).attr('id');
+                    id = strid;
+                    $.ajax({
+                        url: "/web/assist_user_appid!ajaxAddAppid.action",
+                        data: {
+                            "appid": id
+                        },
+                        type: "POST",
+                        dataType: "json",
+                        cache: false,
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                $('#' + id).children().attr('class', 'switch-on switch-animate');
+                            } else {
+                                layer.msg('操作失败,请刷新后重试！', {
+                                    icon: 2
+                                });
+                            }
+                        },
+                        error: function() {
+                            layer.msg('操作失败,请刷新后重试！', {
+                                icon: 2
+                            });
+                        }
+                    });
+                };
+            } else {
+                layer.msg('请先打开左上角的开关！', {
+                    icon: 7
+                });
+                return false;
+            }
+        });
+        return this;
+    }
+}
+webrobot.switchs();
+// colors= ["#87CEFA", "#FFF0F5", "#D8BFD8", "#9370DB", "#E6E6FA", "#E0FFFF", "#F5FFFA", "#FAFAD2", "#FFEBCD"];
+// $('.gongneng_box dl').css({
+//     "background-color": this.colors[Math.floor(this.colors.length * Math.random())]
+// });
+// $('.featureSel_z').addClass("bg-gray");
+$('.gongneng_box dl').css({
+    "background-color":"#d7d7dc "
+});
+
+ $('.small-box-footer').css({
+    "color": "#444"
+});
+
+$(function() {
+    // 提示
+    $('.fenlei1 img').on('mouseover',
+    function() {
+        $(this).next().show();
+    });
+    $('.fenlei1 img').on('mouseout',
+    function() {
+        $(this).next().hide();
+    });
+}); 
+</script>
+{% endcompress %}
+{% endblock %}

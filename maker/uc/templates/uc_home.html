@@ -1,0 +1,43 @@
+{% extends "uc_base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}Bot Docker{% endblock %}
+{% block meta %}
+<meta />
+  {% endblock %}
+
+{% block uc_title %}<span>产品动态</span>{% endblock %}
+{% block uc_position %}消息中心{% endblock %}
+
+{% block uc_content %}
+      {% include 'our_portfolio.html'%}
+{% endblock %}  
+{% block my_js %}
+<script>
+    $(function(){
+        cut_active('l_09');
+    });
+  $('.details').click(
+    
+    function(){
+      if( $(this).attr('st') == 'off' ){
+        //未展开
+        $(this).attr('st','on');
+        //展开
+        $(this).html('收起');
+        $(this).parent().next().show();
+        $(this).css('background','url(/template/web/img/icon190.png) left center no-repeat')
+
+      }else{
+        $(this).attr('st','off');
+        //收起
+        $(this).html('查看详情');
+        $(this).parent().next().hide();
+        $(this).css('background','url(/template/web/img/icon191.png) left center no-repeat')
+      }
+    }
+  )
+
+</script
+{% endblock %}  

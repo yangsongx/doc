@@ -1,0 +1,15 @@
+540 960 30
+p 1 120 part12
+p 1 2 part0
+p 1 2 part1
+p 1 2 part2
+p 1 2 part2
+p 1 2 part3
+p 1 2 part4
+p 1 2 part5
+p 1 2 part6
+p 1 2 part7
+p 1 2 part8
+p 1 2 part9
+p 1 2 part10
+p 0 60 part11

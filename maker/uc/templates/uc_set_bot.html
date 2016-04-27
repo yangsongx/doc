@@ -1,0 +1,703 @@
+ {% extends "uc_base.html" %}
+{% load staticfiles %}
+{% load compress %}
+
+{% block title %}Bot Docker{% endblock %}
+{% block meta %}
+<meta />
+{% endblock %}
+
+{% block uc_title %}<span>机器人设定</span>{% endblock %}
+
+{% block uc_header %}
+      <h1>
+        <small>机器人设定</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">我的机器人</li>
+      </ol>
+{% endblock %}
+
+{% block uc_content %}
+ <form class="form-horizontal" action="/uc/setbot/" method="post">
+<div class="box box-primary">
+<div class="box-header with-border">
+  <h3 class="box-title">基本设置</h3>
+</div>
+
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">机器人昵称</label>
+
+                    <div class="col-sm-10">
+                    <!--
+                      <input type="text" class="form-control" id="inputName" name="robotsettings.alias" placeholder="" style="width: 518px;">
+                      -->
+{{form.rob_alias}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+
+                    <label for="inputEmail" class="col-sm-2 control-label">机器人性别</label>
+                    <div class="col-sm-10">
+{{form.rob_gender}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">机器人年龄</label>
+
+                    <div class="col-sm-10">
+                    <!--
+                      <input type="text" class="form-control" id="inputName" name="robotsettings.age" placeholder="" style="width: 518px;">
+                      -->
+{{form.rob_age}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">爸爸的名字</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="inputSkills" class="col-sm-2 control-label">妈妈的名字</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">喜欢的事情</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>   
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">讨厌的事情</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>  
+     </br>
+</div>
+
+<div class="box box-primary">
+<div class="box-header with-border">
+  <h3 class="box-title">高级设置</h3>
+</div>
+
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">喜欢的事情</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>   
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">讨厌的事情</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" placeholder="" style="width: 518px;">
+                    </div>
+                  </div>  
+     </br>
+
+ 
+ 
+</div>
+
+<div class="box-footer">
+<button type="submit" class="btn btn-primary">保存</button>
+</div>
+</form>
+
+{% endblock %}
+{% block my_js %}
+{% compress js %}
+<!-- <script type="text/javascript" src="{% static "laydate/laydate.js"%}"></script> -->
+<script type="text/javascript" src="{% static "layer/layer.js"%}"></script>
+
+<script type="text/javascript">
+    $(function(){
+        cut_active('l_02');
+    });
+
+var status = false
+if (status == "true") {
+    layer.msg('导出失败，请重试！', {
+        icon: 2
+    });
+    jq.get("/web/robot_settings!ajaxDelete.action", {},
+    function(data) {})
+}
+var webrobot = {
+    // 弹出层
+    bins: function() {
+
+        var binslen = jq('.bins').children().not('.bg').length;
+        var m = 0;
+        var n = 0;
+        var objw = [];
+        var objh = [];
+        for (n; n < binslen; n++) {
+            m++;
+            objw[n] = jq('.bins .bins_content' + m).width();
+            objh[n] = jq('.bins .bins_content' + m).height();
+            jq('.bins_content' + m).css({
+                'marginLeft': -objw[n] / 2,
+                'marginTop': -objh[n] / 2
+            });
+        };
+        jq('.bins .btn-default').on('click',
+        function() {
+            jq('.bins').hide();
+            jq('.bins').children().hide();
+        });
+        return this;
+    },
+    //switch按钮
+    switchs: function() {
+        jq('.switch-animate').on('click',
+        function() {
+            var cls = jq(this).attr('class');
+            cls == 'switch-on switch-animate' ? jq(this).attr('class', 'switch-off switch-animate') : jq(this).attr('class', 'switch-on switch-animate')
+        });
+        return this;
+    },
+    //  机器人设定
+    service: function() {
+        jq('.switch').each(function(i) {
+            if (jq(this).children('input').attr('value') == '1') {
+                jq(this).attr('switch-data', true);
+                if (jq(this).attr('switch-data') == "true") {
+                    if (jq(this).attr('data-id') == "yuyin") {
+                        jq('.shengyin').show();
+                    } else if (jq(this).attr('data-id') == "weiba") {
+                        jq('#weiba').find('input').attr('disabled', false);
+                    } else if (jq(this).attr('data-id') == "xuexi") {
+                        jq('#zidingyihuida').show();
+                    } else if (jq(this).attr('data-id') == "guolv") {
+                        jq('#guanjianci').find('input').attr('disabled', false);
+                        jq('#xinzengguanjianci').find('input').attr('disabled', false);
+                    };
+                };
+            } else {
+                jq(this).attr('switch-data', false);
+                if (jq(this).attr('switch-data') == 'false') {
+                    if (jq(this).attr('data-id') == "yuyin") {
+                        jq('.shengyin').hide();
+                    } else if (jq(this).attr('data-id') == "weiba") {
+                        jq('#weiba').find('input').attr('disabled', true);
+                    } else if (jq(this).attr('data-id') == "xuexi") {
+                        jq('#zidingyihuida').hide();
+                    } else if (jq(this).attr('data-id') == "guolv") {
+                        jq('#guanjianci').find('input').attr('disabled', true);
+                        jq('#xinzengguanjianci').find('input').attr('disabled', true);
+                    };
+                };
+            };
+
+            jq(this).on('click',
+            function() {
+                if (jq(this).attr('switch-data') == "true") {
+                    jq(this).attr('switch-data', 'false');
+                    if (jq(this).attr('data-id') == "yuyin") {
+                        jq('#voiceswitch').val('0');
+                        jq('.shengyin').hide();
+                    } else if (jq(this).attr('data-id') == "weiba") {
+                        jq('#suffixswitch').val('0');
+                        jq('#weiba').find('input').attr('disabled', true);
+                    } else if (jq(this).attr('data-id') == "xuexi") {
+                        jq('#zidingyihuida').show();
+                    } else if (jq(this).attr('data-id') == "guolv") {
+                        jq('#onblacklist').val('0');
+                        jq('#guanjianci').find('input').attr('disabled', true);
+                        jq('#xinzengguanjianci').find('input').attr('disabled', true);
+                    }
+                } else {
+                    jq(this).attr('switch-data', 'true');
+                    if (jq(this).attr('data-id') == "yuyin") {
+                        jq('#voiceswitch').val('1');
+                        jq('.shengyin').show();
+                    } else if (jq(this).attr('data-id') == "weiba") {
+                        jq('#suffixswitch').val('1');
+                        jq('#weiba').find('input').attr('disabled', false);
+                    } else if (jq(this).attr('data-id') == "xuexi") {
+                        jq('#zidingyihuida').hide();
+                    } else if (jq(this).attr('data-id') == "guolv") {
+                        jq('#onblacklist').val('1');
+                        jq('#guanjianci').find('input').attr('disabled', false);
+                        jq('#xinzengguanjianci').find('input').attr('disabled', false);
+                    }
+                }
+            });
+        });
+
+        return this;
+    }
+}
+webrobot.bins().switchs().service();
+
+//图片上传
+jq(function() {
+    // 提示
+    jq('.fenlei2 img').on('mouseover',
+    function() {
+        jq(this).next().show();
+    });
+    jq('.fenlei2 img').on('mouseout',
+    function() {
+        jq(this).next().hide();
+    });
+
+    jq('#file').on('change',
+    function() {
+        var filename = jq("#file").val().toLowerCase();
+        if (filename.length < 4) {
+            layer.msg('请选择图片！', {
+                icon: 7
+            });
+            return;
+        }
+        if (!filename.endWith(".jpg") && !filename.endWith(".jpeg") && !filename.endWith(".pjpg") && !filename.endWith(".gif") && !filename.endWith(".bmp") && !filename.endWith(".x-ms-bmp") && !filename.endWith(".png") && !filename.endWith(".x-png")) {
+            layer.msg('只支持图片！', {
+                icon: 7
+            });
+            return;
+        }
+        jq('#updatesetfile_form').submit();
+    })
+
+    jq('.bins_btn1').on('click',
+    function() {
+        jq('.bins').show();
+        jq('.bins .bins_content1').show().siblings().hide();
+        jq('.bins .bg').show();
+    })
+    //机器人尾巴
+    if (jq('#weiba-box').attr('switch-data') == 'true') {
+        jq('#weiba').show();
+    } else {
+        jq('#weiba').hide();
+    }
+
+    jq('#weiba-box').click(function() {
+        if (jq(this).attr('switch-data') == 'true') {
+            jq('#weiba').show();
+        } else {
+            jq('#weiba').hide();
+
+        }
+    })
+
+    // 新增关键词回复
+    var lens = jq('#xinzengguanjianci .input').children('input').length || 0;
+    jq('.guolv  .add_guanjianci1').on('click',
+    function(event) {
+        var len = jq('#xinzengguanjianci').attr('data-len');
+        if (jq('#guolv').attr('switch-data') == 'true' && jq('.box_z').length < len) {
+            inputs = '<div class="box_z"><input type="text" maxlength="100" value="" placeholder="请在此输入关键词回复"/><em><img src="/static/images/uc_icon84.png" class="img_z"></em></div>';
+            if (lens >= len) {
+                lens = len;
+                return false;
+            };
+            lens++;
+            jq('.guolv .input').append(inputs);
+        };
+        jq('.img_z').click(function() {
+            jq(this).parent().parent().remove();
+        })
+    });
+    jq('.img_z').click(function() {
+        jq(this).parent().parent().remove();
+    })
+    jq('#pipei').on('blur', function() {
+        var re = /^[1-9]+[0-9]*]*$/;
+        if (jq(this).val() == '') {
+            jq(this).val('');
+            jq(this).next('b').html('温馨提示：取值不能大于100，小于10').css('visibility', 'visible');
+            return false;
+        } else if (jq(this).val() > 100 || jq(this).val() < 10) {
+            jq(this).val('');
+            jq(this).next('b').html('温馨提示：取值不能大于100，小于10').css('visibility', 'visible');
+        } else if (!re.test(jq(this).val())) {
+            jq(this).val('');
+            jq(this).next('b').html('温馨提示：取值不能是小数').css('visibility', 'visible');
+        } else if (jq(this).val() <= 100 || jq(this).val() >= 10) {
+            jq(this).next('b').html('温馨提示：取值不能大于100，小于10').css('visibility', 'hidden');
+        } else {
+            jq(this).val('');
+            jq(this).next('b').html('温馨提示：取值不能大于100，小于10').css('visibility', 'visible');
+        }
+    });
+    // 爸爸的名字验证
+    jq('#father').blur(function() {
+        var val = jq.trim(jq(this).val());
+        if (val.length > 20) {
+            jq(this).next().html('*请输入1~20字的昵称').css('visibility', 'visible');
+            jq(this).val('');
+            return false;
+        } else {
+            jq(this).next().css('visibility', 'hidden');
+        }
+    })
+    // 妈妈的名字验证
+    jq('#mother').blur(function() {
+        var val = jq.trim(jq(this).val());
+        if (val.length > 20) {
+            jq(this).next().html('*请输入1~20字的昵称').css('visibility', 'visible');
+            jq(this).val('');
+            return false;
+        } else {
+            jq(this).next().css('visibility', 'hidden');
+        }
+    })
+    //喜欢的事情
+    jq('#likeThing').blur(function() {
+        var val = jq.trim(jq(this).val());
+        if (val.length > 30) {
+            jq(this).next().html('*请输入1~30字的描述').css('visibility', 'visible');
+            jq(this).val('');
+        } else {
+            jq(this).next().css('visibility', 'hidden');
+        }
+    })
+    // 讨厌的事情
+    jq('#unlikeThing').blur(function() {
+        var val = jq.trim(jq(this).val());
+        if (val.length > 30) {
+            jq(this).next().html('*请输入1~30字的描述').css('visibility', 'visible');
+            jq(this).val('');
+        } else {
+            jq(this).next().css('visibility', 'hidden');
+        }
+    })
+
+    jq('#age').on('blur',
+    function() {
+        if (isNaN(jq(this).val())) {
+            jq(this).next().html('*只能输入0~12000以内的正整数').css('visibility', 'visible');
+            jq(this).val('');
+            return false;
+        } else if (jq(this).val() == '') {
+            jq(this).next().html('*请输入0~12000以内的正整数').css('visibility', 'visible');
+            jq(this).val('');
+            return false;
+        } else if (jq(this).val() > 12000) {
+            jq(this).next().html('*请输入0~12000以内的正整数').css('visibility', 'visible');
+            jq(this).val('');
+            return false;
+        } else if (jq(this).val() <= 12000) {
+            var re = /^[1-9]\d*$/;
+            val = jq(this).val();
+            if (!re.test(val)) {
+                jq(this).next().html('*请输入正整数').css('visibility', 'visible');
+                jq(this).val('');
+                return false;
+            } else {
+                jq(this).next().css('visibility', 'hidden');
+            }
+        };
+    });
+    jq('#nickname').on('blur',
+    function() {
+        //var re = /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,20}$/;
+        var val = jq.trim(jq(this).val());
+        if (val.length >= 20 || val.length <= 0) {
+            jq(this).next().html('*请输入1~20字的昵称').css('visibility', 'visible');
+            jq(this).val('');
+            return false;
+        } else {
+            jq(this).next().css('visibility', 'hidden');
+        };
+    });
+    jq('#address').on('blur',
+    function() {
+        if (jq(this).val() == '') {
+            return false;
+        } else if (jq(this).val().length >= 200 || jq(this).val().length <= 0) {
+            jq(this).next().html('*请输入1~200字的地址').css('visibility', 'visible');
+            jq(this).val('');
+            return false;
+        } else {
+            jq(this).next().css('visibility', 'hidden');
+        };
+    });
+    if (jq('#yonghu1').attr('checked') == 'checked') {
+        jq('#zidingyihuida').hide();
+    } else if (jq('#yonghu2').attr('checked') == 'checked') {
+        jq('#zidingyihuida').show();
+    };
+    jq('#yonghu1').on('click',
+    function() {
+        jq('#zidingyihuida').hide();
+    });
+    jq('#yonghu2').on('click',
+    function() {
+        jq('#zidingyihuida').show();
+    });
+    jq('.btns .submit').on('click',
+    function() {
+
+        var guanjianci = jq('#guanjianci');
+        var guanjiancihuifu = jq('#xinzengguanjianci');
+        var str = '';
+        guanjianci.find('input').each(function(i) {
+            if (guanjianci.find('input').eq(i).val().length > 0) {
+                str += guanjianci.find('input').eq(i).val() + '|';
+            }
+        });
+        //将关键词写到input
+        jq('#blacklist').val(str.substring(str, str.length - 1));
+        var str1 = '';
+        guanjiancihuifu.find('input').each(function(i) {
+            if (guanjiancihuifu.find('input').eq(i).val().length > 0) {
+                str1 += guanjiancihuifu.find('input').eq(i).val() + '|';
+            }
+        });
+        jq('#blackanswer').val(str1.substring(str1, str1.length - 1));
+        if (jq('#nickname').val().length <= 0) {
+            layer.msg('昵称不能为空！', {
+                icon: 7
+            });
+            return false;
+        }
+        if (jq('#age').val().length <= 0) {
+            layer.msg('年龄格式错误！', {
+                icon: 7
+            });
+            return false;
+        }
+        if (jq('#pipei').val().length <= 0) {
+            layer.msg('匹配度格式错误！', {
+                icon: 7
+            });
+            return false;
+        }
+        if (jq("#yonghu2").prop("checked")) {
+            if (/^\s+$/.test(jq("#zidingyihuida").val()) || jq("#zidingyihuida").val().length == 0) {
+                layer.msg('自定义回答格式错误！', {
+                    icon: 7
+                });
+                return false;
+            }
+        }
+        //接口加密模式，密钥格式判断
+        if (jq("input[name='robotsettings.stype']:checked").val() == 1) {
+            var skey = jq('#skey').val();
+            var reg = /^[A-Za-z0-9]+$/;
+            if (skey == '' || !reg.test(skey) || skey.length > 100) {
+                layer.msg('密钥格式错误！', {
+                    icon: 7
+                });
+                return false;
+            }
+        }
+
+        jq('#updateset_form').submit();
+    });
+    // 声音 童男女声音
+    jq('.personal_right .shengyin span').on('click',
+    function() {
+        var index = jq(this).index();
+        jq(this).addClass('active').siblings().removeClass('active');
+        var type = (jq(this).index() - 1);
+        jq('#voicetype').val(type);
+
+    });
+    // 添加删除关键词
+    guanjianciLen = jq('#guanjianci .guanjianci').length || 0;
+    jq('.guolv .add_guanjianci').on('click',
+    function() {
+        var len = jq('#guanjianci').attr('data-len');
+        if (jq('#guolv').attr('switch-data') == 'true') {
+            clone = '<div class="guanjianci">\
+                        <div class="box">\
+                                <input maxlength="50" type="text">\
+                                <span onclick="boxbins(this)" z-index="3" >\
+                                    <img src="/static/images/uc_icon84.png">\
+                                </span>\
+                            </div>\
+                        </div>';
+            if (guanjianciLen >= len) {
+                guanjianciLen = len;
+                return false;
+            };
+            guanjianciLen++;
+            jq('#guanjianci').append(clone, jq('.add_guanjianci'));
+        };
+    });
+    // 过滤模式显示隐藏
+    jq('#guolv').click(function() {
+        if (jq(this).attr('switch-data') == 'false') {
+            jq(this).parent().siblings().hide();
+        } else {
+            jq(this).parent().siblings().show();
+        }
+    })
+
+    jq('body').on('keydown',
+    function(event) {
+        var e = event || window.event;
+        var keyNum = e.which || e.keyCode;
+        if (keyNum == 13) {
+            jq('.btns .submit').click();
+        };
+    });
+}); (function() {
+    if (jq('#guolv').attr('switch-data') == 'false') {
+        jq('#guolv').parent().siblings().hide();
+    } else {
+        jq('#guolv').parent().siblings().show();
+    }
+})();
+
+function boxbins(dom) {
+    if (jq('#guolv').attr('switch-data') == 'false') {
+        return false;
+    } else if (jq('#guolv').attr('switch-data') == 'true') {
+        jq(dom).parents('.guanjianci').remove();
+        guanjianciLen--;
+        //                  jq('.bins').hide();
+        //                  jq('.bins').children().hide();
+        //              });
+        //              jq('.bins .bins_content1 .btn-default').on('click', function() {
+        //                  jq('.bins').hide();
+        //                  jq('.bins').children().hide();
+        //              });
+    }
+}
+
+//判断字符串是否以“什么结尾”
+String.prototype.endWith = function endWith(str) {
+    if (str == null || str == "" || this.length == 0 || str.length > this.length) return false;
+    if (this.substring(this.length - str.length) == str) return true;
+    else return false;
+    return true;
+};
+jq('.photos').click(function() {
+    jq('#file').get(0).click();
+}) ;
+jq('.changeHead').click(function() {
+    jq('#file').get(0).click();
+}) ;
+jq('.jiami').click(function() {
+    if (jq('#ser1_z').get(0).checked) {
+        jq('.miyue').show();
+    }
+}) ;
+jq('.nojiami').click(function() {
+    if (jq('#ser_z').get(0).checked) {
+        jq('.miyue').hide();
+    }
+});
+// 日期插件
+/*var newDatas, newDatas1, newD;
+var start = {
+    elem: '#start',
+    format: 'YYYY-MM-DD',
+    min: laydate.now( - 90),
+    //设定最小日期为90天之前
+    max: laydate.now(),
+    //最大日期
+    istime: false,
+    istoday: false,
+    issure: false,
+    isclear: false,
+    choose: function(datas) {
+        newDatas = datas;
+        end.min = datas;
+        datas = datas.split('-').join(',');
+        var num = +new Date(datas) + 30 * 24 * 60 * 60 * 1000;
+        if (num > ( + new Date())) num = +new Date();
+        var year = new Date(num).getFullYear();
+        var month = new Date(num).getMonth() + 1;
+        var date = new Date(num).getDate();
+        var newD = year + '-' + month + '-' + date;
+        end.max = newD;
+
+        return {
+            'x': newDatas,
+            'y': end.max
+        }
+    }
+};
+var end = {
+    elem: '#end',
+    format: 'YYYY-MM-DD',
+    min: laydate.now(),
+    max: laydate.now(),
+    istime: false,
+    istoday: false,
+    issure: false,
+    isclear: false,
+    choose: function(datas) {
+        newDatas1 = datas;
+    }
+};
+laydate(start);
+// 聊天设置末尾事件点击判断初始是否有值
+jq('#end').click(function() {
+    if (!newDatas) {
+        layer.msg('请选择导出起始时间！', {
+            icon: 7
+        });
+    } else {
+        laydate(end);
+    }
+})
+// 导出按钮功能实现模块
+jq('.talk_downLoad2').click(function() {
+    if (!newDatas || !newDatas1) {
+        layer.msg('请选择导出时间！', {
+            icon: 7
+        });
+    } else if (newDatas && newDatas1) {
+        jq('.talk_downLoad2').hide();
+        jq('.talk_downLoad1').show();
+        jq.get("/web/robot_settings!ajaxGetExport.action", {
+            fromDate: newDatas,
+            toDate: newDatas1
+        },
+        function(data) {
+            if (data["code"] == 2) {
+                jq('.talk_downLoad1').hide();
+                jq('.talk_downLoad3').show();
+                jq('.talk_downLoad4').show();
+            } else {
+                jq('.talk_downLoad2').show();
+                jq('.talk_downLoad1').hide();
+                jq('.talk_downLoad4').hide();
+                jq('.talk_downLoad3').hide();
+                layer.msg('导出失败，请稍后尝试！', {
+                    icon: 2
+                });
+            }
+        },
+        "json")
+    }
+})
+// 删除导出文件按钮
+jq('.talk_downLoad3').click(function() {
+    jq.get("/web/robot_settings!ajaxDelete.action", {},
+    function(data) {
+        if (data["code"] == 1) {
+            jq('.talk_downLoad2').show();
+            jq('.talk_downLoad1').hide();
+            jq('.talk_downLoad4').hide();
+            jq('.talk_downLoad3').hide();
+        } else {
+            layer.msg('删除导出文件失败，请稍后尝试！', {
+                icon: 2
+            });
+        }
+    },
+    "json")
+})
+
+jq('#start').click(function() {
+    jq('#end').html('');
+    newDatas1 = '';
+})*/
+</script>
+{% endcompress %}
+{% endblock %}
