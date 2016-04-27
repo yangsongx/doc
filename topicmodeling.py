@@ -101,7 +101,7 @@ def start_ml():
     print '====================='
     mylsi.print_topics(100)
     print '====================='
-    test_texts = ['电影', '专家', '骗子']
+    test_texts = ['课本', '文具', '黑板']
     test_vec = mydict.doc2bow(test_texts)
     print 'the test vector:'
     print test_vec
@@ -121,10 +121,14 @@ def start_ml():
 
     print '\n\n'
     most_similar = sims[0][0]
+    most_similar1 = sims[1][0]
+    most_similar2 = sims[2][0]
     print '\n\n'
 
 
     print fdocs[most_similar]
+    print fdocs[most_similar1]
+    print fdocs[most_similar2]
 
 #print json.dumps(mydict.token2id).decode("utf-8")
 #print json.dumps(mydict.token2id, ensure_ascii=False)
