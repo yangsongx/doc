@@ -116,10 +116,10 @@ def activate_email_account(ticket, email):
 
     if ret == 0:
         # return HttpResponse('TODO - UI for mail activation OK')
-        return render_to_response('regfail.html',{'user': usr})
+        return render_to_response('regactivateok.html')
     else:
         # return HttpResponse('TODO - UI for mail activation NOT OK')
-        return render_to_response('regfail.html')
+        return render_to_response('regactivatefail.html')
 
 ###################################################################################
 def create_robot(post_form, user):

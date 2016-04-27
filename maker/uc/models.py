@@ -69,4 +69,4 @@ class CorpusData(models.Model):
 class UserMessageData(models.Model):
     q = models.CharField(max_length=255, blank=True,null=True)
     a = models.CharField(max_length=512, blank=True,null=True)
-    user_id = models.CharField(max_length=32, blank=True, null=True)
+    user_id = models.CharField(max_length=128, blank=True, null=True)

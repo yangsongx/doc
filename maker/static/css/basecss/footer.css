@@ -72,20 +72,20 @@
 }
 
 .footerWrap1 a.yinqing {
-    background-position: 0px 0px;
+    background-position: -10px -255px;
 }
 
 .footerWrap1 a {
     display: inline-block;
     height: 38px;
     width: 38px;
-    background: url("/static/images/baseimages/logo.png") no-repeat;
+    background: url("../../images/baseimages/img-sprite.png") no-repeat ;
     margin-right: 15px;
 }
 
 .footerWrap1 a.weixin {
     position: relative;
-    background-position: -58px 0px;
+    background-position: -45px -255px;
 }
 
 a {
@@ -105,7 +105,7 @@ a {
 
 .footerWrap1 a.qq {
     position: relative;
-    background-position: -116px 0px;
+    background-position: -80px -255px;
     margin-right: 0px;
 }
 
