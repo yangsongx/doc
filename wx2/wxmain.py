@@ -318,8 +318,8 @@ def main():
     load_gif_repo()
     bot = MyWXBot(sys.argv[1])
     bot.DEBUG = True
-    #bot.conf['qr'] = 'png'
-    bot.conf['qr'] = 'tty'
+    bot.conf['qr'] = 'png'
+    #bot.conf['qr'] = 'tty'
     bot.run()
 
 
